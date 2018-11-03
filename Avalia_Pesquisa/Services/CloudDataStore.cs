@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 using Plugin.Connectivity;
+using SQLite;
 
 namespace Avalia_Pesquisa
 {
@@ -14,6 +15,7 @@ namespace Avalia_Pesquisa
     {
         HttpClient client;
         IEnumerable<Item> items;
+        string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
         public CloudDataStore()
         {
@@ -23,22 +25,95 @@ namespace Avalia_Pesquisa
             items = new List<Item>();
         }
 
-        public bool SincronizarDados()
+        public bool MunicipiosSync(string chave)
         {
-            return true;
-        }
+            
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
 
-        public async Task<bool> MunicipiosSync()
-        {
-
-            if (CrossConnectivity.Current.IsConnected)
+            List<Municipio> municipio = new List<Municipio>
             {
-                var json = await client.GetStringAsync($"api/municipios");
-                items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<Item>>(json));
+                new Municipio(){ IdMunicipio =1,Descricao="Ponta Grossa" },
+                new Municipio(){ IdMunicipio =2,Descricao="Curitiba" },
+            };
+            var serializedMunicipio = JsonConvert.SerializeObject(municipio);
+
+            List<Localidade> localidade = new List<Localidade>
+            {
+                new Localidade(){ IdLocalidade =1,Descricao="Cará-Cará",IdMunicipio=1},
+                new Localidade(){ IdLocalidade =2,Descricao="Água Verde",IdMunicipio=2 },
+            };
+            var serializedLocal = JsonConvert.SerializeObject(localidade);
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var elemento in municipio)
+                    {
+                        var dados = conexao.Query<Config>("SELECT * FROM Municipio Where IdMunicipio=?", elemento.IdMunicipio);
+
+                        if(dados.Count == 0)
+                        {
+                            conexao.Query<Config>("INSERT INTO Municipio (IdMunicipio,Descricao) Values(?,?)", elemento.IdMunicipio, elemento.Descricao);
+                        }
+                    }
+
+                    foreach (var local in localidade)
+                    {
+                        var dadosLocal = conexao.Query<Config>("SELECT * FROM Localidade Where idLocalidade=?", local.IdLocalidade);
+
+                        if (dadosLocal.Count == 0)
+                        {
+                            conexao.Query<Config>("INSERT INTO Localidade (IdLocalidade,IdMunicipio,Descricao) Values(?,?,?)",
+                                                  local.IdLocalidade, local.IdMunicipio, local.Descricao);
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return false;
             }
 
             return true;
+ 
+        }
 
+        public bool UsuarioSync(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            List<Usuario> usuario = new List<Usuario>
+            {
+                new Usuario(){ IdUsuario =1,Nome="Iohan Pierdoná",Cpf="07547555926",Senha="123456" },
+                new Usuario(){ IdUsuario =2,Nome="Pedro Barros",Cpf="05404781998",Senha="123456" },
+            };
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var elemento in usuario)
+                    {
+                        var dados = conexao.Query<Config>("SELECT * FROM Usuario Where IdUsuario=?", elemento.IdUsuario);
+
+                        if (dados.Count == 0)
+                        {
+                            conexao.Query<Config>("INSERT INTO Usuario (IdUsuario,Nome,Cpf,Senha) Values(?,?,?,?)", 
+                                                    elemento.IdUsuario, elemento.Nome, elemento.Cpf, elemento.Senha);
+                        }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return false;
+            }
+
+
+            return true;
         }
 
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)

@@ -135,6 +135,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\ConfigAparelhoActivity.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Activities\AddItemActivity.cs" />
     <Compile Include="Activities\BaseActivity.cs" />
@@ -194,6 +195,15 @@
     <AndroidResource Include="Resources\drawable-mdpi\logo_3m.jpg" />
     <AndroidResource Include="Resources\drawable\logo_3m.jpg" />
     <AndroidResource Include="Resources\layout\Consultar_Estudo.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Config_Aparelho.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\values.xml" />
   </ItemGroup>
   <Import Project="..\Avalia_Pesquisa\Avalia_Pesquisa.projitems" Label="Shared" Condition="Exists('..\Avalia_Pesquisa\Avalia_Pesquisa.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

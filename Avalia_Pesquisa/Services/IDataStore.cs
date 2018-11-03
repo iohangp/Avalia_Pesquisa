@@ -11,6 +11,5 @@ namespace Avalia_Pesquisa
         Task<T> GetItemAsync(string id);
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
 
-        Task<bool> MunicipiosSync();
     }
 }

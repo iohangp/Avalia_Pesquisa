@@ -7,6 +7,7 @@ using Android.Widget;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
 using Android.Support.Design.Widget;
+using System.Threading;
 
 namespace Avalia_Pesquisa.Droid
 {
@@ -21,7 +22,6 @@ namespace Avalia_Pesquisa.Droid
         ViewPager pager;
         TabsAdapter adapter;
         DataBase db;
-
         CloudDataStore CloudData;
 
 
@@ -32,10 +32,7 @@ namespace Avalia_Pesquisa.Droid
             //var arrayItens = CloudData.GetItemsAsync(true);
 
             CriarBancoDados();
-            if(SincronizarDados())
-                Toast.MakeText(this, "Aplicativo configurado", ToastLength.Short).Show();
-            else
-                Toast.MakeText(this, "Ainda não configurado!", ToastLength.Short).Show();
+
 
             adapter = new TabsAdapter(this, SupportFragmentManager);
             pager = FindViewById<ViewPager>(Resource.Id.viewpager);
@@ -59,6 +56,9 @@ namespace Avalia_Pesquisa.Droid
 
             SupportActionBar.SetDisplayHomeAsUpEnabled(false);
             SupportActionBar.SetHomeButtonEnabled(false);
+
+            CheckInstalacao();
+  
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -76,18 +76,19 @@ namespace Avalia_Pesquisa.Droid
         private bool CheckInstalacao()
         {
             db = new DataBase();
-            return db.CheckInstalacao();
+
+            if (!db.CheckInstalacao())
+            {
+
+                var intent = new Intent(this, typeof(ConfigAparelhoActivity)); ;
+                StartActivity(intent);
+
+            }
+
+
+            return true;
         }
 
-        private bool SincronizarDados()
-        {
-            CloudData = new CloudDataStore();
-
-            if (CloudData.SincronizarDados())
-                return true;
-            else
-                return false;
-        }
     }
 
     class TabsAdapter : FragmentStatePagerAdapter

@@ -30,7 +30,7 @@ namespace Avalia_Pesquisa
 
         public async Task<bool> MunicipiosSync()
         {
-            return true;
+            return await Task.FromResult(true);
 
         }
 
