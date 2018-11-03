@@ -23,6 +23,24 @@ namespace Avalia_Pesquisa
             items = new List<Item>();
         }
 
+        public bool SincronizarDados()
+        {
+            return true;
+        }
+
+        public async Task<bool> MunicipiosSync()
+        {
+
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                var json = await client.GetStringAsync($"api/municipios");
+                items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<Item>>(json));
+            }
+
+            return true;
+
+        }
+
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
             if (forceRefresh && CrossConnectivity.Current.IsConnected)

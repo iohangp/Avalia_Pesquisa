@@ -28,6 +28,12 @@ namespace Avalia_Pesquisa
             }
         }
 
+        public async Task<bool> MunicipiosSync()
+        {
+            return true;
+
+        }
+
         public async Task<bool> AddItemAsync(Item item)
         {
             items.Add(item);

@@ -20,10 +20,22 @@ namespace Avalia_Pesquisa.Droid
 
         ViewPager pager;
         TabsAdapter adapter;
+        DataBase db;
+
+        CloudDataStore CloudData;
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            //var arrayItens = CloudData.GetItemsAsync(true);
+
+            CriarBancoDados();
+            if(SincronizarDados())
+                Toast.MakeText(this, "Aplicativo configurado", ToastLength.Short).Show();
+            else
+                Toast.MakeText(this, "Ainda não configurado!", ToastLength.Short).Show();
 
             adapter = new TabsAdapter(this, SupportFragmentManager);
             pager = FindViewById<ViewPager>(Resource.Id.viewpager);
@@ -54,6 +66,28 @@ namespace Avalia_Pesquisa.Droid
             MenuInflater.Inflate(Resource.Menu.top_menus, menu);
             return base.OnCreateOptionsMenu(menu);
         }
+
+        private void CriarBancoDados()
+        {
+            db = new DataBase();
+            db.CriarBancoDeDados();
+        }
+
+        private bool CheckInstalacao()
+        {
+            db = new DataBase();
+            return db.CheckInstalacao();
+        }
+
+        private bool SincronizarDados()
+        {
+            CloudData = new CloudDataStore();
+
+            if (CloudData.SincronizarDados())
+                return true;
+            else
+                return false;
+        }
     }
 
     class TabsAdapter : FragmentStatePagerAdapter
@@ -82,4 +116,6 @@ namespace Avalia_Pesquisa.Droid
 
         public override int GetItemPosition(Java.Lang.Object frag) => PositionNone;
     }
+
+
 }
