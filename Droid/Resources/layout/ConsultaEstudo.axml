@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:id="@+id/TV"
+        android:text="Informe o Numero do Estudo"
+        android:textColor="@color/primary"
+        android:textStyle="italic" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/BTValidar"
+        android:text="Validar" />
+    <TableLayout
+        android:minWidth="70px"
+        android:minHeight="70px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tableLayout1"
+        android:stretchColumns="1">
+        <TableRow
+            android:id="@+id/tableRow1">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Protocolo:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView1" />
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:gravity="right"
+                android:id="@+id/textView2" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Patrocinador:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView4" />
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:gravity="right"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView5" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Cultura:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Produto:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Classe:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Alvo:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Repetições:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Intervalo Aplicações:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Tratamento Sementes:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Volume Calda:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                        <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Objetivo:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                        <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="RET:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                        <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="validade RET:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Fase RET:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Observações:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Pesquisador Responsável:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+                
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                
+                android:id="@+id/textView8" />
+                
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

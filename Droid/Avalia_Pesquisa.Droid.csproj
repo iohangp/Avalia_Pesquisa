@@ -199,10 +199,12 @@
     <AndroidResource Include="Resources\values-v19\styles.xml" />
     <AndroidResource Include="Resources\values-v21\styles.xml" />
     <AndroidResource Include="Resources\layout\Menu.axml" />
-    <AndroidResource Include="Resources\drawable-hdpi\logo_3m.jpg" />
-    <AndroidResource Include="Resources\drawable-mdpi\logo_3m.jpg" />
-    <AndroidResource Include="Resources\drawable\logo_3m.jpg" />
     <AndroidResource Include="Resources\layout\Consultar_Estudo.axml" />
+    <AndroidResource Include="Resources\layout\ConsultaEstudo.axml" />
+    <AndroidResource Include="Resources\layout\Plantio.axml" />
+    <AndroidResource Include="Resources\layout\Aplicacao.axml" />
+    <AndroidResource Include="Resources\layout\AplicacaoPlanejamento.axml" />
+    <AndroidResource Include="Resources\layout\Avaliacao.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Config_Aparelho.axml">
