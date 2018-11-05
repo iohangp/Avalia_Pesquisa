@@ -8,6 +8,7 @@ using Android.Support.V4.App;
 using Android.Support.V4.View;
 using Android.Support.Design.Widget;
 using System.Threading;
+using Avalia_Pesquisa.Droid.Helpers;
 
 namespace Avalia_Pesquisa.Droid
 {
@@ -17,8 +18,9 @@ namespace Avalia_Pesquisa.Droid
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : BaseActivity
     {
-        protected override int LayoutResource => Resource.Layout.activity_main;
+       // protected override int LayoutResource => Resource.Layout.activity_main;
 
+        protected override int LayoutResource => Resource.Layout.Menu;
         ViewPager pager;
         TabsAdapter adapter;
         DataBase db;
@@ -29,42 +31,60 @@ namespace Avalia_Pesquisa.Droid
         {
             base.OnCreate(savedInstanceState);
 
-            //var arrayItens = CloudData.GetItemsAsync(true);
-
             CriarBancoDados();
 
 
             adapter = new TabsAdapter(this, SupportFragmentManager);
-            pager = FindViewById<ViewPager>(Resource.Id.viewpager);
-            var tabs = FindViewById<TabLayout>(Resource.Id.tabs);
-            pager.Adapter = adapter;
-            tabs.SetupWithViewPager(pager);
-            pager.OffscreenPageLimit = 3;
+            // pager = FindViewById<ViewPager>(Resource.Id.viewpager);
+            /*   var tabs = FindViewById<TabLayout>(Resource.Id.tabs);
+               pager.Adapter = adapter;
+               tabs.SetupWithViewPager(pager);
+               pager.OffscreenPageLimit = 3;
 
-            pager.PageSelected += (sender, args) =>
-            {
-                var fragment = adapter.InstantiateItem(pager, args.Position) as IFragmentVisible;
+               pager.PageSelected += (sender, args) =>
+               {
+                   var fragment = adapter.InstantiateItem(pager, args.Position) as IFragmentVisible;
 
-                fragment?.BecameVisible();
-            };
+                   fragment?.BecameVisible();
+               };
 
-            Toolbar.MenuItemClick += (sender, e) =>
-            {
-                var intent = new Intent(this, typeof(AddItemActivity)); ;
-                StartActivity(intent);
-            };
+               Toolbar.MenuItemClick += (sender, e) =>
+               {
+                   var intent = new Intent(this, typeof(AddItemActivity)); ;
+                   StartActivity(intent);
+               };
 
-            SupportActionBar.SetDisplayHomeAsUpEnabled(false);
-            SupportActionBar.SetHomeButtonEnabled(false);
-
+               SupportActionBar.SetDisplayHomeAsUpEnabled(false);
+               SupportActionBar.SetHomeButtonEnabled(false);
+               */
             CheckInstalacao();
-  
+
+            var session = Settings.GeneralSettings;
+            if (session == null)
+            {
+                var intent = new Intent(this, typeof(LoginActivity)); ;
+                StartActivity(intent);
+            }
+
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.top_menus, menu);
             return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.menu_logoff:
+                    Settings.GeneralSettings = null;
+                    var intent = new Intent(this, typeof(LoginActivity)); ;
+                    StartActivity(intent);
+                    return true;
+            }
+            return base.OnOptionsItemSelected(item);
         }
 
         private void CriarBancoDados()

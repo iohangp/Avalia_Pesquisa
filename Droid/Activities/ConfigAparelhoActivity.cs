@@ -5,6 +5,8 @@ using Android.OS;
 using Android.Widget;
 using Android.Support.Design.Widget;
 using System.Threading;
+using Android.Views;
+using Android.Content;
 
 namespace Avalia_Pesquisa.Droid
 {
@@ -29,6 +31,15 @@ namespace Avalia_Pesquisa.Droid
             licenca = FindViewById<EditText>(Resource.Id.EDLicenca);
 
             saveButton.Click += SaveButton_Click;
+
+            licenca.KeyPress += (object sender, View.KeyEventArgs e) => {
+                e.Handled = false;
+                if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
+                {
+                    e.Handled = true;
+                    saveButton.PerformClick();
+                }
+            };
         }
 
         void SaveButton_Click(object sender, EventArgs e)
@@ -54,12 +65,24 @@ namespace Avalia_Pesquisa.Droid
                     
                 if (db.InserirConfig(conf))
                 {
-                    pbar.Progress += 30;
+                    pbar.Progress += 25;
                     if (CloudData.MunicipiosSync(licenca.Text))
                     {
-                        pbar.Progress += 30;
-                        if(CloudData.UsuarioSync(licenca.Text))
-                            pbar.Progress += 40;
+                        pbar.Progress += 25;
+                        if (CloudData.UsuarioSync(licenca.Text))
+                        {
+                            pbar.Progress += 25;
+                            var conf2 = new Config
+                            {
+                                Descricao = "carga_inicial",
+                                Valor = "1"
+                            };
+                            if (db.InserirConfig(conf2))
+                                pbar.Progress += 25;
+
+
+
+                        }
                     }
 
                 }
@@ -67,7 +90,11 @@ namespace Avalia_Pesquisa.Droid
                 Thread.Sleep(400);
 
                 if(pbar.Progress >= 100)
-                    Finish();
+                {
+                    var intent = new Intent(this, typeof(LoginActivity)); ;
+                    StartActivity(intent);
+                }
+                    
 
 
                 RunOnUiThread(() => { pbar.SetMessage("Dados importados..."); });

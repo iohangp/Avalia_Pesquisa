@@ -38,6 +38,12 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Plugin.Settings, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.1.1\lib\MonoAndroid10\Plugin.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings.Abstractions, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.1.1\lib\MonoAndroid10\Plugin.Settings.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="SQLite-net, Version=1.5.231.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\sqlite-net-pcl.1.5.231\lib\netstandard1.1\SQLite-net.dll</HintPath>
     </Reference>
@@ -135,7 +141,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\ConfigAparelhoActivity.cs" />
+    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Activities\AddItemActivity.cs" />
     <Compile Include="Activities\BaseActivity.cs" />
@@ -204,6 +212,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\values.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Login.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="..\Avalia_Pesquisa\Avalia_Pesquisa.projitems" Label="Shared" Condition="Exists('..\Avalia_Pesquisa\Avalia_Pesquisa.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Localidade.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CloudDataStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\UsuarioService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DataBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\MockDataStore.cs" />

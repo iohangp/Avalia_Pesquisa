@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:minWidth="25px"
+	android:minHeight="25px"
+	android:layout_centerInParent="true"
+	android:layout_margin="10dp">
+
+		 <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="120dp"
+             />
+
+	<EditText
+            android:id="@+id/EDLogin"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:padding="5dp"
+			android:hint="Login"
+			android:inputType="text"
+			android:imeOptions="actionGo"
+	/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"/>
+    <EditText
+        android:id="@+id/EDSenha"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:padding="5dp"
+		android:hint="Senha"
+        android:inputType="textPassword" />
+
+	<Button
+            android:id="@+id/BTLogin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/EDSenha"
+            android:layout_marginTop="10dp"
+            android:background="#307FC1"
+            android:text="Login"
+            android:textColor="@android:color/white" />
+</LinearLayout>
+</RelativeLayout>
