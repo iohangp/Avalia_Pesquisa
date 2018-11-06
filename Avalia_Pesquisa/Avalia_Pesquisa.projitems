@@ -14,7 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Config.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Usuario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Municipio.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Localidade.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Municipio_Localidade.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CloudDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\UsuarioService.cs" />
@@ -26,5 +26,33 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ItemDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ItemsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Alvo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Aparelho.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Aparelho_Modelo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Aplicacao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Avaliacao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Avaliacao_Imagem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Avaliacao_Tipo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\BBCH.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Classe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Cliente.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Cultura.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Cultura_Variedade.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Empresa.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Equipamento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Estudo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Gleba.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Instalacao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Manutencao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Manutencao_Tipo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Objetivos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Plantio.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Produtos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Safra.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Sincronizacao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Solo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Status.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Tabelas.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Umidade_Solo.cs" />
   </ItemGroup>
 </Project>
