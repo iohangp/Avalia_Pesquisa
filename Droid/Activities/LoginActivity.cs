@@ -50,7 +50,7 @@ namespace Avalia_Pesquisa.Droid
             };
         }
 
-        void LoginButton_Click(object sender, EventArgs e)
+        protected internal void LoginButton_Click(object sender, EventArgs e)
         {
             UsuarioService userService = new UsuarioService();
             var user = userService.GetUsuario(txtLogin.Text, txtSenha.Text);

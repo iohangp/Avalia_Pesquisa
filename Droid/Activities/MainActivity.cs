@@ -1,6 +1,6 @@
-﻿using Android.App;
-using Android.Content;
-using Android.Content.PM;
+﻿//using Android.App;
+//using Android.Content;
+//using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -9,6 +9,10 @@ using Android.Support.V4.View;
 using Android.Support.Design.Widget;
 using System.Threading;
 using Avalia_Pesquisa.Droid.Helpers;
+using Android.Content.PM;
+using Android.App;
+using Android.Content;
+using Avalia_Pesquisa.Droid.Activities;
 
 namespace Avalia_Pesquisa.Droid
 {
@@ -66,6 +70,13 @@ namespace Avalia_Pesquisa.Droid
                 StartActivity(intent);
             }
 
+
+            Button button = FindViewById<Button>(Resource.Id.BTAplicacao);
+            button.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(AplicacaoActivity)); ;
+                StartActivity(intent);
+            };
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -87,7 +98,7 @@ namespace Avalia_Pesquisa.Droid
             return base.OnOptionsItemSelected(item);
         }
 
-        private void CriarBancoDados()
+        public void CriarBancoDados()
         {
             db = new DataBase();
             db.CriarBancoDeDados();
