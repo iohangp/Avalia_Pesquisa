@@ -2,7 +2,7 @@
 
 namespace Avalia_Pesquisa
 {
-    public class Localidade
+    public class Municipio_Localidade
     {
         public int IdLocalidade { get; set; }
         public string Descricao { get; set; }

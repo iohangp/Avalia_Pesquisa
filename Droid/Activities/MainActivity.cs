@@ -70,11 +70,59 @@ namespace Avalia_Pesquisa.Droid
                 StartActivity(intent);
             }
 
-
-            Button button = FindViewById<Button>(Resource.Id.BTAplicacao);
-            button.Click += (sender, e) =>
+            //chama a tela de Aplicacao
+            Button buttonAplicacao = FindViewById<Button>(Resource.Id.BTAplicacao);
+            buttonAplicacao.Click += (sender, e) =>
             {
                 var intent = new Intent(this, typeof(AplicacaoActivity)); ;
+                StartActivity(intent);
+            };
+
+            //chama a tela de Manutencao
+            Button buttonManutencao = FindViewById<Button>(Resource.Id.BTManutencao);
+            buttonManutencao.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(ManutencaoActivity)); ;
+                StartActivity(intent);
+            };
+
+            //chama a tela de Avaliacao
+            Button buttonAvaliacao = FindViewById<Button>(Resource.Id.BTAvaliacao);
+            buttonAvaliacao.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(AvaliacaoActivity)); ;
+                StartActivity(intent);
+            };
+
+            //chama a tela de Consulta Estudo
+            Button buttonConsultaEstudo = FindViewById<Button>(Resource.Id.BTConsultar);
+            buttonConsultaEstudo.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(ConsultaEstudo)); ;
+                StartActivity(intent);
+            };
+
+            //chama a tela de Sincronizacao
+            Button buttonSincronizacao = FindViewById<Button>(Resource.Id.BTsincronizacao);
+            buttonSincronizacao.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(SIncronizacaoActivity)); ;
+                StartActivity(intent);
+            };
+
+            //chama a tela de Plantacao
+            Button buttonPlantacao = FindViewById<Button>(Resource.Id.BTplantacao);
+            buttonPlantacao.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(PlantacaActivity)); ;
+                StartActivity(intent);
+            };
+
+            //chama a tela de Instalacao
+            Button buttonInstalacao = FindViewById<Button>(Resource.Id.BTInstalacao);
+            buttonInstalacao.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(InstalacaoActivity)); ;
                 StartActivity(intent);
             };
         }

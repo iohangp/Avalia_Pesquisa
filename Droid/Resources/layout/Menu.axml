@@ -11,7 +11,7 @@
 	android:layout_height="match_parent"
 	android:minWidth="25px"
 	android:minHeight="25px">
-	<include
+<include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
         <ImageView
@@ -45,58 +45,15 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/BTManutencao"
 		android:text="Manutenção" />
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/BTManutencao"
-		android:text="Avaliação" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/BTAvaliacao"
+            android:text="Avaliação" />
 	<Button
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/BTsincronizacao"
 		android:text="Sincronização" />
-=======
-    android:minHeight="25px">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="197.0dp"
-        android:id="@+id/IVLogo"
-        android:src="@drawable/xamarin_logo" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="48.0dp"
-        android:id="@+id/BTConsultar"
-        android:text="Consultar Estudo" />
-    <Button
-        android:text="Plantação"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BTplantacao" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BTInstalacao"
-        android:text="Instalação"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BTAplicacao"
-        android:text="Aplicação"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BTManutencao"
-        android:text="Manutenção" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BTManutencao"
-        android:text="Avaliação" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BTsincronizacao"
-        android:text="Sincronização" />
->>>>>>> Stashed changes
 </LinearLayout>
 	</ScrollView>

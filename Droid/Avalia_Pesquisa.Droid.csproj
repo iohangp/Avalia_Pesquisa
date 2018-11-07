@@ -157,8 +157,13 @@
     <Compile Include="Helpers\RecyclerClickEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
-    <Compile Include="Activities\MenuActivity.cs" />
     <Compile Include="Activities\AplicacaoActivity.cs" />
+    <Compile Include="Activities\ConsultaEstudo.cs" />
+    <Compile Include="Activities\ManutencaoActivity.cs" />
+    <Compile Include="Activities\AvaliacaoActivity.cs" />
+    <Compile Include="Activities\SIncronizacaoActivity.cs" />
+    <Compile Include="Activities\InstalacaoActivity.cs" />
+    <Compile Include="Activities\PlantacaActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -207,6 +212,9 @@
     <AndroidResource Include="Resources\layout\Aplicacao.axml" />
     <AndroidResource Include="Resources\layout\AplicacaoPlanejamento.axml" />
     <AndroidResource Include="Resources\layout\Avaliacao.axml" />
+    <AndroidResource Include="Resources\layout\Instalacao.axml" />
+    <AndroidResource Include="Resources\layout\Sincronizacao.axml" />
+    <AndroidResource Include="Resources\layout\Manutencao.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Config_Aparelho.axml">

@@ -18,10 +18,41 @@ namespace Avalia_Pesquisa
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
                     conexao.CreateTable<Municipio>();
-                    conexao.CreateTable<Localidade>();
+                    conexao.CreateTable<Municipio_Localidade>();
                     conexao.CreateTable<Config>();
                     conexao.CreateTable<Usuario>();
-                  
+                    conexao.CreateTable<Alvo>();
+                    conexao.CreateTable<Aparelho>();
+                    conexao.CreateTable<Aparelho_Modelo>();
+                    conexao.CreateTable<Aplicacao>();
+                    conexao.CreateTable<Avaliacao>(); 
+                    conexao.CreateTable<Avaliacao_Imagem>();
+                    conexao.CreateTable<Avaliacao_Tipo>();
+                    conexao.CreateTable<BBCH>();
+                    conexao.CreateTable<Classe>();
+                    conexao.CreateTable<Cliente>();
+                    conexao.CreateTable<Cultura>();
+                    conexao.CreateTable<Cultura_Variedade>();
+                    conexao.CreateTable<Empresa>();
+                    conexao.CreateTable<Equipamento>();
+                    conexao.CreateTable<Estudo>();
+                    conexao.CreateTable<Gleba>();
+                    conexao.CreateTable<Instalacao>();
+                    conexao.CreateTable<Item>();
+                    conexao.CreateTable<Manutencao>();
+                    conexao.CreateTable<Manutencao_Tipo>();
+                    conexao.CreateTable<Objetivos>();
+                    conexao.CreateTable<Plantio>();
+                    conexao.CreateTable<Produto>();
+                    conexao.CreateTable<Safra>();
+                    conexao.CreateTable<Sincronizacao>();
+                    conexao.CreateTable<Solo>();
+                    conexao.CreateTable<Status>();
+                    conexao.CreateTable<tabelas>();
+                    conexao.CreateTable<Umidade_Solo>();
+                 
+
+
                     return true;
                 }
             }
