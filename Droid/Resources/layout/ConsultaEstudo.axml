@@ -10,24 +10,37 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-    <EditText
-        android:textAppearance="?android:attr/textAppearanceMedium"
+    <TableLayout
+        android:minWidth="70px"
+        android:minHeight="70px"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:id="@+id/TV"
-        android:text="Informe o Numero do Estudo"
-        android:textColor="@color/primary"
-        android:textStyle="italic" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BTValidar"
-        android:text="Validar" />
+        android:layout_height="match_parent"
+        android:id="@+id/tableLayout1"
+        android:stretchColumns="1">
+        <TableRow
+            android:id="@+id/tableRow1">
+            <EditText
+                 android:textAppearance="?android:attr/textAppearanceMedium"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:minWidth="15px"
+                 android:minHeight="15px"
+                 android:id="@+id/TVNumeroEstudo"
+                 android:text="Informe o N. do Estudo"
+                 android:textColor="@color/primary"
+                 android:textStyle="italic" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/BTConsultar2"
+                android:text="Consultar" />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/BTScanner"
+                    android:text="Scanner" />
+     </TableRow>  
+    </TableLayout>       
     <TableLayout
         android:minWidth="70px"
         android:minHeight="70px"

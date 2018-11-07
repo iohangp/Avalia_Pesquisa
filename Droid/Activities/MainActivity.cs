@@ -82,7 +82,7 @@ namespace Avalia_Pesquisa.Droid
             Button buttonManutencao = FindViewById<Button>(Resource.Id.BTManutencao);
             buttonManutencao.Click += (sender, e) =>
             {
-                var intent = new Intent(this, typeof(ManutencaoActivity)); ;
+                var intent = new Intent(this, typeof(QrCodeActivity)); ;
                 StartActivity(intent);
             };
 

@@ -22,5 +22,13 @@ namespace Avalia_Pesquisa.Droid.Activities
             SetContentView(Resource.Layout.Instalacao);
             // Create your application here
         }
+
+        public override void OnBackPressed()
+        {
+            var intent = new Intent(this, typeof(MainActivity)); ;
+            StartActivity(intent);
+
+            return;
+        }
     }
 }

@@ -22,5 +22,14 @@ namespace Avalia_Pesquisa.Droid.Activities
             SetContentView(Resource.Layout.Avaliacao);
             // Create your application here
         }
+
+        //Botao Voltar do celular
+        public override void OnBackPressed()
+        {
+            var intent = new Intent(this, typeof(MainActivity)); ;
+            StartActivity(intent);
+
+            return;
+        }
     }
 }
