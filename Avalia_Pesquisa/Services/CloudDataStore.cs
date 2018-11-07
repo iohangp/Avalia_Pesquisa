@@ -90,7 +90,7 @@ namespace Avalia_Pesquisa
             {
                 new Usuario(){ IdUsuario =1,Nome="Iohan Pierdoná",Cpf="07547555926",Senha="123456" },
                 new Usuario(){ IdUsuario =2,Nome="Pedro Barros",Cpf="05404781998",Senha="123456" },
-                new Usuario(){ IdUsuario =2,Nome="Michael bereza",Cpf="05892131998",Senha="1" },
+                new Usuario(){ IdUsuario =3,Nome="Michael bereza",Cpf="05892131998",Senha="1" },
             };
 
             try
