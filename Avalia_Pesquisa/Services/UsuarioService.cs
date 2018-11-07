@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
+using System.Linq;  
 using SQLite;
-using Android.Util;
 
 namespace Avalia_Pesquisa
 {
@@ -21,7 +20,7 @@ namespace Avalia_Pesquisa
             }
             catch (SQLiteException ex)
             {
-                Log.Info("SQLiteEx", ex.Message);
+                //Log.Info("SQLiteEx", ex.Message);
                 return null;
             }
 
