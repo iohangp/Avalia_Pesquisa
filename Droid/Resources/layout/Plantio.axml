@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tableLayout1"
+        android:stretchColumns="1">
+        <TableRow
+            android:id="@+id/tableRow1">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Cultura:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView1" />
+            <Spinner
+                android:layout_column="1"
+                android:id="@+id/spinner1" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Variedade:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView4" />
+            <Spinner
+                android:layout_column="1"
+                android:id="@+id/spinner2" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow6">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Data Plantio:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView7" />
+            <EditText
+                android:inputType="date"
+                android:layout_column="1"
+                android:id="@+id/editText1" />
+        </TableRow>
+           <TableRow
+            android:id="@+id/tableRow20">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Localidade:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView8" />
+            <Spinner
+                android:layout_column="1"
+                android:id="@+id/spinner3" />
+        </TableRow>      
+        <TableRow
+            android:id="@+id/tableRow5">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Safra:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView9" />
+            <Spinner
+                android:layout_column="1"
+                android:id="@+id/spinner4" />
+        </TableRow>       
+        <TableRow
+            android:id="@+id/tableRow6">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Data Germinação:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView11" />
+           <EditText
+                android:inputType="date"
+                android:layout_column="1"
+                android:id="@+id/editText2" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow7">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Gleba:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView19" />
+           <Spinner
+                android:layout_column="1"
+                android:id="@+id/spinner5" />
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow8">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Umidade Solo:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView20" />
+           <Spinner
+                android:layout_column="1"
+                android:id="@+id/spinner5" />
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow9">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Adubação Base:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView22" />
+           <EditText
+                android:inputType="number"
+                android:layout_column="1"
+                android:id="@+id/editText7" />
+        </TableRow>
+                <TableRow
+            android:id="@+id/tableRow10">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Adubação Cobertura:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView24" />
+           <EditText
+                android:inputType="number"
+                android:layout_column="1"
+                android:id="@+id/editText8" />
+        </TableRow>
+                        <TableRow
+            android:id="@+id/tableRow10">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Espaçamento:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView24" />
+           <EditText
+                android:inputType="numberDecimal"
+                android:layout_column="1"
+                android:id="@+id/editText9" />
+        </TableRow>
+                        <TableRow
+            android:id="@+id/tableRow10">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="População:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView24" />
+           <EditText
+                android:inputType="number"
+                android:layout_column="1"
+                android:id="@+id/editText10" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow10">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Observaçoes:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView24" />
+            <EditText
+                android:inputType="textMultiLine"
+                android:layout_column="1"
+                android:id="@+id/editText10" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow10">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Cultura Anterior:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView24" />
+            <Spinner
+                android:layout_column="1"
+                android:id="@+id/spinner10" />
+        </TableRow>
+                        <TableRow
+            android:id="@+id/tableRow10">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Tipo de Solo:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView24" />
+            <Spinner
+                android:layout_column="1"
+                android:id="@+id/spinner12" />
+        </TableRow>
+                        <TableRow
+            android:id="@+id/tableRow10">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Cobertura Solo:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView24" />
+            <Spinner
+                android:layout_column="1"
+                android:id="@+id/spinner13" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow10">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Metragem:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView24" />
+           <EditText
+                android:inputType="numberDecimal"
+                android:layout_column="1"
+                android:id="@+id/editText10" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow12">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Status:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/textView27" />
+            <Spinner
+                android:layout_column="1"
+                android:id="@+id/spinner15" />
+        </TableRow>
+
+    </TableLayout>
+            
+                <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/BTSalvar"
+        android:text="Salvar" />
+</LinearLayout>
