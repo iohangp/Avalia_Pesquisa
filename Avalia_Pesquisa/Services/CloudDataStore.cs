@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
@@ -82,6 +82,7 @@ namespace Avalia_Pesquisa
 
         public bool UsuarioSync(string chave)
         {
+<<<<<<< Updated upstream
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
@@ -112,9 +113,41 @@ namespace Avalia_Pesquisa
             {
                 return false;
             }
+=======
+               if (!CrossConnectivity.Current.IsConnected)
+            return false;
+
+        List<Usuario> usuario = new List<Usuario>
+        {
+            new Usuario(){ IdUsuario =1,Nome="Iohan Pierdoná",Cpf="07547555926",Senha="123456" },
+            new Usuario(){ IdUsuario =2,Nome="Pedro Barros",Cpf="05404781998",Senha="123456" },
+            new Usuario(){ IdUsuario =3,Nome="Michael bereza",Cpf="05892131998",Senha="1" },
+        };
+
+        try
+        {
+            using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+           {
+                foreach (var elemento in usuario)
+                {
+                    var dados = conexao.Query<Config>("SELECT * FROM Usuario Where IdUsuario=?", elemento.IdUsuario);
+
+                    if (dados.Count == 0)
+                    {
+                       conexao.Query<Config>("INSERT INTO Usuario (IdUsuario,Nome,Cpf,Senha) Values(?,?,?,?)", 
+                                                elemento.IdUsuario, elemento.Nome, elemento.Cpf, elemento.Senha);
+                    }
+                }
+            }
+        }
+        catch (SQLiteException ex)
+        {
+            return false;
+        }
+>>>>>>> Stashed changes
 
 
-            return true;
+        return true;
         }
 
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
