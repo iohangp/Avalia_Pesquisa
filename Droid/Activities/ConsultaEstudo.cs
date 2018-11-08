@@ -35,7 +35,13 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.ConsultaEstudo);
+            TextView txtEstudo = FindViewById<TextView>(Resource.Id.TVNumeroEstudo);
             CriarBancoDados();
+
+            if(Intent.GetStringExtra("qrcode") != null)
+            {            
+                txtEstudo.Text = Intent.GetStringExtra("qrcode");
+            }
             // Create your application here
 
             Button buttonConsultar2 = FindViewById<Button>(Resource.Id.BTConsultar2);
@@ -66,4 +72,5 @@ namespace Avalia_Pesquisa.Droid.Activities
             StartActivity(intent);
         }
 
+    }
 }

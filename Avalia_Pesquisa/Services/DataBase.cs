@@ -71,7 +71,7 @@ namespace Avalia_Pesquisa
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
 
-                    conexao.Query<Config>("DELETE FROM Config Where Descricao=? and Valor=?", "carga_inicial", "1");
+                    //conexao.Query<Config>("DELETE FROM Config Where Descricao=? and Valor=?", "carga_inicial", "1");
 
                     var dados = conexao.Query<Config>("SELECT * FROM Config Where Descricao=? and Valor=?", "carga_inicial", "1").ToList();
 
@@ -97,7 +97,7 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    conexao.Query<Config>("DELETE FROM Config Where Descricao=? and Valor=?", config.Descricao, config.Valor);
+                 //   conexao.Query<Config>("DELETE FROM Config Where Descricao=? and Valor=?", config.Descricao, config.Valor);
 
                     conexao.Query<Config>("INSERT INTO Config (Descricao,Valor) Values(?,?)", config.Descricao, config.Valor);
                     return true;

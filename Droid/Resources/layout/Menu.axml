@@ -11,7 +11,9 @@
 	android:layout_height="match_parent"
 	android:minWidth="25px"
 	android:minHeight="25px">
-
+	<include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="171.5dp"

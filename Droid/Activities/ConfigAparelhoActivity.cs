@@ -55,7 +55,7 @@ namespace Avalia_Pesquisa.Droid
             pbar.Max = 100;
             pbar.Show();
 
-            new Thread(new ThreadStart(delegate
+            new Thread(new ThreadStart(async delegate
             {
                 var conf = new Config
                 {
@@ -69,7 +69,8 @@ namespace Avalia_Pesquisa.Droid
                     if (CloudData.MunicipiosSync(licenca.Text))
                     {
                         pbar.Progress += 25;
-                        if (CloudData.UsuarioSync(licenca.Text))
+                        bool result = await CloudData.UsuarioSync(licenca.Text);
+                        if (result)
                         {
                             pbar.Progress += 25;
                             var conf2 = new Config

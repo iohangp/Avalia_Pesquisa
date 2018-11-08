@@ -22,7 +22,7 @@ using static Android.Text.Layout;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
-    [Activity(Label = "QrCodeActivity", MainLauncher = true , Theme ="@style/Theme.AppCompat.Light.NoActionBar")]
+    [Activity(Label = "QrCodeActivity")]
     public class QrCodeActivity : Activity, ISurfaceHolderCallback , IProcessor
     {  
         SurfaceView surfaceView;
@@ -30,6 +30,8 @@ namespace Avalia_Pesquisa.Droid.Activities
         BarcodeDetector barcodeDetector;
         CameraSource cameraSource;
         const int RequestCameraPermisionID = 1001;
+        string activity;
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             switch (requestCode)
@@ -106,15 +108,31 @@ namespace Avalia_Pesquisa.Droid.Activities
         }
         public void ReceiveDetections(Detections detections)
         {
-
             SparseArray qrcodes = detections.DetectedItems;
+            Intent redirect = null;
             if (qrcodes.Size() != 0)
             {
                 txtResult.Post(() => {
                     Vibrator vibrator = (Vibrator)GetSystemService(Context.VibratorService);
-                    vibrator.Vibrate(1000);
+                    vibrator.Vibrate(500);
                     txtResult.Text = ((Barcode)qrcodes.ValueAt(0)).RawValue;
+
+                    if (Intent.GetStringExtra("tela") != null)
+                    {
+                        activity = Intent.GetStringExtra("tela");
+
+                        if (activity == "ConsultaEstudo")
+                            redirect = new Intent(this, typeof(ConsultaEstudo));
+
+
+                    }
+
+                    redirect.PutExtra("qrcode", txtResult.Text);
+                    StartActivity(redirect);
+
                 });
+
+                
             }
         }
         public void Release()
