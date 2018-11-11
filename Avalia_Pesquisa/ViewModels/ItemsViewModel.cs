@@ -21,7 +21,7 @@ namespace Avalia_Pesquisa
 
         async Task ExecuteLoadItemsCommand()
         {
-            if (IsBusy)
+          /*  if (IsBusy)
                 return;
 
             IsBusy = true;
@@ -42,7 +42,7 @@ namespace Avalia_Pesquisa
             finally
             {
                 IsBusy = false;
-            }
+            }*/
         }
 
         async Task AddItem(Item item)

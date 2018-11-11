@@ -2577,6 +2577,9 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00c1
 			public const int BTScanner = 2131427521;
 			
+			// aapt resource value: 0x7f0b011a
+			public const int BTSincronizar = 2131427610;
+			
 			// aapt resource value: 0x7f0b009f
 			public const int BTValidar = 2131427487;
 			
@@ -2618,6 +2621,9 @@ namespace Avalia_Pesquisa.Droid
 			
 			// aapt resource value: 0x7f0b00bf
 			public const int TVNumeroEstudo = 2131427519;
+			
+			// aapt resource value: 0x7f0b011b
+			public const int TVResultado = 2131427611;
 			
 			// aapt resource value: 0x7f0b00e9
 			public const int action0 = 2131427561;
@@ -2931,17 +2937,17 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0092
 			public const int main_content = 2131427474;
 			
-			// aapt resource value: 0x7f0b011d
-			public const int masked = 2131427613;
+			// aapt resource value: 0x7f0b011f
+			public const int masked = 2131427615;
 			
 			// aapt resource value: 0x7f0b00ec
 			public const int media_actions = 2131427564;
 			
-			// aapt resource value: 0x7f0b011e
-			public const int menu_logoff = 2131427614;
+			// aapt resource value: 0x7f0b0120
+			public const int menu_logoff = 2131427616;
 			
-			// aapt resource value: 0x7f0b011b
-			public const int message = 2131427611;
+			// aapt resource value: 0x7f0b011d
+			public const int message = 2131427613;
 			
 			// aapt resource value: 0x7f0b0039
 			public const int middle = 2131427385;
@@ -3096,8 +3102,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b002d
 			public const int showTitle = 2131427373;
 			
-			// aapt resource value: 0x7f0b011a
-			public const int sliding_tabs = 2131427610;
+			// aapt resource value: 0x7f0b011c
+			public const int sliding_tabs = 2131427612;
 			
 			// aapt resource value: 0x7f0b00c9
 			public const int smallLabel = 2131427529;
@@ -3393,8 +3399,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b009b
 			public const int viewpager = 2131427483;
 			
-			// aapt resource value: 0x7f0b011c
-			public const int visible = 2131427612;
+			// aapt resource value: 0x7f0b011e
+			public const int visible = 2131427614;
 			
 			// aapt resource value: 0x7f0b0022
 			public const int wide = 2131427362;

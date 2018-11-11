@@ -5,7 +5,7 @@ namespace Avalia_Pesquisa
     public class App
     {
         public static bool UseMockDataStore = true;
-        public static string BackendUrl = "http://192.168.0.14/avaliapesquisa/";
+        public static string BackendUrl = "http://www.avaliapesquisa.dx.am/";
 
         public static void Initialize()
         {

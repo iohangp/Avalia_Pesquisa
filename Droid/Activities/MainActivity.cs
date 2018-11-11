@@ -28,7 +28,6 @@ namespace Avalia_Pesquisa.Droid
         ViewPager pager;
         TabsAdapter adapter;
         DataBase db;
-        CloudDataStore CloudData;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -52,22 +51,18 @@ namespace Avalia_Pesquisa.Droid
                    fragment?.BecameVisible();
                };
 
-               Toolbar.MenuItemClick += (sender, e) =>
-               {
-                   var intent = new Intent(this, typeof(AddItemActivity)); ;
-                   StartActivity(intent);
-               };
 
-               SupportActionBar.SetDisplayHomeAsUpEnabled(false);
-               SupportActionBar.SetHomeButtonEnabled(false);
                */
+            SupportActionBar.SetDisplayHomeAsUpEnabled(false);
+            SupportActionBar.SetHomeButtonEnabled(false);
+
             CheckInstalacao();
 
             var session = Settings.GeneralSettings;
-            if (session == null)
+            if (session == "")
             {
-                var intent = new Intent(this, typeof(LoginActivity)); ;
-                StartActivity(intent);
+             //   var intent = new Intent(this, typeof(LoginActivity)); ;
+            //    StartActivity(intent);
             }
 
             //chama a tela de Aplicacao
@@ -107,7 +102,7 @@ namespace Avalia_Pesquisa.Droid
             Button buttonSincronizacao = FindViewById<Button>(Resource.Id.BTsincronizacao);
             buttonSincronizacao.Click += (sender, e) =>
             {
-                var intent = new Intent(this, typeof(SIncronizacaoActivity)); ;
+                var intent = new Intent(this, typeof(SincronizacaoActivity)); ;
                 StartActivity(intent);
             };
 
@@ -142,7 +137,9 @@ namespace Avalia_Pesquisa.Droid
                     Settings.GeneralSettings = null;
                     var intent = new Intent(this, typeof(LoginActivity)); ;
                     StartActivity(intent);
+                    Finish();
                     return true;
+
             }
             return base.OnOptionsItemSelected(item);
         }

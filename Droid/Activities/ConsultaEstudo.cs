@@ -60,10 +60,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         public override void OnBackPressed()
         {
-            var intent = new Intent(this, typeof(MainActivity)); ;
-            StartActivity(intent);
-
-            return;
+            Finish();
         }
 
         protected internal void BTScanner_Click(object sender, EventArgs e)

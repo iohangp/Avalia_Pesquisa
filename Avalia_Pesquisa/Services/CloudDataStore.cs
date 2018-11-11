@@ -15,6 +15,11 @@ namespace Avalia_Pesquisa
     {
         HttpClient client;
         IEnumerable<Item> items;
+        IEnumerable<Usuario> userArray;
+        IEnumerable<Municipio_Localidade> locArray;
+        IEnumerable<Municipio> municipioArray;
+        IEnumerable<Cultura> culturaArray;
+
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
         public CloudDataStore()
@@ -25,41 +30,61 @@ namespace Avalia_Pesquisa
             items = new List<Item>();
         }
 
-        public bool MunicipiosSync(string chave)
+        public async Task<bool> BaixarCultura(string chave)
         {
-            
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            List<Municipio> municipio = new List<Municipio>
-            {
-                new Municipio(){ IdMunicipio =1,Descricao="Ponta Grossa" },
-                new Municipio(){ IdMunicipio =2,Descricao="Curitiba" },
-            };
-            var serializedMunicipio = JsonConvert.SerializeObject(municipio);
-
-            List<Municipio_Localidade> municipio_localidade = new List<Municipio_Localidade>
-            {
-                new Municipio_Localidade(){ IdLocalidade =1,Descricao="Cará-Cará",IdMunicipio=1},
-                new Municipio_Localidade(){ IdLocalidade =2,Descricao="Água Verde",IdMunicipio=2 },
-            };
-            var serializedLocal = JsonConvert.SerializeObject(municipio_localidade);
+            var json = await client.GetStringAsync($"cultura");
+            culturaArray = JsonConvert.DeserializeObject<IEnumerable<Cultura>>(json);
 
             try
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    foreach (var elemento in municipio)
+                    foreach (var cultura in culturaArray)
                     {
-                        var dados = conexao.Query<Municipio>("SELECT * FROM Municipio Where IdMunicipio=?", elemento.IdMunicipio);
-
-                        if(dados.Count == 0)
+                        var cult = new Cultura
                         {
-                            conexao.Query<Municipio>("INSERT INTO Municipio (IdMunicipio,Descricao) Values(?,?)", elemento.IdMunicipio, elemento.Descricao);
+                            IdCultura = cultura.IdCultura,
+                            Descricao = cultura.Descricao
+                        };
+
+                        var dadosCultura = conexao.Query<Cultura>("SELECT * FROM Cultura Where idCultura=?", cultura.IdCultura);
+
+                        if (dadosCultura.Count == 0)
+                            conexao.Insert(cult);
+                        else
+                        {
+                            conexao.Query<Cultura>("UPDATE Cultura " +
+                                                      "SET Descricao = ? " +
+                                                    "WHERE IdCultura = ?",cult.Descricao,cult.IdCultura);
                         }
                     }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return false;
+            }
 
-                    foreach (var local in municipio_localidade)
+            return true;
+        }
+
+
+        public async Task<bool> LocalidadeSync(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var jsonLoc = await client.GetStringAsync($"localidade/localidade");
+            locArray = JsonConvert.DeserializeObject<IEnumerable<Municipio_Localidade>>(jsonLoc);
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var local in locArray)
                     {
                         var dadosLocal = conexao.Query<Municipio_Localidade>("SELECT * FROM Municipio_Localidade Where idLocalidade=?", local.IdLocalidade);
 
@@ -68,7 +93,51 @@ namespace Avalia_Pesquisa
                             conexao.Query<Municipio_Localidade>("INSERT INTO Municipio_Localidade (IdLocalidade,IdMunicipio,Descricao) Values(?,?,?)",
                                                   local.IdLocalidade, local.IdMunicipio, local.Descricao);
                         }
+                        else
+                        {
+                            conexao.Query<Municipio_Localidade>("UPDATE Municipio_Localidade " +
+                                                                    "SET Descricao = ?," +
+                                                                        "IdMunicipio = ?" +
+                                                                    "WHERE IdLocalidade = ?", local.Descricao, local.IdMunicipio, local.IdLocalidade);
+                        }
                     }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> MunicipiosSync(string chave)
+        {
+            
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var jsonMunicipio = await client.GetStringAsync($"localidade/municipio");
+            municipioArray = JsonConvert.DeserializeObject<IEnumerable<Municipio>>(jsonMunicipio);
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var elemento in municipioArray)
+                    {
+                        var dados = conexao.Query<Municipio>("SELECT * FROM Municipio Where IdMunicipio=?", elemento.IdMunicipio);
+
+                        if(dados.Count == 0)
+                        {
+                            conexao.Query<Municipio>("INSERT INTO Municipio (IdMunicipio,Descricao) Values(?,?)", elemento.IdMunicipio, elemento.Descricao);
+                        }
+                        else
+                        {
+                            conexao.Query<Municipio>("UPDATE Municipio " +
+                                                        "SET Descricao = ? " +
+                                                        "WHERE IdMunicipio = ? ", elemento.Descricao, elemento.IdMunicipio);
+                        }
+                    }                
                 }
             }
             catch (SQLiteException ex)
@@ -86,24 +155,15 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            List<Usuario> usuario = new List<Usuario>
-            {
-                new Usuario(){ IdUsuario =1,Nome="Iohan Pierdoná",Cpf="07547555926",Senha="123456" },
-                new Usuario(){ IdUsuario =2,Nome="Pedro Barros",Cpf="05404781998",Senha="123456" },
-                new Usuario(){ IdUsuario =3,Nome="Michael bereza",Cpf="05892131998",Senha="1" },
-            };
+            var json = await client.GetStringAsync($"users");
 
-         //   string url = "http://192.168.0.14/avaliapesquisa/users";
-
-           // var json = await client.GetStringAsync(url);
-            
-            
+            userArray = JsonConvert.DeserializeObject<IEnumerable<Usuario>>(json);
 
             try
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    foreach (var elemento in usuario)
+                    foreach (var elemento in userArray)
                     {
                         var dados = conexao.Query<Usuario>("SELECT * FROM Usuario Where IdUsuario=?", elemento.IdUsuario);
 
@@ -111,6 +171,13 @@ namespace Avalia_Pesquisa
                         {
                             conexao.Query<Usuario>("INSERT INTO Usuario (IdUsuario,Nome,Cpf,Senha) Values(?,?,?,?)", 
                                                     elemento.IdUsuario, elemento.Nome, elemento.Cpf, elemento.Senha);
+                        }
+                        else
+                        {
+                            conexao.Query<Usuario>("UPDATE Usuario " +
+                                                    "SET Senha = ?, Nome = ? " +
+                                                    "WHERE IdUsuario = ?",
+                                                    elemento.Senha,elemento.Nome,elemento.IdUsuario);
                         }
                     }
                 }
@@ -121,17 +188,6 @@ namespace Avalia_Pesquisa
             }
 
         return true;
-        }
-
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
-        {
-            if (forceRefresh && CrossConnectivity.Current.IsConnected)
-            {
-                var json = await client.GetStringAsync($"api/item");
-                items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<Item>>(json));
-            }
-
-            return items;
         }
 
         public async Task<Item> GetItemAsync(string id)

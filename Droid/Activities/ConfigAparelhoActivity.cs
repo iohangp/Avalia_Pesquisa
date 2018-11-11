@@ -48,7 +48,7 @@ namespace Avalia_Pesquisa.Droid
             db = new DataBase();
 
             ProgressDialog pbar = new ProgressDialog(this);
-            pbar.SetCancelable(true);
+            pbar.SetCancelable(false);
             pbar.SetMessage("Sincronizando dados do sistema...");
             pbar.SetProgressStyle(ProgressDialogStyle.Horizontal);
             pbar.Progress = 0;
@@ -66,7 +66,8 @@ namespace Avalia_Pesquisa.Droid
                 if (db.InserirConfig(conf))
                 {
                     pbar.Progress += 25;
-                    if (CloudData.MunicipiosSync(licenca.Text))
+                    if (await CloudData.MunicipiosSync(licenca.Text) &&
+                        await CloudData.LocalidadeSync(licenca.Text))
                     {
                         pbar.Progress += 25;
                         bool result = await CloudData.UsuarioSync(licenca.Text);
@@ -95,8 +96,6 @@ namespace Avalia_Pesquisa.Droid
                     var intent = new Intent(this, typeof(LoginActivity)); ;
                     StartActivity(intent);
                 }
-                    
-
 
                 RunOnUiThread(() => { pbar.SetMessage("Dados importados..."); });
                 RunOnUiThread(() => { Toast.MakeText(this, "Dados importados com sucesso.", ToastLength.Long).Show(); });

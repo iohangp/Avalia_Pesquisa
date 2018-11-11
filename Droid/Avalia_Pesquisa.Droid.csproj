@@ -177,7 +177,7 @@
     <Compile Include="Activities\ConsultaEstudo.cs" />
     <Compile Include="Activities\ManutencaoActivity.cs" />
     <Compile Include="Activities\AvaliacaoActivity.cs" />
-    <Compile Include="Activities\SIncronizacaoActivity.cs" />
+    <Compile Include="Activities\SincronizacaoActivity.cs" />
     <Compile Include="Activities\InstalacaoActivity.cs" />
     <Compile Include="Activities\PlantacaActivity.cs" />
     <Compile Include="Activities\QrCodeActivity.cs" />

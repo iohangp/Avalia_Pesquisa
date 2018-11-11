@@ -57,9 +57,10 @@ namespace Avalia_Pesquisa.Droid
             if (user.Count > 0)
             {
                 // AppSettings.AddOrUpdateValue(SettingsKey, value);
-                Settings.GeneralSettings = user[0].IdUsuario.ToString();
+                Settings.GeneralSettings = user[0].IdUsuario.ToString();             
                 var intent = new Intent(this, typeof(MainActivity)); ;
                 StartActivity(intent);
+                Finish();
             }
             else
             {

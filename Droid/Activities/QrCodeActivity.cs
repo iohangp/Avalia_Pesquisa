@@ -140,6 +140,12 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         }
 
+        public override void OnBackPressed()
+        {
+            Finish();
+
+        }
+
     }
   
 }

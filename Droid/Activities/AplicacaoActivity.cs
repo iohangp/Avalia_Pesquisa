@@ -28,10 +28,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         //Botao Voltar do celular
         public override void OnBackPressed()
         {
-            var intent = new Intent(this, typeof(MainActivity)); ;
-            StartActivity(intent);
-
-            return;
+            Finish();
         }
     }
 }
