@@ -61,8 +61,8 @@ namespace Avalia_Pesquisa.Droid
             var session = Settings.GeneralSettings;
             if (session == "")
             {
-             //   var intent = new Intent(this, typeof(LoginActivity)); ;
-            //    StartActivity(intent);
+                var intent = new Intent(this, typeof(LoginActivity)); ;
+                StartActivity(intent);
             }
 
             //chama a tela de Aplicacao
