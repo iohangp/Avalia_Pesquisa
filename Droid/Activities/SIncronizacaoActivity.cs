@@ -80,10 +80,11 @@ namespace Avalia_Pesquisa.Droid.Activities
                 }
                 if (await CloudData.BaixarCultura(null))
                     pbar.Progress += 25;
+                if (await CloudData.BaixarEstudos(null))
+                    pbar.Progress += 25;
 
-                pbar.Progress += 25;
 
-                if(pbar.Progress >= 100)
+                if (pbar.Progress >= 100)
                 {
                    
                     RunOnUiThread(() => {

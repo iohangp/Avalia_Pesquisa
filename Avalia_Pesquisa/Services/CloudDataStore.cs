@@ -19,6 +19,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Municipio_Localidade> locArray;
         IEnumerable<Municipio> municipioArray;
         IEnumerable<Cultura> culturaArray;
+        IEnumerable<Estudo> estudoArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -60,6 +61,71 @@ namespace Avalia_Pesquisa
                                                       "SET Descricao = ? " +
                                                     "WHERE IdCultura = ?",cult.Descricao,cult.IdCultura);
                         }
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task<bool> BaixarEstudos(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var json = await client.GetStringAsync($"estudo");
+            estudoArray = JsonConvert.DeserializeObject<IEnumerable<Estudo>>(json);
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var estudo in estudoArray)
+                    {
+                        var est = new Estudo
+                        {
+                            IdEstudo = estudo.IdEstudo,
+                            Protocolo = estudo.Protocolo,
+                            idCliente = estudo.idCliente,
+                            Cliente = estudo.Cliente,
+                            idEmpresa = estudo.idEmpresa,
+                            Empresa = estudo.Empresa,
+                            idCultura = estudo.idCultura,
+                            idProduto = estudo.idProduto,
+                            Produto = estudo.Produto,
+                            idClasse = estudo.idClasse,
+                            Classe = estudo.Classe,
+                            idAlvo = estudo.idAlvo,
+                            Alvo = estudo.Alvo,
+                            Repeticao = estudo.Repeticao,
+                            Intervalo_Aplicacao = estudo.Intervalo_Aplicacao,
+                            Tratamento_Sementes = estudo.Tratamento_Sementes,
+                            Aplicacoes = estudo.Aplicacoes,
+                            Tratamentos = estudo.Tratamentos,
+                            Volume_Calda = estudo.Volume_Calda,
+                            Objetivo = estudo.Objetivo,
+                            RET = estudo.RET,
+                            Validade_RET = estudo.Validade_RET,
+                            Observacoes = estudo.Observacoes,
+                            idUsuario = estudo.idUsuario,
+                            Data = estudo.Data,
+                            idStatus = estudo.idStatus,
+                            idResponsavel = estudo.idResponsavel,
+                            RET_Fase = estudo.RET_Fase
+                        };
+
+                        var dadosEstudo = conexao.Query<Cultura>("SELECT * FROM Estudo Where idEstudo=?", est.IdEstudo);
+
+                        if (dadosEstudo.Count == 0)
+                            conexao.Insert(est);
+                        else
+                            conexao.Update(est);
+
+
                     }
                 }
             }
