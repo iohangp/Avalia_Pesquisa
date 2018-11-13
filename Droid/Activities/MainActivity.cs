@@ -56,14 +56,17 @@ namespace Avalia_Pesquisa.Droid
             SupportActionBar.SetDisplayHomeAsUpEnabled(false);
             SupportActionBar.SetHomeButtonEnabled(false);
 
-            CheckInstalacao();
-
-            var session = Settings.GeneralSettings;
-            if (session == "")
+            if (CheckInstalacao())
             {
-                var intent = new Intent(this, typeof(LoginActivity)); ;
-                StartActivity(intent);
+                var session = Settings.GeneralSettings;
+                if (session == "")
+                {
+                    var intent = new Intent(this, typeof(LoginActivity)); ;
+                    StartActivity(intent);
+                }
             }
+
+            
 
             //chama a tela de Aplicacao
             Button buttonAplicacao = FindViewById<Button>(Resource.Id.BTAplicacao);
@@ -159,11 +162,13 @@ namespace Avalia_Pesquisa.Droid
 
                 var intent = new Intent(this, typeof(ConfigAparelhoActivity)); ;
                 StartActivity(intent);
+                return false;
 
             }
+            else
+                return true;
 
 
-            return true;
         }
 
     }

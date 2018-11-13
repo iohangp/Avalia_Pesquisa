@@ -95,6 +95,8 @@ namespace Avalia_Pesquisa.Droid
                 {
                     var intent = new Intent(this, typeof(LoginActivity)); ;
                     StartActivity(intent);
+                    Finish();
+                    pbar.Dismiss();
                 }
 
                 RunOnUiThread(() => { pbar.SetMessage("Dados importados..."); });

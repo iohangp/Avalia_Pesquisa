@@ -72,16 +72,19 @@ namespace Avalia_Pesquisa.Droid.Activities
                 if (await CloudData.MunicipiosSync(null) &&
                     await CloudData.LocalidadeSync(null))
                 {
-                    pbar.Progress += 25;
+                    pbar.Progress += 20;
                     if (await CloudData.UsuarioSync(null))
                     {
-                        pbar.Progress += 25;
+                        pbar.Progress += 20;
                     }
                 }
                 if (await CloudData.BaixarCultura(null))
-                    pbar.Progress += 25;
+                    pbar.Progress += 20;
                 if (await CloudData.BaixarEstudos(null))
-                    pbar.Progress += 25;
+                    pbar.Progress += 20;
+                if (await CloudData.BaixarVariedade(null) &&
+                    await CloudData.BaixarTipoAvaliacao(null))
+                    pbar.Progress += 20;
 
 
                 if (pbar.Progress >= 100)
@@ -91,13 +94,24 @@ namespace Avalia_Pesquisa.Droid.Activities
                         TVResult.Text = "Sincronização efetuada com sucesso!";
                         TVResult.SetTextColor(Android.Graphics.Color.DarkGreen);
                     });
-                    
+                    RunOnUiThread(() => { Toast.MakeText(this, "Dados importados com sucesso.", ToastLength.Long).Show(); });
+
                     pbar.Dismiss();
+                }
+                else
+                {
+                    RunOnUiThread(() => {
+                        TVResult.Text = "Erro ao baixar os dados do servidor!";
+                        TVResult.SetTextColor(Android.Graphics.Color.Red);
+                    });
+
+                    pbar.Dismiss();
+
                 }
                 
                 
                 RunOnUiThread(() => { pbar.SetMessage("Dados importados..."); });
-                RunOnUiThread(() => { Toast.MakeText(this, "Dados importados com sucesso.", ToastLength.Long).Show(); });
+             
             })).Start();
         }
     }
