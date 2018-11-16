@@ -124,7 +124,6 @@ namespace Avalia_Pesquisa.Droid.Activities
         public void ReceiveDetections(Detections detections)
         {
             SparseArray qrcodes = detections.DetectedItems;
-            Intent redirect = null;
             if (qrcodes.Size() != 0)
             {
                 txtResult.Post(() => {
@@ -132,18 +131,11 @@ namespace Avalia_Pesquisa.Droid.Activities
                     vibrator.Vibrate(500);
                     txtResult.Text = ((Barcode)qrcodes.ValueAt(0)).RawValue;
 
-                    if (Intent.GetStringExtra("tela") != null)
-                    {
-                        activity = Intent.GetStringExtra("tela");
+                    Intent intent = new Intent();
+                    intent.PutExtra("qrcode", txtResult.Text);
+                    SetResult(Result.Ok,intent);
 
-                        if (activity == "ConsultaEstudo")
-                            redirect = new Intent(this, typeof(ConsultaEstudo));
-
-
-                    }
-
-                    redirect.PutExtra("qrcode", txtResult.Text);
-                    StartActivity(redirect);
+                    Finish();
 
                 });
 

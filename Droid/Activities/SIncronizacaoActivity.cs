@@ -79,17 +79,20 @@ namespace Avalia_Pesquisa.Droid.Activities
                     }
                 }
                 if (await CloudData.BaixarCultura(null))
-                    pbar.Progress += 20;
+                    pbar.Progress += 15;
                 if (await CloudData.BaixarEstudos(null))
-                    pbar.Progress += 20;
+                    pbar.Progress += 15;
                 if (await CloudData.BaixarVariedade(null) &&
                     await CloudData.BaixarTipoAvaliacao(null))
                     pbar.Progress += 20;
+                if (await CloudData.BaixarSafra(null))
+                    pbar.Progress += 10;
+
 
 
                 if (pbar.Progress >= 100)
                 {
-                   
+                    Thread.Sleep(800);
                     RunOnUiThread(() => {
                         TVResult.Text = "Sincronização efetuada com sucesso!";
                         TVResult.SetTextColor(Android.Graphics.Color.DarkGreen);

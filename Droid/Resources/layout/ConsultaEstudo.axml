@@ -10,6 +10,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+	<include
+		android:id="@+id/toolbar"
+		layout="@layout/toolbar" />
     <TableLayout
         android:minWidth="70px"
         android:minHeight="70px"
@@ -26,7 +29,7 @@
                  android:minWidth="15px"
                  android:minHeight="15px"
                  android:id="@+id/TVNumeroEstudo"
-                 android:text="Informe o N. do Estudo"
+                 android:hint="Informe o N. do Estudo"
                  android:textColor="@color/primary"
                  android:textStyle="italic" />
             <Button
@@ -47,12 +50,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/tableLayout1"
+		android:layout_marginTop="10dp"
         android:stretchColumns="1">
         <TableRow
             android:id="@+id/tableRow1">
             <TextView
                 p4:placeholder="true"
-                android:minWidth="30px"
+                android:minWidth="10px"
                 android:minHeight="30px"
                 android:text="Protocolo:"
                 android:textColor="@color/primary"
@@ -63,30 +67,33 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:gravity="right"
-                android:id="@+id/textView2" />
+                android:gravity="left"
+                android:id="@+id/TVProtocolo" />
         </TableRow>
         <TableRow
-            android:id="@+id/tableRow2">
+            android:id="@+id/tableRow2"
+			android:layout_marginTop="5dp">
+				<TextView
+					p4:placeholder="true"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:text="Patrocinador:"
+					android:textColor="@color/primary"
+					xmlns:p4="http://xamarin.com/mono/android/designer"
+					android:id="@+id/textView4"
+					android:layout_marginRight="0.0dp" />
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
                 android:minHeight="30px"
-                android:text="Patrocinador:"
-                android:textColor="@color/primary"
+                android:gravity="left"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView4" />
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:gravity="right"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView5" />
+                android:id="@+id/TVPatrocinador" />
 
         </TableRow>
         <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -101,11 +108,12 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVCultura" />
 
         </TableRow>
                 <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -120,11 +128,12 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVProduto" />
 
         </TableRow>
                 <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -143,7 +152,8 @@
 
         </TableRow>
                 <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -163,7 +173,8 @@
 
         </TableRow>
                 <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -182,7 +193,8 @@
 
         </TableRow>
                 <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -201,7 +213,8 @@
 
         </TableRow>
                 <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -220,7 +233,8 @@
 
         </TableRow>
                 <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -239,7 +253,8 @@
 
         </TableRow>
                         <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -258,7 +273,8 @@
 
         </TableRow>
                         <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -277,7 +293,8 @@
 
         </TableRow>
                         <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -296,7 +313,8 @@
 
         </TableRow>
         <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -315,7 +333,8 @@
 
         </TableRow>
         <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -334,7 +353,8 @@
 
         </TableRow>
                 <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow3"
+			android:layout_marginTop="5dp">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"

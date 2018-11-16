@@ -23,6 +23,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Estudo> estudoArray;
         IEnumerable<Cultura_Variedade> variedadeArray;
         IEnumerable<Avaliacao_Tipo> tipoAvalArray;
+        IEnumerable<Safra> safraArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -350,7 +351,7 @@ namespace Avalia_Pesquisa
                                 Descricao = variedade.Descricao
                             };
 
-                            var dadoVariedade = conexao.Query<Cultura>("SELECT * FROM Cultura_Variedade Where idCultura_Variedade=?", variedade.IdVariedade);
+                            var dadoVariedade = conexao.Query<Cultura_Variedade>("SELECT * FROM Cultura_Variedade Where IdVariedade=?", variedade.IdVariedade);
 
                             if (dadoVariedade.Count == 0)
                                 conexao.Insert(cultvar);
@@ -366,6 +367,53 @@ namespace Avalia_Pesquisa
             }
 
             return true;
+        }
+
+        public async Task<bool> BaixarSafra(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/safra");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                safraArray = JsonConvert.DeserializeObject<IEnumerable<Safra>>(json);
+
+                int total = safraArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var safra in safraArray)
+                    {
+                        var safraObj = new Safra
+                        {
+                            IdSafra = safra.IdSafra,
+                            Descricao = safra.Descricao
+                        };
+
+                        var dadoVariedade = conexao.Query<Safra>("SELECT * FROM Safra Where IdSafra=?", safraObj.IdSafra);
+
+                        if (dadoVariedade.Count == 0)
+                            conexao.Insert(safraObj);
+                        else
+                            conexao.Update(safraObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return false;
+            }
+
+            return true;
+
         }
 
         public async Task<bool> UsuarioSync(string chave)

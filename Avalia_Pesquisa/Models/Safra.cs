@@ -1,10 +1,12 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace Avalia_Pesquisa
 {
     public class Safra
     {
-        public int idSafra { get; set; }
+        [PrimaryKey]
+        public int IdSafra { get; set; }
         public String Descricao { get; set; }
 
     }
