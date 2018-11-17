@@ -1,4 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView1">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -7,29 +13,62 @@
         <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-    <TextView
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:id="@+id/TV"
-        android:text="Informe o Numero do Estudo"
-        android:textColor="@color/primary"
-        android:textStyle="italic" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BTValidar"
-        android:text="Validar" />
 
-    
+	<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:layout_centerInParent="true"
+	android:layout_margin="10dp">
+	<TextView
+	android:text="Informe o número do estudo ou utilize o Scanner"
+	android:textAppearance="?android:attr/textAppearanceSmall"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:id="@+id/textView1" />
+	<LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+		android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">		
+		<EditText
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="145.0dp"
+			android:layout_height="wrap_content"
+			android:minWidth="15px"
+			android:minHeight="15px"
+			android:id="@+id/EDNumEstudo"
+			android:hint="Nº do Estudo"
+			android:textColor="@color/primary"
+			android:textStyle="italic"
+			android:textSize="14dp"
+			android:layout_marginRight="0.0dp"  />
+		<Button
+			android:layout_width="111.0dp"
+			android:layout_height="wrap_content"
+			android:id="@+id/BTValidar"
+			android:text="Validar"
+			android:textColor="@android:color/white"
+			android:background="#307FC1"/>
+		<Button
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/BTScannerAvalia"
+			android:text="Scanner"
+			android:textColor="@android:color/white"
+			android:background="#307FC1"
+			android:layout_marginLeft="5dp" />
+    </LinearLayout>
+
+  
     <TableLayout
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tableLayout1"
+		android:layout_marginTop="20dp"
         android:stretchColumns="1">
         <TableRow
             android:id="@+id/trAvaliação">
@@ -43,10 +82,11 @@
                 android:id="@+id/tvAvaliacao2" />
             <Spinner
                 android:layout_column="1"
-                android:id="@+id/sAvaliação" />
+                android:id="@+id/spnTipoAvaliacao" />
         </TableRow>
         <TableRow
-            android:id="@+id/trRepetição1">
+            android:id="@+id/trRepeticao1"
+			android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -61,8 +101,9 @@
                 android:id="@+id/etRepeticao1" />
 
         </TableRow>
-                <TableRow
-            android:id="@+id/trRepetição2">
+        <TableRow
+            android:id="@+id/trRepeticao2"
+			android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -77,8 +118,9 @@
                 android:id="@+id/etRepeticao2" />
 
         </TableRow>
-                <TableRow
-            android:id="@+id/trRepetição3">
+        <TableRow
+            android:id="@+id/trRepeticao3"
+			android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -93,8 +135,9 @@
                 android:id="@+id/etRepeticao3" />
 
         </TableRow>
-                <TableRow
-            android:id="@+id/trRepetição4">
+        <TableRow
+            android:id="@+id/trRepeticao4"
+			android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -102,33 +145,37 @@
                 android:text="Repetição 4:"
                 android:textColor="@color/primary"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvRepetição4" />
+                android:id="@+id/tvRepeticao4" />
             <EditText
                 android:inputType="number"
                 android:layout_column="1"
-                android:id="@+id/etRepeticao1" />
+                android:id="@+id/etRepeticao4" />
 
-        </TableRow>
-                <TableRow
-            android:id="@+id/trRepetição5">
+        </TableRow> 
+		<TableRow
+            android:id="@+id/trRepeticao5"
+			android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
                 android:minHeight="30px"
-                android:text="Repetição 5:"
+                android:text="Repetição 2:"
                 android:textColor="@color/primary"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
                 android:id="@+id/tvRepetição5" />
             <EditText
                 android:inputType="number"
                 android:layout_column="1"
-                android:id="@+id/etRepeticao1" />
+                android:id="@+id/etRepeticao5" />
 
         </TableRow>
     </TableLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/BTValidar"
+        android:id="@+id/BTSalvarAvaliacao"
+		android:visibility="invisible"
         android:text="Salvar" />
+	</LinearLayout>
 </LinearLayout>
+</ScrollView>

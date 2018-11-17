@@ -29,7 +29,9 @@ namespace Avalia_Pesquisa.Droid.Activities
         TabsAdapter adapter;
         DataBase db;
         CloudDataStore CloudData;
-        TextView txtEstudo, txtProtocolo, txtCultura, txtPatrocinador, txtProduto;
+        TextView txtEstudo, txtProtocolo, txtCultura, txtPatrocinador, txtProduto,
+                 txtClasse, txtAlvo, txtRepeticao, txtIntervAplicacao, txtTratSementes,
+                 txtVolumeCalda, txtObjetivo, txtRet, txtValRet, txtFaseRet, txtObs, txtResponsavel;
 
         protected override int LayoutResource => Resource.Layout.ConsultaEstudo;
 
@@ -45,8 +47,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             
             buttonConsultar2.Click += (sender, e) =>
             {
-                var intent = new Intent(this, typeof(AplicacaoActivity)); ;
-                StartActivity(intent);
+                ConsultarEstudo(txtEstudo.Text);
             };
 
             buttonScanner.Click += BTScanner_Click;
@@ -77,6 +78,19 @@ namespace Avalia_Pesquisa.Droid.Activities
             txtProtocolo = FindViewById<TextView>(Resource.Id.TVProtocolo);
             txtPatrocinador = FindViewById<TextView>(Resource.Id.TVPatrocinador);
             txtProduto = FindViewById<TextView>(Resource.Id.TVProduto);
+            txtCultura = FindViewById<TextView>(Resource.Id.TVCultura);
+            txtClasse = FindViewById<TextView>(Resource.Id.TVClasse);
+            txtAlvo = FindViewById<TextView>(Resource.Id.TVAlvo);
+            txtRepeticao = FindViewById<TextView>(Resource.Id.TVRepeticao);
+            txtIntervAplicacao = FindViewById<TextView>(Resource.Id.TVIntervAplicacao);
+            txtTratSementes = FindViewById<TextView>(Resource.Id.TVTratSementes);
+            txtVolumeCalda = FindViewById<TextView>(Resource.Id.TVVolumeCalda);
+            txtObjetivo = FindViewById<TextView>(Resource.Id.TVObjetivo);
+            txtRet = FindViewById<TextView>(Resource.Id.TVRET);
+            txtFaseRet = FindViewById<TextView>(Resource.Id.TVFaseRET);
+            txtValRet = FindViewById<TextView>(Resource.Id.TVValidadeRET);
+            txtObs = FindViewById<TextView>(Resource.Id.TVObs);
+            txtResponsavel = FindViewById<TextView>(Resource.Id.TVResponsavel);
 
             ConsultaEstudoService ces = new ConsultaEstudoService();
             var estudo = ces.GetEstudo(txtEstudo.Text);
@@ -86,9 +100,32 @@ namespace Avalia_Pesquisa.Droid.Activities
                 txtProtocolo.Text = estudo[0].Protocolo;
                 txtPatrocinador.Text = estudo[0].Cliente;
                 txtProduto.Text = estudo[0].Produto;
+                txtCultura.Text = estudo[0].Cultura;
+                txtClasse.Text = estudo[0].Classe;
+                txtAlvo.Text = estudo[0].Alvo;
+                txtRepeticao.Text = estudo[0].Repeticao.ToString();
+                txtIntervAplicacao.Text = estudo[0].Intervalo_Aplicacao.ToString();
+                txtTratSementes.Text = estudo[0].Tratamento_Sementes.ToString();
+                txtVolumeCalda.Text = estudo[0].Volume_Calda.ToString();
+                txtObjetivo.Text = estudo[0].Objetivo;
+                txtRet.Text = estudo[0].RET;
+                txtFaseRet.Text = estudo[0].RET_Fase.ToString();
+
+                DateTime data = estudo[0].Validade_RET;
+                if(data.Year > 1)
+                    txtValRet.Text = string.Format("{0:dd/MM/yyyy}", data);
+
+                txtObs.Text = estudo[0].Observacoes;
+                txtResponsavel.Text = estudo[0].Responsavel;
+
+
             }
             else
             {
+                txtProtocolo.Text = txtPatrocinador.Text = txtProduto.Text = txtCultura.Text = "";
+                txtClasse.Text = txtAlvo.Text = txtRepeticao.Text = txtIntervAplicacao.Text = "";
+                txtTratSementes.Text = txtVolumeCalda.Text = txtObjetivo.Text = txtRet.Text = txtFaseRet.Text = "";
+                txtValRet.Text = txtObs.Text = txtResponsavel.Text = "";
                 Toast.MakeText(this, "Nenhum estudo encontrado", ToastLength.Long).Show();
             }
 

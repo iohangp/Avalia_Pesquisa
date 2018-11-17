@@ -6,19 +6,17 @@ using SQLite;
 
 namespace Avalia_Pesquisa
 {
-    class ConsultaEstudoService
+    class TipoAvaliacaoService
     {
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-        public List<ViewEstudo> GetEstudo(string protocolo)
+        public List<Avaliacao_Tipo> GetAvaliacaoTipo()
         {
             try
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    var result = conexao.Query<ViewEstudo>("SELECT e.*, c.Descricao as Cultura FROM Estudo e" +
-                                                  " INNER JOIN Cultura c ON c.IdCultura = e.IdCultura " +
-                                                  " Where Protocolo=?", protocolo).ToList();
+                    var result = conexao.Query<Avaliacao_Tipo>("SELECT * FROM Avaliacao_Tipo").ToList();
 
                     return result;
                 }

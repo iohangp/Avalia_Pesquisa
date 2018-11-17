@@ -13,37 +13,46 @@
 	<include
 		android:id="@+id/toolbar"
 		layout="@layout/toolbar" />
-    <TableLayout
-        android:minWidth="70px"
-        android:minHeight="70px"
+
+	<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:layout_centerInParent="true"
+	android:layout_margin="10dp">
+<LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/tableLayout1"
-        android:stretchColumns="1">
-        <TableRow
-            android:id="@+id/tableRow1">
-            <EditText
-                 android:textAppearance="?android:attr/textAppearanceMedium"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:minWidth="15px"
-                 android:minHeight="15px"
-                 android:id="@+id/TVNumeroEstudo"
-                 android:hint="Informe o N. do Estudo"
-                 android:textColor="@color/primary"
-                 android:textStyle="italic" />
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/BTConsultar2"
-                android:text="Consultar" />
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/BTScanner"
-                    android:text="Scanner" />
-     </TableRow>  
-    </TableLayout>       
+        android:layout_height="wrap_content">
+				<EditText
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="145.0dp"
+					android:layout_height="wrap_content"
+					android:minWidth="15px"
+					android:minHeight="15px"
+					android:id="@+id/TVNumeroEstudo"
+					android:hint="Nº do Estudo"
+					android:textColor="@color/primary"
+					android:textStyle="italic"
+					android:textSize="14dp"
+					android:layout_marginRight="0.0dp"  />
+				<Button
+					android:layout_width="111.0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/BTConsultar2"
+					android:text="Consultar"
+					android:textColor="@android:color/white"
+					android:background="#307FC1"/>
+				<Button
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/BTScanner"
+					android:text="Scanner"
+					android:textColor="@android:color/white"
+					android:background="#307FC1"
+					android:layout_marginLeft="5dp" />
+       </LinearLayout>
     <TableLayout
         android:minWidth="70px"
         android:minHeight="70px"
@@ -148,7 +157,7 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVClasse" />
 
         </TableRow>
                 <TableRow
@@ -169,7 +178,7 @@
                 android:minHeight="30px"
                 
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVAlvo" />
 
         </TableRow>
                 <TableRow
@@ -189,7 +198,7 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVRepeticao" />
 
         </TableRow>
                 <TableRow
@@ -209,7 +218,7 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVIntervAplicacao" />
 
         </TableRow>
                 <TableRow
@@ -229,7 +238,7 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVTratSementes" />
 
         </TableRow>
                 <TableRow
@@ -249,7 +258,7 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVVolumeCalda" />
 
         </TableRow>
                         <TableRow
@@ -269,7 +278,7 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVObjetivo" />
 
         </TableRow>
                         <TableRow
@@ -289,7 +298,7 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVRET" />
 
         </TableRow>
                         <TableRow
@@ -309,7 +318,7 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVValidadeRET" />
 
         </TableRow>
         <TableRow
@@ -329,7 +338,7 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVFaseRET" />
 
         </TableRow>
         <TableRow
@@ -349,7 +358,7 @@
                 android:minWidth="30px"
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/textView8" />
+                android:id="@+id/TVObs" />
 
         </TableRow>
                 <TableRow
@@ -370,9 +379,10 @@
                 android:minHeight="30px"
                 xmlns:p4="http://xamarin.com/mono/android/designer"
                 
-                android:id="@+id/textView8" />
+                android:id="@+id/TVResponsavel" />
                 
         </TableRow>
     </TableLayout>
+	</LinearLayout>
 </LinearLayout>
 </ScrollView>

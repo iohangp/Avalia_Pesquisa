@@ -128,7 +128,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 txtResult.Post(() => {
                     Vibrator vibrator = (Vibrator)GetSystemService(Context.VibratorService);
-                    vibrator.Vibrate(500);
+                    vibrator.Vibrate(100);
                     txtResult.Text = ((Barcode)qrcodes.ValueAt(0)).RawValue;
 
                     Intent intent = new Intent();

@@ -124,7 +124,7 @@ namespace Avalia_Pesquisa
                                 Cliente = estudo.Cliente,
                                 idEmpresa = estudo.idEmpresa,
                                 Empresa = estudo.Empresa,
-                                idCultura = estudo.idCultura,
+                                IdCultura = estudo.IdCultura,
                                 idProduto = estudo.idProduto,
                                 Produto = estudo.Produto,
                                 idClasse = estudo.idClasse,
