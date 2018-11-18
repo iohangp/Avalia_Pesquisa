@@ -2622,6 +2622,12 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b003e
 			public const int SHIFT = 2131427390;
 			
+			// aapt resource value: 0x7f0b010b
+			public const int SPNCultura = 2131427595;
+			
+			// aapt resource value: 0x7f0b010c
+			public const int SPNVariedade = 2131427596;
+			
 			// aapt resource value: 0x7f0b003f
 			public const int SYM = 2131427391;
 			
@@ -3183,9 +3189,6 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b009c
 			public const int spinner = 2131427484;
 			
-			// aapt resource value: 0x7f0b010b
-			public const int spinner1 = 2131427595;
-			
 			// aapt resource value: 0x7f0b0124
 			public const int spinner10 = 2131427620;
 			
@@ -3197,9 +3200,6 @@ namespace Avalia_Pesquisa.Droid
 			
 			// aapt resource value: 0x7f0b0129
 			public const int spinner15 = 2131427625;
-			
-			// aapt resource value: 0x7f0b010c
-			public const int spinner2 = 2131427596;
 			
 			// aapt resource value: 0x7f0b0111
 			public const int spinner3 = 2131427601;

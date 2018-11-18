@@ -1,4 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView1">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -6,6 +12,15 @@
     android:layout_height="match_parent"
     android:minWidth="25px"
     android:minHeight="25px">
+	<include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+	<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+	android:layout_margin="10dp">
     <TableLayout
         android:minWidth="25px"
         android:minHeight="25px"
@@ -25,7 +40,7 @@
                 android:id="@+id/textView1" />
             <Spinner
                 android:layout_column="1"
-                android:id="@+id/spinner1" />
+                android:id="@+id/SPNCultura" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow2">
@@ -39,7 +54,7 @@
                 android:id="@+id/textView4" />
             <Spinner
                 android:layout_column="1"
-                android:id="@+id/spinner2" />
+                android:id="@+id/SPNVariedade" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow6">
@@ -282,3 +297,5 @@
         android:id="@+id/BTSalvar"
         android:text="Salvar" />
 </LinearLayout>
+</LinearLayout>
+</ScrollView>

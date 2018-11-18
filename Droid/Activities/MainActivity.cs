@@ -113,7 +113,7 @@ namespace Avalia_Pesquisa.Droid
             Button buttonPlantacao = FindViewById<Button>(Resource.Id.BTplantacao);
             buttonPlantacao.Click += (sender, e) =>
             {
-                var intent = new Intent(this, typeof(PlantacaActivity)); ;
+                var intent = new Intent(this, typeof(PlantacaoActivity)); ;
                 StartActivity(intent);
             };
 
