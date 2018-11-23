@@ -17,9 +17,9 @@ namespace Avalia_Pesquisa.Droid.Activities
     [Activity(Label = "Plantação")]
     public class PlantacaoActivity : BaseActivity
     {
-        ArrayList culturas, idCulturas, variedade, idVariedade;
+        ArrayList culturas, idCulturas, variedade, idVariedade, glebas, idGleba, safras, idSafras;
         ArrayAdapter adapter, adapterVar;
-        Spinner spinnerCult, spinnerVar;
+        Spinner spinnerCult, spinnerVar, spinnerGleba, spinnerSafra;
         string idCulturaSelect, idVarSelect;
 
         protected override int LayoutResource => Resource.Layout.Plantio;
@@ -31,11 +31,27 @@ namespace Avalia_Pesquisa.Droid.Activities
             // Create your application here
             spinnerCult = FindViewById<Spinner>(Resource.Id.SPNCultura);
             spinnerVar = FindViewById<Spinner>(Resource.Id.SPNVariedade);
+            spinnerGleba = FindViewById<Spinner>(Resource.Id.SPNGleba);
+            spinnerSafra = FindViewById<Spinner>(Resource.Id.SPNSafra);
+
+            variedade = new ArrayList();
+            idVariedade = new ArrayList();
+            variedade.Add("Selecione");
+            idVariedade.Add(0);
+
             GetCulturas();
+            GetGlebas();
+            GetSafras();
 
             adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, culturas);
-            //vincula o adaptador ao controle spinner
             spinnerCult.Adapter = adapter;
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, glebas);
+            spinnerGleba.Adapter = adapter;
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, safras);
+            spinnerSafra.Adapter = adapter;
+
+
+
             spinnerCult.ItemSelected += SpinnerCult_ItemSelected;
         }
 
@@ -97,6 +113,42 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 variedade.Add(res.Descricao);
                 idVariedade.Add(res.IdVariedade);
+            }
+
+        }
+
+        private void GetGlebas()
+        {
+            glebas = new ArrayList();
+            idGleba = new ArrayList();
+            PlantacaoService tas = new PlantacaoService();
+
+            var result = tas.GetGlebas();
+
+            glebas.Add("Selecione");
+            idGleba.Add(0);
+            foreach (var res in result)
+            {
+                glebas.Add(res.Descricao);
+                idGleba.Add(res.idGleba);
+            }
+
+        }
+
+        private void GetSafras()
+        {
+            safras = new ArrayList();
+            idSafras = new ArrayList();
+            PlantacaoService tas = new PlantacaoService();
+
+            var result = tas.GetSafras();
+
+            safras.Add("Selecione");
+            idSafras.Add(0);
+            foreach (var res in result)
+            {
+                safras.Add(res.Descricao);
+                idSafras.Add(res.IdSafra);
             }
 
         }

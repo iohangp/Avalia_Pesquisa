@@ -97,7 +97,7 @@
                 android:id="@+id/textView9" />
             <Spinner
                 android:layout_column="1"
-                android:id="@+id/spinner4" />
+                android:id="@+id/SPNSafra" />
         </TableRow>       
         <TableRow
             android:id="@+id/tableRow6">
@@ -126,7 +126,7 @@
                 android:id="@+id/textView19" />
            <Spinner
                 android:layout_column="1"
-                android:id="@+id/spinner5" />
+                android:id="@+id/SPNGleba" />
         </TableRow>
                 <TableRow
             android:id="@+id/tableRow8">

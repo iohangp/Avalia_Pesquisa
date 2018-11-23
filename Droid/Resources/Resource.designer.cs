@@ -2571,8 +2571,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00f5
 			public const int BTManutencao = 2131427573;
 			
-			// aapt resource value: 0x7f0b012a
-			public const int BTSalvar = 2131427626;
+			// aapt resource value: 0x7f0b012b
+			public const int BTSalvar = 2131427627;
 			
 			// aapt resource value: 0x7f0b00c0
 			public const int BTSalvarAvaliacao = 2131427520;
@@ -2583,8 +2583,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00ad
 			public const int BTScannerAvalia = 2131427501;
 			
-			// aapt resource value: 0x7f0b012e
-			public const int BTSincronizar = 2131427630;
+			// aapt resource value: 0x7f0b012f
+			public const int BTSincronizar = 2131427631;
 			
 			// aapt resource value: 0x7f0b009f
 			public const int BTValidar = 2131427487;
@@ -2624,6 +2624,12 @@ namespace Avalia_Pesquisa.Droid
 			
 			// aapt resource value: 0x7f0b010b
 			public const int SPNCultura = 2131427595;
+			
+			// aapt resource value: 0x7f0b0119
+			public const int SPNGleba = 2131427609;
+			
+			// aapt resource value: 0x7f0b0114
+			public const int SPNSafra = 2131427604;
 			
 			// aapt resource value: 0x7f0b010c
 			public const int SPNVariedade = 2131427596;
@@ -2676,8 +2682,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00da
 			public const int TVResponsavel = 2131427546;
 			
-			// aapt resource value: 0x7f0b012f
-			public const int TVResultado = 2131427631;
+			// aapt resource value: 0x7f0b0130
+			public const int TVResultado = 2131427632;
 			
 			// aapt resource value: 0x7f0b00d3
 			public const int TVTratSementes = 2131427539;
@@ -2790,8 +2796,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00e9
 			public const int button_learn_more = 2131427561;
 			
-			// aapt resource value: 0x7f0b012b
-			public const int cameraView = 2131427627;
+			// aapt resource value: 0x7f0b012c
+			public const int cameraView = 2131427628;
 			
 			// aapt resource value: 0x7f0b00fc
 			public const int cancel_action = 2131427580;
@@ -2871,20 +2877,20 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b010e
 			public const int editText1 = 2131427598;
 			
-			// aapt resource value: 0x7f0b0123
-			public const int editText10 = 2131427619;
+			// aapt resource value: 0x7f0b0124
+			public const int editText10 = 2131427620;
 			
 			// aapt resource value: 0x7f0b0116
 			public const int editText2 = 2131427606;
 			
-			// aapt resource value: 0x7f0b011e
-			public const int editText7 = 2131427614;
-			
-			// aapt resource value: 0x7f0b0121
-			public const int editText8 = 2131427617;
+			// aapt resource value: 0x7f0b011f
+			public const int editText7 = 2131427615;
 			
 			// aapt resource value: 0x7f0b0122
-			public const int editText9 = 2131427618;
+			public const int editText8 = 2131427618;
+			
+			// aapt resource value: 0x7f0b0123
+			public const int editText9 = 2131427619;
 			
 			// aapt resource value: 0x7f0b0085
 			public const int edit_query = 2131427461;
@@ -3006,17 +3012,17 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0092
 			public const int main_content = 2131427474;
 			
-			// aapt resource value: 0x7f0b0133
-			public const int masked = 2131427635;
+			// aapt resource value: 0x7f0b0134
+			public const int masked = 2131427636;
 			
 			// aapt resource value: 0x7f0b00fe
 			public const int media_actions = 2131427582;
 			
-			// aapt resource value: 0x7f0b0134
-			public const int menu_logoff = 2131427636;
+			// aapt resource value: 0x7f0b0135
+			public const int menu_logoff = 2131427637;
 			
-			// aapt resource value: 0x7f0b0131
-			public const int message = 2131427633;
+			// aapt resource value: 0x7f0b0132
+			public const int message = 2131427634;
 			
 			// aapt resource value: 0x7f0b0039
 			public const int middle = 2131427385;
@@ -3168,8 +3174,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b002d
 			public const int showTitle = 2131427373;
 			
-			// aapt resource value: 0x7f0b0130
-			public const int sliding_tabs = 2131427632;
+			// aapt resource value: 0x7f0b0131
+			public const int sliding_tabs = 2131427633;
 			
 			// aapt resource value: 0x7f0b00db
 			public const int smallLabel = 2131427547;
@@ -3189,26 +3195,23 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b009c
 			public const int spinner = 2131427484;
 			
-			// aapt resource value: 0x7f0b0124
-			public const int spinner10 = 2131427620;
-			
 			// aapt resource value: 0x7f0b0125
-			public const int spinner12 = 2131427621;
+			public const int spinner10 = 2131427621;
 			
 			// aapt resource value: 0x7f0b0126
-			public const int spinner13 = 2131427622;
+			public const int spinner12 = 2131427622;
 			
-			// aapt resource value: 0x7f0b0129
-			public const int spinner15 = 2131427625;
+			// aapt resource value: 0x7f0b0127
+			public const int spinner13 = 2131427623;
+			
+			// aapt resource value: 0x7f0b012a
+			public const int spinner15 = 2131427626;
 			
 			// aapt resource value: 0x7f0b0111
 			public const int spinner3 = 2131427601;
 			
-			// aapt resource value: 0x7f0b0114
-			public const int spinner4 = 2131427604;
-			
-			// aapt resource value: 0x7f0b0119
-			public const int spinner5 = 2131427609;
+			// aapt resource value: 0x7f0b011c
+			public const int spinner5 = 2131427612;
 			
 			// aapt resource value: 0x7f0b0008
 			public const int split_action_bar = 2131427336;
@@ -3249,11 +3252,11 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00c6
 			public const int tableRow1 = 2131427526;
 			
-			// aapt resource value: 0x7f0b011f
-			public const int tableRow10 = 2131427615;
+			// aapt resource value: 0x7f0b0120
+			public const int tableRow10 = 2131427616;
 			
-			// aapt resource value: 0x7f0b0127
-			public const int tableRow12 = 2131427623;
+			// aapt resource value: 0x7f0b0128
+			public const int tableRow12 = 2131427624;
 			
 			// aapt resource value: 0x7f0b00c8
 			public const int tableRow2 = 2131427528;
@@ -3276,8 +3279,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b011a
 			public const int tableRow8 = 2131427610;
 			
-			// aapt resource value: 0x7f0b011c
-			public const int tableRow9 = 2131427612;
+			// aapt resource value: 0x7f0b011d
+			public const int tableRow9 = 2131427613;
 			
 			// aapt resource value: 0x7f0b009a
 			public const int tabs = 2131427482;
@@ -3306,20 +3309,20 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0118
 			public const int textView19 = 2131427608;
 			
-			// aapt resource value: 0x7f0b012d
-			public const int textView2 = 2131427629;
+			// aapt resource value: 0x7f0b012e
+			public const int textView2 = 2131427630;
 			
 			// aapt resource value: 0x7f0b011b
 			public const int textView20 = 2131427611;
 			
-			// aapt resource value: 0x7f0b011d
-			public const int textView22 = 2131427613;
+			// aapt resource value: 0x7f0b011e
+			public const int textView22 = 2131427614;
 			
-			// aapt resource value: 0x7f0b0120
-			public const int textView24 = 2131427616;
+			// aapt resource value: 0x7f0b0121
+			public const int textView24 = 2131427617;
 			
-			// aapt resource value: 0x7f0b0128
-			public const int textView27 = 2131427624;
+			// aapt resource value: 0x7f0b0129
+			public const int textView27 = 2131427625;
 			
 			// aapt resource value: 0x7f0b00c9
 			public const int textView4 = 2131427529;
@@ -3438,8 +3441,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0097
 			public const int txtDesc = 2131427479;
 			
-			// aapt resource value: 0x7f0b012c
-			public const int txtResult = 2131427628;
+			// aapt resource value: 0x7f0b012d
+			public const int txtResult = 2131427629;
 			
 			// aapt resource value: 0x7f0b0096
 			public const int txtTitle = 2131427478;
@@ -3459,8 +3462,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b009b
 			public const int viewpager = 2131427483;
 			
-			// aapt resource value: 0x7f0b0132
-			public const int visible = 2131427634;
+			// aapt resource value: 0x7f0b0133
+			public const int visible = 2131427635;
 			
 			// aapt resource value: 0x7f0b0022
 			public const int wide = 2131427362;

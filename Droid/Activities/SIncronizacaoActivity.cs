@@ -75,17 +75,22 @@ namespace Avalia_Pesquisa.Droid.Activities
                     pbar.Progress += 20;
                     if (await CloudData.UsuarioSync(null))
                     {
-                        pbar.Progress += 20;
+                        pbar.Progress += 10;
                     }
                 }
                 if (await CloudData.BaixarCultura(null))
-                    pbar.Progress += 15;
+                    pbar.Progress += 10;
                 if (await CloudData.BaixarEstudos(null))
-                    pbar.Progress += 15;
+                    pbar.Progress += 10;
                 if (await CloudData.BaixarVariedade(null) &&
                     await CloudData.BaixarTipoAvaliacao(null))
                     pbar.Progress += 20;
                 if (await CloudData.BaixarSafra(null))
+                    pbar.Progress += 10;
+                if (await CloudData.BaixarUmidade(null) &&
+                    await CloudData.BaixarGleba(null))
+                    pbar.Progress += 10;
+                if (await CloudData.BaixarSolo(null))
                     pbar.Progress += 10;
 
 

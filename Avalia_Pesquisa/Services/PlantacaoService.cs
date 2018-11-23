@@ -45,6 +45,42 @@ namespace Avalia_Pesquisa
             }
         }
 
+        public List<Gleba> GetGlebas()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Gleba>("SELECT * FROM Gleba").ToList();
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return null;
+            }
+
+        }
+
+        public List<Safra> GetSafras()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Safra>("SELECT * FROM Safra").ToList();
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return null;
+            }
+
+        }
+
 
     }
 }

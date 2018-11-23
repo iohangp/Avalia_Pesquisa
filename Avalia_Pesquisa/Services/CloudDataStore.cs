@@ -24,6 +24,9 @@ namespace Avalia_Pesquisa
         IEnumerable<Cultura_Variedade> variedadeArray;
         IEnumerable<Avaliacao_Tipo> tipoAvalArray;
         IEnumerable<Safra> safraArray;
+        IEnumerable<Umidade_Solo> umidadeArray;
+        IEnumerable<Gleba> glebaArray;
+        IEnumerable<Solo> soloArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -83,6 +86,7 @@ namespace Avalia_Pesquisa
                 }
                 catch (SQLiteException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
 
@@ -161,6 +165,7 @@ namespace Avalia_Pesquisa
                 }
                 catch (SQLiteException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
             }
@@ -211,6 +216,7 @@ namespace Avalia_Pesquisa
                     }
                     catch (SQLiteException ex)
                     {
+                        Console.WriteLine(ex.Message);
                         return false;
                     }
                 }
@@ -264,6 +270,7 @@ namespace Avalia_Pesquisa
                 }
                 catch (SQLiteException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
             }
@@ -314,6 +321,7 @@ namespace Avalia_Pesquisa
                 }
                 catch (SQLiteException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
             }
@@ -362,6 +370,7 @@ namespace Avalia_Pesquisa
                 }
                 catch (SQLiteException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
             }
@@ -409,6 +418,154 @@ namespace Avalia_Pesquisa
             }
             catch (SQLiteException ex)
             {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<bool> BaixarUmidade(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/umidadesolo");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                umidadeArray = JsonConvert.DeserializeObject<IEnumerable<Umidade_Solo>>(json);
+
+                int total = umidadeArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var umidade in umidadeArray)
+                    {
+                        var umidadeObj = new Umidade_Solo
+                        {
+                            idUmidade_Solo = umidade.idUmidade_Solo,
+                            Descricao = umidade.Descricao
+                        };
+
+                        var dados = conexao.Query<Umidade_Solo>("SELECT * FROM Umidade_Solo Where idUmidade_Solo=?", umidade.idUmidade_Solo);
+
+                        if (dados.Count == 0)
+                            conexao.Insert(umidadeObj);
+                        else
+                            conexao.Update(umidadeObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+
+        public async Task<bool> BaixarGleba(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/gleba");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                glebaArray = JsonConvert.DeserializeObject<IEnumerable<Gleba>>(json);
+
+                int total = glebaArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var gleba in glebaArray)
+                    {
+                        var glebaObj = new Gleba
+                        {
+                            idGleba = gleba.idGleba,
+                            Descricao = gleba.Descricao,
+                            Ativo = gleba.Ativo,
+                            Metragem = gleba.Metragem
+                        };
+
+                        var dados = conexao.Query<Gleba>("SELECT * FROM Gleba Where idGleba=?", gleba.idGleba);
+
+                        if (dados.Count == 0)
+                            conexao.Insert(glebaObj);
+                        else
+                            conexao.Update(glebaObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<bool> BaixarSolo(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/solo");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                soloArray = JsonConvert.DeserializeObject<IEnumerable<Solo>>(json);
+
+                int total = soloArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var solo in soloArray)
+                    {
+                        var soloObj = new Solo
+                        {
+                            idSolo = solo.idSolo,
+                            Descricao = solo.Descricao
+                        };
+
+                        var dados = conexao.Query<Solo>("SELECT * FROM Solo Where idSolo=?", solo.idSolo);
+
+                        if (dados.Count == 0)
+                            conexao.Insert(soloObj);
+                        else
+                            conexao.Update(soloObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
                 return false;
             }
 
@@ -458,6 +615,7 @@ namespace Avalia_Pesquisa
                 }
                 catch (SQLiteException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
             }
