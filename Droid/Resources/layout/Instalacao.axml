@@ -85,7 +85,7 @@
                 android:id="@+id/spnPlantio" />
         </TableRow>
         <TableRow
-            android:id="@+id/trComprimento"
+            android:id="@+id/trComprimento">
             
             <TextView
                 p4:placeholder="true"
@@ -102,7 +102,7 @@
 
         </TableRow>
         <TableRow
-            android:id="@+id/trLargura"
+            android:id="@+id/trLargura">
             
             <TextView
                 p4:placeholder="true"
@@ -119,7 +119,7 @@
 
         </TableRow>
         <TableRow
-            android:id="@+id/trCoordenadas1"
+            android:id="@+id/trCoordenadas1">
             
             <TextView
                 p4:placeholder="true"
@@ -136,7 +136,7 @@
 
         </TableRow>
         <TableRow
-            android:id="@+id/trCoordenadas2"
+            android:id="@+id/trCoordenadas2">
             
             <TextView
                 p4:placeholder="true"
@@ -153,7 +153,7 @@
 
         </TableRow> 
         <TableRow
-            android:id="@+id/trAltitude"
+            android:id="@+id/trAltitude">
             
             <TextView
                 p4:placeholder="true"
@@ -169,8 +169,8 @@
                 android:id="@+id/etAltitude" />
 
         </TableRow>
-                        <TableRow
-            android:id="@+id/trData"
+        <TableRow
+            android:id="@+id/trData">
             
             <TextView
                 p4:placeholder="true"
@@ -187,7 +187,7 @@
 
         </TableRow>
           <TableRow
-            android:id="@+id/trObservacoes"
+            android:id="@+id/trObservacoes">
             
             <TextView
                 p4:placeholder="true"
