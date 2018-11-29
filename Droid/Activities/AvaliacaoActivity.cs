@@ -18,14 +18,14 @@ namespace Avalia_Pesquisa.Droid.Activities
     [Activity(Label = "Avaliar Estudo")]
     public class AvaliacaoActivity : BaseActivity
     {
-        Spinner spnTipo;
-        ArrayAdapter adapter;
-        ArrayList tipos, idTipos;
-        EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
-        int totalRepeticoes = 1, idEstudo;
-        string idTipoAvaliacao;
-        TableRow rowRepeticao1,rowRepeticao2,rowRepeticao3,rowRepeticao4,rowRepeticao5;
-        Button buttonSalvar;
+            Spinner spnTipo;
+            ArrayAdapter adapter;
+            ArrayList tipos, idTipos;
+            EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
+            int totalRepeticoes = 1, idEstudo;
+            string idTipoAvaliacao;
+            TableRow rowRepeticao1,rowRepeticao2,rowRepeticao3,rowRepeticao4,rowRepeticao5;
+            Button buttonSalvar;
 
         protected override int LayoutResource => Resource.Layout.Avaliacao;
 
