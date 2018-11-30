@@ -60,5 +60,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Status.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Tabelas.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Umidade_Solo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\InstalacaoService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ViewPlantio.cs" />
   </ItemGroup>
 </Project>
