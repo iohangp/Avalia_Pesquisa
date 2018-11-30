@@ -71,7 +71,8 @@
 		android:layout_marginTop="20dp"
         android:stretchColumns="1">
         <TableRow
-            android:id="@+id/trAvaliação">
+            android:id="@+id/trTipoAvaliacao"
+			android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -83,6 +84,22 @@
             <Spinner
                 android:layout_column="1"
                 android:id="@+id/spnTipoAvaliacao" />
+        </TableRow>
+		<TableRow
+            android:id="@+id/trAlvo"
+            android:layout_marginTop="10dp"
+			android:visibility="invisible">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Alvo:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/tvAlvo" />
+            <Spinner
+                android:layout_column="1"
+                android:id="@+id/spnAlvo" />
         </TableRow>
         <TableRow
             android:id="@+id/trRepeticao1"

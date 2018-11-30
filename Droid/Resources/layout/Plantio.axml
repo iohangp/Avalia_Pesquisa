@@ -140,7 +140,7 @@
                 android:id="@+id/textView20" />
            <Spinner
                 android:layout_column="1"
-                android:id="@+id/spinner5" />
+                android:id="@+id/SPNUmidade" />
         </TableRow>
                 <TableRow
             android:id="@+id/tableRow9">
@@ -229,7 +229,7 @@
                 android:id="@+id/textView24" />
             <Spinner
                 android:layout_column="1"
-                android:id="@+id/spinner10" />
+                android:id="@+id/SPNCultAnt" />
         </TableRow>
                         <TableRow
             android:id="@+id/tableRow10">

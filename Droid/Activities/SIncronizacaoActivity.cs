@@ -85,7 +85,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 if (await CloudData.BaixarVariedade(null) &&
                     await CloudData.BaixarTipoAvaliacao(null))
                     pbar.Progress += 20;
-                if (await CloudData.BaixarSafra(null))
+                if (await CloudData.BaixarSafra(null) &&
+                    await CloudData.BaixarAlvo(null))
                     pbar.Progress += 10;
                 if (await CloudData.BaixarUmidade(null) &&
                     await CloudData.BaixarGleba(null))

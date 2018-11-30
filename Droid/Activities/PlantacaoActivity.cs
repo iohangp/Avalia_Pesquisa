@@ -17,9 +17,10 @@ namespace Avalia_Pesquisa.Droid.Activities
     [Activity(Label = "Plantação")]
     public class PlantacaoActivity : BaseActivity
     {
-        ArrayList culturas, idCulturas, variedade, idVariedade, glebas, idGleba, safras, idSafras;
+        ArrayList culturas, idCulturas, variedade, idVariedade, glebas, idGleba, safras, idSafras,
+                  umidades, idUmidades, culturaAnt, idCulturaAnt;
         ArrayAdapter adapter, adapterVar;
-        Spinner spinnerCult, spinnerVar, spinnerGleba, spinnerSafra;
+        Spinner spinnerCult, spinnerVar, spinnerGleba, spinnerSafra, spinnerUmidade, spinnerCultAnt;
         string idCulturaSelect, idVarSelect;
 
         protected override int LayoutResource => Resource.Layout.Plantio;
@@ -33,6 +34,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             spinnerVar = FindViewById<Spinner>(Resource.Id.SPNVariedade);
             spinnerGleba = FindViewById<Spinner>(Resource.Id.SPNGleba);
             spinnerSafra = FindViewById<Spinner>(Resource.Id.SPNSafra);
+            spinnerUmidade = FindViewById<Spinner>(Resource.Id.SPNUmidade);
+            spinnerCultAnt = FindViewById<Spinner>(Resource.Id.SPNCultAnt);
 
             variedade = new ArrayList();
             idVariedade = new ArrayList();
@@ -42,6 +45,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             GetCulturas();
             GetGlebas();
             GetSafras();
+            GetUmidade();
 
             adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, culturas);
             spinnerCult.Adapter = adapter;
@@ -49,7 +53,10 @@ namespace Avalia_Pesquisa.Droid.Activities
             spinnerGleba.Adapter = adapter;
             adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, safras);
             spinnerSafra.Adapter = adapter;
-
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, umidades);
+            spinnerUmidade.Adapter = adapter;
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, culturaAnt);
+            spinnerCultAnt.Adapter = adapter;
 
 
             spinnerCult.ItemSelected += SpinnerCult_ItemSelected;
@@ -87,16 +94,24 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             culturas = new ArrayList();
             idCulturas = new ArrayList();
+
+            culturaAnt = new ArrayList();
+            idCulturaAnt = new ArrayList();
             PlantacaoService tas = new PlantacaoService();
 
             var result = tas.GetCulturas();
 
             culturas.Add("Selecione");
             idCulturas.Add(0);
+            culturaAnt.Add("Selecione");
+            idCulturaAnt.Add(0);
             foreach (var res in result)
             {
                 culturas.Add(res.Descricao);
+                culturaAnt.Add(res.Descricao);
+
                 idCulturas.Add(res.IdCultura);
+                idCulturaAnt.Add(res.IdCultura);
             }
 
         }
@@ -149,6 +164,24 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 safras.Add(res.Descricao);
                 idSafras.Add(res.IdSafra);
+            }
+
+        }
+
+        private void GetUmidade()
+        {
+            umidades = new ArrayList();
+            idUmidades = new ArrayList();
+            PlantacaoService tas = new PlantacaoService();
+
+            var result = tas.GetUmidades();
+
+            umidades.Add("Selecione");
+            idUmidades.Add(0);
+            foreach (var res in result)
+            {
+                umidades.Add(res.Descricao);
+                idUmidades.Add(res.idUmidade_Solo);
             }
 
         }

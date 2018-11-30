@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Linq;  
 using SQLite;
-
+using System;
 
 namespace Avalia_Pesquisa
 {
@@ -76,6 +76,25 @@ namespace Avalia_Pesquisa
             }
             catch (SQLiteException ex)
             {
+                return null;
+            }
+
+        }
+
+        public List<Umidade_Solo> GetUmidades()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Umidade_Solo>("SELECT * FROM Umidade_Solo").ToList();
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
                 return null;
             }
 

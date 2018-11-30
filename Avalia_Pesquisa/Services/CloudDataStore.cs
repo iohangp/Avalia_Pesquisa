@@ -27,6 +27,8 @@ namespace Avalia_Pesquisa
         IEnumerable<Umidade_Solo> umidadeArray;
         IEnumerable<Gleba> glebaArray;
         IEnumerable<Solo> soloArray;
+        IEnumerable<Alvo> alvoArray;
+        IEnumerable<Estudo_Tipo_Alvo> tipoAlvoArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -152,7 +154,7 @@ namespace Avalia_Pesquisa
                                 RET_Fase = estudo.RET_Fase
                             };
 
-                            var dadosEstudo = conexao.Query<Cultura>("SELECT * FROM Estudo Where idEstudo=?", est.IdEstudo);
+                            var dadosEstudo = conexao.Query<Estudo>("SELECT * FROM Estudo Where idEstudo=?", est.IdEstudo);
 
                             if (dadosEstudo.Count == 0)
                                 conexao.Insert(est);
@@ -172,6 +174,46 @@ namespace Avalia_Pesquisa
             else
                 return false;
 
+            uri = new Uri($"{App.BackendUrl}/estudo/estudotipoalvo");
+            response = await client.GetAsync(uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                var json = await response.Content.ReadAsStringAsync();
+                tipoAlvoArray = JsonConvert.DeserializeObject<IEnumerable<Estudo_Tipo_Alvo>>(json);
+
+                int total = tipoAlvoArray.Count();
+                if (total == 0)
+                    return false;
+
+                try
+                {
+                    using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                    {
+                        foreach (var tipoAlvo in tipoAlvoArray)
+                        {
+                            var tipoAlvoObj = new Estudo_Tipo_Alvo
+                            {
+                                IdEstudo_tipo_avaliacao_alvo = tipoAlvo.IdEstudo_tipo_avaliacao_alvo,
+                                IdAlvo = tipoAlvo.IdAlvo,
+                                idAvaliacao_tipo = tipoAlvo.idAvaliacao_tipo,
+                                IdEstudo = tipoAlvo.IdEstudo
+                            };
+
+                            conexao.Query<Estudo_Tipo_Alvo>("DELETE FROM Estudo_Tipo_Alvo");
+
+                            conexao.Insert(tipoAlvoObj);        
+
+                        }
+                    }
+                }
+                catch (SQLiteException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+            }
             return true;
         }
 
@@ -560,6 +602,55 @@ namespace Avalia_Pesquisa
                             conexao.Insert(soloObj);
                         else
                             conexao.Update(soloObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<bool> BaixarAlvo(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/alvo");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                alvoArray = JsonConvert.DeserializeObject<IEnumerable<Alvo>>(json);
+
+                int total = alvoArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var alvo in alvoArray)
+                    {
+                        var alvoObj = new Alvo
+                        {
+                            IdAlvo = alvo.IdAlvo,
+                            Especie = alvo.Especie,
+                            Nome_vulgar = alvo.Nome_vulgar
+                        };
+
+                        var dados = conexao.Query<Solo>("SELECT * FROM Alvo Where idAlvo=?", alvo.IdAlvo);
+
+                        if (dados.Count == 0)
+                            conexao.Insert(alvoObj);
+                        else
+                            conexao.Update(alvoObj);
                     }
                 }
             }

@@ -18,13 +18,13 @@ namespace Avalia_Pesquisa.Droid.Activities
     [Activity(Label = "Avaliar Estudo")]
     public class AvaliacaoActivity : BaseActivity
     {
-        Spinner spnTipo;
+        Spinner spnTipo, spnAlvo;
         ArrayAdapter adapter;
-        ArrayList tipos, idTipos;
+        ArrayList tipos, idTipos, alvos, idAlvos;
         EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
         int totalRepeticoes = 1, idEstudo;
         string idTipoAvaliacao;
-        TableRow rowRepeticao1,rowRepeticao2,rowRepeticao3,rowRepeticao4,rowRepeticao5;
+        TableRow rowRepeticao1,rowRepeticao2,rowRepeticao3,rowRepeticao4,rowRepeticao5,rowAlvo,rowTipoAval;
         Button buttonSalvar;
 
         protected override int LayoutResource => Resource.Layout.Avaliacao;
@@ -35,15 +35,11 @@ namespace Avalia_Pesquisa.Droid.Activities
             //  SetContentView(Resource.Layout.Avaliacao);
             // Create your application here
             spnTipo = FindViewById<Spinner>(Resource.Id.spnTipoAvaliacao);
+            spnAlvo = FindViewById<Spinner>(Resource.Id.spnAlvo);
             edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
             buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAvaliacao); 
             Button buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
             Button buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
-
-            GetAvaliacaoTipo();
-            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, tipos);
-            //vincula o adaptador ao controle spinner
-            spnTipo.Adapter = adapter;
 
             buttonScan.Click += BTScanner_Click;
             buttonSalvar.Click += BTSalvar_Click;
@@ -99,6 +95,9 @@ namespace Avalia_Pesquisa.Droid.Activities
         private void SpnTipo_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             idTipoAvaliacao = idTipos[e.Position].ToString();
+
+            if(int.Parse(idTipoAvaliacao) > 0)
+                GetAlvos(int.Parse(idTipoAvaliacao), idEstudo);
         }
 
         protected internal void BTScanner_Click(object sender, EventArgs e)
@@ -259,6 +258,9 @@ namespace Avalia_Pesquisa.Droid.Activities
             rowRepeticao5 = FindViewById<TableRow>(Resource.Id.trRepeticao5);
             buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAvaliacao);
 
+            rowAlvo = FindViewById<TableRow>(Resource.Id.trAlvo);
+            rowTipoAval = FindViewById<TableRow>(Resource.Id.trTipoAvaliacao);
+
             etRepeticao1 = FindViewById<EditText>(Resource.Id.etRepeticao1);
             etRepeticao2 = FindViewById<EditText>(Resource.Id.etRepeticao2);
             etRepeticao3 = FindViewById<EditText>(Resource.Id.etRepeticao3);
@@ -269,8 +271,14 @@ namespace Avalia_Pesquisa.Droid.Activities
             var estudo = ces.GetEstudo(protocolo);
 
             if(estudo.Count > 0) {
+
                 idEstudo = estudo[0].IdEstudo;
                 totalRepeticoes = estudo[0].Repeticao;
+
+                GetAvaliacaoTipo(idEstudo);
+                rowTipoAval.Visibility = ViewStates.Visible;
+                rowAlvo.Visibility = ViewStates.Visible;
+
                 while (estudo[0].Repeticao >= numRepeticao)
                 {
                     if(numRepeticao == 1)
@@ -304,19 +312,54 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         }
 
-        private void GetAvaliacaoTipo()
+        private void GetAvaliacaoTipo(int idEstudo)
         {
             tipos = new ArrayList();
             idTipos = new ArrayList();
             TipoAvaliacaoService tas = new TipoAvaliacaoService();
 
-            var result = tas.GetAvaliacaoTipo();
+            tipos.Add("Selecione");
+            idTipos.Add(0);
+
+            var result = tas.GetAvaliacaoTipo(idEstudo);
 
             foreach (var res in result)
             {
                 tipos.Add(res.Descricao);
                 idTipos.Add(res.IdAvaliacao_Tipo);
             }
+
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, tipos);
+            spnTipo.Adapter = adapter;
+
+            alvos = new ArrayList();
+            idAlvos = new ArrayList();
+            alvos.Add("Selecione");
+            idAlvos.Add(0);
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, alvos);
+            spnAlvo.Adapter = adapter;
+
+        }
+
+        private void GetAlvos(int idTipoAvaliacao, int idEstudo)
+        {
+            alvos = new ArrayList();
+            idAlvos = new ArrayList();
+            AvaliacaoService aval = new AvaliacaoService();
+
+            alvos.Add("Selecione");
+            idAlvos.Add(0);
+
+            var result = aval.GetAlvos(idTipoAvaliacao,idEstudo);
+
+            foreach (var res in result)
+            {
+                alvos.Add(res.Nome_vulgar);
+                idAlvos.Add(res.IdAlvo);
+            }
+
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, alvos);
+            spnAlvo.Adapter = adapter;
 
         }
 
