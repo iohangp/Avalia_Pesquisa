@@ -29,6 +29,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Solo> soloArray;
         IEnumerable<Alvo> alvoArray;
         IEnumerable<Estudo_Tipo_Alvo> tipoAlvoArray;
+        IEnumerable<Estudo_Planejamento> planejArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -191,6 +192,7 @@ namespace Avalia_Pesquisa
                 {
                     using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                     {
+                        conexao.Query<Estudo_Tipo_Alvo>("DELETE FROM Estudo_Tipo_Alvo");
                         foreach (var tipoAlvo in tipoAlvoArray)
                         {
                             var tipoAlvoObj = new Estudo_Tipo_Alvo
@@ -199,9 +201,7 @@ namespace Avalia_Pesquisa
                                 IdAlvo = tipoAlvo.IdAlvo,
                                 idAvaliacao_tipo = tipoAlvo.idAvaliacao_tipo,
                                 IdEstudo = tipoAlvo.IdEstudo
-                            };
-
-                            conexao.Query<Estudo_Tipo_Alvo>("DELETE FROM Estudo_Tipo_Alvo");
+                            };          
 
                             conexao.Insert(tipoAlvoObj);        
 
@@ -213,7 +213,51 @@ namespace Avalia_Pesquisa
                     Console.WriteLine(ex.Message);
                     return false;
                 }
+
             }
+
+            uri = new Uri($"{App.BackendUrl}/estudo/planejamento");
+            response = await client.GetAsync(uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                var json = await response.Content.ReadAsStringAsync();
+                planejArray = JsonConvert.DeserializeObject<IEnumerable<Estudo_Planejamento>>(json);
+
+                int total = planejArray.Count();
+                if (total == 0)
+                    return false;
+
+                try
+                {
+                    using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                    {
+                        conexao.Query<Estudo_Tipo_Alvo>("DELETE FROM Estudo_Planejamento");
+                        foreach (var planejamento in planejArray)
+                        {
+                            var planejObj = new Estudo_Planejamento
+                            {
+                                idEstudo_planejamento = planejamento.idEstudo_planejamento,
+                                idEstudo = planejamento.idEstudo,
+                                data = planejamento.data,
+                                tipo = 1
+                            };
+
+                            conexao.Insert(planejObj);
+
+                        }
+                    }
+                }
+                catch (SQLiteException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+
+
+            }
+
             return true;
         }
 

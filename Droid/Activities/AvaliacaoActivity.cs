@@ -22,10 +22,12 @@ namespace Avalia_Pesquisa.Droid.Activities
         ArrayAdapter adapter;
         ArrayList tipos, idTipos, alvos, idAlvos;
         EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
-        int totalRepeticoes = 1, idEstudo;
-        string idTipoAvaliacao;
-        TableRow rowRepeticao1,rowRepeticao2,rowRepeticao3,rowRepeticao4,rowRepeticao5,rowAlvo,rowTipoAval;
+        int totalRepeticoes = 1, idEstudo, idPlanejamento;
+        string idTipoAvaliacao, idAlvoSelect;
+        TableRow rowRepeticao1,rowRepeticao2,rowRepeticao3,rowRepeticao4,rowRepeticao5,
+                 rowAlvo,rowTipoAval,rowPlanejamento;
         Button buttonSalvar;
+        TextView textData;
 
         protected override int LayoutResource => Resource.Layout.Avaliacao;
 
@@ -37,9 +39,26 @@ namespace Avalia_Pesquisa.Droid.Activities
             spnTipo = FindViewById<Spinner>(Resource.Id.spnTipoAvaliacao);
             spnAlvo = FindViewById<Spinner>(Resource.Id.spnAlvo);
             edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
-            buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAvaliacao); 
+            buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAvaliacao);
+            textData = FindViewById<TextView>(Resource.Id.tvDataPlan);
             Button buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
             Button buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
+
+            rowRepeticao1 = FindViewById<TableRow>(Resource.Id.trRepeticao1);
+            rowRepeticao2 = FindViewById<TableRow>(Resource.Id.trRepeticao2);
+            rowRepeticao3 = FindViewById<TableRow>(Resource.Id.trRepeticao3);
+            rowRepeticao4 = FindViewById<TableRow>(Resource.Id.trRepeticao4);
+            rowRepeticao5 = FindViewById<TableRow>(Resource.Id.trRepeticao5);
+
+            rowAlvo = FindViewById<TableRow>(Resource.Id.trAlvo);
+            rowTipoAval = FindViewById<TableRow>(Resource.Id.trTipoAvaliacao);
+            rowPlanejamento = FindViewById<TableRow>(Resource.Id.trDataPlanejada);
+
+            etRepeticao1 = FindViewById<EditText>(Resource.Id.etRepeticao1);
+            etRepeticao2 = FindViewById<EditText>(Resource.Id.etRepeticao2);
+            etRepeticao3 = FindViewById<EditText>(Resource.Id.etRepeticao3);
+            etRepeticao4 = FindViewById<EditText>(Resource.Id.etRepeticao4);
+            etRepeticao5 = FindViewById<EditText>(Resource.Id.etRepeticao5);
 
             buttonScan.Click += BTScanner_Click;
             buttonSalvar.Click += BTSalvar_Click;
@@ -50,6 +69,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             };
 
             spnTipo.ItemSelected += SpnTipo_ItemSelected;
+            spnAlvo.ItemSelected += SpnAlvo_ItemSelected;
 
 
         }
@@ -100,6 +120,11 @@ namespace Avalia_Pesquisa.Droid.Activities
                 GetAlvos(int.Parse(idTipoAvaliacao), idEstudo);
         }
 
+        private void SpnAlvo_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idAlvoSelect = idAlvos[e.Position].ToString();
+        }
+
         protected internal void BTScanner_Click(object sender, EventArgs e)
         {
             var intent = new Intent(this, typeof(QrCodeActivity));
@@ -108,6 +133,35 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         protected internal void BTSalvar_Click(object sender, EventArgs e)
         {
+            AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+
+            if (ValidarData(idEstudo))
+            {
+                alerta.SetTitle("Atenção!");
+                alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                //define a mensagem
+                alerta.SetMessage("Você está avaliando fora da data planejada. Deseja prosseguir?");
+                //define o botão positivo
+                alerta.SetPositiveButton("Sim", (senderAlert, args) =>
+                {
+                    SalvarAvaliacao();
+                });
+                alerta.SetNegativeButton("Não", (senderAlert, args) =>
+                {
+                    
+                });
+                //cria o alerta e exibe
+                Dialog dialog = alerta.Create();
+                dialog.Show();
+            }
+            else
+            {
+                SalvarAvaliacao();
+            }
+        }
+
+        private void SalvarAvaliacao()
+        {
             bool sucesso = true;
             int cont = 1;
             etRepeticao1 = FindViewById<EditText>(Resource.Id.etRepeticao1);
@@ -115,6 +169,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             etRepeticao3 = FindViewById<EditText>(Resource.Id.etRepeticao3);
             etRepeticao4 = FindViewById<EditText>(Resource.Id.etRepeticao4);
             etRepeticao5 = FindViewById<EditText>(Resource.Id.etRepeticao5);
+
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             AlertDialog alerta = builder.Create();
@@ -134,7 +189,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 cont++;
             }
 
-            if (sucesso) { 
+            if (sucesso)
+            {
                 AvaliacaoService avalService = new AvaliacaoService();
                 if (etRepeticao1.Text != "")
                 {
@@ -145,11 +201,13 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Valor = decimal.Parse(etRepeticao1.Text.Replace(".", ",")),
                         idUsuario = int.Parse(Settings.GeneralSettings),
                         Data = DateTime.Now,
-                        idAvaliacao_Tipo = int.Parse(idTipoAvaliacao)
+                        idAvaliacao_Tipo = int.Parse(idTipoAvaliacao),
+                        idAlvo = int.Parse(idAlvoSelect),
+                        idEstudo_Planejamento = idPlanejamento
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
-                   
+
                 }
                 if (etRepeticao2.Text != "")
                 {
@@ -160,7 +218,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Valor = decimal.Parse(etRepeticao2.Text.Replace(".", ",")),
                         idUsuario = int.Parse(Settings.GeneralSettings),
                         Data = DateTime.Now,
-                        idAvaliacao_Tipo = int.Parse(idTipoAvaliacao)
+                        idAvaliacao_Tipo = int.Parse(idTipoAvaliacao),
+                        idAlvo = int.Parse(idAlvoSelect),
+                        idEstudo_Planejamento = idPlanejamento
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
@@ -174,7 +234,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Valor = decimal.Parse(etRepeticao3.Text.Replace(".", ",")),
                         idUsuario = int.Parse(Settings.GeneralSettings),
                         Data = DateTime.Now,
-                        idAvaliacao_Tipo = int.Parse(idTipoAvaliacao)
+                        idAvaliacao_Tipo = int.Parse(idTipoAvaliacao),
+                        idAlvo = int.Parse(idAlvoSelect),
+                        idEstudo_Planejamento = idPlanejamento
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
@@ -188,7 +250,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Valor = decimal.Parse(etRepeticao4.Text.Replace(".", ",")),
                         idUsuario = int.Parse(Settings.GeneralSettings),
                         Data = DateTime.Now,
-                        idAvaliacao_Tipo = int.Parse(idTipoAvaliacao)
+                        idAvaliacao_Tipo = int.Parse(idTipoAvaliacao),
+                        idAlvo = int.Parse(idAlvoSelect),
+                        idEstudo_Planejamento = idPlanejamento
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
@@ -202,7 +266,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Valor = decimal.Parse(etRepeticao5.Text.Replace(".", ",")),
                         idUsuario = int.Parse(Settings.GeneralSettings),
                         Data = DateTime.Now,
-                        idAvaliacao_Tipo = int.Parse(idTipoAvaliacao)
+                        idAvaliacao_Tipo = int.Parse(idTipoAvaliacao),
+                        idAlvo = int.Parse(idAlvoSelect),
+                        idEstudo_Planejamento = idPlanejamento
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
@@ -210,6 +276,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 if (sucesso)
                 {
+                   
                     etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = "";
 
                     alerta.SetTitle("Sucesso!");
@@ -217,6 +284,20 @@ namespace Avalia_Pesquisa.Droid.Activities
                     alerta.SetMessage("Avaliação Salva com Sucesso!");
                     alerta.SetButton("OK", (s, ev) =>
                     {
+                        AvaliacaoService aval = new AvaliacaoService();
+                        var plan = aval.GetDataAvaliacao(idEstudo);
+
+                        if (plan.Count > 0)
+                        {
+                            idPlanejamento = plan[0].idEstudo_planejamento;
+                            textData.Text = plan[0].data.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            EscondeCampos();
+                            Toast.MakeText(this, "Todas as avaliações para este estudo foram concluídas!", ToastLength.Long).Show();
+                        }
+                        
                         alerta.Dismiss();
                     });
                     alerta.Show();
@@ -245,71 +326,105 @@ namespace Avalia_Pesquisa.Droid.Activities
                 alerta.Show();
             }
 
-
         }
 
         private void ValidarEstudo(string protocolo)
         {
             int numRepeticao = 1;
-            rowRepeticao1 = FindViewById<TableRow>(Resource.Id.trRepeticao1);
-            rowRepeticao2 = FindViewById<TableRow>(Resource.Id.trRepeticao2);
-            rowRepeticao3 = FindViewById<TableRow>(Resource.Id.trRepeticao3);
-            rowRepeticao4 = FindViewById<TableRow>(Resource.Id.trRepeticao4);
-            rowRepeticao5 = FindViewById<TableRow>(Resource.Id.trRepeticao5);
-            buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAvaliacao);
-
-            rowAlvo = FindViewById<TableRow>(Resource.Id.trAlvo);
-            rowTipoAval = FindViewById<TableRow>(Resource.Id.trTipoAvaliacao);
-
-            etRepeticao1 = FindViewById<EditText>(Resource.Id.etRepeticao1);
-            etRepeticao2 = FindViewById<EditText>(Resource.Id.etRepeticao2);
-            etRepeticao3 = FindViewById<EditText>(Resource.Id.etRepeticao3);
-            etRepeticao4 = FindViewById<EditText>(Resource.Id.etRepeticao4);
-            etRepeticao5 = FindViewById<EditText>(Resource.Id.etRepeticao5);
+            
+            
 
             ConsultaEstudoService ces = new ConsultaEstudoService();
             var estudo = ces.GetEstudo(protocolo);
 
-            if(estudo.Count > 0) {
+            if (estudo.Count > 0) {
 
                 idEstudo = estudo[0].IdEstudo;
                 totalRepeticoes = estudo[0].Repeticao;
 
-                GetAvaliacaoTipo(idEstudo);
-                rowTipoAval.Visibility = ViewStates.Visible;
-                rowAlvo.Visibility = ViewStates.Visible;
+                AvaliacaoService aval = new AvaliacaoService();
+                var plan = aval.GetDataAvaliacao(idEstudo);
 
-                while (estudo[0].Repeticao >= numRepeticao)
-                {
-                    if(numRepeticao == 1)
-                       rowRepeticao1.Visibility = ViewStates.Visible;
-                    else if (numRepeticao == 2)
-                       rowRepeticao2.Visibility = ViewStates.Visible;
-                    else if (numRepeticao == 3)
-                        rowRepeticao3.Visibility = ViewStates.Visible;
-                    else if (numRepeticao == 4)
-                        rowRepeticao4.Visibility = ViewStates.Visible;
-                    else if (numRepeticao == 5)
-                        rowRepeticao5.Visibility = ViewStates.Visible;
+                if (plan.Count > 0) {
 
-                    numRepeticao++;
+                    idPlanejamento = plan[0].idEstudo_planejamento;
+                    textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
+
+                    GetAvaliacaoTipo(idEstudo);
+                    rowTipoAval.Visibility = ViewStates.Visible;
+                    rowAlvo.Visibility = ViewStates.Visible;
+                    rowPlanejamento.Visibility = ViewStates.Visible;
+
+                    while (estudo[0].Repeticao >= numRepeticao)
+                    {
+                        if (numRepeticao == 1)
+                            rowRepeticao1.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 2)
+                            rowRepeticao2.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 3)
+                            rowRepeticao3.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 4)
+                            rowRepeticao4.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 5)
+                            rowRepeticao5.Visibility = ViewStates.Visible;
+
+                        numRepeticao++;
+                    }
+                    buttonSalvar.Visibility = ViewStates.Visible;
                 }
-                buttonSalvar.Visibility = ViewStates.Visible;
+                else
+                {
+
+                    EscondeCampos();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    AlertDialog alerta = builder.Create();
+
+                    alerta.SetTitle("Atenção!");
+                    alerta.SetIcon(Android.Resource.Drawable.IcDelete);
+                    alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
+                    alerta.SetButton("OK", (s, ev) =>
+                    {
+                        alerta.Dismiss();
+                    });
+                    alerta.Show();
+
+                }
             }
             else
             {
-                etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = "";
-                rowRepeticao1.Visibility = ViewStates.Invisible;
-                rowRepeticao2.Visibility = ViewStates.Invisible;
-                rowRepeticao3.Visibility = ViewStates.Invisible;
-                rowRepeticao4.Visibility = ViewStates.Invisible;
-                rowRepeticao5.Visibility = ViewStates.Invisible;
-
-                buttonSalvar.Visibility = ViewStates.Invisible;
+                EscondeCampos();
                 Toast.MakeText(this, "Nenhum estudo encontrado", ToastLength.Long).Show();
             }
 
 
+        }
+
+        private void EscondeCampos()
+        {
+            etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = "";
+            rowRepeticao1.Visibility = ViewStates.Invisible;
+            rowRepeticao2.Visibility = ViewStates.Invisible;
+            rowRepeticao3.Visibility = ViewStates.Invisible;
+            rowRepeticao4.Visibility = ViewStates.Invisible;
+            rowRepeticao5.Visibility = ViewStates.Invisible;
+
+            rowTipoAval.Visibility = ViewStates.Invisible;
+            rowAlvo.Visibility = ViewStates.Invisible;
+            rowPlanejamento.Visibility = ViewStates.Invisible;
+
+            buttonSalvar.Visibility = ViewStates.Invisible;
+        }
+
+        private bool ValidarData(int idEstudo)
+        {
+            AvaliacaoService aval = new AvaliacaoService();
+            var plan = aval.GetDataAvaliacao(idEstudo);
+
+            if (plan[0].data > DateTime.Now.AddDays(5))
+                return true;
+            else
+                return false;
+            
         }
 
         private void GetAvaliacaoTipo(int idEstudo)
@@ -354,7 +469,8 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             foreach (var res in result)
             {
-                alvos.Add(res.Nome_vulgar);
+                var nome = res.Nome_vulgar.Substring(0, res.Nome_vulgar.IndexOf(','));
+                alvos.Add(nome);
                 idAlvos.Add(res.IdAlvo);
             }
 

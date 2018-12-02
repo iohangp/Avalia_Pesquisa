@@ -70,8 +70,29 @@
         android:id="@+id/tableLayout1"
 		android:layout_marginTop="20dp"
         android:stretchColumns="1">
+		<TableRow
+            android:id="@+id/trDataPlanejada"
+			android:visibility="invisible">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Data Planejada:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/tvAvaliacao2" />
+            
+			<TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text=""
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/tvDataPlan" />
+        </TableRow>
         <TableRow
             android:id="@+id/trTipoAvaliacao"
+			android:layout_marginTop="5dp"
 			android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
@@ -87,7 +108,7 @@
         </TableRow>
 		<TableRow
             android:id="@+id/trAlvo"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
 			android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
