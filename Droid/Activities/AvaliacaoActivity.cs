@@ -117,7 +117,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             idTipoAvaliacao = idTipos[e.Position].ToString();
 
             if(int.Parse(idTipoAvaliacao) > 0)
-                GetAlvos(int.Parse(idTipoAvaliacao), idEstudo);
+                GetAlvos(int.Parse(idTipoAvaliacao), idEstudo, idPlanejamento);
         }
 
         private void SpnAlvo_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -291,6 +291,13 @@ namespace Avalia_Pesquisa.Droid.Activities
                         {
                             idPlanejamento = plan[0].idEstudo_planejamento;
                             textData.Text = plan[0].data.ToString("dd/MM/yyyy");
+
+                            GetAvaliacaoTipo(idEstudo, idPlanejamento);
+
+                            alvos = new ArrayList();
+                            idAlvos = new ArrayList();
+                            alvos.Add("Selecione");
+                            idAlvos.Add(0);
                         }
                         else
                         {
@@ -350,7 +357,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     idPlanejamento = plan[0].idEstudo_planejamento;
                     textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
 
-                    GetAvaliacaoTipo(idEstudo);
+                    GetAvaliacaoTipo(idEstudo, idPlanejamento);
                     rowTipoAval.Visibility = ViewStates.Visible;
                     rowAlvo.Visibility = ViewStates.Visible;
                     rowPlanejamento.Visibility = ViewStates.Visible;
@@ -427,7 +434,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             
         }
 
-        private void GetAvaliacaoTipo(int idEstudo)
+        private void GetAvaliacaoTipo(int idEstudo, int idPlanejamento)
         {
             tipos = new ArrayList();
             idTipos = new ArrayList();
@@ -436,7 +443,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             tipos.Add("Selecione");
             idTipos.Add(0);
 
-            var result = tas.GetAvaliacaoTipo(idEstudo);
+            var result = tas.GetAvaliacaoTipo(idEstudo, idPlanejamento);
 
             foreach (var res in result)
             {
@@ -456,7 +463,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         }
 
-        private void GetAlvos(int idTipoAvaliacao, int idEstudo)
+        private void GetAlvos(int idTipoAvaliacao, int idEstudo, int idPlanejamento)
         {
             alvos = new ArrayList();
             idAlvos = new ArrayList();
@@ -465,7 +472,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             alvos.Add("Selecione");
             idAlvos.Add(0);
 
-            var result = aval.GetAlvos(idTipoAvaliacao,idEstudo);
+            var result = aval.GetAlvos(idTipoAvaliacao,idEstudo,idPlanejamento);
 
             foreach (var res in result)
             {
