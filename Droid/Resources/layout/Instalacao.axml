@@ -96,7 +96,7 @@
                 xmlns:p4="http://xamarin.com/mono/android/designer"
                 android:id="@+id/tvComprimento" />
             <EditText
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:layout_column="1"
                 android:id="@+id/etComprimento" />
 
@@ -113,7 +113,7 @@
                 xmlns:p4="http://xamarin.com/mono/android/designer"
                 android:id="@+id/tvLargura" />
             <EditText
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:layout_column="1"
                 android:id="@+id/etLargura" />
 
@@ -130,7 +130,7 @@
                 xmlns:p4="http://xamarin.com/mono/android/designer"
                 android:id="@+id/tvCoordenadas1" />
             <EditText
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:layout_column="1"
                 android:id="@+id/etCoordenadas1" />
 
@@ -147,7 +147,7 @@
                 xmlns:p4="http://xamarin.com/mono/android/designer"
                 android:id="@+id/tvCoordenadas2" />
             <EditText
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:layout_column="1"
                 android:id="@+id/etCoordenadas2" />
 
@@ -164,7 +164,7 @@
                 xmlns:p4="http://xamarin.com/mono/android/designer"
                 android:id="@+id/tvAltitude" />
             <EditText
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:layout_column="1"
                 android:id="@+id/etAltitude" />
 
@@ -181,7 +181,7 @@
                 xmlns:p4="http://xamarin.com/mono/android/designer"
                 android:id="@+id/tvData" />
             <EditText
-                android:inputType="number"
+                android:inputType="date"
                 android:layout_column="1"
                 android:id="@+id/etData" />
 
@@ -198,7 +198,7 @@
                 xmlns:p4="http://xamarin.com/mono/android/designer"
                 android:id="@+id/tvObservacoes" />
             <EditText
-                android:inputType="number"
+                android:inputType="text"
                 android:layout_column="1"
                 android:id="@+id/etObservacoes" />
 

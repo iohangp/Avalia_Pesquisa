@@ -11,6 +11,10 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Avalia_Pesquisa.Droid.Helpers;
+using Plugin.ExternalMaps;
+using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -22,11 +26,15 @@ namespace Avalia_Pesquisa.Droid.Activities
         ArrayAdapter adapter;
         ArrayList Plantio, idPlantios;
         EditText edNumEstudo, etComprimento, etLargura, etCoordenadas1, etCoordenadas2, etAltitude, etObservacoes, etData;
-       // int totalRepeticoes = 1, idEstudo;
+        // int totalRepeticoes = 1, idEstudo;
         string idPlantio, idCultura;
-       // TableRow rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5;
+        // TableRow rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5;
         Button buttonSalvar;
-       //private EventHandler<AdapterView.ItemSelectedEventArgs> spnPlantio_ItemSelected;
+        int idEstudo_;
+        double latitude = 0;
+        double longitude = 0;
+        double altitude = 0;
+        //private EventHandler<AdapterView.ItemSelectedEventArgs> spnPlantio_ItemSelected;
 
         protected override int LayoutResource => Resource.Layout.Instalacao;
 
@@ -63,6 +71,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             };
 
             spnPlantio.ItemSelected += spnPlantio_ItemSelected;
+
+            Coordenadas();
 
         }
 
@@ -106,7 +116,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         }
 
 
- 
+
 
         public override void OnBackPressed()
         {
@@ -120,7 +130,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         }
 
 
-        protected internal void BTSalvar_Click(object sender, EventArgs e)
+        public void BTSalvar_Click(object sender, EventArgs e)
         {
 
             etComprimento = FindViewById<EditText>(Resource.Id.etComprimento);
@@ -137,23 +147,48 @@ namespace Avalia_Pesquisa.Droid.Activities
             var aval = new Instalacao
             {
 
-                idEstudo = 1,
+                idEstudo = idEstudo_,
                 idPlantio = 1,
-                Tamanho_Parcela_Comprimento = 10,
-                Tamanho_Parcela_Largura = 11,
-                Coordenadas1 = "12",
-                Coordenadas2 = "13",
-                Altitude = "40",
+                Tamanho_Parcela_Comprimento = decimal.Parse(etComprimento.Text.Replace(".", ",")),
+                Tamanho_Parcela_Largura = decimal.Parse(etLargura.Text.Replace(".", ",")),
+                Coordenadas1 = etCoordenadas1.Text,
+                Coordenadas2 = etCoordenadas2.Text,
+                Altitude = etAltitude.Text,
                 Data_Instalacao = DateTime.Now,
-                idUsuario = 1,
-                Observacoes = "deu certo"
+                idUsuario = int.Parse(Settings.GeneralSettings),
+                Observacoes = etObservacoes.Text
 
-             };
-        
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog alerta = builder.Create();
+
+            try
+            {
+                avalService.SalvarInstalacao(aval);
+                alerta.SetMessage("Instalação Salva com Sucesso!");
+            }
+
+            catch
+
+            {
+                alerta.SetMessage("Erro ao salvar ");
+                alerta.SetTitle("ERRO!");
+                alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                alerta.SetMessage("Erro ao salvar a Avaliação!");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
+            }
+
+        }
 
 
-            avalService.SalvarInstalacao(aval);
-                
+        private void LimpaCampos()
+        {
+            etComprimento.Text = etData.Text = etLargura.Text = etAltitude.Text = etObservacoes.Text = etCoordenadas1.Text = etCoordenadas2.Text = "";
 
         }
 
@@ -164,9 +199,15 @@ namespace Avalia_Pesquisa.Droid.Activities
             var estudo = ces.GetEstudo(protocolo);
             buttonSalvar.Visibility = ViewStates.Visible;
 
+            if (estudo.Count > 0)
+            {
+                idEstudo_ = estudo[0].IdEstudo;
+            }
+
+
+
+
         }
-
-
 
 
         private void GetPlantio()
@@ -178,17 +219,43 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             var result = tas.GetPlantio();
 
-          //  if (result.Count > 0)
-//{
+            if (result.Count > 0)
+            {
                 foreach (var res in result)
                 {
                     Plantio.Add(res.Descricao);
                     idPlantios.Add(res.idPlantio);
                 }
-          //  }
+            }
 
         }
 
+        public async void Coordenadas()
+        {
 
+            var locator = CrossGeolocator.Current;
+
+            Position position = null;
+            try
+            {
+                    locator.DesiredAccuracy = 100;
+                    //etObservacoes.Text += "Status: " + position.Timestamp + "\n";
+                    position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), null, true);
+                    longitude = position.Longitude;
+                    latitude = position.Latitude;
+                    altitude = position.Altitude;
+                    etCoordenadas1.Text = latitude.ToString();
+                    etCoordenadas2.Text = longitude.ToString();
+                    etAltitude.Text = altitude.ToString();
+
+            }
+        
+            catch (Exception ex)
+            {
+                // Unable to get location
+
+            }
+        }
     }
+
 }
