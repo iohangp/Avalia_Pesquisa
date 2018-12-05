@@ -53,6 +53,14 @@ namespace Avalia_Pesquisa.Droid.Activities
             Button buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
             Button buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
 
+            etComprimento = FindViewById<EditText>(Resource.Id.etComprimento);
+            etLargura = FindViewById<EditText>(Resource.Id.etLargura);
+            etCoordenadas1 = FindViewById<EditText>(Resource.Id.etCoordenadas1);
+            etCoordenadas2 = FindViewById<EditText>(Resource.Id.etCoordenadas2);
+            etAltitude = FindViewById<EditText>(Resource.Id.etAltitude);
+            etObservacoes = FindViewById<EditText>(Resource.Id.etObservacoes);
+            etData = FindViewById<EditText>(Resource.Id.etData);
+
             spnPlantio.ItemSelected += spnPlantio_ItemSelected;
 
             GetPlantio();
@@ -132,16 +140,6 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         public void BTSalvar_Click(object sender, EventArgs e)
         {
-
-            etComprimento = FindViewById<EditText>(Resource.Id.etComprimento);
-            etLargura = FindViewById<EditText>(Resource.Id.etLargura);
-            etCoordenadas1 = FindViewById<EditText>(Resource.Id.etCoordenadas1);
-            etCoordenadas2 = FindViewById<EditText>(Resource.Id.etCoordenadas2);
-            etAltitude = FindViewById<EditText>(Resource.Id.etAltitude);
-            etObservacoes = FindViewById<EditText>(Resource.Id.etObservacoes);
-            etData = FindViewById<EditText>(Resource.Id.etData);
-
-
             InstalacaoService avalService = new InstalacaoService();
 
             var aval = new Instalacao
@@ -253,7 +251,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             catch (Exception ex)
             {
                 // Unable to get location
-
+                Console.WriteLine(ex.Message);
             }
         }
     }
