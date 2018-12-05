@@ -100,6 +100,44 @@ namespace Avalia_Pesquisa
 
         }
 
+        public List<Solo> GetSolos()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Solo>("SELECT * FROM Solo").ToList();
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
+        public List<Cobertura_Solo> GetCoberturas()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Cobertura_Solo>("SELECT * FROM Cobertura_Solo").ToList();
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
 
         public List<ViewPlantio> GetPlantio()
         {
@@ -123,7 +161,45 @@ namespace Avalia_Pesquisa
 
         }
 
+        public List<Municipio_Localidade> GetLocalidades()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    //  var result = conexao.Query<ViewPlantio>("SELECT p.idPlantio, CONCAT(l.Descricao,' - ',s.Descricao, ' - ', g.Descricao) as Descricao from plantio p join municipio_localidade l on l.idLocalidade = p.idLocalidade join gleba g on g.idGleba = p.idGleba join safra s on s.idSafra = p.idSafra where p.idCultura = ?").ToList();
 
+                    var result = conexao.Query<Municipio_Localidade>("SELECT l.idLocalidade, m.Descricao || ' - ' || l.Descricao as descricao "+
+                                                                    "FROM Municipio m "+
+                                                                    "JOIN Municipio_Localidade l on l.idMunicipio = m.idMunicipio").ToList();
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
+        public bool SalvarPlantio(Plantio plan)
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    conexao.Insert(plan);
+
+                    return true;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return false;
+            }
+        }
 
     }
 }

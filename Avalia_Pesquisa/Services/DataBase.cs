@@ -52,7 +52,7 @@ namespace Avalia_Pesquisa
                     conexao.CreateTable<Umidade_Solo>();
                     conexao.CreateTable<Estudo_Tipo_Alvo>();
                     conexao.CreateTable<Estudo_Planejamento>();
-
+                    conexao.CreateTable<Cobertura_Solo>();
 
 
                     return true;

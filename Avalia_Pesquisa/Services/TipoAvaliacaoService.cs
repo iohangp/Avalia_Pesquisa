@@ -23,7 +23,7 @@ namespace Avalia_Pesquisa
                                                                 "AND not exists (SELECT 1 FROM avaliacao a2 "+
                                                                                  "WHERE a2.idEstudo_Planejamento = ep.idEstudo_Planejamento "+
                                                                                  "AND a2.idAvaliacao_Tipo = ata.idAvaliacao_Tipo "+
-                                                                                 "AND a2.idAlvo = ata.idAlvo) " +
+                                                                                 "AND a2.idAlvo = ata.idAlvo) "+
                                                                 "GROUP BY ata.idAvaliacao_tipo; ", idEstudo, idPlanejamento).ToList();
 
                     return result;

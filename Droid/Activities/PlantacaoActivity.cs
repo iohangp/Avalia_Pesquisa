@@ -9,6 +9,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 
@@ -18,10 +19,17 @@ namespace Avalia_Pesquisa.Droid.Activities
     public class PlantacaoActivity : BaseActivity
     {
         ArrayList culturas, idCulturas, variedade, idVariedade, glebas, idGleba, safras, idSafras,
-                  umidades, idUmidades, culturaAnt, idCulturaAnt;
+                  umidades, idUmidades, culturaAnt, idCulturaAnt, solos, idSolos, coberturas, idCoberturas,
+                  status, idStatus, localidades, idLocalidades;
         ArrayAdapter adapter, adapterVar;
-        Spinner spinnerCult, spinnerVar, spinnerGleba, spinnerSafra, spinnerUmidade, spinnerCultAnt;
-        string idCulturaSelect, idVarSelect;
+        Spinner spinnerCult, spinnerVar, spinnerGleba, spinnerSafra, spinnerUmidade,
+                spinnerCultAnt, spinnerSolo, spinnerCobertura, spinnerStatus, spinnerLocalidade;
+        string idCulturaSelect, idVarSelect, idLocSelect, idSafraSelect, idGlebaSelect, idUmiSelect,
+               idCultAntSelect, idSoloSelect, idCobSelect, idStatusSelect;
+        TextView textDate, textDateGerm;
+        ImageButton buttonCalendar, buttonDataGerm;
+        EditText textAdubaBase, textAdubaCob, textEspacamento, textPopulacao, textObs, textMetragem;
+        Button buttonSalvar;
 
         protected override int LayoutResource => Resource.Layout.Plantio;
 
@@ -36,6 +44,26 @@ namespace Avalia_Pesquisa.Droid.Activities
             spinnerSafra = FindViewById<Spinner>(Resource.Id.SPNSafra);
             spinnerUmidade = FindViewById<Spinner>(Resource.Id.SPNUmidade);
             spinnerCultAnt = FindViewById<Spinner>(Resource.Id.SPNCultAnt);
+            spinnerSolo = FindViewById<Spinner>(Resource.Id.SPNSolo);
+            spinnerCobertura = FindViewById<Spinner>(Resource.Id.SPNCobertura);
+            spinnerStatus = FindViewById<Spinner>(Resource.Id.SPNStatus);
+            spinnerLocalidade = FindViewById<Spinner>(Resource.Id.SPNLocalidade);
+
+            textDate = FindViewById<TextView>(Resource.Id.TVDataPlantio);
+            buttonCalendar = FindViewById<ImageButton>(Resource.Id.IBCalendar);
+            textDateGerm = FindViewById<TextView>(Resource.Id.TVDataGerm);
+            buttonDataGerm = FindViewById<ImageButton>(Resource.Id.IBGerminacao);
+            buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarPlant);
+
+            textAdubaBase = FindViewById<EditText>(Resource.Id.EDAdubaBase);
+            textAdubaCob = FindViewById<EditText>(Resource.Id.EDAdubaCob);
+            textEspacamento = FindViewById<EditText>(Resource.Id.EDEspacamento);
+            textPopulacao = FindViewById<EditText>(Resource.Id.EDPopulacao);
+            textObs = FindViewById<EditText>(Resource.Id.EDObservacao);
+            textMetragem = FindViewById<EditText>(Resource.Id.EDMetragem);
+
+            buttonCalendar.Click += DateSelect_OnClick;
+            buttonDataGerm.Click += GermSelect_OnClick;
 
             variedade = new ArrayList();
             idVariedade = new ArrayList();
@@ -46,6 +74,16 @@ namespace Avalia_Pesquisa.Droid.Activities
             GetGlebas();
             GetSafras();
             GetUmidade();
+            GetSolos();
+            GetCoberturas();
+            GetLocalidades();
+
+            status = new ArrayList();
+            idStatus = new ArrayList();
+            status.Add("Ativo");
+            idStatus.Add(1);
+            status.Add("Inativo");
+            idStatus.Add(0);
 
             adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, culturas);
             spinnerCult.Adapter = adapter;
@@ -57,9 +95,27 @@ namespace Avalia_Pesquisa.Droid.Activities
             spinnerUmidade.Adapter = adapter;
             adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, culturaAnt);
             spinnerCultAnt.Adapter = adapter;
-
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, solos);
+            spinnerSolo.Adapter = adapter;
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, coberturas);
+            spinnerCobertura.Adapter = adapter;
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, status);
+            spinnerStatus.Adapter = adapter;
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, localidades);
+            spinnerLocalidade.Adapter = adapter;
 
             spinnerCult.ItemSelected += SpinnerCult_ItemSelected;
+            spinnerLocalidade.ItemSelected += SpinnerLoc_ItemSelected;
+            spinnerSafra.ItemSelected += SpinnerSafra_ItemSelected;
+            spinnerVar.ItemSelected += SpinnerVar_ItemSelected;
+            spinnerGleba.ItemSelected += SpinnerGleba_ItemSelected;
+            spinnerUmidade.ItemSelected += SpinnerGleba_ItemSelected;
+            spinnerCultAnt.ItemSelected += SpinnerCultAnt_ItemSelected;
+            spinnerSolo.ItemSelected += SpinnerTipoSolo_ItemSelected;
+            spinnerCobertura.ItemSelected += SpinnerCoberturaSolo_ItemSelected;
+            spinnerStatus.ItemSelected += SpinnerStatus_ItemSelected;
+
+            buttonSalvar.Click += BTSalvar_Click;
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -80,6 +136,23 @@ namespace Avalia_Pesquisa.Droid.Activities
             Finish();
         }
 
+        void DateSelect_OnClick(object sender, EventArgs eventArgs)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time) {
+                textDate.Text = time.ToShortDateString();
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        void GermSelect_OnClick(object sender, EventArgs eventArgs)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time) {
+                textDateGerm.Text = time.ToShortDateString();
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+
         private void SpinnerCult_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             idCulturaSelect = idCulturas[e.Position].ToString();
@@ -88,6 +161,82 @@ namespace Avalia_Pesquisa.Droid.Activities
             adapterVar = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, variedade);
 
             spinnerVar.Adapter = adapterVar;
+        }
+
+        private void SpinnerVar_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idVarSelect = idVariedade[e.Position].ToString();
+        }
+
+        private void SpinnerLoc_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idLocSelect = idLocalidades[e.Position].ToString();
+        }
+
+        private void SpinnerSafra_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idSafraSelect = idSafras[e.Position].ToString();
+        }
+
+        private void SpinnerGleba_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idGlebaSelect = idGleba[e.Position].ToString();
+        }
+
+        private void SpinnerUmidade_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idUmiSelect = idUmidades[e.Position].ToString();
+        }
+
+        private void SpinnerCultAnt_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idCultAntSelect = idCulturaAnt[e.Position].ToString();
+        }
+
+        private void SpinnerTipoSolo_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idSoloSelect = idSolos[e.Position].ToString();
+        }
+
+        private void SpinnerCoberturaSolo_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idCobSelect = idCoberturas[e.Position].ToString();
+        }
+
+        private void SpinnerStatus_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idStatusSelect = idStatus[e.Position].ToString();
+        }
+
+        protected internal void BTSalvar_Click(object sender, EventArgs e)
+        {
+
+            var plan = new Plantio
+            {
+                idCultura = int.Parse(idCulturaSelect),
+                idVariedade = int.Parse(idVarSelect),
+                Data_Plantio = Convert.ToDateTime(textDate),
+                idLocalidade = int.Parse(idLocSelect),
+                idSafra = int.Parse(idSafraSelect),
+                Data_Germinacao = Convert.ToDateTime(textDateGerm),
+                idGleba = int.Parse(idGlebaSelect),
+                idUmidade_Solo = int.Parse(idUmiSelect),
+                Adubacao_Base = decimal.Parse(textAdubaBase.Text),
+                Adubacao_Cobertura = decimal.Parse(textAdubaCob.Text),
+                Espacamento = int.Parse(textEspacamento.Text),
+                Populacao = int.Parse(textPopulacao.Text),
+                Observacoes = textObs.Text,
+                idCulturaAnterior = int.Parse(idCultAntSelect),
+                idSolo = int.Parse(idSoloSelect),
+                idCultura_Cobertura_Solo = int.Parse(idCobSelect),
+                Metragem = decimal.Parse(textMetragem.Text),
+                Status  = int.Parse(idStatusSelect)
+            };
+
+            PlantacaoService ps = new PlantacaoService();
+
+            ps.SalvarPlantio(plan);
+
         }
 
         private void GetCulturas()
@@ -184,6 +333,89 @@ namespace Avalia_Pesquisa.Droid.Activities
                 idUmidades.Add(res.idUmidade_Solo);
             }
 
+        }
+
+        private void GetSolos()
+        {
+            solos = new ArrayList();
+            idSolos = new ArrayList();
+            PlantacaoService tas = new PlantacaoService();
+
+            var result = tas.GetSolos();
+
+            solos.Add("Selecione");
+            idSolos.Add(0);
+            foreach (var res in result)
+            {
+                solos.Add(res.Descricao);
+                idSolos.Add(res.idSolo);
+            }
+
+        }
+
+        private void GetCoberturas()
+        {
+            coberturas = new ArrayList();
+            idCoberturas = new ArrayList();
+            PlantacaoService tas = new PlantacaoService();
+
+            var result = tas.GetCoberturas();
+
+            coberturas.Add("Selecione");
+            idCoberturas.Add(0);
+            foreach (var res in result)
+            {
+                coberturas.Add(res.Descricao);
+                idCoberturas.Add(res.idCobertura_Solo);
+            }
+
+        }
+
+        private void GetLocalidades()
+        {
+            localidades = new ArrayList();
+            idLocalidades = new ArrayList();
+            PlantacaoService tas = new PlantacaoService();
+
+            var result = tas.GetLocalidades();
+
+            localidades.Add("Selecione");
+            idLocalidades.Add(0);
+            foreach (var res in result)
+            {
+                localidades.Add(res.Descricao);
+                idLocalidades.Add(res.IdLocalidade);
+            }
+
+        }
+
+    }
+
+    public class DatePickerFragment : DialogFragment,
+    DatePickerDialog.IOnDateSetListener
+    {
+        // TAG can be any string of your choice.  
+        public static readonly string TAG = "X:" + typeof(DatePickerFragment).Name.ToUpper();
+        // Initialize this value to prevent NullReferenceExceptions.  
+        Action<DateTime> _dateSelectedHandler = delegate { };
+        public static DatePickerFragment NewInstance(Action<DateTime> onDateSelected)
+        {
+            DatePickerFragment frag = new DatePickerFragment();
+            frag._dateSelectedHandler = onDateSelected;
+            return frag;
+        }
+        public override Dialog OnCreateDialog(Bundle savedInstanceState)
+        {
+            DateTime currently = DateTime.Now;
+            DatePickerDialog dialog = new DatePickerDialog(Activity, this, currently.Year, currently.Month, currently.Day);
+            return dialog;
+        }
+        public void OnDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+        {
+            // Note: monthOfYear is a value between 0 and 11, not 1 and 12!  
+            DateTime selectedDate = new DateTime(year, monthOfYear + 1, dayOfMonth);
+            Log.Debug(TAG, selectedDate.ToLongDateString());
+            _dateSelectedHandler(selectedDate);
         }
     }
 }

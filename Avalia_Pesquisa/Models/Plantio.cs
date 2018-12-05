@@ -1,9 +1,11 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace Avalia_Pesquisa
 {
     public class Plantio
     {
+        [PrimaryKey][AutoIncrement]
         public int idPlantio { get; set; }
         public int idLocalidade { get; set; }
         public DateTime Data_Plantio { get; set; }

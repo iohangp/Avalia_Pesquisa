@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Estudo_Planejamento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Estudo_Tipo_Alvo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Config.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Cobertura_Solo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ViewEstudo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Usuario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Municipio.cs" />

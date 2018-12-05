@@ -30,6 +30,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Alvo> alvoArray;
         IEnumerable<Estudo_Tipo_Alvo> tipoAlvoArray;
         IEnumerable<Estudo_Planejamento> planejArray;
+        IEnumerable<Cobertura_Solo> coberturaArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -402,6 +403,53 @@ namespace Avalia_Pesquisa
                                 conexao.Insert(avaltipo);
                             else
                                 conexao.Update(avaltipo);
+                        }
+                    }
+                }
+                catch (SQLiteException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public async Task<bool> BaixarCobertura(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/solo/cobertura");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                coberturaArray = JsonConvert.DeserializeObject<IEnumerable<Cobertura_Solo>>(json);
+
+                int total = coberturaArray.Count();
+                if (total == 0)
+                    return false;
+
+                try
+                {
+                    using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                    {
+                        foreach (var cobertura in coberturaArray)
+                        {
+                            var cobertObj = new Cobertura_Solo
+                            {
+                                idCobertura_Solo = cobertura.idCobertura_Solo,
+                                Descricao = cobertura.Descricao
+                            };
+
+                            var dadoTipo = conexao.Query<Cultura>("SELECT * FROM Cobertura_Solo Where idCobertura_Solo=?", cobertura.idCobertura_Solo);
+
+                            if (dadoTipo.Count == 0)
+                                conexao.Insert(cobertObj);
+                            else
+                                conexao.Update(cobertObj);
                         }
                     }
                 }
