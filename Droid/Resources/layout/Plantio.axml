@@ -41,7 +41,7 @@
 					android:minHeight="30px"
 					android:layout_width="140dp"
 					android:layout_height="wrap_content"
-					android:text="Cultura:"
+					android:text="Cultura: *"
 					android:textColor="@color/primary"
 					android:id="@+id/textView1"
 					android:layout_marginRight="0.0dp" />
@@ -64,7 +64,7 @@
 					android:minHeight="30px"
 					android:layout_width="140dp"
 					android:layout_height="wrap_content"
-					android:text="Variedade:"
+					android:text="Variedade: *"
 					android:textColor="@color/primary"
 					android:id="@+id/textView1"
 					android:layout_marginRight="0.0dp" />
@@ -119,7 +119,7 @@
 					android:minHeight="30px"
 					android:layout_width="140dp"
 					android:layout_height="wrap_content"
-					android:text="Localidade:"
+					android:text="Localidade: *"
 					android:textColor="@color/primary"
 					android:id="@+id/textView1"
 					android:layout_marginRight="0.0dp" />
@@ -141,7 +141,7 @@
 					android:minHeight="30px"
 					android:layout_width="140dp"
 					android:layout_height="wrap_content"
-					android:text="Safra:"
+					android:text="Safra: *"
 					android:textColor="@color/primary"
 					android:id="@+id/textView1"
 					android:layout_marginRight="0.0dp" />
@@ -195,7 +195,7 @@
 					android:minHeight="30px"
 					android:layout_width="140dp"
 					android:layout_height="wrap_content"
-					android:text="Gleba:"
+					android:text="Gleba: *"
 					android:textColor="@color/primary"
 					android:id="@+id/textView1"
 					android:layout_marginRight="0.0dp" />
@@ -217,7 +217,7 @@
 					android:minHeight="30px"
 					android:layout_width="140dp"
 					android:layout_height="wrap_content"
-					android:text="Umidade Solo:"
+					android:text="Umidade Solo:*"
 					android:textColor="@color/primary"
 					android:id="@+id/textView1"
 					android:layout_marginRight="0.0dp" />
@@ -349,7 +349,7 @@
 					android:minHeight="30px"
 					android:layout_width="140dp"
 					android:layout_height="wrap_content"
-					android:text="Cultura Anterior:"
+					android:text="Cultura Anterior:*"
 					android:textColor="@color/primary"
 					android:id="@+id/textView1"
 					android:layout_marginRight="0.0dp" />
@@ -371,7 +371,7 @@
 					android:minHeight="30px"
 					android:layout_width="140dp"
 					android:layout_height="wrap_content"
-					android:text="Tipo de Solo:"
+					android:text="Tipo de Solo:*"
 					android:textColor="@color/primary"
 					android:id="@+id/textView1"
 					android:layout_marginRight="0.0dp" />
@@ -393,7 +393,7 @@
 					android:minHeight="30px"
 					android:layout_width="140dp"
 					android:layout_height="wrap_content"
-					android:text="Cobertura Solo:"
+					android:text="Cobertura Solo:*"
 					android:textColor="@color/primary"
 					android:id="@+id/textView1"
 					android:layout_marginRight="0.0dp" />
@@ -437,7 +437,7 @@
 					android:minHeight="30px"
 					android:layout_width="140dp"
 					android:layout_height="wrap_content"
-					android:text="Status:"
+					android:text="Status:*"
 					android:textColor="@color/primary"
 					android:id="@+id/textView1"
 					android:layout_marginRight="0.0dp" />

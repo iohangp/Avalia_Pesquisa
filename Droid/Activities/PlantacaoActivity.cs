@@ -109,7 +109,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             spinnerSafra.ItemSelected += SpinnerSafra_ItemSelected;
             spinnerVar.ItemSelected += SpinnerVar_ItemSelected;
             spinnerGleba.ItemSelected += SpinnerGleba_ItemSelected;
-            spinnerUmidade.ItemSelected += SpinnerGleba_ItemSelected;
+            spinnerUmidade.ItemSelected += SpinnerUmidade_ItemSelected;
             spinnerCultAnt.ItemSelected += SpinnerCultAnt_ItemSelected;
             spinnerSolo.ItemSelected += SpinnerTipoSolo_ItemSelected;
             spinnerCobertura.ItemSelected += SpinnerCoberturaSolo_ItemSelected;
@@ -211,32 +211,106 @@ namespace Avalia_Pesquisa.Droid.Activities
         protected internal void BTSalvar_Click(object sender, EventArgs e)
         {
 
-            var plan = new Plantio
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog alerta = builder.Create();
+
+            if (int.Parse(idCulturaSelect) > 0 && int.Parse(idVarSelect) > 0 && int.Parse(idLocSelect) > 0 &&
+                int.Parse(idSafraSelect) > 0 && int.Parse(idGlebaSelect) > 0 && int.Parse(idUmiSelect) > 0 &&
+                int.Parse(idCultAntSelect) > 0 && int.Parse(idSoloSelect) > 0 && int.Parse(idCobSelect) > 0)
             {
-                idCultura = int.Parse(idCulturaSelect),
-                idVariedade = int.Parse(idVarSelect),
-                Data_Plantio = Convert.ToDateTime(textDate),
-                idLocalidade = int.Parse(idLocSelect),
-                idSafra = int.Parse(idSafraSelect),
-                Data_Germinacao = Convert.ToDateTime(textDateGerm),
-                idGleba = int.Parse(idGlebaSelect),
-                idUmidade_Solo = int.Parse(idUmiSelect),
-                Adubacao_Base = decimal.Parse(textAdubaBase.Text),
-                Adubacao_Cobertura = decimal.Parse(textAdubaCob.Text),
-                Espacamento = int.Parse(textEspacamento.Text),
-                Populacao = int.Parse(textPopulacao.Text),
-                Observacoes = textObs.Text,
-                idCulturaAnterior = int.Parse(idCultAntSelect),
-                idSolo = int.Parse(idSoloSelect),
-                idCultura_Cobertura_Solo = int.Parse(idCobSelect),
-                Metragem = decimal.Parse(textMetragem.Text),
-                Status  = int.Parse(idStatusSelect)
-            };
 
-            PlantacaoService ps = new PlantacaoService();
+                try
+                {
+                    var plan = new Plantio
+                    {
+                        idCultura = int.Parse(idCulturaSelect),
+                        idVariedade = int.Parse(idVarSelect),
+                        Data_Plantio = Convert.ToDateTime(textDate.Text),
+                        idLocalidade = int.Parse(idLocSelect),
+                        idSafra = int.Parse(idSafraSelect),
+                        Data_Germinacao = Convert.ToDateTime(textDateGerm.Text),
+                        idGleba = int.Parse(idGlebaSelect),
+                        idUmidade_Solo = int.Parse(idUmiSelect),
+                        Adubacao_Base = decimal.Parse(textAdubaBase.Text),
+                        Adubacao_Cobertura = decimal.Parse(textAdubaCob.Text),
+                        Espacamento = int.Parse(textEspacamento.Text),
+                        Populacao = int.Parse(textPopulacao.Text),
+                        Observacoes = textObs.Text,
+                        idCulturaAnterior = int.Parse(idCultAntSelect),
+                        idSolo = int.Parse(idSoloSelect),
+                        idCultura_Cobertura_Solo = int.Parse(idCobSelect),
+                        Metragem = decimal.Parse(textMetragem.Text),
+                        Status = int.Parse(idStatusSelect)
+                    };
 
-            ps.SalvarPlantio(plan);
+                    PlantacaoService ps = new PlantacaoService();
 
+                    if (ps.SalvarPlantio(plan))
+                    {
+                        LimparCampos();
+
+                        alerta.SetTitle("Sucesso!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                        alerta.SetMessage("Plantação salva com sucesso!");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
+                    }
+                    else
+                    {
+                        alerta.SetTitle("ERRO!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcDelete);
+                        alerta.SetMessage("Erro ao salvar a plantação. Contate o suporte");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    // Unable to get location
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            else
+            {
+
+                alerta.SetTitle("Atenção!");
+                alerta.SetIcon(Android.Resource.Drawable.IcDelete);
+                alerta.SetMessage("Os campos com * são obrigatórios. Preencha-os e tente novamente.");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
+            }
+
+            
+
+        }
+
+        private void LimparCampos()
+        {
+            textAdubaBase.Text = textAdubaCob.Text = textEspacamento.Text = textPopulacao.Text = textObs.Text = "";
+            textDate.Text = textDateGerm.Text = textMetragem.Text = "";
+            idCulturaSelect = idVarSelect = idSafraSelect = idLocSelect = idGlebaSelect = idUmiSelect = "0";
+            idCultAntSelect = idSoloSelect = idCobSelect = idStatusSelect = "0";
+
+            spinnerCult.SetSelection(0);
+            spinnerLocalidade.SetSelection(0);
+            spinnerSafra.SetSelection(0);
+            spinnerVar.SetSelection(0);
+            spinnerGleba.SetSelection(0);
+            spinnerUmidade.SetSelection(0);
+            spinnerCultAnt.SetSelection(0);
+            spinnerSolo.SetSelection(0);
+            spinnerCobertura.SetSelection(0);
+            spinnerStatus.SetSelection(0);
         }
 
         private void GetCulturas()
