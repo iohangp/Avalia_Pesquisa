@@ -66,7 +66,7 @@ namespace Avalia_Pesquisa.Droid
                 }
             }
 
-            
+
 
             //chama a tela de Aplicacao
             Button buttonAplicacao = FindViewById<Button>(Resource.Id.BTAplicacao);
@@ -124,6 +124,16 @@ namespace Avalia_Pesquisa.Droid
                 var intent = new Intent(this, typeof(InstalacaoActivity)); ;
                 StartActivity(intent);
             };
+
+            //chama os dados meterologicos
+            Button buttonMeterologicos = FindViewById<Button>(Resource.Id.BTMeterologicos);
+            buttonMeterologicos.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(WeatherActivity)); ;
+                StartActivity(intent);
+
+            };
+
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

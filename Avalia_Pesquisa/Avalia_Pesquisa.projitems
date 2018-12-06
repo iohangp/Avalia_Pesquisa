@@ -64,5 +64,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Umidade_Solo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\InstalacaoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ViewPlantio.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Weather.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\WeatherService.cs" />
   </ItemGroup>
 </Project>
