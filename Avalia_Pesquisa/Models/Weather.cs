@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Avalia_Pesquisa.Models
+namespace Avalia_Pesquisa
 {
     public class Weather
     {
