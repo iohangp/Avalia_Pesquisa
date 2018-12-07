@@ -25,7 +25,7 @@ namespace Avalia_Pesquisa
             return data;
         }
 
-        public static async Task<Weather> GetWeather(string zipCode)
+        public static async Task<Weather> GetWeather() //string zipCode
         {
 
             var locator = CrossGeolocator.Current;
