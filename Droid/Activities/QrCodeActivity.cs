@@ -77,7 +77,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                 .Build();
             cameraSource = new CameraSource
                 .Builder(this, barcodeDetector)
-                .SetRequestedPreviewSize(640, 480)
+                .SetRequestedPreviewSize(1600, 1024)
+                .SetAutoFocusEnabled(true)
+                .SetRequestedFps(24.0f)
                 .Build();
             surfaceView.Holder.AddCallback(this);
             barcodeDetector.SetProcessor(this);
