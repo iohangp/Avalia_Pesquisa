@@ -38,7 +38,7 @@ namespace Avalia_Pesquisa
             string key = "c7622b2b44f3a3bfabcb09671b11c96e";
             string queryString = "http://api.openweathermap.org/data/2.5/weather?" +
                 "lat="+ position.Latitude + "&lon="+ position.Longitude + 
-                "&appid=" + key + "&units=imperial";
+                "&appid=" + key + "&units=metric";
 
             dynamic results = await getDataFromService(queryString).ConfigureAwait(false);
 
@@ -48,10 +48,12 @@ namespace Avalia_Pesquisa
             {
 
                 weather.Title = (string)results["name"];
-                weather.Temperature = (string)results["main"]["temp"] + " F";
-                weather.Wind = (string)results["wind"]["speed"] + " mph";
+                weather.Temperature = (string)results["main"]["temp"] + " °C";
+                weather.Wind = (string)results["wind"]["speed"] + " km/h";
                 weather.Humidity = (string)results["main"]["humidity"] + " %";
                 weather.Visibility = (string)results["weather"][0]["main"];
+                weather.Clouds = (string)results["clouds"]["all"] + " %";
+                weather.Atualizacao = (string)results["coord"]["dt"];
 
                 DateTime time = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
                 DateTime sunrise = time.AddSeconds((double)results["sys"]["sunrise"]);
@@ -65,7 +67,7 @@ namespace Avalia_Pesquisa
             {
                 weather.Title = "";
                 return weather;
-            }
+            }           
             
                 
 
@@ -73,4 +75,3 @@ namespace Avalia_Pesquisa
 
     }
 }
- 

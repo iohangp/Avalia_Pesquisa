@@ -10,6 +10,8 @@ namespace Avalia_Pesquisa
         public string Visibility { get; set; }
         public string Sunrise { get; set; }
         public string Sunset { get; set; }
+        public string Clouds { get; set; }
+        public string Atualizacao { get; set; }
 
         public Weather()
         {
@@ -22,6 +24,8 @@ namespace Avalia_Pesquisa
             this.Visibility = " ";
             this.Sunrise = " ";
             this.Sunset = " ";
+			this.Clouds = " ";
+			this.Atualizacao = " ";
         }
     }
 }

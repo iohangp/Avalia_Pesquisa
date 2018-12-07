@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,8 +40,10 @@ namespace Avalia_Pesquisa.Droid.Activities
                     FindViewById<TextView>(Resource.Id.windText).Text = weather.Wind;
                     FindViewById<TextView>(Resource.Id.visibilityText).Text = weather.Visibility;
                     FindViewById<TextView>(Resource.Id.humidityText).Text = weather.Humidity;
+                    FindViewById<TextView>(Resource.Id.cloudsText).Text = weather.Clouds; 
                     FindViewById<TextView>(Resource.Id.sunriseText).Text = weather.Sunrise;
                     FindViewById<TextView>(Resource.Id.sunsetText).Text = weather.Sunset;
+                    FindViewById<TextView>(Resource.Id.atualizacaoText).Text = weather.Atualizacao;
                 }
                 else
                 {

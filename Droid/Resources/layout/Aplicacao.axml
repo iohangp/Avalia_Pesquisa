@@ -35,7 +35,7 @@
                 android:id="@+id/tvEquipamento" />
             <Spinner
                 android:layout_column="1"
-                android:id="@+id/sEquipamento" />
+                android:id="@+id/SPNEquipamento" />
         </TableRow>
         <TableRow
             android:id="@+id/trBBCH">
@@ -65,7 +65,7 @@
             <EditText
                 android:inputType="textMultiLine"
                 android:layout_column="1"
-                android:id="@+id/etBBCH" />
+                android:id="@+id/etObservações" />
         </TableRow>
        </TableLayout>  
 </LinearLayout>
