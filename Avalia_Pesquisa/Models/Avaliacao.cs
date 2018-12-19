@@ -17,5 +17,6 @@ namespace Avalia_Pesquisa
         public int Repeticao { get; set; }
         public int idEstudo_Planejamento { get; set; }
         public int idAlvo { get; set; }
+        public int Integrado { get; set; }
     }
 }

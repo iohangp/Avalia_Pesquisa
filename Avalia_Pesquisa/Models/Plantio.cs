@@ -26,5 +26,6 @@ namespace Avalia_Pesquisa
         public int idCultura_Cobertura_Solo { get; set; }
         public decimal Metragem { get; set; }
         public int Status { get; set; }
+        public int Integrado { get; set; }
     }
 }

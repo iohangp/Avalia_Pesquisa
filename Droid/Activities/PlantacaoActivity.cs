@@ -240,7 +240,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                         idSolo = int.Parse(idSoloSelect),
                         idCultura_Cobertura_Solo = int.Parse(idCobSelect),
                         Metragem = decimal.Parse(textMetragem.Text),
-                        Status = int.Parse(idStatusSelect)
+                        Status = int.Parse(idStatusSelect),
+                        Integrado = 0
                     };
 
                     PlantacaoService ps = new PlantacaoService();

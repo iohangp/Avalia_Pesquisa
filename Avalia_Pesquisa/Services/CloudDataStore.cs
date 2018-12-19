@@ -51,7 +51,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/cultura");
+            var uri = new Uri($"{App.BackendUrl}/cultura?api_key=1");
             var response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
@@ -106,7 +106,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/estudo");
+            var uri = new Uri($"{App.BackendUrl}/estudo?api_key=1");
             var response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
@@ -176,7 +176,7 @@ namespace Avalia_Pesquisa
             else
                 return false;
 
-            uri = new Uri($"{App.BackendUrl}/estudo/estudotipoalvo");
+            uri = new Uri($"{App.BackendUrl}/estudo/estudotipoalvo?api_key=1");
             response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
@@ -217,7 +217,7 @@ namespace Avalia_Pesquisa
 
             }
 
-            uri = new Uri($"{App.BackendUrl}/estudo/planejamento");
+            uri = new Uri($"{App.BackendUrl}/estudo/planejamento?api_key=1");
             response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
@@ -268,7 +268,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/localidade/localidade");
+            var uri = new Uri($"{App.BackendUrl}/localidade/localidade?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -323,7 +323,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/localidade/municipio");
+            var uri = new Uri($"{App.BackendUrl}/localidade/municipio?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -374,7 +374,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/tipoavaliacao");
+            var uri = new Uri($"{App.BackendUrl}/tipoavaliacao?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -421,7 +421,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/solo/cobertura");
+            var uri = new Uri($"{App.BackendUrl}/solo/cobertura?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -469,7 +469,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/variedade");
+            var uri = new Uri($"{App.BackendUrl}/variedade?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -517,7 +517,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/safra");
+            var uri = new Uri($"{App.BackendUrl}/safra?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -565,7 +565,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/umidadesolo");
+            var uri = new Uri($"{App.BackendUrl}/umidadesolo?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -614,7 +614,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/gleba");
+            var uri = new Uri($"{App.BackendUrl}/gleba?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -664,7 +664,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/solo");
+            var uri = new Uri($"{App.BackendUrl}/solo?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -712,7 +712,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/alvo");
+            var uri = new Uri($"{App.BackendUrl}/alvo?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -762,7 +762,7 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/users");
+            var uri = new Uri($"{App.BackendUrl}/users?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {

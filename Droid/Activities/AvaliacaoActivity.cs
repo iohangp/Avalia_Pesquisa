@@ -203,7 +203,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Data = DateTime.Now,
                         idAvaliacao_Tipo = int.Parse(idTipoAvaliacao),
                         idAlvo = int.Parse(idAlvoSelect),
-                        idEstudo_Planejamento = idPlanejamento
+                        idEstudo_Planejamento = idPlanejamento,
+                        Integrado = 0
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
@@ -220,7 +221,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Data = DateTime.Now,
                         idAvaliacao_Tipo = int.Parse(idTipoAvaliacao),
                         idAlvo = int.Parse(idAlvoSelect),
-                        idEstudo_Planejamento = idPlanejamento
+                        idEstudo_Planejamento = idPlanejamento,
+                        Integrado = 0
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
@@ -236,7 +238,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Data = DateTime.Now,
                         idAvaliacao_Tipo = int.Parse(idTipoAvaliacao),
                         idAlvo = int.Parse(idAlvoSelect),
-                        idEstudo_Planejamento = idPlanejamento
+                        idEstudo_Planejamento = idPlanejamento,
+                        Integrado = 0
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
@@ -252,7 +255,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Data = DateTime.Now,
                         idAvaliacao_Tipo = int.Parse(idTipoAvaliacao),
                         idAlvo = int.Parse(idAlvoSelect),
-                        idEstudo_Planejamento = idPlanejamento
+                        idEstudo_Planejamento = idPlanejamento,
+                        Integrado = 0
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
@@ -268,7 +272,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Data = DateTime.Now,
                         idAvaliacao_Tipo = int.Parse(idTipoAvaliacao),
                         idAlvo = int.Parse(idAlvoSelect),
-                        idEstudo_Planejamento = idPlanejamento
+                        idEstudo_Planejamento = idPlanejamento,
+                        Integrado = 0
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;

@@ -156,6 +156,7 @@ namespace Avalia_Pesquisa
             }
             catch (SQLiteException ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
 
@@ -197,6 +198,7 @@ namespace Avalia_Pesquisa
             }
             catch (SQLiteException ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
