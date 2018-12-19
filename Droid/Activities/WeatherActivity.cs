@@ -32,7 +32,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             if (!String.IsNullOrEmpty(zipCodeEntry.Text))
             {
-                Weather weather = await WeatherService.GetWeather(zipCodeEntry.Text);
+                Weather weather = await WeatherService.GetWeather();//zipCodeEntry.Text);
                 if (weather.Title != "")
                 {
                     FindViewById<TextView>(Resource.Id.locationText).Text = weather.Title;

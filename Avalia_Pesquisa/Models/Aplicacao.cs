@@ -17,5 +17,7 @@ namespace Avalia_Pesquisa
         public int IdEquipamento { get; set; }
         public decimal BBCH { get; set; }
         public string Observacoes { get; set; }
-    }
+        public int idUsuario { get; set; }
+        public int idEstudo_Planejamento { get; set; }
+}
 }
