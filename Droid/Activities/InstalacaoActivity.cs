@@ -192,9 +192,10 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         private void ValidarEstudo(string protocolo)
         {
+            string[] ids = protocolo.Split('-');
 
             ConsultaEstudoService ces = new ConsultaEstudoService();
-            var estudo = ces.GetEstudo(protocolo);
+            var estudo = ces.GetEstudo(int.Parse(ids[0]));
             buttonSalvar.Visibility = ViewStates.Visible;
 
             if (estudo.Count > 0)

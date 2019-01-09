@@ -80,7 +80,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             txtProduto = FindViewById<TextView>(Resource.Id.TVProduto);
             txtCultura = FindViewById<TextView>(Resource.Id.TVCultura);
             txtClasse = FindViewById<TextView>(Resource.Id.TVClasse);
-            txtAlvo = FindViewById<TextView>(Resource.Id.TVAlvo);
+       //     txtAlvo = FindViewById<TextView>(Resource.Id.TVAlvo);
             txtRepeticao = FindViewById<TextView>(Resource.Id.TVRepeticao);
             txtIntervAplicacao = FindViewById<TextView>(Resource.Id.TVIntervAplicacao);
             txtTratSementes = FindViewById<TextView>(Resource.Id.TVTratSementes);
@@ -92,41 +92,66 @@ namespace Avalia_Pesquisa.Droid.Activities
             txtObs = FindViewById<TextView>(Resource.Id.TVObs);
             txtResponsavel = FindViewById<TextView>(Resource.Id.TVResponsavel);
 
-            ConsultaEstudoService ces = new ConsultaEstudoService();
-            var estudo = ces.GetEstudo(txtEstudo.Text);
+            string[] ids = new string[3];
+            bool erroCod = false;
 
-            if (estudo.Count > 0)
+            if (!string.IsNullOrEmpty(protocolo))
             {
-                txtProtocolo.Text = estudo[0].Protocolo;
-                txtPatrocinador.Text = estudo[0].Cliente;
-                txtProduto.Text = estudo[0].Produto;
-                txtCultura.Text = estudo[0].Cultura;
-                txtClasse.Text = estudo[0].Classe;
-                txtAlvo.Text = estudo[0].Alvo;
-                txtRepeticao.Text = estudo[0].Repeticao.ToString();
-                txtIntervAplicacao.Text = estudo[0].Intervalo_Aplicacao.ToString();
-                txtTratSementes.Text = estudo[0].Tratamento_Sementes.ToString();
-                txtVolumeCalda.Text = estudo[0].Volume_Calda.ToString();
-                txtObjetivo.Text = estudo[0].Objetivo;
-                txtRet.Text = estudo[0].RET;
-                txtFaseRet.Text = estudo[0].RET_Fase.ToString();
 
-                DateTime data = estudo[0].Validade_RET;
-                if(data.Year > 1)
-                    txtValRet.Text = string.Format("{0:dd/MM/yyyy}", data);
+                if (protocolo.IndexOf('-') != -1)
+                    ids = protocolo.Split('-');
 
-                txtObs.Text = estudo[0].Observacoes;
-                txtResponsavel.Text = estudo[0].Responsavel;
+                int cont = 0;
+                while (cont <= 2)
+                {
+                    if (ids[cont] == null)
+                    {
+                        ids[cont] = "0";
+                        erroCod = true;
+                    }
+                    cont++;
+                }
+
+                ConsultaEstudoService ces = new ConsultaEstudoService();
+                var estudo = ces.GetEstudo(int.Parse(ids[0]));
+
+                if (estudo.Count > 0 && !erroCod)
+                {
+                    txtProtocolo.Text = estudo[0].Protocolo;
+                    txtPatrocinador.Text = estudo[0].Cliente;
+                    txtProduto.Text = estudo[0].Produto;
+                    txtCultura.Text = estudo[0].Cultura;
+                    txtClasse.Text = estudo[0].Classe;
+                    // txtAlvo.Text = estudo[0].Alvo;
+                    txtRepeticao.Text = estudo[0].Repeticao.ToString();
+                    txtIntervAplicacao.Text = estudo[0].Intervalo_Aplicacao.ToString();
+                    txtTratSementes.Text = estudo[0].Tratamento_Sementes.ToString();
+                    txtVolumeCalda.Text = estudo[0].Volume_Calda.ToString();
+                    txtObjetivo.Text = estudo[0].Objetivo;
+                    txtRet.Text = estudo[0].RET;
+                    txtFaseRet.Text = estudo[0].RET_Fase.ToString();
+
+                    DateTime data = estudo[0].Validade_RET;
+                    if (data.Year > 1)
+                        txtValRet.Text = string.Format("{0:dd/MM/yyyy}", data);
+
+                    txtObs.Text = estudo[0].Observacoes;
+                    txtResponsavel.Text = estudo[0].Responsavel;
 
 
+                }
+                else
+                {
+                    txtProtocolo.Text = txtPatrocinador.Text = txtProduto.Text = txtCultura.Text = "";
+                    txtClasse.Text = txtRepeticao.Text = txtIntervAplicacao.Text = "";
+                    txtTratSementes.Text = txtVolumeCalda.Text = txtObjetivo.Text = txtRet.Text = txtFaseRet.Text = "";
+                    txtValRet.Text = txtObs.Text = txtResponsavel.Text = "";
+                    Toast.MakeText(this, "Nenhum estudo encontrado", ToastLength.Long).Show();
+                }
             }
             else
             {
-                txtProtocolo.Text = txtPatrocinador.Text = txtProduto.Text = txtCultura.Text = "";
-                txtClasse.Text = txtAlvo.Text = txtRepeticao.Text = txtIntervAplicacao.Text = "";
-                txtTratSementes.Text = txtVolumeCalda.Text = txtObjetivo.Text = txtRet.Text = txtFaseRet.Text = "";
-                txtValRet.Text = txtObs.Text = txtResponsavel.Text = "";
-                Toast.MakeText(this, "Nenhum estudo encontrado", ToastLength.Long).Show();
+                Toast.MakeText(this, "Informe o código ou utilize a função Scanner", ToastLength.Long).Show();
             }
 
         }

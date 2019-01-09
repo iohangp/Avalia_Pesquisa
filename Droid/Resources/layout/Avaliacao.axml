@@ -22,7 +22,7 @@
 	android:layout_centerInParent="true"
 	android:layout_margin="10dp">
 	<TextView
-	android:text="Informe o número do estudo ou utilize o Scanner"
+	android:text="Informe o código da etiqueta ou utilize o Scanner"
 	android:textAppearance="?android:attr/textAppearanceSmall"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
 			android:minWidth="15px"
 			android:minHeight="15px"
 			android:id="@+id/EDNumEstudo"
-			android:hint="Nº do Estudo"
+			android:hint="Código"
 			android:textColor="@color/primary"
 			android:textStyle="italic"
 			android:textSize="14dp"

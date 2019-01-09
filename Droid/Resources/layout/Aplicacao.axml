@@ -13,4 +13,6 @@
         <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+</LinearLayout>
+</ScrollView>
         

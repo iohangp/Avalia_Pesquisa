@@ -34,12 +34,12 @@ namespace Avalia_Pesquisa.Droid.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Aplicacao);
 
-            spinnerEquipamento = FindViewById<Spinner>(Resource.Id.SPNEquipamento);
-            textBBCH = FindViewById<EditText>(Resource.Id.etBBCH);
-            textObservacoes = FindViewById<EditText>(Resource.Id.etObservações);
+        //    spinnerEquipamento = FindViewById<Spinner>(Resource.Id.SPNEquipamento);
+         //   textBBCH = FindViewById<EditText>(Resource.Id.etBBCH);
+        //    textObservacoes = FindViewById<EditText>(Resource.Id.etObservações);
 
-            buttonCalendar.Click += DateSelect_OnClick;
-            buttonSalvar.Click += BTSalvar_Click;
+   //         buttonCalendar.Click += DateSelect_OnClick;
+     //       buttonSalvar.Click += BTSalvar_Click;
 
             buttonValida.Click += (sender, e) =>
             {
@@ -67,7 +67,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         protected internal void BTSalvar_Click(object sender, EventArgs e)
         {
 
-            AplicacaoService apliService = new AplicacaoService();
+            //AplicacaoService apliService = new AplicacaoService();
 
             var aplicacao = new Aplicacao
             {
@@ -82,7 +82,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 BBCH = decimal.Parse(textBBCH.Text),
                 Observacoes = textObservacoes.Text
             };
-            apliService.SalvarAplicacao(aplicacao);
+       //     apliService.SalvarAplicacao(aplicacao);
 
 
         }

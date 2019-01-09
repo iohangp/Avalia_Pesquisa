@@ -197,8 +197,7 @@ namespace Avalia_Pesquisa
                         foreach (var tipoAlvo in tipoAlvoArray)
                         {
                             var tipoAlvoObj = new Estudo_Tipo_Alvo
-                            {
-                                IdEstudo_tipo_avaliacao_alvo = tipoAlvo.IdEstudo_tipo_avaliacao_alvo,
+                            {             
                                 IdAlvo = tipoAlvo.IdAlvo,
                                 idAvaliacao_tipo = tipoAlvo.idAvaliacao_tipo,
                                 IdEstudo = tipoAlvo.IdEstudo

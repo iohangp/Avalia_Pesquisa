@@ -22,7 +22,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         ArrayAdapter adapter;
         ArrayList tipos, idTipos, alvos, idAlvos;
         EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
-        int totalRepeticoes = 1, idEstudo, idPlanejamento;
+        int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento;
         string idTipoAvaliacao, idAlvoSelect;
         TableRow rowRepeticao1,rowRepeticao2,rowRepeticao3,rowRepeticao4,rowRepeticao5,
                  rowAlvo,rowTipoAval,rowPlanejamento;
@@ -64,8 +64,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             buttonSalvar.Click += BTSalvar_Click;
 
             buttonValida.Click += (sender, e) =>
-            {
-                ValidarEstudo(edNumEstudo.Text);
+            {          
+                   ValidarEstudo(edNumEstudo.Text);
             };
 
             spnTipo.ItemSelected += SpnTipo_ItemSelected;
@@ -196,7 +196,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     var aval = new Avaliacao
                     {
-                        IdEstudo = idEstudo,
+                        idInstalacao = idInstalacao,
+                        Tratamento = Tratamento,
                         Repeticao = 1,
                         Valor = decimal.Parse(etRepeticao1.Text.Replace(".", ",")),
                         idUsuario = int.Parse(Settings.GeneralSettings),
@@ -214,7 +215,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     var aval = new Avaliacao
                     {
-                        IdEstudo = idEstudo,
+                        idInstalacao = idInstalacao,
+                        Tratamento = Tratamento,
                         Repeticao = 2,
                         Valor = decimal.Parse(etRepeticao2.Text.Replace(".", ",")),
                         idUsuario = int.Parse(Settings.GeneralSettings),
@@ -231,7 +233,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     var aval = new Avaliacao
                     {
-                        IdEstudo = idEstudo,
+                        idInstalacao = idInstalacao,
+                        Tratamento = Tratamento,
                         Repeticao = 3,
                         Valor = decimal.Parse(etRepeticao3.Text.Replace(".", ",")),
                         idUsuario = int.Parse(Settings.GeneralSettings),
@@ -248,7 +251,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     var aval = new Avaliacao
                     {
-                        IdEstudo = idEstudo,
+                        idInstalacao = idInstalacao,
+                        Tratamento = Tratamento,
                         Repeticao = 4,
                         Valor = decimal.Parse(etRepeticao4.Text.Replace(".", ",")),
                         idUsuario = int.Parse(Settings.GeneralSettings),
@@ -265,7 +269,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     var aval = new Avaliacao
                     {
-                        IdEstudo = idEstudo,
+                        idInstalacao = idInstalacao,
+                        Tratamento = Tratamento,
                         Repeticao = 5,
                         Valor = decimal.Parse(etRepeticao5.Text.Replace(".", ",")),
                         idUsuario = int.Parse(Settings.GeneralSettings),
@@ -343,69 +348,95 @@ namespace Avalia_Pesquisa.Droid.Activities
         private void ValidarEstudo(string protocolo)
         {
             int numRepeticao = 1;
-            
-            
 
-            ConsultaEstudoService ces = new ConsultaEstudoService();
-            var estudo = ces.GetEstudo(protocolo);
+            string[] ids = new string[3];
+            bool erroCod = false;
 
-            if (estudo.Count > 0) {
+            if (!string.IsNullOrEmpty(protocolo)) {
 
-                idEstudo = estudo[0].IdEstudo;
-                totalRepeticoes = estudo[0].Repeticao;
+                if (protocolo.IndexOf('-') != -1)
+                    ids = protocolo.Split('-');
 
-                AvaliacaoService aval = new AvaliacaoService();
-                var plan = aval.GetDataAvaliacao(idEstudo);
-
-                if (plan.Count > 0) {
-
-                    idPlanejamento = plan[0].idEstudo_planejamento;
-                    textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
-
-                    GetAvaliacaoTipo(idEstudo, idPlanejamento);
-                    rowTipoAval.Visibility = ViewStates.Visible;
-                    rowAlvo.Visibility = ViewStates.Visible;
-                    rowPlanejamento.Visibility = ViewStates.Visible;
-
-                    while (estudo[0].Repeticao >= numRepeticao)
+                int cont = 0;
+                while (cont <= 2)
+                {
+                    if (ids[cont] == null)
                     {
-                        if (numRepeticao == 1)
-                            rowRepeticao1.Visibility = ViewStates.Visible;
-                        else if (numRepeticao == 2)
-                            rowRepeticao2.Visibility = ViewStates.Visible;
-                        else if (numRepeticao == 3)
-                            rowRepeticao3.Visibility = ViewStates.Visible;
-                        else if (numRepeticao == 4)
-                            rowRepeticao4.Visibility = ViewStates.Visible;
-                        else if (numRepeticao == 5)
-                            rowRepeticao5.Visibility = ViewStates.Visible;
-
-                        numRepeticao++;
+                        ids[cont] = "0";
+                        erroCod = true;
                     }
-                    buttonSalvar.Visibility = ViewStates.Visible;
+                    cont++;
+                }
+
+                ConsultaEstudoService ces = new ConsultaEstudoService();
+                var estudo = ces.GetEstudo(int.Parse(ids[0]));
+
+                idInstalacao = default(int);
+                if (estudo.Count > 0 && !erroCod) {
+
+                    idEstudo = estudo[0].IdEstudo;
+                    totalRepeticoes = estudo[0].Repeticao;
+                    idInstalacao = int.Parse(ids[1]);
+                    Tratamento = int.Parse(ids[2]);
+
+                    AvaliacaoService aval = new AvaliacaoService();
+                    var plan = aval.GetDataAvaliacao(idEstudo);
+
+                    if (plan.Count > 0) {
+
+                        idPlanejamento = plan[0].idEstudo_planejamento;
+                        textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
+
+                        GetAvaliacaoTipo(idEstudo, idPlanejamento);
+                        rowTipoAval.Visibility = ViewStates.Visible;
+                        rowAlvo.Visibility = ViewStates.Visible;
+                        rowPlanejamento.Visibility = ViewStates.Visible;
+
+                        while (estudo[0].Repeticao >= numRepeticao)
+                        {
+                            if (numRepeticao == 1)
+                                rowRepeticao1.Visibility = ViewStates.Visible;
+                            else if (numRepeticao == 2)
+                                rowRepeticao2.Visibility = ViewStates.Visible;
+                            else if (numRepeticao == 3)
+                                rowRepeticao3.Visibility = ViewStates.Visible;
+                            else if (numRepeticao == 4)
+                                rowRepeticao4.Visibility = ViewStates.Visible;
+                            else if (numRepeticao == 5)
+                                rowRepeticao5.Visibility = ViewStates.Visible;
+
+                            numRepeticao++;
+                        }
+                        buttonSalvar.Visibility = ViewStates.Visible;
+                    }
+                    else
+                    {
+
+                        EscondeCampos();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        AlertDialog alerta = builder.Create();
+
+                        alerta.SetTitle("Atenção!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcDelete);
+                        alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
+
+                    }
                 }
                 else
                 {
-
                     EscondeCampos();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    AlertDialog alerta = builder.Create();
-
-                    alerta.SetTitle("Atenção!");
-                    alerta.SetIcon(Android.Resource.Drawable.IcDelete);
-                    alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
-                    alerta.SetButton("OK", (s, ev) =>
-                    {
-                        alerta.Dismiss();
-                    });
-                    alerta.Show();
-
+                    Toast.MakeText(this, "Nenhum estudo encontrado", ToastLength.Long).Show();
                 }
             }
             else
             {
                 EscondeCampos();
-                Toast.MakeText(this, "Nenhum estudo encontrado", ToastLength.Long).Show();
+                Toast.MakeText(this, "Informe o código ou utilize a função Scanner", ToastLength.Long).Show();
             }
 
 
@@ -481,7 +512,15 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             foreach (var res in result)
             {
-                var nome = res.Nome_vulgar.Substring(0, res.Nome_vulgar.IndexOf(','));
+                string nome;
+                if (res.Nome_vulgar.IndexOf(',') != -1)
+                {
+                  nome = res.Nome_vulgar.Substring(0, res.Nome_vulgar.IndexOf(','));
+                }
+                else
+                {
+                  nome = res.Nome_vulgar;
+                }
                 alvos.Add(nome);
                 idAlvos.Add(res.IdAlvo);
             }
