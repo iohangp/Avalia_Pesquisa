@@ -61,7 +61,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             etObservacoes = FindViewById<EditText>(Resource.Id.etObservacoes);
             etData = FindViewById<EditText>(Resource.Id.etData);
 
-            spnPlantio.ItemSelected += spnPlantio_ItemSelected;
+           
 
             GetPlantio();
             adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, Plantio);
@@ -78,7 +78,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             };
 
-            spnPlantio.ItemSelected += spnPlantio_ItemSelected;
+            spnPlantio.ItemSelected += SpnPlantio_ItemSelected;
 
             Coordenadas();
 
@@ -117,9 +117,9 @@ namespace Avalia_Pesquisa.Droid.Activities
         }
 
 
-        private void spnPlantio_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        private void SpnPlantio_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            idPlantio = idPlantio[e.Position].ToString();
+            idPlantio = idPlantios[e.Position].ToString();
 
         }
 
@@ -130,6 +130,9 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             Finish();
         }
+
+
+
 
         protected internal void BTScanner_Click(object sender, EventArgs e)
         {
