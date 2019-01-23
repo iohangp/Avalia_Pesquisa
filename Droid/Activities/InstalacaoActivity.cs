@@ -167,7 +167,16 @@ namespace Avalia_Pesquisa.Droid.Activities
             try
             {
                 avalService.SalvarInstalacao(aval);
+               
+
+                alerta.SetTitle("Sucesso!");
+                alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
                 alerta.SetMessage("Instalação Salva com Sucesso!");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
             }
 
             catch
@@ -218,6 +227,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             idPlantios = new ArrayList();
             PlantacaoService tas = new PlantacaoService();
 
+            Plantio.Add("Selecione");
+            idPlantios.Add(0);
 
             var result = tas.GetPlantio();
 
@@ -225,7 +236,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 foreach (var res in result)
                 {
-                    Plantio.Add(res.Descricao);
+                    Plantio.Add(res.Observacoes);
                     idPlantios.Add(res.idPlantio);
                 }
             }
