@@ -12,6 +12,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Avalia_Pesquisa.Droid.Helpers;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -238,6 +239,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Observacoes = textObs.Text,
                         idCulturaAnterior = int.Parse(idCultAntSelect),
                         idSolo = int.Parse(idSoloSelect),
+                        idUsuario = int.Parse(Settings.GeneralSettings),
                         idCultura_Cobertura_Solo = int.Parse(idCobSelect),
                         Metragem = decimal.Parse(textMetragem.Text),
                         Status = int.Parse(idStatusSelect),

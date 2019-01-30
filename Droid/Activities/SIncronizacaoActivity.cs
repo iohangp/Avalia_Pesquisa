@@ -69,10 +69,18 @@ namespace Avalia_Pesquisa.Droid.Activities
             new Thread(new ThreadStart(async delegate
             {
 
+                // Envia do App para a Web;
+                if (await CloudData.AddPlantio(null)){
+
+                    if (await CloudData.BaixarPlantio(null))
+                        pbar.Progress += 10;
+                }
+
+                // Baixa o conteúdo da Web pro App;
                 if (await CloudData.MunicipiosSync(null) &&
                     await CloudData.LocalidadeSync(null))
                 {
-                    pbar.Progress += 20;
+                    pbar.Progress += 10;
                     if (await CloudData.UsuarioSync(null))
                     {
                         pbar.Progress += 10;

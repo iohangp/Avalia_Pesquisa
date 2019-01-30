@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Municipio.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Municipio_Localidade.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Objects\InstalacaoObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CloudDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AvaliacaoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\PlantacaoService.cs" />

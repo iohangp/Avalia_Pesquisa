@@ -12,7 +12,7 @@ namespace Avalia_Pesquisa
         public int idCultura { get; set; }
         public int idVariedade { get; set; }
         public int idSafra { get; set; }
-        public DateTime Data_Germinacao { get; set; }
+        public DateTime? Data_Germinacao { get; set; }
         public int idGleba { get; set; }
         public int idUmidade_Solo { get; set; }
         public decimal Adubacao_Base { get; set; }

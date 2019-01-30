@@ -31,6 +31,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Estudo_Tipo_Alvo> tipoAlvoArray;
         IEnumerable<Estudo_Planejamento> planejArray;
         IEnumerable<Cobertura_Solo> coberturaArray;
+        IEnumerable<Plantio> plantioArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -805,6 +806,159 @@ namespace Avalia_Pesquisa
                 return false;
 
             return true;
+        }
+
+
+        public async Task<bool> AddPlantio(string chave)
+        {
+            bool sucesso = true;
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    var result = conexao.Query<Plantio>("SELECT * FROM Plantio WHERE Integrado = 0").ToList();
+
+
+                    if (result == null || !CrossConnectivity.Current.IsConnected)
+                        return false;
+
+                    foreach (var plant in result)
+                    {
+                        var plantio = new Plantio
+                        {
+                            idPlantio = plant.idPlantio,
+                            idLocalidade = plant.idLocalidade,
+                            idCultura = plant.idCultura,
+                            Data_Plantio = plant.Data_Plantio,
+                            idVariedade = plant.idVariedade,
+                            idSafra = plant.idSafra,
+                            Data_Germinacao = plant.Data_Germinacao,
+                            idGleba = plant.idGleba,
+                            idUmidade_Solo =  plant.idUmidade_Solo,
+                            Adubacao_Base = plant.Adubacao_Base,
+                            Adubacao_Cobertura = plant.Adubacao_Cobertura,
+                            Espacamento = plant.Espacamento,
+                            idCulturaAnterior = plant.idCulturaAnterior,
+                            idCultura_Cobertura_Solo = plant.idCultura_Cobertura_Solo,
+                            idSolo = plant.idSolo,
+                            Metragem = plant.Metragem,
+                            idUsuario = plant.idUsuario,
+                            Observacoes = plant.Observacoes,
+                            Populacao = plant.Populacao,
+                            Status = plant.Status
+                        };
+
+                        var serializedItem = JsonConvert.SerializeObject(plantio);
+
+                        var uri = new Uri($"{App.BackendUrl}/plantio/add?api_key=1");
+                        var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            plantio.Integrado = 1;
+                            conexao.Update(plantio);
+                        }
+                        else
+                            sucesso = false;
+
+
+                    }
+
+                    if (sucesso)
+                        return true;
+                    else
+                        return false;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+           
+        }
+
+        public async Task<bool> BaixarPlantio(string chave)
+        {
+
+            bool sucesso = true;
+
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/plantio?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                plantioArray = JsonConvert.DeserializeObject<IEnumerable<Plantio>>(json);
+
+                int total = plantioArray.Count();
+                if (total == 0)
+                    return true;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    conexao.Query<Solo>("DELETE FROM Plantio Where Integrado =?", 1);
+
+                    foreach (var plantio in plantioArray)
+                    {
+                        var plantioObj = new Plantio
+                        {
+                            idPlantio = plantio.idPlantio,
+                            idLocalidade = plantio.idLocalidade,
+                            idCultura = plantio.idCultura,
+                            Data_Plantio = plantio.Data_Plantio,
+                            idVariedade = plantio.idVariedade,
+                            idSafra = plantio.idSafra,
+                            Data_Germinacao = plantio.Data_Germinacao,
+                            idGleba = plantio.idGleba,
+                            idUmidade_Solo = plantio.idUmidade_Solo,
+                            Adubacao_Base = plantio.Adubacao_Base,
+                            Adubacao_Cobertura = plantio.Adubacao_Cobertura,
+                            Espacamento = plantio.Espacamento,
+                            idCulturaAnterior = plantio.idCulturaAnterior,
+                            idCultura_Cobertura_Solo = plantio.idCultura_Cobertura_Solo,
+                            idSolo = plantio.idSolo,
+                            Metragem = plantio.Metragem,
+                            idUsuario = plantio.idUsuario,
+                            Observacoes = plantio.Observacoes,
+                            Populacao = plantio.Populacao,
+                            Status = plantio.Status,
+                            Integrado = 2
+                        };
+                        conexao.Insert(plantioObj);
+
+                        var serializedItem = JsonConvert.SerializeObject(plantioObj);
+                        var buffer = Encoding.UTF8.GetBytes(serializedItem);
+                        var byteContent = new ByteArrayContent(buffer);
+
+                        var uriPut = new Uri($"{App.BackendUrl}/plantio/{plantio.idPlantio}/?api_key=1");
+                        var responsePut = await client.PutAsync(uriPut, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+                        if (!responsePut.IsSuccessStatusCode)
+                            sucesso = false;       
+
+                    }
+
+                    if (sucesso)
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+
         }
 
         public async Task<Item> GetItemAsync(string id)
