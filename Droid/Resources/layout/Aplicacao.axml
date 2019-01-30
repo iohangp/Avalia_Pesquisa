@@ -13,6 +13,311 @@
         <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+        
+            <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:layout_margin="10dp">
+    <TextView
+    android:text="Informe o número do estudo ou utilize o Scanner"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/textView1" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">       
+        <EditText
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="145.0dp"
+            android:layout_height="wrap_content"
+            android:minWidth="15px"
+            android:minHeight="15px"
+            android:id="@+id/EDNumEstudo"
+            android:hint="Nº do Estudo"
+            android:textColor="@color/primary"
+            android:textStyle="italic"
+            android:textSize="14dp"
+            android:layout_marginRight="0.0dp"  />
+        <Button
+            android:layout_width="111.0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/BTValidar"
+            android:text="Validar"
+            android:textColor="@android:color/white"
+            android:background="#307FC1"/>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/BTScannerAvalia"
+            android:text="Scanner"
+            android:textColor="@android:color/white"
+            android:background="#307FC1"
+            android:layout_marginLeft="5dp" />
+    </LinearLayout>
+       
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Data Avaliação:"
+                    android:textColor="@color/primary"
+                    android:id="@+id/textView1"
+                    android:layout_marginRight="0.0dp" />
+                <ImageButton
+                    android:src="@drawable/calendar"
+                    android:background="@android:color/transparent"
+                    android:layout_width="31.0dp"
+                    android:layout_height="wrap_content"
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:id="@+id/IBCalendar"/>
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/TVDataAvaliação"
+                    android:layout_marginLeft="15dp" />
+
+    </LinearLayout>
+                    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Umidade Relativa: "
+                    android:textColor="@color/primary"
+                    android:id="@+id/textView1"
+                    android:layout_marginRight="0.0dp" />
+        
+                <EditText
+                    android:inputType="numberDecimal"
+                android:layout_column="1"
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:id="@+id/ETUmidadeRelativa" />
+
+    </LinearLayout>
+            
+                                <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Temperatura: "
+                    android:textColor="@color/primary"
+                    android:id="@+id/textView1"
+                    android:layout_marginRight="0.0dp" />
+        
+                <EditText
+                android:inputType="numberDecimal"
+                android:layout_column="1"
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:id="@+id/ETTemperatura" />
+
+    </LinearLayout>
+            
+                                            <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Percentual dos Ventos: "
+                    android:textColor="@color/primary"
+                    android:id="@+id/textView1"
+                    android:layout_marginRight="0.0dp" />
+        
+                <EditText
+                    android:inputType="numberDecimal"
+                android:layout_column="1"
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:id="@+id/ETPercentual" />
+
+    </LinearLayout>
+            
+                                                      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Velocidade do Vento: "
+                    android:textColor="@color/primary"
+                    android:id="@+id/textView1"
+                    android:layout_marginRight="0.0dp" />
+        
+                <EditText
+                    android:inputType="numberDecimal"
+                android:layout_column="1"
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:id="@+id/ETVento" />
+
+    </LinearLayout>  
+        
+            <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Data Ultima Chuva:"
+                    android:textColor="@color/primary"
+                    android:id="@+id/textView1"
+                    android:layout_marginRight="0.0dp" />
+                <ImageButton
+                    android:src="@drawable/calendar"
+                    android:background="@android:color/transparent"
+                    android:layout_width="31.0dp"
+                    android:layout_height="wrap_content"
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:id="@+id/IBCalendar"/>
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/TVDataChuva"
+                    android:layout_marginLeft="15dp" />
+
+    </LinearLayout>
+            
+                                                                  <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Volume de chuva: "
+                    android:textColor="@color/primary"
+                    android:id="@+id/textView1"
+                    android:layout_marginRight="0.0dp" />
+        
+                <EditText
+                android:inputType="numberDecimal"
+                android:layout_column="1"
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:id="@+id/ETChuva" />
+
+    </LinearLayout> 
+            
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Equipamento: *"
+                    android:textColor="@color/primary"
+                    android:id="@+id/textView1"
+                    android:layout_marginRight="0.0dp" />
+        
+                <Spinner
+                android:layout_column="1"
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:id="@+id/SPNEquipamento" />
+
+    </LinearLayout>
+    
+                                                                              <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="BBCH "
+                    android:textColor="@color/primary"
+                    android:id="@+id/textView1"
+                    android:layout_marginRight="0.0dp" />
+        
+                <EditText
+                android:inputType="numberDecimal"
+                android:layout_column="1"
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:id="@+id/ETChuva" />
+
+    </LinearLayout> 
+                                                                              <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Observações: "
+                    android:textColor="@color/primary"
+                    android:id="@+id/textView1"
+                    android:layout_marginRight="0.0dp" />
+        
+                <EditText
+                android:inputType="text"
+                android:layout_column="1"
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content"
+                android:id="@+id/ETChuva" />
+
+    </LinearLayout>    
+        
 </LinearLayout>
 </ScrollView>
         
