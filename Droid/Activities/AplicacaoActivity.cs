@@ -34,12 +34,13 @@ namespace Avalia_Pesquisa.Droid.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Aplicacao);
 
+            buttonValida = FindViewById<Button>(Resource.Id.BTValidar); 
         //    spinnerEquipamento = FindViewById<Spinner>(Resource.Id.SPNEquipamento);
-         //   textBBCH = FindViewById<EditText>(Resource.Id.etBBCH);
+        //   textBBCH = FindViewById<EditText>(Resource.Id.etBBCH);
         //    textObservacoes = FindViewById<EditText>(Resource.Id.etObservações);
 
-   //         buttonCalendar.Click += DateSelect_OnClick;
-     //       buttonSalvar.Click += BTSalvar_Click;
+            //         buttonCalendar.Click += DateSelect_OnClick;
+            //       buttonSalvar.Click += BTSalvar_Click;
 
             buttonValida.Click += (sender, e) =>
             {

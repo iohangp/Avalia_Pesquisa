@@ -14,7 +14,7 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
         
-            <LinearLayout
+  <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                     android:layout_marginLeft="15dp" />
 
     </LinearLayout>
-                    <LinearLayout
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -118,7 +118,7 @@
 
     </LinearLayout>
             
-                                <LinearLayout
+   <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -142,7 +142,7 @@
 
     </LinearLayout>
             
-                                            <LinearLayout
+   <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -166,7 +166,7 @@
 
     </LinearLayout>
             
-                                                      <LinearLayout
+   <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -190,7 +190,7 @@
 
     </LinearLayout>  
         
-            <LinearLayout
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -224,7 +224,7 @@
 
     </LinearLayout>
             
-                                                                  <LinearLayout
+   <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -271,7 +271,7 @@
 
     </LinearLayout>
     
-                                                                              <LinearLayout
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -294,7 +294,7 @@
                 android:id="@+id/ETChuva" />
 
     </LinearLayout> 
-                                                                              <LinearLayout
+     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -317,7 +317,8 @@
                 android:id="@+id/ETChuva" />
 
     </LinearLayout>    
-        
+    
+	</LinearLayout>
 </LinearLayout>
 </ScrollView>
         

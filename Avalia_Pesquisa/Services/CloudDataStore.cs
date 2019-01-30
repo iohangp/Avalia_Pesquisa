@@ -820,7 +820,7 @@ namespace Avalia_Pesquisa
                     var result = conexao.Query<Plantio>("SELECT * FROM Plantio WHERE Integrado = 0").ToList();
 
 
-                    if (result == null || !CrossConnectivity.Current.IsConnected)
+                    if (!CrossConnectivity.Current.IsConnected)
                         return false;
 
                     foreach (var plant in result)
@@ -932,17 +932,28 @@ namespace Avalia_Pesquisa
                             Status = plantio.Status,
                             Integrado = 2
                         };
-                        conexao.Insert(plantioObj);
 
-                        var serializedItem = JsonConvert.SerializeObject(plantioObj);
-                        var buffer = Encoding.UTF8.GetBytes(serializedItem);
-                        var byteContent = new ByteArrayContent(buffer);
+                        var resultPlant = conexao.Query<Plantio>("SELECT * FROM Plantio WHERE idPlantio = ?", plantio.idPlantio).ToList();
 
-                        var uriPut = new Uri($"{App.BackendUrl}/plantio/{plantio.idPlantio}/?api_key=1");
-                        var responsePut = await client.PutAsync(uriPut, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                        if (resultPlant.Count() > 0)
+                            conexao.Update(plantioObj);
+                        else
+                        {
+                            conexao.Insert(plantioObj);
 
-                        if (!responsePut.IsSuccessStatusCode)
-                            sucesso = false;       
+                            if (plantio.Integrado != 2)
+                            {
+                                var serializedItem = JsonConvert.SerializeObject(plantioObj);
+                                var buffer = Encoding.UTF8.GetBytes(serializedItem);
+                                var byteContent = new ByteArrayContent(buffer);
+
+                                var uriPut = new Uri($"{App.BackendUrl}/plantio/{plantio.idPlantio}/?api_key=1");
+                                var responsePut = await client.PutAsync(uriPut, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+                                if (!responsePut.IsSuccessStatusCode)
+                                    sucesso = false;
+                            }
+                        }
 
                     }
 
