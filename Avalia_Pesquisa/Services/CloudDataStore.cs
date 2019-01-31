@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Plugin.Connectivity;
 using SQLite;
 
@@ -32,6 +34,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Estudo_Planejamento> planejArray;
         IEnumerable<Cobertura_Solo> coberturaArray;
         IEnumerable<Plantio> plantioArray;
+        IEnumerable<Instalacao> instalacaoArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -819,7 +822,6 @@ namespace Avalia_Pesquisa
 
                     var result = conexao.Query<Plantio>("SELECT * FROM Plantio WHERE Integrado = 0").ToList();
 
-
                     if (!CrossConnectivity.Current.IsConnected)
                         return false;
 
@@ -856,6 +858,10 @@ namespace Avalia_Pesquisa
 
                         if (response.IsSuccessStatusCode)
                         {
+                            var jsonPost = await response.Content.ReadAsStringAsync();
+                            //  dynamic deserializado = JsonConvert.DeserializeObject(jsonPost,typeof(object));
+                            dynamic deserializado = JObject.Parse(jsonPost);
+                            plantio.IdPlantioWeb = deserializado.idPlantioWeb;
                             plantio.Integrado = 1;
                             conexao.Update(plantio);
                         }
@@ -904,13 +910,11 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    conexao.Query<Solo>("DELETE FROM Plantio Where Integrado =?", 1);
 
                     foreach (var plantio in plantioArray)
                     {
                         var plantioObj = new Plantio
                         {
-                            idPlantio = plantio.idPlantio,
                             idLocalidade = plantio.idLocalidade,
                             idCultura = plantio.idCultura,
                             Data_Plantio = plantio.Data_Plantio,
@@ -930,30 +934,89 @@ namespace Avalia_Pesquisa
                             Observacoes = plantio.Observacoes,
                             Populacao = plantio.Populacao,
                             Status = plantio.Status,
-                            Integrado = 2
+                            Integrado = 2,
+                            IdPlantioWeb = plantio.idPlantio
                         };
 
-                        var resultPlant = conexao.Query<Plantio>("SELECT * FROM Plantio WHERE idPlantio = ?", plantio.idPlantio).ToList();
+                        var resultPlant = conexao.Query<Plantio>("SELECT * FROM Plantio WHERE IdPlantioWeb = ?", plantio.idPlantio).ToList();
 
                         if (resultPlant.Count() > 0)
                             conexao.Update(plantioObj);
                         else
                         {
                             conexao.Insert(plantioObj);
-
-                            if (plantio.Integrado != 2)
-                            {
-                                var serializedItem = JsonConvert.SerializeObject(plantioObj);
-                                var buffer = Encoding.UTF8.GetBytes(serializedItem);
-                                var byteContent = new ByteArrayContent(buffer);
-
-                                var uriPut = new Uri($"{App.BackendUrl}/plantio/{plantio.idPlantio}/?api_key=1");
-                                var responsePut = await client.PutAsync(uriPut, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-
-                                if (!responsePut.IsSuccessStatusCode)
-                                    sucesso = false;
-                            }
                         }
+
+                    }
+
+                    
+                    return true;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+
+        }
+
+        public async Task<bool> AddInstalacao(string chave)
+        {
+            bool sucesso = true;
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    var result = conexao.Query<Instalacao>("SELECT * FROM Instalacao WHERE idInstalacaoWeb IS NULL").ToList();
+
+                    if (!CrossConnectivity.Current.IsConnected)
+                        return false;
+
+                    foreach (var insta in result)
+                    {
+                        var resultPlant = conexao.Query<Plantio>("SELECT * FROM Plantio WHERE idPlantio = ?", insta.idPlantio).ToList();
+
+                        dynamic instalacao = new ExpandoObject(); ;
+
+                        instalacao.idEstudo = insta.idEstudo;
+                        instalacao.idPlantio = insta.idPlantio;
+                        instalacao.idPlantioWeb = resultPlant[0].IdPlantioWeb;
+                        instalacao.Tamanho_Parcela_Comprimento = insta.Tamanho_Parcela_Comprimento;
+                        instalacao.Tamanho_Parcela_Largura = insta.Tamanho_Parcela_Largura;
+                        instalacao.Coordenadas1 = insta.Coordenadas1;
+                        instalacao.Coordenadas2 = insta.Coordenadas2;
+                        instalacao.Altitude = insta.Altitude;
+                        instalacao.Data_Instalacao = insta.Data_Instalacao;
+                        instalacao.idUsuario = insta.idUsuario;
+                        instalacao.Observacoes = insta.Observacoes;
+                        instalacao.idStatus = insta.idStatus;
+
+                        var serializedItem = JsonConvert.SerializeObject(instalacao);
+
+                        var uri = new Uri($"{App.BackendUrl}/instalacao/add?api_key=1");
+                        var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+                        Console.WriteLine(response.IsSuccessStatusCode);
+                        
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var jsonPost = await response.Content.ReadAsStringAsync();
+                    
+                            dynamic deserializado = JObject.Parse(jsonPost);
+
+                            var instalacaoObj = new Instalacao();
+                            instalacaoObj = insta;
+                            instalacaoObj.idInstalacaoWeb = deserializado.idInstalacaoWeb;
+
+                            conexao.Update(instalacaoObj);
+                        }
+                        else
+                            sucesso = false;
+
 
                     }
 
@@ -961,6 +1024,62 @@ namespace Avalia_Pesquisa
                         return true;
                     else
                         return false;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
+        public async Task<bool> BaixarInstalacao(string chave)
+        {
+
+            bool sucesso = true;
+
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/instalacao?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                instalacaoArray = JsonConvert.DeserializeObject<IEnumerable<Instalacao>>(json);
+
+                int total = instalacaoArray.Count();
+                if (total == 0)
+                    return true;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    foreach (var instalacao in instalacaoArray)
+                    {
+                        var instalacaoObj = new Instalacao();
+                        instalacaoObj = instalacao;
+                        instalacaoObj.idInstalacaoWeb = instalacao.idInstalacao;
+
+                        var resultPlant = conexao.Query<Plantio>("SELECT * FROM Instalacao WHERE idInstalacaoWeb = ?", instalacao.idInstalacao).ToList();
+
+                        if (resultPlant.Count() > 0)
+                            conexao.Update(instalacaoObj);
+                        else
+                        {
+                            conexao.Insert(instalacaoObj);
+                        }
+
+                    }
+
+
+                    return true;
+
                 }
             }
             catch (SQLiteException ex)

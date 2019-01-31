@@ -19,7 +19,7 @@ namespace Avalia_Pesquisa
         public int idUsuario { get; set; }
         public string Observacoes { get; set; }
         public int idStatus { get; set; }
-
+        public int? idInstalacaoWeb { get; set; }
 
     }
 }
