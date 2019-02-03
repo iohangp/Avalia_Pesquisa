@@ -128,7 +128,7 @@
 				android:layout_column="1"
 				android:layout_width="match_parent"	
 				android:layout_height="wrap_content"
-				android:id="@+id/SPNLocalidade" />
+				android:id="@+id/SPNLocalidadePlantio" />
 
     </LinearLayout>
 	<LinearLayout

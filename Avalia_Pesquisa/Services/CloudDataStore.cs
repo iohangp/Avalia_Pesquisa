@@ -35,6 +35,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Cobertura_Solo> coberturaArray;
         IEnumerable<Plantio> plantioArray;
         IEnumerable<Instalacao> instalacaoArray;
+        IEnumerable<Avaliacao> avaliacaoArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -1088,6 +1089,128 @@ namespace Avalia_Pesquisa
                 return false;
             }
 
+        }
+
+        public async Task<bool> AddAvaliacao(string chave)
+        {
+            bool sucesso = true;
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    var result = conexao.Query<Avaliacao>("SELECT * FROM Avaliacao WHERE idAvaliacaoWeb IS NULL").ToList();
+
+                    if (!CrossConnectivity.Current.IsConnected)
+                        return false;
+
+                    foreach (var aval in result)
+                    {
+                        var resultInsta = conexao.Query<Instalacao>("SELECT * FROM Instalacao WHERE idInstalacao = ?", aval.idInstalacao).ToList();
+
+                        dynamic avaliacao = new ExpandoObject(); ;
+
+                        avaliacao.idInstalacao = aval.idInstalacao;
+                        avaliacao.Tratamento = aval.Tratamento;
+                        avaliacao.Data = aval.Data;
+                        avaliacao.idUsuario = aval.idUsuario;
+                        avaliacao.idAvaliacao_Tipo = aval.idAvaliacao_Tipo;
+                        avaliacao.Valor = aval.Valor;
+                        avaliacao.Observacao = aval.Observacao;
+                        avaliacao.Repeticao = aval.Repeticao;
+                        avaliacao.idEstudo_Planejamento = aval.idEstudo_Planejamento;
+                        avaliacao.idAlvo = aval.idAlvo;
+                        avaliacao.idInstalacaoWeb = resultInsta[0].idInstalacaoWeb;
+      
+
+                        var serializedItem = JsonConvert.SerializeObject(avaliacao);
+
+                        var uri = new Uri($"{App.BackendUrl}/avaliacao/add?api_key=1");
+                        var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var jsonPost = await response.Content.ReadAsStringAsync();
+                            //  dynamic deserializado = JsonConvert.DeserializeObject(jsonPost,typeof(object));
+                            dynamic deserializado = JObject.Parse(jsonPost);
+
+                            var avalObject = new Avaliacao();
+                            avalObject = aval;
+                            avalObject.idAvaliacaoWeb = deserializado.idAvaliacaoWeb;
+ 
+                            conexao.Update(avalObject);
+                        }
+                        else
+                            sucesso = false;
+
+
+                    }
+
+                    if (sucesso)
+                        return true;
+                    else
+                        return false;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
+        public async Task<bool> BaixarAvaliacao(string chave)
+        {
+
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/avaliacao?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                avaliacaoArray = JsonConvert.DeserializeObject<IEnumerable<Avaliacao>>(json);
+
+                int total = avaliacaoArray.Count();
+                if (total == 0)
+                    return true;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    foreach (var avaliacao in avaliacaoArray)
+                    {
+                        var avaliacaoObj = new Avaliacao();
+                        avaliacaoObj = avaliacao;
+                        avaliacaoObj.idAvaliacaoWeb = avaliacao.IdAvaliacao;
+
+                        var resultAval= conexao.Query<Avaliacao>("SELECT * FROM Avaliacao WHERE idAvaliacaoWeb = ?", avaliacao.IdAvaliacao).ToList();
+
+                        if (resultAval.Count() > 0)
+                            conexao.Update(avaliacaoObj);
+                        else
+                        {
+                            conexao.Insert(avaliacaoObj);
+                        }
+
+                    }
+
+
+                    return true;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
 
         }
 

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Command.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Mask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ServiceLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Estudo_Planejamento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Estudo_Tipo_Alvo.cs" />
@@ -20,7 +21,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Municipio.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Municipio_Localidade.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Objects\InstalacaoObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CloudDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AvaliacaoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\PlantacaoService.cs" />

@@ -18,23 +18,23 @@ using Plugin.Geolocator.Abstractions;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
-    [Activity(Label = "InstalacaoActivity")]
+    [Activity(Label = "Instalação")]
     public class InstalacaoActivity : BaseActivity
     {
 
-        Spinner spnPlantio;
+        Spinner spnLocalidade, spnGlebaCult;
         ArrayAdapter adapter;
-        ArrayList Plantio, idPlantios;
+        ArrayList Localidades, idLocalidades, GlebaCults, idGlebaCults;
         EditText edNumEstudo, etComprimento, etLargura, etCoordenadas1, etCoordenadas2, etAltitude, etObservacoes, etData;
         // int totalRepeticoes = 1, idEstudo;
-        string idPlantio, idCultura, idPlantioSelect;
+        string idPlantio, idCultura, idLocalidadeSelect, idPlantioSelect;
         // TableRow rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5;
         Button buttonSalvar;
         int idEstudo_;
         double latitude = 0;
         double longitude = 0;
         double altitude = 0;
-        TextView textDate;
+        EditText textDate;
         ImageButton buttonCalendar;
 
 
@@ -48,10 +48,11 @@ namespace Avalia_Pesquisa.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Instalacao);
+            //    SetContentView(Resource.Layout.Instalacao);
             // Create your application here
 
-            spnPlantio = FindViewById<Spinner>(Resource.Id.spnPlantio);
+            spnLocalidade = FindViewById<Spinner>(Resource.Id.spnLocalidade);
+            spnGlebaCult = FindViewById<Spinner>(Resource.Id.spnGlebaCult);
             edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
             buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarInstalacao);
             Button buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
@@ -65,18 +66,24 @@ namespace Avalia_Pesquisa.Droid.Activities
             etObservacoes = FindViewById<EditText>(Resource.Id.etObservacoes);
             //etData = FindViewById<EditText>(Resource.Id.etData);
 
-            textDate = FindViewById<TextView>(Resource.Id.TVDataInstalacao);
-            buttonCalendar = FindViewById<ImageButton>(Resource.Id.IBCalendar);
+            textDate = FindViewById<EditText>(Resource.Id.etData);
+            textDate.AddTextChangedListener(new Mask(textDate, "##/##/####"));
+            buttonCalendar = FindViewById<ImageButton>(Resource.Id.ibData);
 
 
 
-            GetPlantio();
-            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, Plantio);
+            GetLocPlantio();
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, Localidades);
             //vincula o adaptador ao controle spinner
-            spnPlantio.Adapter = adapter;
+            spnLocalidade.Adapter = adapter;
 
+            GlebaCults = new ArrayList();
+            idGlebaCults = new ArrayList();
+            GlebaCults.Add("Selecione");
+            idGlebaCults.Add(0);
 
             buttonCalendar.Click += DateSelect_OnClick;
+
             buttonScan.Click += BTScanner_Click;
             buttonSalvar.Click += BTSalvar_Click;
 
@@ -87,7 +94,8 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             };
 
-            spnPlantio.ItemSelected += SpnPlantio_ItemSelected;
+            spnLocalidade.ItemSelected += SpnLocalidade_ItemSelected;
+            spnGlebaCult.ItemSelected += SpnGlebaCult_ItemSelected;
 
             Coordenadas();
 
@@ -126,21 +134,28 @@ namespace Avalia_Pesquisa.Droid.Activities
         }
 
 
-        private void SpnPlantio_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        private void SpnLocalidade_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            idPlantioSelect = idPlantios[e.Position].ToString();
+            idLocalidadeSelect = idLocalidades[e.Position].ToString();
+
+            GetPlantio(int.Parse(idLocalidadeSelect));
+
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, GlebaCults);
+            spnGlebaCult.Adapter = adapter;
 
         }
 
+        private void SpnGlebaCult_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idPlantioSelect = idGlebaCults[e.Position].ToString();
 
+        }
 
 
         public override void OnBackPressed()
         {
             Finish();
         }
-
-
 
 
         protected internal void BTScanner_Click(object sender, EventArgs e)
@@ -260,23 +275,44 @@ namespace Avalia_Pesquisa.Droid.Activities
         }
 
 
-        private void GetPlantio()
+        private void GetLocPlantio()
         {
-            Plantio = new ArrayList();
-            idPlantios = new ArrayList();
+            Localidades = new ArrayList();
+            idLocalidades = new ArrayList();
             PlantacaoService tas = new PlantacaoService();
 
-            Plantio.Add("Selecione");
-            idPlantios.Add(0);
+            Localidades.Add("Selecione");
+            idLocalidades.Add(0);
 
-            var result = tas.GetPlantio();
+            var result = tas.GetPlantioLocalidade();
 
             if (result.Count > 0)
             {
                 foreach (var res in result)
                 {
-                    Plantio.Add(res.Observacoes);
-                    idPlantios.Add(res.idPlantio);
+                    Localidades.Add(res.Descricao);
+                    idLocalidades.Add(res.IdLocalidade);
+                }
+            }
+
+        }
+
+        private void GetPlantio(int idLocalidade)
+        {
+            GlebaCults = new ArrayList();
+            idGlebaCults = new ArrayList();
+            GlebaCults.Add("Selecione");
+            idGlebaCults.Add(0);
+            PlantacaoService tas = new PlantacaoService();
+
+            var result = tas.GetPlantioGlebaCult(idLocalidade);
+
+            if (result.Count > 0)
+            {
+                foreach (var res in result)
+                {
+                    GlebaCults.Add(res.Gleba+" - "+res.Cultura);
+                    idGlebaCults.Add(res.idPlantio);
                 }
             }
 

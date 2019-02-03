@@ -139,7 +139,7 @@ namespace Avalia_Pesquisa
         }
 
 
-        public List<ViewPlantio> GetPlantio()
+        public List<Municipio_Localidade> GetPlantioLocalidade()
         {
             try
             {
@@ -147,9 +147,37 @@ namespace Avalia_Pesquisa
                 {
                    //  var result = conexao.Query<ViewPlantio>("SELECT p.idPlantio, CONCAT(l.Descricao,' - ',s.Descricao, ' - ', g.Descricao) as Descricao from plantio p join municipio_localidade l on l.idLocalidade = p.idLocalidade join gleba g on g.idGleba = p.idGleba join safra s on s.idSafra = p.idSafra where p.idCultura = ?").ToList();
 
-                    var result = conexao.Query<ViewPlantio>("SELECT * from plantio").ToList();
+                    var result = conexao.Query<Municipio_Localidade>("SELECT ml.idLocalidade, ml.Descricao" + 
+                                                                      " FROM Municipio_Localidade ml"+
+                                                                      " JOIN Plantio p ON p.idLocalidade = ml.IdLocalidade " +
+                                                                      "GROUP BY p.idLocalidade; ").ToList();
 
                     //var result = conexao.Query<ViewPlantio>("1").ToList();
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
+        public List<ViewPlantio> GetPlantioGlebaCult(int idLocalidade)
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    //  var result = conexao.Query<ViewPlantio>("SELECT p.idPlantio, CONCAT(l.Descricao,' - ',s.Descricao, ' - ', g.Descricao) as Descricao from plantio p join municipio_localidade l on l.idLocalidade = p.idLocalidade join gleba g on g.idGleba = p.idGleba join safra s on s.idSafra = p.idSafra where p.idCultura = ?").ToList();
+
+                    var result = conexao.Query<ViewPlantio>("SELECT p.idPlantio, g.Descricao as Gleba, c.Descricao as Cultura "+
+                                                                      " FROM plantio p "+
+                                                                      " JOIN cultura c ON c.idCultura = p.idCultura "+
+                                                                      " JOIN gleba g ON g.idGleba = p.idGleba "+
+                                                                     " WHERE idLocalidade = ? ",idLocalidade).ToList();
 
                     return result;
                 }

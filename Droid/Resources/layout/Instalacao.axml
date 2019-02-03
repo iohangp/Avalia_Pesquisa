@@ -13,203 +13,272 @@
         <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_centerInParent="true"
+			android:layout_margin="10dp">
+			<TextView
+				android:text="Informe o número do estudo ou utilize o Scanner"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/textView1" />
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_marginTop="10dp"
+				android:layout_height="wrap_content">
+				<EditText
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="145.0dp"
+					android:layout_height="wrap_content"
+					android:minWidth="15px"
+					android:minHeight="15px"
+					android:id="@+id/EDNumEstudo"
+					android:hint="Nº do Estudo"
+					android:textColor="@color/primary"
+					android:textStyle="italic"
+					android:textSize="14dp"
+					android:layout_marginRight="0.0dp"  />
+				<Button
+					android:layout_width="111.0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/BTValidar"
+					android:text="Validar"
+					android:textColor="@android:color/white"
+					android:background="#307FC1"/>
+				<Button
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/BTScannerAvalia"
+					android:text="Scanner"
+					android:textColor="@android:color/white"
+					android:background="#307FC1"
+					android:layout_marginLeft="5dp" />
+			</LinearLayout>	
+			
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_marginTop="25dp"
+				android:layout_height="wrap_content">
 
-    <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_centerInParent="true"
-    android:layout_margin="10dp">
-    <TextView
-    android:text="Informe o número do estudo ou utilize o Scanner"
-    android:textAppearance="?android:attr/textAppearanceSmall"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/textView1" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content">       
-        <EditText
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="145.0dp"
-            android:layout_height="wrap_content"
-            android:minWidth="15px"
-            android:minHeight="15px"
-            android:id="@+id/EDNumEstudo"
-            android:hint="Nº do Estudo"
-            android:textColor="@color/primary"
-            android:textStyle="italic"
-            android:textSize="14dp"
-            android:layout_marginRight="0.0dp"  />
-        <Button
-            android:layout_width="111.0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/BTValidar"
-            android:text="Validar"
-            android:textColor="@android:color/white"
-            android:background="#307FC1"/>
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/BTScannerAvalia"
-            android:text="Scanner"
-            android:textColor="@android:color/white"
-            android:background="#307FC1"
-            android:layout_marginLeft="5dp" />
-    </LinearLayout>
+				<TextView
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="140dp"
+					android:layout_height="wrap_content"
+					android:text="Localidade: *"
+					android:textColor="@color/primary"
+					android:id="@+id/tvAvaliacao2"
+					android:layout_marginRight="0.0dp" />
+				<Spinner
+					android:layout_column="1"
+					android:layout_width="match_parent"	
+					android:layout_height="wrap_content"
+					android:id="@+id/spnLocalidade" />
 
-  
-    <TableLayout
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tableLayout1"
-        android:layout_marginTop="20dp"
-        android:stretchColumns="1">
-        <TableRow
-            android:id="@+id/trInstalacao">
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Selecione o Plantio:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvAvaliacao2" />
-            <Spinner
-                android:layout_column="1"
-                android:id="@+id/spnPlantio" />
-        </TableRow>
-        <TableRow
-            android:id="@+id/trComprimento">
-            
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Tamanho Comprimento Parcela:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvComprimento" />
-            <EditText
-                android:inputType="numberDecimal"
-                android:layout_column="1"
-                android:id="@+id/etComprimento" />
+			</LinearLayout>
 
-        </TableRow>
-        <TableRow
-            android:id="@+id/trLargura">
-            
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Tamanho Largura Parcela:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvLargura" />
-            <EditText
-                android:inputType="numberDecimal"
-                android:layout_column="1"
-                android:id="@+id/etLargura" />
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_marginTop="25dp"
+				android:layout_height="wrap_content">
 
-        </TableRow>
-        <TableRow
-            android:id="@+id/trCoordenadas1">
-            
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Coordenadas 1:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvCoordenadas1" />
-            <EditText
-                android:inputType="numberDecimal"
-                android:layout_column="1"
-                android:id="@+id/etCoordenadas1" />
+				<TextView
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="140dp"
+					android:layout_height="wrap_content"
+					android:text="Gleba/Cultura: *"
+					android:textColor="@color/primary"
+					android:id="@+id/tvAvaliacao2"
+					android:layout_marginRight="0.0dp" />
+				<Spinner
+					android:layout_column="1"
+					android:layout_width="match_parent"	
+					android:layout_height="wrap_content"
+					android:id="@+id/spnGlebaCult" />
 
-        </TableRow>
-        <TableRow
-            android:id="@+id/trCoordenadas2">
-            
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Coordenadas 2:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvCoordenadas2" />
-            <EditText
-                android:inputType="numberDecimal"
-                android:layout_column="1"
-                android:id="@+id/etCoordenadas2" />
+			</LinearLayout>
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_marginTop="10dp"
+				android:layout_height="wrap_content">
+				<TextView
+					p4:placeholder="true"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="210.0dp"
+					android:layout_height="wrap_content"
+					android:text="Tamanho Comprimento Parcela:"
+					android:textColor="@color/primary"
+					xmlns:p4="http://xamarin.com/mono/android/designer"
+					android:id="@+id/tvComprimento"
+					android:layout_marginRight="0.0dp" />
+				<EditText
+					android:inputType="numberDecimal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_column="1"
+					android:id="@+id/etComprimento"
+					android:layout_marginLeft="0.0dp" />
+			</LinearLayout>
 
-        </TableRow> 
-        <TableRow
-            android:id="@+id/trAltitude">
-            
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Altitude:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvAltitude" />
-            <EditText
-                android:inputType="numberDecimal"
-                android:layout_column="1"
-                android:id="@+id/etAltitude" />
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				<TextView
+					p4:placeholder="true"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="175.0dp"
+					android:layout_height="wrap_content"
+					android:text="Tamanho Largura Parcela:"
+					android:textColor="@color/primary"
+					xmlns:p4="http://xamarin.com/mono/android/designer"
+					android:id="@+id/tvLargura" />
+				<EditText
+					android:inputType="numberDecimal"
+					android:layout_column="1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/etLargura" />
+			</LinearLayout>
 
-        </TableRow>
-        <TableRow
-            android:id="@+id/trData">
-            
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Data:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvData" />
-            <EditText
-                android:inputType="date"
-                android:layout_column="1"
-                android:id="@+id/etData" />
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				<TextView
+					p4:placeholder="true"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="175.0dp"
+					android:layout_height="wrap_content"
+					android:text="Latitude:"
+					android:textColor="@color/primary"
+					xmlns:p4="http://xamarin.com/mono/android/designer"
+					android:id="@+id/tvCoordenadas1" />
+				<EditText
+					android:inputType="numberDecimal"
+					android:layout_column="1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/etCoordenadas1" />
+			</LinearLayout>
 
-        </TableRow>
-          <TableRow
-            android:id="@+id/trObservacoes">
-            
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Observações:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvObservacoes" />
-            <EditText
-                android:inputType="text"
-                android:layout_column="1"
-                android:id="@+id/etObservacoes" />
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				<TextView
+					p4:placeholder="true"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="173.0dp"
+					android:layout_height="wrap_content"
+					android:text="Longitude:"
+					android:textColor="@color/primary"
+					xmlns:p4="http://xamarin.com/mono/android/designer"
+					android:id="@+id/tvCoordenadas2" />
+				<EditText
+					android:inputType="numberDecimal"
+					android:layout_column="1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/etCoordenadas2" />
+			</LinearLayout>
 
-        </TableRow>                
-    </TableLayout>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BTSalvarInstalacao"
-        
-        android:text="Salvar" />
-    </LinearLayout>
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				<TextView
+					p4:placeholder="true"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="172.0dp"
+					android:layout_height="wrap_content"
+					android:text="Altitude:"
+					android:textColor="@color/primary"
+					xmlns:p4="http://xamarin.com/mono/android/designer"
+					android:id="@+id/tvAltitude" />
+				<EditText
+					android:inputType="numberDecimal"
+					android:layout_column="1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/etAltitude" />
+			</LinearLayout>
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				<TextView
+					p4:placeholder="true"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="141.0dp"
+					android:layout_height="wrap_content"
+					android:text="Data:"
+					android:textColor="@color/primary"
+					xmlns:p4="http://xamarin.com/mono/android/designer"
+					android:id="@+id/tvData"
+					android:layout_marginRight="0.0dp"
+					android:layout_marginBottom="1.0dp" />
+				<ImageButton
+					android:src="@drawable/calendar"
+					android:background="@android:color/transparent"
+					android:layout_width="31.0dp"
+					android:layout_height="wrap_content"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_marginTop="10dp"
+					android:id="@+id/ibData"/>
+				<EditText
+					android:inputType="date"
+					android:layout_column="1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/etData" />
+			</LinearLayout>
+			
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<TextView
+					p4:placeholder="true"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="172.0dp"
+					android:layout_height="wrap_content"
+					android:text="Observações:"
+					android:textColor="@color/primary"
+					xmlns:p4="http://xamarin.com/mono/android/designer"
+					android:id="@+id/tvObservacoes" />
+				<EditText
+					android:inputType="text"
+					android:layout_column="1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/etObservacoes" />
+			</LinearLayout>
+			
+			<Button
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/BTSalvarInstalacao"
+				android:textColor="@android:color/white"
+				android:background="#307FC1"
+				android:text="Salvar" />
+		</LinearLayout>
 </LinearLayout>
 </ScrollView>

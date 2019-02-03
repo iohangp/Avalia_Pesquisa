@@ -48,7 +48,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             spinnerSolo = FindViewById<Spinner>(Resource.Id.SPNSolo);
             spinnerCobertura = FindViewById<Spinner>(Resource.Id.SPNCobertura);
             spinnerStatus = FindViewById<Spinner>(Resource.Id.SPNStatus);
-            spinnerLocalidade = FindViewById<Spinner>(Resource.Id.SPNLocalidade);
+            spinnerLocalidade = FindViewById<Spinner>(Resource.Id.SPNLocalidadePlantio);
 
             textDate = FindViewById<TextView>(Resource.Id.TVDataPlantio);
             buttonCalendar = FindViewById<ImageButton>(Resource.Id.IBCalendar);

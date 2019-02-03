@@ -73,14 +73,20 @@ namespace Avalia_Pesquisa.Droid.Activities
                 if (await CloudData.AddPlantio(null)){
 
                     if (await CloudData.BaixarPlantio(null))
-                        pbar.Progress += 10;
+                        pbar.Progress += 5;
 
                     if(await CloudData.AddInstalacao(null))
                     {
                         if(await CloudData.BaixarInstalacao(null))
-                           pbar.Progress += 10;
+                           pbar.Progress += 5;
                     }
                         
+                }
+                if (await CloudData.AddAvaliacao(null)) {
+                    pbar.Progress += 5;
+
+                    if (await CloudData.BaixarAvaliacao(null))
+                        pbar.Progress += 5;
                 }
 
                 // Baixa o conteúdo da Web pro App;
