@@ -18,15 +18,14 @@ namespace Avalia_Pesquisa.Droid.Activities
     [Activity(Label = "Aplicação")]
     public class AplicacaoActivity : BaseActivity
     {
-        ImageButton buttonCalendar;
 
         EditText textBBCH, textObservacoes, textVento, textNuvens, textUmidade, edNumEstudo, textTemperatura;
         TextView textDate, textChuva;
         Spinner spinnerEquipamento;
-        Button buttonSalvar;
+        Button buttonSalvar, buttonScan, buttonValida;
         ImageButton buttonCalendarAplicacao, buttonDataChuva;
         string idEquipamentoSelect;
-        int totalrepeticoes = 1, idEstudo, idPlanejamento;
+        int totalrepeticoes = 1, idEstudo, idPlanejamento, idEstudo_;
 
         protected override int LayoutResource => Resource.Layout.Aplicacao;
 
@@ -35,8 +34,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Aplicacao);
 
-           Button buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
-           Button buttonScan = FindViewById<Button>(Resource.Id.BTScanner);
+           buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
+           buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
            buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAplicacao);
            spinnerEquipamento = FindViewById<Spinner>(Resource.Id.SPNEquipamento);
            textBBCH = FindViewById<EditText>(Resource.Id.ETBBCH);
@@ -54,10 +53,10 @@ namespace Avalia_Pesquisa.Droid.Activities
 
 
 
-            // buttonValida.Click += (sender, e) =>
-            //  {
-            //ValidarEstudo(edNumEstudo.Text);
-            // }
+            buttonValida.Click += (sender, e) =>
+             {
+                 ValidarEstudo(edNumEstudo.Text);
+             };
 
             buttonScan.Click += BTScanner_Click;
             buttonSalvar.Click += BTSalvar_Click;
@@ -108,6 +107,41 @@ namespace Avalia_Pesquisa.Droid.Activities
 
 
         }
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
+
+            if (requestCode == 1)
+            {
+                if (resultCode == Result.Ok)
+                {
+                    if (data.GetStringExtra("qrcode") != null)
+                    {
+                        edNumEstudo.Text = data.GetStringExtra("qrcode");
+                        ValidarEstudo(edNumEstudo.Text);
+                    }
+                }
+            }
+
+            base.OnActivityResult(requestCode, resultCode, data);
+        }
+
+        private void ValidarEstudo(string protocolo)
+        {
+            string[] ids = protocolo.Split('-');
+
+            ConsultaEstudoService ces = new ConsultaEstudoService();
+            var estudo = ces.GetEstudo(int.Parse(ids[0]));
+            buttonSalvar.Visibility = ViewStates.Visible;
+
+            if (estudo.Count > 0)
+            {
+                idEstudo_ = estudo[0].IdEstudo;
+            }
+
+        }
+
 
 
         public async void DadosMeterologicos()
