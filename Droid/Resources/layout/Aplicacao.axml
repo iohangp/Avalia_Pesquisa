@@ -83,14 +83,14 @@
                     android:layout_height="wrap_content"
                     android:minWidth="30px"
                     android:minHeight="30px"
-                    android:id="@+id/IBCalendar"/>
+                    android:id="@+id/IBCalendarAplicacao"/>
                 <TextView
                     android:minWidth="30px"
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:id="@+id/TVDataAvaliação"
+                    android:id="@+id/TVDataAplicacao"
                     android:layout_marginLeft="15dp" />
 
     </LinearLayout>
@@ -152,7 +152,7 @@
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="Percentual dos Ventos: "
+                    android:text="Percentual de Nuvens: "
                     android:textColor="@color/primary"
                     android:id="@+id/textView1"
                     android:layout_marginRight="0.0dp" />
@@ -212,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:minWidth="30px"
                     android:minHeight="30px"
-                    android:id="@+id/IBCalendar"/>
+                    android:id="@+id/IBCalendarChuva"/>
                 <TextView
                     android:minWidth="30px"
                     android:minHeight="30px"
@@ -291,7 +291,7 @@
                 android:layout_column="1"
                 android:layout_width="match_parent" 
                 android:layout_height="wrap_content"
-                android:id="@+id/ETChuva" />
+                android:id="@+id/ETBBCH" />
 
     </LinearLayout> 
      <LinearLayout
@@ -314,10 +314,15 @@
                 android:layout_column="1"
                 android:layout_width="match_parent" 
                 android:layout_height="wrap_content"
-                android:id="@+id/ETChuva" />
+                android:id="@+id/ETObservacoes" />
 
     </LinearLayout>    
-    
+        <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/BTSalvarAplicacao"
+        android:visibility="invisible"
+        android:text="Salvar" />
 	</LinearLayout>
 </LinearLayout>
 </ScrollView>

@@ -21,9 +21,10 @@ namespace Avalia_Pesquisa.Droid.Activities
         ImageButton buttonCalendar;
 
         EditText textBBCH, textObservacoes, textVento, textNuvens, textUmidade, edNumEstudo, textTemperatura;
-        TextView textDate;
+        TextView textDate, textChuva;
         Spinner spinnerEquipamento;
-        Button buttonSalvar, buttonValida;
+        Button buttonSalvar;
+        ImageButton buttonCalendarAplicacao, buttonDataChuva;
         string idEquipamentoSelect;
         int totalrepeticoes = 1, idEstudo, idPlanejamento;
 
@@ -34,18 +35,32 @@ namespace Avalia_Pesquisa.Droid.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Aplicacao);
 
-            buttonValida = FindViewById<Button>(Resource.Id.BTValidar); 
-        //    spinnerEquipamento = FindViewById<Spinner>(Resource.Id.SPNEquipamento);
-        //   textBBCH = FindViewById<EditText>(Resource.Id.etBBCH);
-        //    textObservacoes = FindViewById<EditText>(Resource.Id.etObservações);
+           Button buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
+           Button buttonScan = FindViewById<Button>(Resource.Id.BTScanner);
+           buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAplicacao);
+           spinnerEquipamento = FindViewById<Spinner>(Resource.Id.SPNEquipamento);
+           textBBCH = FindViewById<EditText>(Resource.Id.ETBBCH);
+           textObservacoes = FindViewById<EditText>(Resource.Id.ETObservacoes);
+           textVento = FindViewById<EditText>(Resource.Id.ETVento);
+            textNuvens = FindViewById<EditText>(Resource.Id.ETPercentual);
+            textUmidade = FindViewById<EditText>(Resource.Id.ETUmidadeRelativa);
+            edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
+            textTemperatura = FindViewById<EditText>(Resource.Id.ETTemperatura);
+            spinnerEquipamento = FindViewById<Spinner>(Resource.Id.SPNEquipamento);
+            textDate = FindViewById<TextView>(Resource.Id.TVDataAplicacao);
+            textChuva = FindViewById<TextView>(Resource.Id.TVDataChuva);
+            buttonCalendarAplicacao = FindViewById<ImageButton>(Resource.Id.IBCalendarAplicacao);
+            buttonDataChuva = FindViewById<ImageButton>(Resource.Id.IBCalendarChuva);
 
-            //         buttonCalendar.Click += DateSelect_OnClick;
-            //       buttonSalvar.Click += BTSalvar_Click;
 
-            buttonValida.Click += (sender, e) =>
-            {
-                //ValidarEstudo(edNumEstudo.Text);
-            };
+
+            // buttonValida.Click += (sender, e) =>
+            //  {
+            //ValidarEstudo(edNumEstudo.Text);
+            // }
+
+            buttonScan.Click += BTScanner_Click;
+            buttonSalvar.Click += BTSalvar_Click;
         }
 
 
@@ -62,6 +77,12 @@ namespace Avalia_Pesquisa.Droid.Activities
         public override void OnBackPressed()
         {
             Finish();
+        }
+
+        protected internal void BTScanner_Click(object sender, EventArgs e)
+        {
+            var intent = new Intent(this, typeof(QrCodeActivity));
+            StartActivityForResult(intent, 1);
         }
 
 
