@@ -21,26 +21,33 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         EditText textBBCH, textObservacoes, textVento, textNuvens, textUmidade, edNumEstudo, textTemperatura;
         TextView textDate, textChuva;
+        ArrayAdapter adapter;
         Spinner spinnerEquipamento;
+        ArrayList idEquipamento, Equipamento;
         Button buttonSalvar, buttonScan, buttonValida;
         ImageButton buttonCalendarAplicacao, buttonDataChuva;
         string idEquipamentoSelect;
-        int totalrepeticoes = 1, idEstudo, idPlanejamento, idEstudo_;
+        int idEstudo, idPlanejamento, idEstudo_;
 
         protected override int LayoutResource => Resource.Layout.Aplicacao;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Aplicacao);
+           
 
-           buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
-           buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
-           buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAplicacao);
-           spinnerEquipamento = FindViewById<Spinner>(Resource.Id.SPNEquipamento);
-           textBBCH = FindViewById<EditText>(Resource.Id.ETBBCH);
-           textObservacoes = FindViewById<EditText>(Resource.Id.ETObservacoes);
-           textVento = FindViewById<EditText>(Resource.Id.ETVento);
+            //idEquipamento = new ArrayList();
+            //Equipamento = new ArrayList();
+           // Equipamento.Add("Selecione");
+           // idEquipamento.Add(0);
+
+            buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
+            buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
+            buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAplicacao);
+            spinnerEquipamento = FindViewById<Spinner>(Resource.Id.SPNEquipamento);
+            textBBCH = FindViewById<EditText>(Resource.Id.ETBBCH);
+            textObservacoes = FindViewById<EditText>(Resource.Id.ETObservacoes);
+            textVento = FindViewById<EditText>(Resource.Id.ETVento);
             textNuvens = FindViewById<EditText>(Resource.Id.ETPercentual);
             textUmidade = FindViewById<EditText>(Resource.Id.ETUmidadeRelativa);
             edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
@@ -51,7 +58,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             buttonCalendarAplicacao = FindViewById<ImageButton>(Resource.Id.IBCalendarAplicacao);
             buttonDataChuva = FindViewById<ImageButton>(Resource.Id.IBCalendarChuva);
 
-
+            buttonCalendarAplicacao.Click += DateSelect_OnClick;
+            buttonDataChuva.Click += ChuvaSelect_OnClick;
 
             buttonValida.Click += (sender, e) =>
              {
@@ -60,6 +68,15 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             buttonScan.Click += BTScanner_Click;
             buttonSalvar.Click += BTSalvar_Click;
+
+            GetEquipamento();
+            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, Equipamento);
+            spinnerEquipamento.Adapter = adapter;
+
+            spinnerEquipamento.ItemSelected += SpnEquipamento_ItemSelected;
+
+            DadosMeterologicos();
+
         }
 
 
@@ -68,6 +85,14 @@ namespace Avalia_Pesquisa.Droid.Activities
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 textDate.Text = time.ToShortDateString();
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        void ChuvaSelect_OnClick(object sender, EventArgs eventArgs)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time) {
+                textChuva.Text = time.ToShortDateString();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
@@ -84,15 +109,33 @@ namespace Avalia_Pesquisa.Droid.Activities
             StartActivityForResult(intent, 1);
         }
 
+        private void GetEquipamento()
+        {
+            Equipamento = new ArrayList();
+            idEquipamento = new ArrayList();
+            AplicacaoService tas = new AplicacaoService();
+
+            var result = tas.GetEquipamento();
+
+            Equipamento.Add("Selecione");
+            idEquipamento.Add(0);
+            foreach (var res in result)
+            {
+                Equipamento.Add(res.Descricao);
+                idEquipamento.Add(res.IdEquipamento);
+            }
+
+        }
+
 
         protected internal void BTSalvar_Click(object sender, EventArgs e)
         {
 
-            //AplicacaoService apliService = new AplicacaoService();
+            AplicacaoService apliService = new AplicacaoService();
 
             var aplicacao = new Aplicacao
             {
-                // IdEstudo = idEstudo,
+                 IdAplicacao = idEstudo,
                 idInstalacao = 1,
                 Data_Aplicacao = DateTime.Parse(textDate.Text),
                 Umidade_Relativa = decimal.Parse(textTemperatura.Text),
@@ -101,12 +144,21 @@ namespace Avalia_Pesquisa.Droid.Activities
                 Percentual_nuvens = decimal.Parse(textNuvens.Text),
                 IdEquipamento = int.Parse(idEquipamentoSelect),
                 BBCH = decimal.Parse(textBBCH.Text),
-                Observacoes = textObservacoes.Text
+                Observacoes = textObservacoes.Text,
+                idUsuario = 1
             };
-       //     apliService.SalvarAplicacao(aplicacao);
+            apliService.SalvarAplicacao(aplicacao);
 
 
         }
+
+        private void SpnEquipamento_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idEquipamentoSelect = idEquipamento[e.Position].ToString();
+
+        }
+
+
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
@@ -146,76 +198,24 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         public async void DadosMeterologicos()
         {
+            Weather weather = await WeatherService.GetWeather();
+            if (weather.Title != "")
+            {
+                //FindViewById<TextView>(Resource.Id.locationText).Text = weather.Title;
+                textTemperatura.Text = weather.Temperature;
+                textVento.Text = weather.Wind;
+                textNuvens.Text = weather.Clouds;
+                textUmidade.Text = weather.Humidity;
 
-
-            // EditText zipCodeEntry = FindViewById<EditText>(Resource.Id.ZipCodeEntry);
-
-            //  if (!String.IsNullOrEmpty(zipCodeEntry.Text))
-            // {
-            Weather weather = await WeatherService.GetWeather(); //zipCodeEntry.Text
-            //if (weather.Title != "")
-            //{
-
-            //    FindViewById<EditText>(Resource.Id.etTemperatura).Text = weather.Temperature;
-            //    FindViewById<EditText>(Resource.Id.etVento).Text = weather.Wind;
-
-            //    FindViewById<EditText>(Resource.Id.etUmidade).Text = weather.Humidity;
-            //    FindViewById<EditText>(Resource.Id.etNuvens).Text = weather.Clouds;
-
-            //}
-            //   else
-            //   {
-            //       Toast.MakeText(this, "Localização não encontrada!", ToastLength.Long).Show();
-            //}
+            }
+            else
+            {
+                Toast.MakeText(this, "Sem conexão para obter dados climáticos!", ToastLength.Long).Show();
+            }
 
         }
 
 
     }
-
-    //private void ValidarEstudo2(string protocolo)
-    //{
-    //    int numRepeticao = 1;
-
-
-
-    //    ConsultaEstudoService ces = new ConsultaEstudoService();
-    //    var estudo = ces.GetEstudo(protocolo);
-
-    //    if (estudo.Count > 0)
-    //    {
-
-    //        idEstudo = estudo[0].IdEstudo;
-
-
-    //        AplicacaoService aval = new AplicacaoService();
-    //        var plan = aval.GetDataAplicacao(idEstudo);
-
-
-    //        buttonSalvar.Visibility = ViewStates.Visible;
-
-
-
-    //        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    //        AlertDialog alerta = builder.Create();
-
-    //        alerta.SetTitle("Atenção!");
-    //        alerta.SetIcon(Android.Resource.Drawable.IcDelete);
-    //        alerta.SetMessage("Todas as aplicações para este estudo já foram realizadas");
-    //        alerta.SetButton("OK", (s, ev) =>
-    //        {
-    //            alerta.Dismiss();
-    //        });
-    //        alerta.Show();
-
-    //    }
-    //    else
-    //    {
-    //        //EscondeCampos();
-    //        Toast.MakeText(this, "Nenhum estudo encontrado", ToastLength.Long).Show();
-    //    }
-
-
-    //}
 
 }

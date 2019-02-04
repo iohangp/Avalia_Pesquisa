@@ -57,6 +57,24 @@ namespace Avalia_Pesquisa
             }
 
         }
+        public List<Equipamento> GetEquipamento()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Equipamento>("SELECT * from equipamento").ToList();
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
 
     }
 
