@@ -72,7 +72,7 @@
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="Data Avaliação:*"
+                    android:text="Data Aplicação:*"
                     android:textColor="@color/primary"
                     android:id="@+id/textView1"
                     android:layout_marginRight="0.0dp" />
