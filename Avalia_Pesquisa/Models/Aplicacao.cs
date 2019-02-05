@@ -7,6 +7,9 @@ namespace Avalia_Pesquisa
         public int IdAplicacao { get; set; }
         public int idInstalacao { get; set; }
         public DateTime Data_Aplicacao { get; set; }
+        public DateTime Data_Realizada { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
         public decimal Dosagem { get; set; }
         public decimal Umidade_Relativa { get; set; }
         public string Temperatura { get; set; }

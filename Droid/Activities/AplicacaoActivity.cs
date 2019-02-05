@@ -132,26 +132,77 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         protected internal void BTSalvar_Click(object sender, EventArgs e)
         {
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog alerta = builder.Create();
             AplicacaoService apliService = new AplicacaoService();
 
-            var aplicacao = new Aplicacao
-            {
 
-                idInstalacao = 1,
-                Data_Aplicacao = DateTime.Parse(textDate.Text),
-                Umidade_Relativa = decimal.Parse(textUmidade.Text.Replace("%", "")),
-                Temperatura = textTemperatura.Text,
-                Velocidade_Vento = decimal.Parse(textVento.Text.Replace("km/h", "")),
-                Percentual_nuvens = decimal.Parse(textNuvens.Text.Replace("%", "")),
-                Chuva_Data = DateTime.Parse(textChuva.Text),
-                Chuva_Volume = decimal.Parse(textVolumeChuva.Text),
-                IdEquipamento = int.Parse(idEquipamentoSelect),
-                BBCH = decimal.Parse(textBBCH.Text),
-                Observacoes = textObservacoes.Text,
-                idUsuario = int.Parse(Settings.GeneralSettings)
-            };
-            apliService.SalvarAplicacao(aplicacao);
+            if (idEstudo_ > 0)
+            {
+                var aplicacao = new Aplicacao
+                {
+
+                    idInstalacao = 1,
+                    Data_Aplicacao = DateTime.Parse(textDate.Text),
+                    Umidade_Relativa = decimal.Parse(textUmidade.Text.Replace("%", "")),
+                    Temperatura = textTemperatura.Text,
+                    Velocidade_Vento = decimal.Parse(textVento.Text.Replace("km/h", "")),
+                    Percentual_nuvens = decimal.Parse(textNuvens.Text.Replace("%", "")),
+                    Chuva_Data = DateTime.Parse(textChuva.Text),
+                    Chuva_Volume = decimal.Parse(textVolumeChuva.Text),
+                    IdEquipamento = int.Parse(idEquipamentoSelect),
+                    BBCH = decimal.Parse(textBBCH.Text),
+                    Observacoes = textObservacoes.Text,
+                    idUsuario = int.Parse(Settings.GeneralSettings)
+                };
+
+                try
+                {
+                    apliService.SalvarAplicacao(aplicacao); ;
+
+
+                    alerta.SetTitle("Sucesso!");
+                    alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                    alerta.SetMessage("Instalação Salva com Sucesso!");
+                    alerta.SetButton("OK", (s, ev) =>
+                    {
+                        alerta.Dismiss();
+                    });
+                    alerta.Show();
+                    LimparCampos();
+                }
+
+                catch
+
+                {
+                    alerta.SetMessage("Erro ao salvar ");
+                    alerta.SetTitle("ERRO!");
+                    alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                    alerta.SetMessage("Erro ao salvar a Avaliação!");
+                    alerta.SetButton("OK", (s, ev) =>
+                    {
+                        alerta.Dismiss();
+                    });
+                    alerta.Show();
+                }
+            }
+
+                         else {
+                alerta.SetMessage("Favor informar um estudo válido ");
+                alerta.SetTitle("ERRO!");
+                alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                alerta.SetMessage("Favor informar um estudo válido!");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
+
+
+            }
+
+
+
 
 
         }
@@ -162,7 +213,21 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         }
 
+        private void LimparCampos()
+        {
 
+
+            spinnerEquipamento.SetSelection(0);
+
+            textBBCH.Text = textObservacoes.Text = textVento.Text = textNuvens.Text = textUmidade.Text = edNumEstudo.Text = textTemperatura.Text = textVolumeChuva.Text = "";
+            textDate.Text = textChuva.Text = "";
+
+             idEquipamentoSelect = "";
+             idInstalacao = idPlanejamento = idEstudo_ = 0;
+               
+
+
+        }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
@@ -194,7 +259,10 @@ namespace Avalia_Pesquisa.Droid.Activities
             if (estudo.Count > 0)
             {
                 idEstudo_ = estudo[0].IdEstudo;
+                DadosMeterologicos();
             }
+
+
 
         }
 
