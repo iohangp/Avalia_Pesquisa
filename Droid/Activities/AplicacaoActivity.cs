@@ -12,6 +12,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Avalia_Pesquisa.Droid.Helpers;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -27,7 +28,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         Button buttonSalvar, buttonScan, buttonValida;
         ImageButton buttonCalendarAplicacao, buttonDataChuva;
         string idEquipamentoSelect;
-        int idEstudo, idPlanejamento, idEstudo_;
+        int idInstalacao, idPlanejamento, idEstudo_;
 
         protected override int LayoutResource => Resource.Layout.Aplicacao;
 
@@ -136,11 +137,11 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             var aplicacao = new Aplicacao
             {
-                IdAplicacao = 1,//idEstudo,
+
                 idInstalacao = 1,
                 Data_Aplicacao = DateTime.Parse(textDate.Text),
                 Umidade_Relativa = decimal.Parse(textUmidade.Text.Replace("%", "")),
-                Temperatura = decimal.Parse(textTemperatura.Text.Replace("ºC", "")),
+                Temperatura = textTemperatura.Text,
                 Velocidade_Vento = decimal.Parse(textVento.Text.Replace("km/h", "")),
                 Percentual_nuvens = decimal.Parse(textNuvens.Text.Replace("%", "")),
                 Chuva_Data = DateTime.Parse(textChuva.Text),
@@ -148,7 +149,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 IdEquipamento = int.Parse(idEquipamentoSelect),
                 BBCH = decimal.Parse(textBBCH.Text),
                 Observacoes = textObservacoes.Text,
-                idUsuario = 1
+                idUsuario = int.Parse(Settings.GeneralSettings)
             };
             apliService.SalvarAplicacao(aplicacao);
 

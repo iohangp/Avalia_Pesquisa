@@ -9,7 +9,7 @@ namespace Avalia_Pesquisa
         public DateTime Data_Aplicacao { get; set; }
         public decimal Dosagem { get; set; }
         public decimal Umidade_Relativa { get; set; }
-        public decimal Temperatura { get; set; }
+        public string Temperatura { get; set; }
         public decimal Velocidade_Vento { get; set; }
         public decimal Percentual_nuvens { get; set; }
         public DateTime Chuva_Data { get; set; }

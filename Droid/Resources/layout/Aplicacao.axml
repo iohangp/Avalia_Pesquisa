@@ -124,11 +124,11 @@
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content">
                 <TextView
-                    android:minWidth="30px"
+                    android:minWidth="40px"
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="Temperatura: ºC"
+                    android:text="Temperatura: (ºC)"
                     android:textColor="@color/primary"
                     android:id="@+id/textView1"
                     android:layout_marginRight="0.0dp" />
@@ -148,9 +148,9 @@
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content">
                 <TextView
-                    android:minWidth="30px"
+                    android:minWidth="70px"
                     android:minHeight="30px"
-                    android:layout_width="140dp"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="Percentual de Nuvens: (%)"
                     android:textColor="@color/primary"
@@ -172,9 +172,9 @@
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content">
                 <TextView
-                    android:minWidth="30px"
+                    android:minWidth="70px"
                     android:minHeight="30px"
-                    android:layout_width="140dp"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="Velocidade do Vento: (km/h)"
                     android:textColor="@color/primary"
@@ -197,7 +197,7 @@
         android:layout_height="wrap_content">
 
                 <TextView
-                    android:minWidth="30px"
+                    android:minWidth="40px"
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
@@ -230,9 +230,9 @@
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content">
                 <TextView
-                    android:minWidth="30px"
+                    android:minWidth="70px"
                     android:minHeight="30px"
-                    android:layout_width="140dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="Volume de chuva: (mm)"
                     android:textColor="@color/primary"
@@ -254,7 +254,7 @@
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content">
                 <TextView
-                    android:minWidth="30px"
+                    android:minWidth="40px"
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
