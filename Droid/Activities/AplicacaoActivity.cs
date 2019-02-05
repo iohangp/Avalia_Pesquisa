@@ -19,7 +19,7 @@ namespace Avalia_Pesquisa.Droid.Activities
     public class AplicacaoActivity : BaseActivity
     {
 
-        EditText textBBCH, textObservacoes, textVento, textNuvens, textUmidade, edNumEstudo, textTemperatura;
+        EditText textBBCH, textObservacoes, textVento, textNuvens, textUmidade, edNumEstudo, textTemperatura, textVolumeChuva;
         TextView textDate, textChuva;
         ArrayAdapter adapter;
         Spinner spinnerEquipamento;
@@ -34,12 +34,12 @@ namespace Avalia_Pesquisa.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-           
+
 
             //idEquipamento = new ArrayList();
             //Equipamento = new ArrayList();
-           // Equipamento.Add("Selecione");
-           // idEquipamento.Add(0);
+            // Equipamento.Add("Selecione");
+            // idEquipamento.Add(0);
 
             buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
             buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
@@ -49,6 +49,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             textObservacoes = FindViewById<EditText>(Resource.Id.ETObservacoes);
             textVento = FindViewById<EditText>(Resource.Id.ETVento);
             textNuvens = FindViewById<EditText>(Resource.Id.ETPercentual);
+            textVolumeChuva = FindViewById<EditText>(Resource.Id.ETChuva);
             textUmidade = FindViewById<EditText>(Resource.Id.ETUmidadeRelativa);
             edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
             textTemperatura = FindViewById<EditText>(Resource.Id.ETTemperatura);
@@ -62,9 +63,9 @@ namespace Avalia_Pesquisa.Droid.Activities
             buttonDataChuva.Click += ChuvaSelect_OnClick;
 
             buttonValida.Click += (sender, e) =>
-             {
-                 ValidarEstudo(edNumEstudo.Text);
-             };
+            {
+                ValidarEstudo(edNumEstudo.Text);
+            };
 
             buttonScan.Click += BTScanner_Click;
             buttonSalvar.Click += BTSalvar_Click;
@@ -135,13 +136,15 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             var aplicacao = new Aplicacao
             {
-                 IdAplicacao = idEstudo,
+                IdAplicacao = 1,//idEstudo,
                 idInstalacao = 1,
                 Data_Aplicacao = DateTime.Parse(textDate.Text),
-                Umidade_Relativa = decimal.Parse(textTemperatura.Text),
-                Temperatura = decimal.Parse(textTemperatura.Text),
-                Velocidade_Vento = decimal.Parse(textVento.Text),
-                Percentual_nuvens = decimal.Parse(textNuvens.Text),
+                Umidade_Relativa = decimal.Parse(textUmidade.Text.Replace("%", "")),
+                Temperatura = decimal.Parse(textTemperatura.Text.Replace("ºC", "")),
+                Velocidade_Vento = decimal.Parse(textVento.Text.Replace("km/h", "")),
+                Percentual_nuvens = decimal.Parse(textNuvens.Text.Replace("%", "")),
+                Chuva_Data = DateTime.Parse(textChuva.Text),
+                Chuva_Volume = decimal.Parse(textVolumeChuva.Text),
                 IdEquipamento = int.Parse(idEquipamentoSelect),
                 BBCH = decimal.Parse(textBBCH.Text),
                 Observacoes = textObservacoes.Text,
@@ -198,18 +201,25 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         public async void DadosMeterologicos()
         {
-            Weather weather = await WeatherService.GetWeather();
-            if (weather.Title != "")
+            try
             {
-                //FindViewById<TextView>(Resource.Id.locationText).Text = weather.Title;
-                textTemperatura.Text = weather.Temperature;
-                textVento.Text = weather.Wind;
-                textNuvens.Text = weather.Clouds;
-                textUmidade.Text = weather.Humidity;
+                Weather weather = await WeatherService.GetWeather();
+                if (weather.Title != "")
+                {
+                    //FindViewById<TextView>(Resource.Id.locationText).Text = weather.Title;
+                    textTemperatura.Text = weather.Temperature;
+                    textVento.Text = weather.Wind;
+                    textNuvens.Text = weather.Clouds;
+                    textUmidade.Text = weather.Humidity;
 
+                }
+                else
+                {
+                    Toast.MakeText(this, "Sem conexão para obter dados climáticos!", ToastLength.Long).Show();
+                }
             }
-            else
-            {
+
+            catch {
                 Toast.MakeText(this, "Sem conexão para obter dados climáticos!", ToastLength.Long).Show();
             }
 

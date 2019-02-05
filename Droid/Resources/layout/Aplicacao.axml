@@ -72,7 +72,7 @@
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="Data Avaliação:"
+                    android:text="Data Avaliação:*"
                     android:textColor="@color/primary"
                     android:id="@+id/textView1"
                     android:layout_marginRight="0.0dp" />
@@ -104,7 +104,7 @@
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="Umidade Relativa: "
+                    android:text="Umidade Relativa: (%)"
                     android:textColor="@color/primary"
                     android:id="@+id/textView1"
                     android:layout_marginRight="0.0dp" />
@@ -128,7 +128,7 @@
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="Temperatura: "
+                    android:text="Temperatura: ºC"
                     android:textColor="@color/primary"
                     android:id="@+id/textView1"
                     android:layout_marginRight="0.0dp" />
@@ -152,7 +152,7 @@
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="Percentual de Nuvens: "
+                    android:text="Percentual de Nuvens: (%)"
                     android:textColor="@color/primary"
                     android:id="@+id/textView1"
                     android:layout_marginRight="0.0dp" />
@@ -176,7 +176,7 @@
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="Velocidade do Vento: "
+                    android:text="Velocidade do Vento: (km/h)"
                     android:textColor="@color/primary"
                     android:id="@+id/textView1"
                     android:layout_marginRight="0.0dp" />
@@ -234,7 +234,7 @@
                     android:minHeight="30px"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="Volume de chuva: "
+                    android:text="Volume de chuva: (mm)"
                     android:textColor="@color/primary"
                     android:id="@+id/textView1"
                     android:layout_marginRight="0.0dp" />
