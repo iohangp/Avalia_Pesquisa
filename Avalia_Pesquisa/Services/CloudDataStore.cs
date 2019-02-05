@@ -36,6 +36,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Plantio> plantioArray;
         IEnumerable<Instalacao> instalacaoArray;
         IEnumerable<Avaliacao> avaliacaoArray;
+        IEnumerable<Equipamento> equipamentoArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -551,6 +552,58 @@ namespace Avalia_Pesquisa
                             conexao.Insert(safraObj);
                         else
                             conexao.Update(safraObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<bool> BaixarEquipamento(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/equipamento?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                equipamentoArray = JsonConvert.DeserializeObject<IEnumerable<Equipamento>>(json);
+
+                int total = equipamentoArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var equip in equipamentoArray)
+                    {
+                        var equipObj = new Equipamento
+                        {
+                            IdEquipamento = equip.IdEquipamento,
+                            Bicos = equip.Bicos,
+                            Descricao = equip.Descricao,
+                            Largura = equip.Largura,
+                            Volume_Calda = equip.Volume_Calda,
+                            Situacao = equip.Situacao
+                        };
+
+                        var dadosEquip = conexao.Query<Safra>("SELECT * FROM Equipamento Where IdEquipamento=?", equipObj.IdEquipamento);
+
+                        if (dadosEquip.Count == 0)
+                            conexao.Insert(equipObj);
+                        else
+                            conexao.Update(equipObj);
                     }
                 }
             }

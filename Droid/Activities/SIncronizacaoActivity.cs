@@ -99,7 +99,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                         pbar.Progress += 10;
                     }
                 }
-                if (await CloudData.BaixarCultura(null))
+                if (await CloudData.BaixarCultura(null) &&
+                    await CloudData.BaixarEquipamento(null))
                     pbar.Progress += 10;
                 if (await CloudData.BaixarEstudos(null))
                     pbar.Progress += 10;
