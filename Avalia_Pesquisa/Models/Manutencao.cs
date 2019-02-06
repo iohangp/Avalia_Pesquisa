@@ -11,6 +11,7 @@ namespace Avalia_Pesquisa
         public int idProduto { get; set; }
         public int idUsuario { get; set; }
         public decimal Dose { get; set; }
+        public int idUnidade_Medida { get; set; }
         public int idManutencao_Objetivo { get; set; }
         public DateTime Hora_Inicio_Fim { get; set; }
         public string Temperatura { get; set; }

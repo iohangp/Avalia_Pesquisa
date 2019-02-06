@@ -66,9 +66,9 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:minWidth="30px"
+                    android:minWidth="40px"
                     android:minHeight="30px"
-                    android:layout_width="140dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:text="Tipo de Manutencao: *"
                     android:textColor="@color/primary"
@@ -81,7 +81,28 @@
                     android:id="@+id/spnTipoManutencao" />
 
             </LinearLayout>
+                         <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Objetivo: *"
+                    android:textColor="@color/primary"
+                    android:id="@+id/tvObjetivo"
+                    android:layout_marginRight="0.0dp" />
+                <Spinner
+                    android:layout_column="1"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spnObjetivo" />
+
+            </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -114,44 +135,33 @@
                     p4:placeholder="true"
                     android:minWidth="30px"
                     android:minHeight="30px"
-                    android:layout_width="175.0dp"
+                    android:layout_width="50.0dp"
                     android:layout_height="wrap_content"
-                    android:text="Dose:"
+                    android:text="Dose:*"
                     android:textColor="@color/primary"
                     xmlns:p4="http://xamarin.com/mono/android/designer"
                     android:id="@+id/tvDose" />
                 <EditText
                     android:inputType="numberDecimal"
                     android:layout_column="1"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_width="55.0dp"
                     android:id="@+id/etDose" />
-            </LinearLayout>
-
-             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_marginTop="25dp"
-                android:layout_height="wrap_content">
-
-                <TextView
+                 <TextView
                     android:minWidth="30px"
                     android:minHeight="30px"
-                    android:layout_width="140dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="Objetivo: *"
+                    android:text="Un. Medida:*"
                     android:textColor="@color/primary"
-                    android:id="@+id/tvObjetivo"
+                    android:id="@+id/tvUnidadeMedida"
                     android:layout_marginRight="0.0dp" />
                 <Spinner
                     android:layout_column="1"
-                    android:layout_width="match_parent" 
-                    android:layout_height="wrap_content"
-                    android:id="@+id/spnObjetivo" />
-
+                    android:layout_width="160dp" 
+                    android:layout_height="30dp"
+                    android:id="@+id/spnUnidadeMedida" />
             </LinearLayout>
-            
-
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -171,7 +181,7 @@
                     android:layout_column="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/@id/ETTemperatura" />
+                    android:id="@+id/ETTemperaturaM" />
             </LinearLayout>
       
                         <LinearLayout
@@ -193,7 +203,7 @@
                     android:layout_column="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/@id/@id/ETUmidadeRelativa" />
+                    android:id="@+id/ETUmidadeRelativaM" />
             </LinearLayout>
                                     <LinearLayout
                 android:orientation="horizontal"
@@ -214,7 +224,7 @@
                     android:layout_column="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/@id/@id/ETVelocidadeVento" />
+                    android:id="@+id/ETVelocidadeVentoM" />
             </LinearLayout>
                                                 <LinearLayout
                 android:orientation="horizontal"
@@ -235,7 +245,7 @@
                     android:layout_column="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/@id/@id/ETPercentualNuvens" />
+                    android:id="@+id/ETPercentualNuvensM" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
@@ -257,13 +267,13 @@
                     android:layout_column="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/etObservacoes" />
+                    android:id="@+id/etObservacoesM" />
             </LinearLayout>
             
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/BTSalvarInstalacao"
+                android:id="@+id/BTSalvarManutencao"
                 android:textColor="@android:color/white"
                 android:background="#307FC1"
                 android:text="Salvar" />

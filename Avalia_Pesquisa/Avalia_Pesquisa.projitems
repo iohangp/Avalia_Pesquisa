@@ -70,5 +70,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\AplicacaoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ManutencaoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Manutencao_Objetivo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Unidade_Medida.cs" />
   </ItemGroup>
 </Project>

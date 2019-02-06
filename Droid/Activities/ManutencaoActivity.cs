@@ -13,6 +13,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Avalia_Pesquisa.Droid.Helpers;
+using Android.Views.InputMethods;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -23,40 +24,40 @@ namespace Avalia_Pesquisa.Droid.Activities
         EditText textDose, textObservacoes, textVento, textNuvens, textUmidade, edNumEstudo, textTemperatura; 
 
         ArrayAdapter adapter;
-        Spinner spinnerObjetivo, spinnerProduto, spinnerTipoManutencao;
-        ArrayList idObjetivo, Objetivo, idProduto, Produto, idTipoManutencao, TipoManutencao;
+        Spinner spinnerObjetivo, spinnerProduto, spinnerTipoManutencao, spinnerUnidadeMedida;
+        ArrayList idObjetivo, Objetivo, idProduto, Produto, idTipoManutencao, TipoManutencao, idUnidadeMedida, UnidadeMedida;
         Button buttonSalvar, buttonScan, buttonValida;
 
-        string idObjetivoSelect, idProdutoSelect, idTIpoManutencaoSelect;
+        string idObjetivoSelect, idProdutoSelect, idTIpoManutencaoSelect, idUnidadeMedidaSelect;
         int idInstalacao, idPlanejamento, idEstudo_;
         double latitude = 0;
         double longitude = 0;
 
-        protected override int LayoutResource => Resource.Layout.Aplicacao;
+        protected override int LayoutResource => Resource.Layout.Manutencao;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
+            //Oculta Teclado
+           //InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+            //inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
 
+            edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
             buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
             buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
-            buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAplicacao);
+            buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarManutencao);
             spinnerProduto = FindViewById<Spinner>(Resource.Id.spnProduto);
             spinnerObjetivo = FindViewById<Spinner>(Resource.Id.spnObjetivo);
             spinnerTipoManutencao = FindViewById<Spinner>(Resource.Id.spnTipoManutencao);
-
+            spinnerUnidadeMedida = FindViewById<Spinner>(Resource.Id.spnUnidadeMedida);
             textDose = FindViewById<EditText>(Resource.Id.etDose);
-            textObservacoes = FindViewById<EditText>(Resource.Id.ETObservacoes);
-            textVento = FindViewById<EditText>(Resource.Id.ETVento);
-            textNuvens = FindViewById<EditText>(Resource.Id.ETPercentual);
-            textUmidade = FindViewById<EditText>(Resource.Id.ETUmidadeRelativa);
-            edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
-            textTemperatura = FindViewById<EditText>(Resource.Id.ETTemperatura);
-
-
-
+            textObservacoes = FindViewById<EditText>(Resource.Id.etObservacoesM);
+            textVento = FindViewById<EditText>(Resource.Id.ETVelocidadeVentoM);
+            textNuvens = FindViewById<EditText>(Resource.Id.ETPercentualNuvensM);
+            textUmidade = FindViewById<EditText>(Resource.Id.ETUmidadeRelativaM);
+            textTemperatura = FindViewById<EditText>(Resource.Id.ETTemperaturaM);
 
 
             buttonValida.Click += (sender, e) =>
@@ -70,17 +71,22 @@ namespace Avalia_Pesquisa.Droid.Activities
             GetProduto();
             GetManutencaoTipo();
             GetManutencaoObjetivo();
+            GetUnidadeMedida();
+            DadosMeterologicos();
+
             adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, Produto);
             adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, TipoManutencao);
             adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, Objetivo);
+
             spinnerProduto.Adapter = adapter;
             spinnerObjetivo.Adapter = adapter;
             spinnerTipoManutencao.Adapter = adapter;
+            spinnerUnidadeMedida.Adapter = adapter;
 
             spinnerProduto.ItemSelected += SpnProduto_ItemSelected;
             spinnerObjetivo.ItemSelected += SpnObjetivo_ItemSelected;
             spinnerTipoManutencao.ItemSelected += SpnTipoManutencao_ItemSelected;
-            DadosMeterologicos();
+            spinnerUnidadeMedida.ItemSelected += SpnUnidadeMedida_ItemSelected;
 
         }
 
@@ -98,6 +104,10 @@ namespace Avalia_Pesquisa.Droid.Activities
             StartActivityForResult(intent, 1);
         }
 
+
+
+
+
         private void GetProduto()
         {
             Produto = new ArrayList();
@@ -108,10 +118,13 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             Produto.Add("Selecione");
             idProduto.Add(0);
-            foreach (var res in result)
+            if (result != null)
             {
-                Produto.Add(res.Descricao);
-                idProduto.Add(res.idProduto);
+                foreach (var res in result)
+                {
+                    Produto.Add(res.Descricao);
+                    idProduto.Add(res.idProduto);
+                }
             }
 
         }
@@ -126,12 +139,14 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             Objetivo.Add("Selecione");
             idObjetivo.Add(0);
-            foreach (var res in result)
+            if (result != null)
             {
-                Objetivo.Add(res.Descricao);
-                idObjetivo.Add(res.idManutencao_Objetivo);
+                foreach (var res in result)
+                {
+                    Objetivo.Add(res.Descricao);
+                    idObjetivo.Add(res.idManutencao_Objetivo);
+                }
             }
-
         }
         private void GetManutencaoTipo()
         {
@@ -143,19 +158,41 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             TipoManutencao.Add("Selecione");
             idTipoManutencao.Add(0);
-            foreach (var res in result)
+            if (result != null)
             {
-                Produto.Add(res.Descricao);
-                idProduto.Add(res.idManutencao_Tipo);
+                foreach (var res in result)
+                {
+                    Produto.Add(res.Descricao);
+                    idProduto.Add(res.idManutencao_Tipo);
+                }
             }
+        }
 
+        private void GetUnidadeMedida()
+        {
+            UnidadeMedida = new ArrayList();
+            idUnidadeMedida = new ArrayList();
+            ManutencaoService tas = new ManutencaoService();
+
+            var result = tas.GetUnidadeMedida();
+
+            UnidadeMedida.Add("Selecione");
+            idUnidadeMedida.Add(0);
+            if (result != null)
+            {
+                foreach (var res in result)
+                {
+                    UnidadeMedida.Add(res.Descricao);
+                    idUnidadeMedida.Add(res.idUnidade_Medida);
+                }
+            }
         }
 
         protected internal void BTSalvar_Click(object sender, EventArgs e)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             AlertDialog alerta = builder.Create();
-            AplicacaoService apliService = new AplicacaoService();
+            ManutencaoService manuService = new ManutencaoService();
 
 
             if (idEstudo_ > 0)
@@ -173,7 +210,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     idProduto = int.Parse(idProdutoSelect),
                     idManutencao_Objetivo = int.Parse(idProdutoSelect),
                     idManutencao_Tipo = int.Parse(idTIpoManutencaoSelect),
-
+                    idUnidade_Medida = int.Parse(idUnidadeMedidaSelect),
                     Observacoes = textObservacoes.Text,
                     Longitude = longitude.ToString(),
                     Latitude = latitude.ToString(),
@@ -184,12 +221,12 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 try
                 {
-                    apliService.SalvarAplicacao(aplicacao); ;
+                    manuService.SalvarManutencao(manutencao); ;
 
 
                     alerta.SetTitle("Sucesso!");
                     alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
-                    alerta.SetMessage("Instalação Salva com Sucesso!");
+                    alerta.SetMessage("Manutenção Salva com Sucesso!");
                     alerta.SetButton("OK", (s, ev) =>
                     {
                         alerta.Dismiss();
@@ -204,7 +241,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     alerta.SetMessage("Erro ao salvar ");
                     alerta.SetTitle("ERRO!");
                     alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
-                    alerta.SetMessage("Erro ao salvar a Avaliação!");
+                    alerta.SetMessage("Erro ao salvar a Manutenção!");
                     alerta.SetButton("OK", (s, ev) =>
                     {
                         alerta.Dismiss();
@@ -248,7 +285,11 @@ namespace Avalia_Pesquisa.Droid.Activities
             idProdutoSelect = idProduto[e.Position].ToString();
 
         }
+        private void SpnUnidadeMedida_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            idUnidadeMedidaSelect = idUnidadeMedida[e.Position].ToString();
 
+        }
         private void LimparCampos()
         {
 
@@ -256,12 +297,14 @@ namespace Avalia_Pesquisa.Droid.Activities
             spinnerProduto.SetSelection(0);
             spinnerObjetivo.SetSelection(0);
             spinnerTipoManutencao.SetSelection(0);
+            spinnerUnidadeMedida.SetSelection(0);
             textDose.Text = textObservacoes.Text = textVento.Text = textNuvens.Text = textUmidade.Text = edNumEstudo.Text = textTemperatura.Text = "";
 
 
             idProdutoSelect = "";
             idObjetivoSelect = "";
             idTIpoManutencaoSelect = "";
+            idUnidadeMedidaSelect = "";
             idInstalacao = idPlanejamento = idEstudo_ = 0;
             latitude = longitude = 0;
 

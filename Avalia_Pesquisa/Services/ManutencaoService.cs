@@ -37,7 +37,7 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    var result = conexao.Query<Produto>("SELECT * from produtos").ToList();
+                    var result = conexao.Query<Produto>("SELECT * from Produtos").ToList();
 
                     return result;
                 }
@@ -56,7 +56,26 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    var result = conexao.Query<Manutencao_Tipo>("SELECT * from manutencao_tipo").ToList();
+                    var result = conexao.Query<Manutencao_Tipo>("SELECT * from Manutencao_Tipo").ToList();
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
+        public List<Unidade_Medida> GetUnidadeMedida()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Unidade_Medida>("SELECT * from Unidade_Medida").ToList();
 
                     return result;
                 }
