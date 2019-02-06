@@ -29,6 +29,8 @@ namespace Avalia_Pesquisa.Droid.Activities
         ImageButton buttonCalendarAplicacao, buttonDataChuva;
         string idEquipamentoSelect;
         int idInstalacao, idPlanejamento, idEstudo_;
+        double latitude = 0;
+        double longitude = 0;
 
         protected override int LayoutResource => Resource.Layout.Aplicacao;
 
@@ -153,6 +155,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                     IdEquipamento = int.Parse(idEquipamentoSelect),
                     BBCH = decimal.Parse(textBBCH.Text),
                     Observacoes = textObservacoes.Text,
+                    Longitude = longitude.ToString(),
+                    Latitude = latitude.ToString(),
+                    Data_Realizada = DateTime.Now,
                     idUsuario = int.Parse(Settings.GeneralSettings)
                 };
 
@@ -224,7 +229,9 @@ namespace Avalia_Pesquisa.Droid.Activities
 
              idEquipamentoSelect = "";
              idInstalacao = idPlanejamento = idEstudo_ = 0;
-               
+             latitude = longitude = 0;
+
+
 
 
         }
@@ -260,13 +267,37 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 idEstudo_ = estudo[0].IdEstudo;
                 DadosMeterologicos();
+                Coordenadas();
             }
 
 
 
         }
 
+        public async void Coordenadas()
+        {
 
+            var locator = Plugin.Geolocator.CrossGeolocator.Current;
+
+            Plugin.Geolocator.Abstractions.Position position = null;
+            try
+            {
+                locator.DesiredAccuracy = 100;
+
+                position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5), null, true);
+                longitude = position.Longitude;
+                latitude = position.Latitude;
+               
+
+
+            }
+
+            catch (Exception ex)
+            {
+                // Unable to get location
+                Console.WriteLine(ex.Message);
+            }
+        }
 
         public async void DadosMeterologicos()
         {
