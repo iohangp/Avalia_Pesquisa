@@ -2550,35 +2550,38 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b003a
 			public const int ALT = 2131427386;
 			
-			// aapt resource value: 0x7f0b0166
-			public const int AtualizacaoLabel = 2131427686;
-			
-			// aapt resource value: 0x7f0b0122
-			public const int BTAplicacao = 2131427618;
+			// aapt resource value: 0x7f0b0169
+			public const int AtualizacaoLabel = 2131427689;
 			
 			// aapt resource value: 0x7f0b0124
-			public const int BTAvaliacao = 2131427620;
+			public const int BTAplicacao = 2131427620;
 			
-			// aapt resource value: 0x7f0b011f
-			public const int BTConsultar = 2131427615;
+			// aapt resource value: 0x7f0b0126
+			public const int BTAvaliacao = 2131427622;
 			
-			// aapt resource value: 0x7f0b00cd
-			public const int BTConsultar2 = 2131427533;
+			// aapt resource value: 0x7f0b0127
+			public const int BTCamera = 2131427623;
 			
 			// aapt resource value: 0x7f0b0121
-			public const int BTInstalacao = 2131427617;
+			public const int BTConsultar = 2131427617;
 			
-			// aapt resource value: 0x7f0b00cb
-			public const int BTInstalar = 2131427531;
-			
-			// aapt resource value: 0x7f0b010a
-			public const int BTLogin = 2131427594;
+			// aapt resource value: 0x7f0b00cf
+			public const int BTConsultar2 = 2131427535;
 			
 			// aapt resource value: 0x7f0b0123
-			public const int BTManutencao = 2131427619;
+			public const int BTInstalacao = 2131427619;
+			
+			// aapt resource value: 0x7f0b00cd
+			public const int BTInstalar = 2131427533;
+			
+			// aapt resource value: 0x7f0b010c
+			public const int BTLogin = 2131427596;
 			
 			// aapt resource value: 0x7f0b0125
-			public const int BTMeterologicos = 2131427621;
+			public const int BTManutencao = 2131427621;
+			
+			// aapt resource value: 0x7f0b0128
+			public const int BTMeterologicos = 2131427624;
 			
 			// aapt resource value: 0x7f0b00af
 			public const int BTSalvarAplicacao = 2131427503;
@@ -2586,65 +2589,65 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00c9
 			public const int BTSalvarAvaliacao = 2131427529;
 			
-			// aapt resource value: 0x7f0b0106
-			public const int BTSalvarInstalacao = 2131427590;
+			// aapt resource value: 0x7f0b0108
+			public const int BTSalvarInstalacao = 2131427592;
 			
-			// aapt resource value: 0x7f0b011d
-			public const int BTSalvarManutencao = 2131427613;
+			// aapt resource value: 0x7f0b011f
+			public const int BTSalvarManutencao = 2131427615;
 			
-			// aapt resource value: 0x7f0b014e
-			public const int BTSalvarPlant = 2131427662;
+			// aapt resource value: 0x7f0b0151
+			public const int BTSalvarPlant = 2131427665;
 			
-			// aapt resource value: 0x7f0b00ce
-			public const int BTScanner = 2131427534;
+			// aapt resource value: 0x7f0b00d0
+			public const int BTScanner = 2131427536;
 			
 			// aapt resource value: 0x7f0b00a2
 			public const int BTScannerAvalia = 2131427490;
 			
-			// aapt resource value: 0x7f0b0152
-			public const int BTSincronizar = 2131427666;
+			// aapt resource value: 0x7f0b0155
+			public const int BTSincronizar = 2131427669;
 			
 			// aapt resource value: 0x7f0b00a1
 			public const int BTValidar = 2131427489;
 			
-			// aapt resource value: 0x7f0b0120
-			public const int BTplantacao = 2131427616;
+			// aapt resource value: 0x7f0b0122
+			public const int BTplantacao = 2131427618;
 			
-			// aapt resource value: 0x7f0b0126
-			public const int BTsincronizacao = 2131427622;
+			// aapt resource value: 0x7f0b0129
+			public const int BTsincronizacao = 2131427625;
 			
 			// aapt resource value: 0x7f0b003b
 			public const int CTRL = 2131427387;
 			
-			// aapt resource value: 0x7f0b0144
-			public const int EDAdubaBase = 2131427652;
+			// aapt resource value: 0x7f0b0147
+			public const int EDAdubaBase = 2131427655;
 			
-			// aapt resource value: 0x7f0b0145
-			public const int EDAdubaCob = 2131427653;
+			// aapt resource value: 0x7f0b0148
+			public const int EDAdubaCob = 2131427656;
 			
-			// aapt resource value: 0x7f0b0146
-			public const int EDEspacamento = 2131427654;
+			// aapt resource value: 0x7f0b0149
+			public const int EDEspacamento = 2131427657;
 			
-			// aapt resource value: 0x7f0b00ca
-			public const int EDLicenca = 2131427530;
+			// aapt resource value: 0x7f0b00cc
+			public const int EDLicenca = 2131427532;
 			
-			// aapt resource value: 0x7f0b0108
-			public const int EDLogin = 2131427592;
+			// aapt resource value: 0x7f0b010a
+			public const int EDLogin = 2131427594;
 			
-			// aapt resource value: 0x7f0b014c
-			public const int EDMetragem = 2131427660;
+			// aapt resource value: 0x7f0b014f
+			public const int EDMetragem = 2131427663;
 			
 			// aapt resource value: 0x7f0b00a0
 			public const int EDNumEstudo = 2131427488;
 			
-			// aapt resource value: 0x7f0b0148
-			public const int EDObservacao = 2131427656;
+			// aapt resource value: 0x7f0b014b
+			public const int EDObservacao = 2131427659;
 			
-			// aapt resource value: 0x7f0b0147
-			public const int EDPopulacao = 2131427655;
+			// aapt resource value: 0x7f0b014a
+			public const int EDPopulacao = 2131427658;
 			
-			// aapt resource value: 0x7f0b0109
-			public const int EDSenha = 2131427593;
+			// aapt resource value: 0x7f0b010b
+			public const int EDSenha = 2131427595;
 			
 			// aapt resource value: 0x7f0b00ad
 			public const int ETBBCH = 2131427501;
@@ -2658,23 +2661,23 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00a7
 			public const int ETPercentual = 2131427495;
 			
-			// aapt resource value: 0x7f0b011b
-			public const int ETPercentualNuvensM = 2131427611;
+			// aapt resource value: 0x7f0b011d
+			public const int ETPercentualNuvensM = 2131427613;
 			
 			// aapt resource value: 0x7f0b00a6
 			public const int ETTemperatura = 2131427494;
 			
-			// aapt resource value: 0x7f0b0115
-			public const int ETTemperaturaM = 2131427605;
+			// aapt resource value: 0x7f0b0117
+			public const int ETTemperaturaM = 2131427607;
 			
 			// aapt resource value: 0x7f0b00a5
 			public const int ETUmidadeRelativa = 2131427493;
 			
-			// aapt resource value: 0x7f0b0117
-			public const int ETUmidadeRelativaM = 2131427607;
-			
 			// aapt resource value: 0x7f0b0119
-			public const int ETVelocidadeVentoM = 2131427609;
+			public const int ETUmidadeRelativaM = 2131427609;
+			
+			// aapt resource value: 0x7f0b011b
+			public const int ETVelocidadeVentoM = 2131427611;
 			
 			// aapt resource value: 0x7f0b00a8
 			public const int ETVento = 2131427496;
@@ -2682,8 +2685,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b003c
 			public const int FUNCTION = 2131427388;
 			
-			// aapt resource value: 0x7f0b013c
-			public const int IBCalendar = 2131427644;
+			// aapt resource value: 0x7f0b013f
+			public const int IBCalendar = 2131427647;
 			
 			// aapt resource value: 0x7f0b00a3
 			public const int IBCalendarAplicacao = 2131427491;
@@ -2691,11 +2694,11 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00a9
 			public const int IBCalendarChuva = 2131427497;
 			
-			// aapt resource value: 0x7f0b0140
-			public const int IBGerminacao = 2131427648;
+			// aapt resource value: 0x7f0b0143
+			public const int IBGerminacao = 2131427651;
 			
-			// aapt resource value: 0x7f0b011e
-			public const int IVLogo = 2131427614;
+			// aapt resource value: 0x7f0b0120
+			public const int IVLogo = 2131427616;
 			
 			// aapt resource value: 0x7f0b003d
 			public const int META = 2131427389;
@@ -2703,50 +2706,50 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b003e
 			public const int SHIFT = 2131427390;
 			
-			// aapt resource value: 0x7f0b014b
-			public const int SPNCobertura = 2131427659;
+			// aapt resource value: 0x7f0b014e
+			public const int SPNCobertura = 2131427662;
 			
-			// aapt resource value: 0x7f0b0149
-			public const int SPNCultAnt = 2131427657;
+			// aapt resource value: 0x7f0b014c
+			public const int SPNCultAnt = 2131427660;
 			
-			// aapt resource value: 0x7f0b013a
-			public const int SPNCultura = 2131427642;
+			// aapt resource value: 0x7f0b013d
+			public const int SPNCultura = 2131427645;
 			
 			// aapt resource value: 0x7f0b00ac
 			public const int SPNEquipamento = 2131427500;
 			
+			// aapt resource value: 0x7f0b0145
+			public const int SPNGleba = 2131427653;
+			
+			// aapt resource value: 0x7f0b0141
+			public const int SPNLocalidadePlantio = 2131427649;
+			
 			// aapt resource value: 0x7f0b0142
-			public const int SPNGleba = 2131427650;
-			
-			// aapt resource value: 0x7f0b013e
-			public const int SPNLocalidadePlantio = 2131427646;
-			
-			// aapt resource value: 0x7f0b013f
-			public const int SPNSafra = 2131427647;
-			
-			// aapt resource value: 0x7f0b014a
-			public const int SPNSolo = 2131427658;
+			public const int SPNSafra = 2131427650;
 			
 			// aapt resource value: 0x7f0b014d
-			public const int SPNStatus = 2131427661;
+			public const int SPNSolo = 2131427661;
 			
-			// aapt resource value: 0x7f0b0143
-			public const int SPNUmidade = 2131427651;
+			// aapt resource value: 0x7f0b0150
+			public const int SPNStatus = 2131427664;
 			
-			// aapt resource value: 0x7f0b013b
-			public const int SPNVariedade = 2131427643;
+			// aapt resource value: 0x7f0b0146
+			public const int SPNUmidade = 2131427654;
+			
+			// aapt resource value: 0x7f0b013e
+			public const int SPNVariedade = 2131427646;
 			
 			// aapt resource value: 0x7f0b003f
 			public const int SYM = 2131427391;
 			
-			// aapt resource value: 0x7f0b00d9
-			public const int TVAlvo = 2131427545;
+			// aapt resource value: 0x7f0b00db
+			public const int TVAlvo = 2131427547;
+			
+			// aapt resource value: 0x7f0b00da
+			public const int TVClasse = 2131427546;
 			
 			// aapt resource value: 0x7f0b00d8
-			public const int TVClasse = 2131427544;
-			
-			// aapt resource value: 0x7f0b00d6
-			public const int TVCultura = 2131427542;
+			public const int TVCultura = 2131427544;
 			
 			// aapt resource value: 0x7f0b00a4
 			public const int TVDataAplicacao = 2131427492;
@@ -2754,68 +2757,68 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00aa
 			public const int TVDataChuva = 2131427498;
 			
-			// aapt resource value: 0x7f0b0141
-			public const int TVDataGerm = 2131427649;
+			// aapt resource value: 0x7f0b0144
+			public const int TVDataGerm = 2131427652;
 			
-			// aapt resource value: 0x7f0b013d
-			public const int TVDataPlantio = 2131427645;
-			
-			// aapt resource value: 0x7f0b00e1
-			public const int TVFaseRET = 2131427553;
-			
-			// aapt resource value: 0x7f0b00db
-			public const int TVIntervAplicacao = 2131427547;
-			
-			// aapt resource value: 0x7f0b00cc
-			public const int TVNumeroEstudo = 2131427532;
-			
-			// aapt resource value: 0x7f0b00de
-			public const int TVObjetivo = 2131427550;
-			
-			// aapt resource value: 0x7f0b00e2
-			public const int TVObs = 2131427554;
-			
-			// aapt resource value: 0x7f0b00d3
-			public const int TVPatrocinador = 2131427539;
-			
-			// aapt resource value: 0x7f0b00d7
-			public const int TVProduto = 2131427543;
-			
-			// aapt resource value: 0x7f0b00d0
-			public const int TVProtocolo = 2131427536;
-			
-			// aapt resource value: 0x7f0b00df
-			public const int TVRET = 2131427551;
-			
-			// aapt resource value: 0x7f0b00da
-			public const int TVRepeticao = 2131427546;
+			// aapt resource value: 0x7f0b0140
+			public const int TVDataPlantio = 2131427648;
 			
 			// aapt resource value: 0x7f0b00e3
-			public const int TVResponsavel = 2131427555;
-			
-			// aapt resource value: 0x7f0b0153
-			public const int TVResultado = 2131427667;
-			
-			// aapt resource value: 0x7f0b00dc
-			public const int TVTratSementes = 2131427548;
-			
-			// aapt resource value: 0x7f0b00e0
-			public const int TVValidadeRET = 2131427552;
+			public const int TVFaseRET = 2131427555;
 			
 			// aapt resource value: 0x7f0b00dd
-			public const int TVVolumeCalda = 2131427549;
+			public const int TVIntervAplicacao = 2131427549;
 			
-			// aapt resource value: 0x7f0b0158
-			public const int ZipCodeEntry = 2131427672;
+			// aapt resource value: 0x7f0b00ce
+			public const int TVNumeroEstudo = 2131427534;
 			
-			// aapt resource value: 0x7f0b0157
-			public const int ZipCodeLabel = 2131427671;
+			// aapt resource value: 0x7f0b00e0
+			public const int TVObjetivo = 2131427552;
+			
+			// aapt resource value: 0x7f0b00e4
+			public const int TVObs = 2131427556;
+			
+			// aapt resource value: 0x7f0b00d5
+			public const int TVPatrocinador = 2131427541;
+			
+			// aapt resource value: 0x7f0b00d9
+			public const int TVProduto = 2131427545;
+			
+			// aapt resource value: 0x7f0b00d2
+			public const int TVProtocolo = 2131427538;
+			
+			// aapt resource value: 0x7f0b00e1
+			public const int TVRET = 2131427553;
+			
+			// aapt resource value: 0x7f0b00dc
+			public const int TVRepeticao = 2131427548;
+			
+			// aapt resource value: 0x7f0b00e5
+			public const int TVResponsavel = 2131427557;
 			
 			// aapt resource value: 0x7f0b0156
-			public const int ZipCodeSearchLabel = 2131427670;
+			public const int TVResultado = 2131427670;
 			
-			// aapt resource value: 0x7f0b012a
-			public const int action0 = 2131427626;
+			// aapt resource value: 0x7f0b00de
+			public const int TVTratSementes = 2131427550;
+			
+			// aapt resource value: 0x7f0b00e2
+			public const int TVValidadeRET = 2131427554;
+			
+			// aapt resource value: 0x7f0b00df
+			public const int TVVolumeCalda = 2131427551;
+			
+			// aapt resource value: 0x7f0b015b
+			public const int ZipCodeEntry = 2131427675;
+			
+			// aapt resource value: 0x7f0b015a
+			public const int ZipCodeLabel = 2131427674;
+			
+			// aapt resource value: 0x7f0b0159
+			public const int ZipCodeSearchLabel = 2131427673;
+			
+			// aapt resource value: 0x7f0b012d
+			public const int action0 = 2131427629;
 			
 			// aapt resource value: 0x7f0b0083
 			public const int action_bar = 2131427459;
@@ -2838,17 +2841,17 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0061
 			public const int action_bar_title = 2131427425;
 			
-			// aapt resource value: 0x7f0b0127
-			public const int action_container = 2131427623;
+			// aapt resource value: 0x7f0b012a
+			public const int action_container = 2131427626;
 			
 			// aapt resource value: 0x7f0b0084
 			public const int action_context_bar = 2131427460;
 			
-			// aapt resource value: 0x7f0b012e
-			public const int action_divider = 2131427630;
+			// aapt resource value: 0x7f0b0131
+			public const int action_divider = 2131427633;
 			
-			// aapt resource value: 0x7f0b0128
-			public const int action_image = 2131427624;
+			// aapt resource value: 0x7f0b012b
+			public const int action_image = 2131427627;
 			
 			// aapt resource value: 0x7f0b0003
 			public const int action_menu_divider = 2131427331;
@@ -2865,11 +2868,11 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0063
 			public const int action_mode_close_button = 2131427427;
 			
-			// aapt resource value: 0x7f0b0129
-			public const int action_text = 2131427625;
+			// aapt resource value: 0x7f0b012c
+			public const int action_text = 2131427628;
 			
-			// aapt resource value: 0x7f0b0137
-			public const int actions = 2131427639;
+			// aapt resource value: 0x7f0b013a
+			public const int actions = 2131427642;
 			
 			// aapt resource value: 0x7f0b0064
 			public const int activity_chooser_view_content = 2131427428;
@@ -2898,8 +2901,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b005d
 			public const int async = 2131427421;
 			
-			// aapt resource value: 0x7f0b0167
-			public const int atualizacaoText = 2131427687;
+			// aapt resource value: 0x7f0b016a
+			public const int atualizacaoText = 2131427690;
 			
 			// aapt resource value: 0x7f0b0023
 			public const int auto = 2131427363;
@@ -2913,17 +2916,20 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0045
 			public const int bottom = 2131427397;
 			
+			// aapt resource value: 0x7f0b00cb
+			public const int btnCamera = 2131427531;
+			
 			// aapt resource value: 0x7f0b006a
 			public const int buttonPanel = 2131427434;
 			
-			// aapt resource value: 0x7f0b00f2
-			public const int button_learn_more = 2131427570;
+			// aapt resource value: 0x7f0b00f4
+			public const int button_learn_more = 2131427572;
 			
-			// aapt resource value: 0x7f0b014f
-			public const int cameraView = 2131427663;
+			// aapt resource value: 0x7f0b0152
+			public const int cameraView = 2131427666;
 			
-			// aapt resource value: 0x7f0b012b
-			public const int cancel_action = 2131427627;
+			// aapt resource value: 0x7f0b012e
+			public const int cancel_action = 2131427630;
 			
 			// aapt resource value: 0x7f0b004c
 			public const int center = 2131427404;
@@ -2937,8 +2943,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b007a
 			public const int checkbox = 2131427450;
 			
-			// aapt resource value: 0x7f0b0133
-			public const int chronometer = 2131427635;
+			// aapt resource value: 0x7f0b0136
+			public const int chronometer = 2131427638;
 			
 			// aapt resource value: 0x7f0b0055
 			public const int clip_horizontal = 2131427413;
@@ -2946,11 +2952,11 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0056
 			public const int clip_vertical = 2131427414;
 			
-			// aapt resource value: 0x7f0b0164
-			public const int cloudsLabel = 2131427684;
+			// aapt resource value: 0x7f0b0167
+			public const int cloudsLabel = 2131427687;
 			
-			// aapt resource value: 0x7f0b0165
-			public const int cloudsText = 2131427685;
+			// aapt resource value: 0x7f0b0168
+			public const int cloudsText = 2131427688;
 			
 			// aapt resource value: 0x7f0b0041
 			public const int collapseActionView = 2131427393;
@@ -2958,14 +2964,14 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0094
 			public const int collapsing_toolbar = 2131427476;
 			
-			// aapt resource value: 0x7f0b00e6
-			public const int container = 2131427558;
+			// aapt resource value: 0x7f0b00e8
+			public const int container = 2131427560;
 			
 			// aapt resource value: 0x7f0b006d
 			public const int contentPanel = 2131427437;
 			
-			// aapt resource value: 0x7f0b00e7
-			public const int coordinator = 2131427559;
+			// aapt resource value: 0x7f0b00e9
+			public const int coordinator = 2131427561;
 			
 			// aapt resource value: 0x7f0b0074
 			public const int custom = 2131427444;
@@ -2985,20 +2991,20 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0099
 			public const int description = 2131427481;
 			
-			// aapt resource value: 0x7f0b00e9
-			public const int design_bottom_sheet = 2131427561;
+			// aapt resource value: 0x7f0b00eb
+			public const int design_bottom_sheet = 2131427563;
+			
+			// aapt resource value: 0x7f0b00f2
+			public const int design_menu_item_action_area = 2131427570;
+			
+			// aapt resource value: 0x7f0b00f1
+			public const int design_menu_item_action_area_stub = 2131427569;
 			
 			// aapt resource value: 0x7f0b00f0
-			public const int design_menu_item_action_area = 2131427568;
+			public const int design_menu_item_text = 2131427568;
 			
 			// aapt resource value: 0x7f0b00ef
-			public const int design_menu_item_action_area_stub = 2131427567;
-			
-			// aapt resource value: 0x7f0b00ee
-			public const int design_menu_item_text = 2131427566;
-			
-			// aapt resource value: 0x7f0b00ed
-			public const int design_navigation_view = 2131427565;
+			public const int design_navigation_view = 2131427567;
 			
 			// aapt resource value: 0x7f0b0029
 			public const int disableHome = 2131427369;
@@ -3009,8 +3015,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0038
 			public const int end = 2131427384;
 			
-			// aapt resource value: 0x7f0b0139
-			public const int end_padder = 2131427641;
+			// aapt resource value: 0x7f0b013c
+			public const int end_padder = 2131427644;
 			
 			// aapt resource value: 0x7f0b0047
 			public const int enterAlways = 2131427399;
@@ -3018,32 +3024,32 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0048
 			public const int enterAlwaysCollapsed = 2131427400;
 			
-			// aapt resource value: 0x7f0b0100
-			public const int etAltitude = 2131427584;
-			
-			// aapt resource value: 0x7f0b00f8
-			public const int etComprimento = 2131427576;
-			
-			// aapt resource value: 0x7f0b00fc
-			public const int etCoordenadas1 = 2131427580;
-			
-			// aapt resource value: 0x7f0b00fe
-			public const int etCoordenadas2 = 2131427582;
-			
-			// aapt resource value: 0x7f0b0103
-			public const int etData = 2131427587;
-			
-			// aapt resource value: 0x7f0b0111
-			public const int etDose = 2131427601;
+			// aapt resource value: 0x7f0b0102
+			public const int etAltitude = 2131427586;
 			
 			// aapt resource value: 0x7f0b00fa
-			public const int etLargura = 2131427578;
+			public const int etComprimento = 2131427578;
+			
+			// aapt resource value: 0x7f0b00fe
+			public const int etCoordenadas1 = 2131427582;
+			
+			// aapt resource value: 0x7f0b0100
+			public const int etCoordenadas2 = 2131427584;
 			
 			// aapt resource value: 0x7f0b0105
-			public const int etObservacoes = 2131427589;
+			public const int etData = 2131427589;
 			
-			// aapt resource value: 0x7f0b011c
-			public const int etObservacoesM = 2131427612;
+			// aapt resource value: 0x7f0b0113
+			public const int etDose = 2131427603;
+			
+			// aapt resource value: 0x7f0b00fc
+			public const int etLargura = 2131427580;
+			
+			// aapt resource value: 0x7f0b0107
+			public const int etObservacoes = 2131427591;
+			
+			// aapt resource value: 0x7f0b011e
+			public const int etObservacoesM = 2131427614;
 			
 			// aapt resource value: 0x7f0b00bc
 			public const int etRepeticao1 = 2131427516;
@@ -3093,20 +3099,20 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b002a
 			public const int homeAsUp = 2131427370;
 			
-			// aapt resource value: 0x7f0b0161
-			public const int humidityText = 2131427681;
+			// aapt resource value: 0x7f0b0164
+			public const int humidityText = 2131427684;
 			
-			// aapt resource value: 0x7f0b0160
-			public const int humidtyLabel = 2131427680;
+			// aapt resource value: 0x7f0b0163
+			public const int humidtyLabel = 2131427683;
 			
-			// aapt resource value: 0x7f0b0102
-			public const int ibData = 2131427586;
+			// aapt resource value: 0x7f0b0104
+			public const int ibData = 2131427588;
 			
 			// aapt resource value: 0x7f0b0069
 			public const int icon = 2131427433;
 			
-			// aapt resource value: 0x7f0b0138
-			public const int icon_group = 2131427640;
+			// aapt resource value: 0x7f0b013b
+			public const int icon_group = 2131427643;
 			
 			// aapt resource value: 0x7f0b0020
 			public const int icon_only = 2131427360;
@@ -3117,20 +3123,23 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0066
 			public const int image = 2131427430;
 			
-			// aapt resource value: 0x7f0b0134
-			public const int info = 2131427636;
+			// aapt resource value: 0x7f0b00ca
+			public const int imageView = 2131427530;
+			
+			// aapt resource value: 0x7f0b0137
+			public const int info = 2131427639;
 			
 			// aapt resource value: 0x7f0b0060
 			public const int italic = 2131427424;
 			
-			// aapt resource value: 0x7f0b0107
-			public const int item_count = 2131427591;
+			// aapt resource value: 0x7f0b0109
+			public const int item_count = 2131427593;
 			
 			// aapt resource value: 0x7f0b0000
 			public const int item_touch_helper_previous_elevation = 2131427328;
 			
-			// aapt resource value: 0x7f0b00e5
-			public const int largeLabel = 2131427557;
+			// aapt resource value: 0x7f0b00e7
+			public const int largeLabel = 2131427559;
 			
 			// aapt resource value: 0x7f0b0050
 			public const int left = 2131427408;
@@ -3153,26 +3162,26 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0068
 			public const int list_item = 2131427432;
 			
-			// aapt resource value: 0x7f0b015a
-			public const int locationLabel = 2131427674;
+			// aapt resource value: 0x7f0b015d
+			public const int locationLabel = 2131427677;
 			
-			// aapt resource value: 0x7f0b015b
-			public const int locationText = 2131427675;
+			// aapt resource value: 0x7f0b015e
+			public const int locationText = 2131427678;
 			
 			// aapt resource value: 0x7f0b0092
 			public const int main_content = 2131427474;
 			
-			// aapt resource value: 0x7f0b016d
-			public const int masked = 2131427693;
+			// aapt resource value: 0x7f0b0170
+			public const int masked = 2131427696;
 			
-			// aapt resource value: 0x7f0b012d
-			public const int media_actions = 2131427629;
+			// aapt resource value: 0x7f0b0130
+			public const int media_actions = 2131427632;
 			
-			// aapt resource value: 0x7f0b016e
-			public const int menu_logoff = 2131427694;
+			// aapt resource value: 0x7f0b0171
+			public const int menu_logoff = 2131427697;
 			
-			// aapt resource value: 0x7f0b0155
-			public const int message = 2131427669;
+			// aapt resource value: 0x7f0b0158
+			public const int message = 2131427672;
 			
 			// aapt resource value: 0x7f0b0039
 			public const int middle = 2131427385;
@@ -3183,8 +3192,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0030
 			public const int multiply = 2131427376;
 			
-			// aapt resource value: 0x7f0b00ec
-			public const int navigation_header_container = 2131427564;
+			// aapt resource value: 0x7f0b00ee
+			public const int navigation_header_container = 2131427566;
 			
 			// aapt resource value: 0x7f0b0043
 			public const int never = 2131427395;
@@ -3195,14 +3204,14 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0027
 			public const int normal = 2131427367;
 			
-			// aapt resource value: 0x7f0b0136
-			public const int notification_background = 2131427638;
+			// aapt resource value: 0x7f0b0139
+			public const int notification_background = 2131427641;
 			
-			// aapt resource value: 0x7f0b0130
-			public const int notification_main_column = 2131427632;
+			// aapt resource value: 0x7f0b0133
+			public const int notification_main_column = 2131427635;
 			
-			// aapt resource value: 0x7f0b012f
-			public const int notification_main_column_container = 2131427631;
+			// aapt resource value: 0x7f0b0132
+			public const int notification_main_column_container = 2131427634;
 			
 			// aapt resource value: 0x7f0b0053
 			public const int parallax = 2131427411;
@@ -3228,20 +3237,20 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b007c
 			public const int radio = 2131427452;
 			
-			// aapt resource value: 0x7f0b00f4
-			public const int recyclerView = 2131427572;
+			// aapt resource value: 0x7f0b00f6
+			public const int recyclerView = 2131427574;
 			
-			// aapt resource value: 0x7f0b00f3
-			public const int refresher = 2131427571;
+			// aapt resource value: 0x7f0b00f5
+			public const int refresher = 2131427573;
 			
 			// aapt resource value: 0x7f0b0051
 			public const int right = 2131427409;
 			
-			// aapt resource value: 0x7f0b0135
-			public const int right_icon = 2131427637;
+			// aapt resource value: 0x7f0b0138
+			public const int right_icon = 2131427640;
 			
-			// aapt resource value: 0x7f0b0131
-			public const int right_side = 2131427633;
+			// aapt resource value: 0x7f0b0134
+			public const int right_side = 2131427636;
 			
 			// aapt resource value: 0x7f0b0098
 			public const int save_button = 2131427480;
@@ -3321,17 +3330,17 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b002d
 			public const int showTitle = 2131427373;
 			
-			// aapt resource value: 0x7f0b0154
-			public const int sliding_tabs = 2131427668;
+			// aapt resource value: 0x7f0b0157
+			public const int sliding_tabs = 2131427671;
 			
-			// aapt resource value: 0x7f0b00e4
-			public const int smallLabel = 2131427556;
+			// aapt resource value: 0x7f0b00e6
+			public const int smallLabel = 2131427558;
 			
-			// aapt resource value: 0x7f0b00eb
-			public const int snackbar_action = 2131427563;
+			// aapt resource value: 0x7f0b00ed
+			public const int snackbar_action = 2131427565;
 			
-			// aapt resource value: 0x7f0b00ea
-			public const int snackbar_text = 2131427562;
+			// aapt resource value: 0x7f0b00ec
+			public const int snackbar_text = 2131427564;
 			
 			// aapt resource value: 0x7f0b004b
 			public const int snap = 2131427403;
@@ -3348,26 +3357,26 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00b9
 			public const int spnAlvo = 2131427513;
 			
-			// aapt resource value: 0x7f0b00f6
-			public const int spnGlebaCult = 2131427574;
+			// aapt resource value: 0x7f0b00f8
+			public const int spnGlebaCult = 2131427576;
 			
-			// aapt resource value: 0x7f0b00f5
-			public const int spnLocalidade = 2131427573;
+			// aapt resource value: 0x7f0b00f7
+			public const int spnLocalidade = 2131427575;
 			
-			// aapt resource value: 0x7f0b010e
-			public const int spnObjetivo = 2131427598;
+			// aapt resource value: 0x7f0b0110
+			public const int spnObjetivo = 2131427600;
 			
-			// aapt resource value: 0x7f0b010f
-			public const int spnProduto = 2131427599;
+			// aapt resource value: 0x7f0b0111
+			public const int spnProduto = 2131427601;
 			
 			// aapt resource value: 0x7f0b00b6
 			public const int spnTipoAvaliacao = 2131427510;
 			
-			// aapt resource value: 0x7f0b010c
-			public const int spnTipoManutencao = 2131427596;
+			// aapt resource value: 0x7f0b010e
+			public const int spnTipoManutencao = 2131427598;
 			
-			// aapt resource value: 0x7f0b0113
-			public const int spnUnidadeMedida = 2131427603;
+			// aapt resource value: 0x7f0b0115
+			public const int spnUnidadeMedida = 2131427605;
 			
 			// aapt resource value: 0x7f0b0032
 			public const int src_atop = 2131427378;
@@ -3384,8 +3393,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0052
 			public const int start = 2131427410;
 			
-			// aapt resource value: 0x7f0b012c
-			public const int status_bar_latest_event_content = 2131427628;
+			// aapt resource value: 0x7f0b012f
+			public const int status_bar_latest_event_content = 2131427631;
 			
 			// aapt resource value: 0x7f0b007d
 			public const int submenuarrow = 2131427453;
@@ -3393,17 +3402,17 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b008e
 			public const int submit_area = 2131427470;
 			
-			// aapt resource value: 0x7f0b0168
-			public const int sunriseLabel = 2131427688;
-			
-			// aapt resource value: 0x7f0b0169
-			public const int sunriseText = 2131427689;
-			
-			// aapt resource value: 0x7f0b016a
-			public const int sunsetLabel = 2131427690;
-			
 			// aapt resource value: 0x7f0b016b
-			public const int sunsetText = 2131427691;
+			public const int sunriseLabel = 2131427691;
+			
+			// aapt resource value: 0x7f0b016c
+			public const int sunriseText = 2131427692;
+			
+			// aapt resource value: 0x7f0b016d
+			public const int sunsetLabel = 2131427693;
+			
+			// aapt resource value: 0x7f0b016e
+			public const int sunsetText = 2131427694;
 			
 			// aapt resource value: 0x7f0b0028
 			public const int tabMode = 2131427368;
@@ -3411,14 +3420,14 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00b1
 			public const int tableLayout1 = 2131427505;
 			
-			// aapt resource value: 0x7f0b00cf
-			public const int tableRow1 = 2131427535;
-			
 			// aapt resource value: 0x7f0b00d1
-			public const int tableRow2 = 2131427537;
+			public const int tableRow1 = 2131427537;
 			
-			// aapt resource value: 0x7f0b00d4
-			public const int tableRow3 = 2131427540;
+			// aapt resource value: 0x7f0b00d3
+			public const int tableRow2 = 2131427539;
+			
+			// aapt resource value: 0x7f0b00d6
+			public const int tableRow3 = 2131427542;
 			
 			// aapt resource value: 0x7f0b009a
 			public const int tabs = 2131427482;
@@ -3426,11 +3435,11 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0019
 			public const int tag_transition_group = 2131427353;
 			
-			// aapt resource value: 0x7f0b015c
-			public const int tempLabel = 2131427676;
+			// aapt resource value: 0x7f0b015f
+			public const int tempLabel = 2131427679;
 			
-			// aapt resource value: 0x7f0b015d
-			public const int tempText = 2131427677;
+			// aapt resource value: 0x7f0b0160
+			public const int tempText = 2131427680;
 			
 			// aapt resource value: 0x7f0b001a
 			public const int text = 2131427354;
@@ -3447,17 +3456,17 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b009f
 			public const int textView1 = 2131427487;
 			
-			// aapt resource value: 0x7f0b0151
-			public const int textView2 = 2131427665;
+			// aapt resource value: 0x7f0b0154
+			public const int textView2 = 2131427668;
 			
-			// aapt resource value: 0x7f0b00d2
-			public const int textView4 = 2131427538;
+			// aapt resource value: 0x7f0b00d4
+			public const int textView4 = 2131427540;
 			
-			// aapt resource value: 0x7f0b00d5
-			public const int textView7 = 2131427541;
+			// aapt resource value: 0x7f0b00d7
+			public const int textView7 = 2131427543;
 			
-			// aapt resource value: 0x7f0b00f1
-			public const int text_input_password_toggle = 2131427569;
+			// aapt resource value: 0x7f0b00f3
+			public const int text_input_password_toggle = 2131427571;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int textinput_counter = 2131427348;
@@ -3465,8 +3474,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0015
 			public const int textinput_error = 2131427349;
 			
-			// aapt resource value: 0x7f0b0132
-			public const int time = 2131427634;
+			// aapt resource value: 0x7f0b0135
+			public const int time = 2131427637;
 			
 			// aapt resource value: 0x7f0b001c
 			public const int title = 2131427356;
@@ -3486,8 +3495,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0075
 			public const int topPanel = 2131427445;
 			
-			// aapt resource value: 0x7f0b00e8
-			public const int touch_outside = 2131427560;
+			// aapt resource value: 0x7f0b00ea
+			public const int touch_outside = 2131427562;
 			
 			// aapt resource value: 0x7f0b00b7
 			public const int trAlvo = 2131427511;
@@ -3528,8 +3537,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b0013
 			public const int transition_transform = 2131427347;
 			
-			// aapt resource value: 0x7f0b00ff
-			public const int tvAltitude = 2131427583;
+			// aapt resource value: 0x7f0b0101
+			public const int tvAltitude = 2131427585;
 			
 			// aapt resource value: 0x7f0b00b8
 			public const int tvAlvo = 2131427512;
@@ -3537,38 +3546,38 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00b3
 			public const int tvAvaliacao2 = 2131427507;
 			
-			// aapt resource value: 0x7f0b00f7
-			public const int tvComprimento = 2131427575;
-			
-			// aapt resource value: 0x7f0b00fb
-			public const int tvCoordenadas1 = 2131427579;
+			// aapt resource value: 0x7f0b00f9
+			public const int tvComprimento = 2131427577;
 			
 			// aapt resource value: 0x7f0b00fd
-			public const int tvCoordenadas2 = 2131427581;
+			public const int tvCoordenadas1 = 2131427581;
 			
-			// aapt resource value: 0x7f0b0101
-			public const int tvData = 2131427585;
+			// aapt resource value: 0x7f0b00ff
+			public const int tvCoordenadas2 = 2131427583;
+			
+			// aapt resource value: 0x7f0b0103
+			public const int tvData = 2131427587;
 			
 			// aapt resource value: 0x7f0b00b4
 			public const int tvDataPlan = 2131427508;
 			
-			// aapt resource value: 0x7f0b0110
-			public const int tvDose = 2131427600;
+			// aapt resource value: 0x7f0b0112
+			public const int tvDose = 2131427602;
 			
-			// aapt resource value: 0x7f0b00f9
-			public const int tvLargura = 2131427577;
-			
-			// aapt resource value: 0x7f0b010b
-			public const int tvManutencao = 2131427595;
+			// aapt resource value: 0x7f0b00fb
+			public const int tvLargura = 2131427579;
 			
 			// aapt resource value: 0x7f0b010d
-			public const int tvObjetivo = 2131427597;
+			public const int tvManutencao = 2131427597;
 			
-			// aapt resource value: 0x7f0b0104
-			public const int tvObservacoes = 2131427588;
+			// aapt resource value: 0x7f0b010f
+			public const int tvObjetivo = 2131427599;
 			
-			// aapt resource value: 0x7f0b011a
-			public const int tvPercentualNuvens = 2131427610;
+			// aapt resource value: 0x7f0b0106
+			public const int tvObservacoes = 2131427590;
+			
+			// aapt resource value: 0x7f0b011c
+			public const int tvPercentualNuvens = 2131427612;
 			
 			// aapt resource value: 0x7f0b00c4
 			public const int tvRepeticao4 = 2131427524;
@@ -3585,23 +3594,23 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b00c7
 			public const int tvRepetição5 = 2131427527;
 			
-			// aapt resource value: 0x7f0b0114
-			public const int tvTemperatura = 2131427604;
-			
 			// aapt resource value: 0x7f0b0116
-			public const int tvUmidadeRelativa = 2131427606;
-			
-			// aapt resource value: 0x7f0b0112
-			public const int tvUnidadeMedida = 2131427602;
+			public const int tvTemperatura = 2131427606;
 			
 			// aapt resource value: 0x7f0b0118
-			public const int tvVelocidadeVento = 2131427608;
+			public const int tvUmidadeRelativa = 2131427608;
+			
+			// aapt resource value: 0x7f0b0114
+			public const int tvUnidadeMedida = 2131427604;
+			
+			// aapt resource value: 0x7f0b011a
+			public const int tvVelocidadeVento = 2131427610;
 			
 			// aapt resource value: 0x7f0b0097
 			public const int txtDesc = 2131427479;
 			
-			// aapt resource value: 0x7f0b0150
-			public const int txtResult = 2131427664;
+			// aapt resource value: 0x7f0b0153
+			public const int txtResult = 2131427667;
 			
 			// aapt resource value: 0x7f0b0096
 			public const int txtTitle = 2131427478;
@@ -3621,26 +3630,26 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0b009b
 			public const int viewpager = 2131427483;
 			
-			// aapt resource value: 0x7f0b0162
-			public const int visibilityLabel = 2131427682;
+			// aapt resource value: 0x7f0b0165
+			public const int visibilityLabel = 2131427685;
 			
-			// aapt resource value: 0x7f0b0163
-			public const int visibilityText = 2131427683;
+			// aapt resource value: 0x7f0b0166
+			public const int visibilityText = 2131427686;
 			
-			// aapt resource value: 0x7f0b016c
-			public const int visible = 2131427692;
+			// aapt resource value: 0x7f0b016f
+			public const int visible = 2131427695;
 			
-			// aapt resource value: 0x7f0b0159
-			public const int weatherBtn = 2131427673;
+			// aapt resource value: 0x7f0b015c
+			public const int weatherBtn = 2131427676;
 			
 			// aapt resource value: 0x7f0b0022
 			public const int wide = 2131427362;
 			
-			// aapt resource value: 0x7f0b015e
-			public const int windLabel = 2131427678;
+			// aapt resource value: 0x7f0b0161
+			public const int windLabel = 2131427681;
 			
-			// aapt resource value: 0x7f0b015f
-			public const int windText = 2131427679;
+			// aapt resource value: 0x7f0b0162
+			public const int windText = 2131427682;
 			
 			// aapt resource value: 0x7f0b0044
 			public const int withText = 2131427396;
@@ -3807,160 +3816,163 @@ namespace Avalia_Pesquisa.Droid
 			public const int Avaliacao = 2130968608;
 			
 			// aapt resource value: 0x7f040021
-			public const int Config_Aparelho = 2130968609;
+			public const int Camera = 2130968609;
 			
 			// aapt resource value: 0x7f040022
-			public const int ConsultaEstudo = 2130968610;
+			public const int Config_Aparelho = 2130968610;
 			
 			// aapt resource value: 0x7f040023
-			public const int Consultar_Estudo = 2130968611;
+			public const int ConsultaEstudo = 2130968611;
 			
 			// aapt resource value: 0x7f040024
-			public const int design_bottom_navigation_item = 2130968612;
+			public const int Consultar_Estudo = 2130968612;
 			
 			// aapt resource value: 0x7f040025
-			public const int design_bottom_sheet_dialog = 2130968613;
+			public const int design_bottom_navigation_item = 2130968613;
 			
 			// aapt resource value: 0x7f040026
-			public const int design_layout_snackbar = 2130968614;
+			public const int design_bottom_sheet_dialog = 2130968614;
 			
 			// aapt resource value: 0x7f040027
-			public const int design_layout_snackbar_include = 2130968615;
+			public const int design_layout_snackbar = 2130968615;
 			
 			// aapt resource value: 0x7f040028
-			public const int design_layout_tab_icon = 2130968616;
+			public const int design_layout_snackbar_include = 2130968616;
 			
 			// aapt resource value: 0x7f040029
-			public const int design_layout_tab_text = 2130968617;
+			public const int design_layout_tab_icon = 2130968617;
 			
 			// aapt resource value: 0x7f04002a
-			public const int design_menu_item_action_area = 2130968618;
+			public const int design_layout_tab_text = 2130968618;
 			
 			// aapt resource value: 0x7f04002b
-			public const int design_navigation_item = 2130968619;
+			public const int design_menu_item_action_area = 2130968619;
 			
 			// aapt resource value: 0x7f04002c
-			public const int design_navigation_item_header = 2130968620;
+			public const int design_navigation_item = 2130968620;
 			
 			// aapt resource value: 0x7f04002d
-			public const int design_navigation_item_separator = 2130968621;
+			public const int design_navigation_item_header = 2130968621;
 			
 			// aapt resource value: 0x7f04002e
-			public const int design_navigation_item_subheader = 2130968622;
+			public const int design_navigation_item_separator = 2130968622;
 			
 			// aapt resource value: 0x7f04002f
-			public const int design_navigation_menu = 2130968623;
+			public const int design_navigation_item_subheader = 2130968623;
 			
 			// aapt resource value: 0x7f040030
-			public const int design_navigation_menu_item = 2130968624;
+			public const int design_navigation_menu = 2130968624;
 			
 			// aapt resource value: 0x7f040031
-			public const int design_text_input_password_icon = 2130968625;
+			public const int design_navigation_menu_item = 2130968625;
 			
 			// aapt resource value: 0x7f040032
-			public const int fragment_about = 2130968626;
+			public const int design_text_input_password_icon = 2130968626;
 			
 			// aapt resource value: 0x7f040033
-			public const int fragment_browse = 2130968627;
+			public const int fragment_about = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int fragment_myitems = 2130968628;
+			public const int fragment_browse = 2130968628;
 			
 			// aapt resource value: 0x7f040035
-			public const int Instalacao = 2130968629;
+			public const int fragment_myitems = 2130968629;
 			
 			// aapt resource value: 0x7f040036
-			public const int item_browse = 2130968630;
+			public const int Instalacao = 2130968630;
 			
 			// aapt resource value: 0x7f040037
-			public const int item_my_item = 2130968631;
+			public const int item_browse = 2130968631;
 			
 			// aapt resource value: 0x7f040038
-			public const int Login = 2130968632;
+			public const int item_my_item = 2130968632;
 			
 			// aapt resource value: 0x7f040039
-			public const int Manutencao = 2130968633;
+			public const int Login = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int Menu = 2130968634;
+			public const int Manutencao = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int notification_action = 2130968635;
+			public const int Menu = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int notification_action_tombstone = 2130968636;
+			public const int notification_action = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int notification_media_action = 2130968637;
+			public const int notification_action_tombstone = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int notification_media_cancel_action = 2130968638;
+			public const int notification_media_action = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int notification_template_big_media = 2130968639;
+			public const int notification_media_cancel_action = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int notification_template_big_media_custom = 2130968640;
+			public const int notification_template_big_media = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int notification_template_big_media_narrow = 2130968641;
+			public const int notification_template_big_media_custom = 2130968641;
 			
 			// aapt resource value: 0x7f040042
-			public const int notification_template_big_media_narrow_custom = 2130968642;
+			public const int notification_template_big_media_narrow = 2130968642;
 			
 			// aapt resource value: 0x7f040043
-			public const int notification_template_custom_big = 2130968643;
+			public const int notification_template_big_media_narrow_custom = 2130968643;
 			
 			// aapt resource value: 0x7f040044
-			public const int notification_template_icon_group = 2130968644;
+			public const int notification_template_custom_big = 2130968644;
 			
 			// aapt resource value: 0x7f040045
-			public const int notification_template_lines_media = 2130968645;
+			public const int notification_template_icon_group = 2130968645;
 			
 			// aapt resource value: 0x7f040046
-			public const int notification_template_media = 2130968646;
+			public const int notification_template_lines_media = 2130968646;
 			
 			// aapt resource value: 0x7f040047
-			public const int notification_template_media_custom = 2130968647;
+			public const int notification_template_media = 2130968647;
 			
 			// aapt resource value: 0x7f040048
-			public const int notification_template_part_chronometer = 2130968648;
+			public const int notification_template_media_custom = 2130968648;
 			
 			// aapt resource value: 0x7f040049
-			public const int notification_template_part_time = 2130968649;
+			public const int notification_template_part_chronometer = 2130968649;
 			
 			// aapt resource value: 0x7f04004a
-			public const int Plantio = 2130968650;
+			public const int notification_template_part_time = 2130968650;
 			
 			// aapt resource value: 0x7f04004b
-			public const int QrCode = 2130968651;
+			public const int Plantio = 2130968651;
 			
 			// aapt resource value: 0x7f04004c
-			public const int select_dialog_item_material = 2130968652;
+			public const int QrCode = 2130968652;
 			
 			// aapt resource value: 0x7f04004d
-			public const int select_dialog_multichoice_material = 2130968653;
+			public const int select_dialog_item_material = 2130968653;
 			
 			// aapt resource value: 0x7f04004e
-			public const int select_dialog_singlechoice_material = 2130968654;
+			public const int select_dialog_multichoice_material = 2130968654;
 			
 			// aapt resource value: 0x7f04004f
-			public const int Sincronizacao = 2130968655;
+			public const int select_dialog_singlechoice_material = 2130968655;
 			
 			// aapt resource value: 0x7f040050
-			public const int support_simple_spinner_dropdown_item = 2130968656;
+			public const int Sincronizacao = 2130968656;
 			
 			// aapt resource value: 0x7f040051
-			public const int tabs = 2130968657;
+			public const int support_simple_spinner_dropdown_item = 2130968657;
 			
 			// aapt resource value: 0x7f040052
-			public const int toolbar = 2130968658;
+			public const int tabs = 2130968658;
 			
 			// aapt resource value: 0x7f040053
-			public const int tooltip = 2130968659;
+			public const int toolbar = 2130968659;
 			
 			// aapt resource value: 0x7f040054
-			public const int Weather = 2130968660;
+			public const int tooltip = 2130968660;
+			
+			// aapt resource value: 0x7f040055
+			public const int Weather = 2130968661;
 			
 			static Layout()
 			{

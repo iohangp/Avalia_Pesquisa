@@ -50,6 +50,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/BTAvaliacao"
             android:text="Avaliação" />
+                    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/BTCamera"
+        android:text="Camera" />
             <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -207,6 +207,7 @@
     <Compile Include="Activities\PlantacaoActivity.cs" />
     <Compile Include="Activities\QrCodeActivity.cs" />
     <Compile Include="Activities\WeatherActivity.cs" />
+    <Compile Include="Activities\CameraActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -261,6 +262,7 @@
     <AndroidResource Include="Resources\drawable\logo_3m.jpg" />
     <AndroidResource Include="Resources\layout\QrCode.axml" />
     <AndroidResource Include="Resources\layout\Weather.axml" />
+    <AndroidResource Include="Resources\layout\Camera.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Config_Aparelho.axml">
