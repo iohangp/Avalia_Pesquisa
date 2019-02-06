@@ -18,6 +18,8 @@ namespace Avalia_Pesquisa.Droid
                 SupportActionBar.SetHomeButtonEnabled(true);
 
             }
+
+
         }
 
         public Toolbar Toolbar
@@ -35,5 +37,8 @@ namespace Avalia_Pesquisa.Droid
         {
             set { Toolbar?.SetNavigationIcon(value); }
         }
+
+
+
     }
 }

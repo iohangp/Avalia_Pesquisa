@@ -15,13 +15,16 @@ using Android.Widget;
 using Avalia_Pesquisa.Droid.Helpers;
 using Android.Views.InputMethods;
 
+
+
+
 namespace Avalia_Pesquisa.Droid.Activities
 {
     [Activity(Label = "Manutenção")]
     public class ManutencaoActivity : BaseActivity
     {
 
-        EditText textDose, textObservacoes, textVento, textNuvens, textUmidade, edNumEstudo, textTemperatura; 
+        EditText textDose, textObservacoes, textVento, textNuvens, textUmidade, edNumEstudo, textTemperatura;
 
         ArrayAdapter adapter;
         Spinner spinnerObjetivo, spinnerProduto, spinnerTipoManutencao, spinnerUnidadeMedida;
@@ -40,9 +43,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             base.OnCreate(savedInstanceState);
 
             //Oculta Teclado
-           //InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
-            //inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
-
+   
 
             edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
             buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
@@ -88,8 +89,17 @@ namespace Avalia_Pesquisa.Droid.Activities
             spinnerTipoManutencao.ItemSelected += SpnTipoManutencao_ItemSelected;
             spinnerUnidadeMedida.ItemSelected += SpnUnidadeMedida_ItemSelected;
 
+            //InputMethodManager inputMnger = (InputMethodManager)this.GetSystemService(Context.InputMethodService); 
+            //inputMnger.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+            //OnTouchEvent(true);
         }
 
+        public override bool OnTouchEvent(MotionEvent e)
+        {
+            InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
+            imm.HideSoftInputFromWindow(edNumEstudo.WindowToken, 0);
+            return base.OnTouchEvent(e);
+        }
 
 
         //Botao Voltar do celular
@@ -217,7 +227,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     Data = DateTime.Now,
                     idUsuario = int.Parse(Settings.GeneralSettings)
 
-    };
+                };
 
                 try
                 {
@@ -402,6 +412,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             }
 
         }
+
+
 
 
     }
