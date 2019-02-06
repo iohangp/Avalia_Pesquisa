@@ -1,3 +1,272 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView1">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp">
+            <TextView
+                android:text="Informe o número do estudo ou utilize o Scanner"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView1" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_width="145.0dp"
+                    android:layout_height="wrap_content"
+                    android:minWidth="15px"
+                    android:minHeight="15px"
+                    android:id="@+id/EDNumEstudo"
+                    android:hint="Nº do Estudo"
+                    android:textColor="@color/primary"
+                    android:textStyle="italic"
+                    android:textSize="14dp"
+                    android:layout_marginRight="0.0dp"  />
+                <Button
+                    android:layout_width="111.0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/BTValidar"
+                    android:text="Validar"
+                    android:textColor="@android:color/white"
+                    android:background="#307FC1"/>
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/BTScannerAvalia"
+                    android:text="Scanner"
+                    android:textColor="@android:color/white"
+                    android:background="#307FC1"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout> 
+            
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de Manutencao: *"
+                    android:textColor="@color/primary"
+                    android:id="@+id/tvManutencao"
+                    android:layout_marginRight="0.0dp" />
+                <Spinner
+                    android:layout_column="1"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spnTipoManutencao" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Produto: *"
+                    android:textColor="@color/primary"
+                    android:id="@+id/tvManutencao"
+                    android:layout_marginRight="0.0dp" />
+                <Spinner
+                    android:layout_column="1"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spnProduto" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    p4:placeholder="true"
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="175.0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dose:"
+                    android:textColor="@color/primary"
+                    xmlns:p4="http://xamarin.com/mono/android/designer"
+                    android:id="@+id/tvDose" />
+                <EditText
+                    android:inputType="numberDecimal"
+                    android:layout_column="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etDose" />
+            </LinearLayout>
+
+             <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Objetivo: *"
+                    android:textColor="@color/primary"
+                    android:id="@+id/tvObjetivo"
+                    android:layout_marginRight="0.0dp" />
+                <Spinner
+                    android:layout_column="1"
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spnObjetivo" />
+
+            </LinearLayout>
+            
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    p4:placeholder="true"
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="172.0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Temperatura:"
+                    android:textColor="@color/primary"
+                    xmlns:p4="http://xamarin.com/mono/android/designer"
+                    android:id="@+id/tvTemperatura" />
+                <EditText
+                    android:inputType="numberDecimal"
+                    android:layout_column="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/@id/ETTemperatura" />
+            </LinearLayout>
+      
+                        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    p4:placeholder="true"
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="172.0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Umidade Relativa:"
+                    android:textColor="@color/primary"
+                    xmlns:p4="http://xamarin.com/mono/android/designer"
+                    android:id="@+id/tvUmidadeRelativa" />
+                <EditText
+                    android:inputType="numberDecimal"
+                    android:layout_column="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/@id/@id/ETUmidadeRelativa" />
+            </LinearLayout>
+                                    <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    p4:placeholder="true"
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="172.0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Velocidade do Vento:"
+                    android:textColor="@color/primary"
+                    xmlns:p4="http://xamarin.com/mono/android/designer"
+                    android:id="@+id/tvVelocidadeVento" />
+                <EditText
+                    android:inputType="numberDecimal"
+                    android:layout_column="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/@id/@id/ETVelocidadeVento" />
+            </LinearLayout>
+                                                <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    p4:placeholder="true"
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="172.0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Percentual de Nuvens:"
+                    android:textColor="@color/primary"
+                    xmlns:p4="http://xamarin.com/mono/android/designer"
+                    android:id="@+id/tvPercentualNuvens" />
+                <EditText
+                    android:inputType="numberDecimal"
+                    android:layout_column="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/@id/@id/ETPercentualNuvens" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <TextView
+                    p4:placeholder="true"
+                    android:minWidth="30px"
+                    android:minHeight="30px"
+                    android:layout_width="172.0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Observações:"
+                    android:textColor="@color/primary"
+                    xmlns:p4="http://xamarin.com/mono/android/designer"
+                    android:id="@+id/tvObservacoes" />
+                <EditText
+                    android:inputType="text"
+                    android:layout_column="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etObservacoes" />
+            </LinearLayout>
+            
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/BTSalvarInstalacao"
+                android:textColor="@android:color/white"
+                android:background="#307FC1"
+                android:text="Salvar" />
+        </LinearLayout>
 </LinearLayout>
+</ScrollView>
