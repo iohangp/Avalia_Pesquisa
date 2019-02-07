@@ -37,6 +37,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Instalacao> instalacaoArray;
         IEnumerable<Avaliacao> avaliacaoArray;
         IEnumerable<Equipamento> equipamentoArray;
+        IEnumerable<Manutencao_Tipo> manutencaoTipoArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -146,7 +147,6 @@ namespace Avalia_Pesquisa
                                 idAlvo = estudo.idAlvo,
                                 Alvo = estudo.Alvo,
                                 Repeticao = estudo.Repeticao,
-                                Intervalo_Aplicacao = estudo.Intervalo_Aplicacao,
                                 Tratamento_Sementes = estudo.Tratamento_Sementes,
                                 Aplicacoes = estudo.Aplicacoes,
                                 Tratamentos = estudo.Tratamentos,
@@ -800,6 +800,55 @@ namespace Avalia_Pesquisa
                             conexao.Insert(alvoObj);
                         else
                             conexao.Update(alvoObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<bool> BaixarManutencaoTipo(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/manutencao/tipo/?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                manutencaoTipoArray = JsonConvert.DeserializeObject<IEnumerable<Manutencao_Tipo>>(json);
+
+                int total = manutencaoTipoArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var manTipo in manutencaoTipoArray)
+                    {
+                        var manTipoObj = new Manutencao_Tipo
+                        {
+                            idManutencao_Tipo = manTipo.idManutencao_Tipo,
+                            Descricao = manTipo.Descricao,
+                            Situacao = manTipo.Situacao
+                        };
+
+                        var dados = conexao.Query<Manutencao_Tipo>("SELECT * FROM Manutencao_Tipo Where idManutencao_Tipo=?", manTipo.idManutencao_Tipo);
+
+                        if (dados.Count == 0)
+                            conexao.Insert(manTipoObj);
+                        else
+                            conexao.Update(manTipoObj);
                     }
                 }
             }

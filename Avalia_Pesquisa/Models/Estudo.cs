@@ -20,7 +20,6 @@ namespace Avalia_Pesquisa
         public int idAlvo { get; set; }
         public string Alvo { get; set; }
         public int Repeticao { get; set; }
-        public int Intervalo_Aplicacao { get; set; }
         public int Tratamento_Sementes { get; set; }
         public int Aplicacoes { get; set; }
         public int Tratamentos { get; set; }
