@@ -28,6 +28,25 @@ namespace Avalia_Pesquisa
 
         }
 
+        public bool SalvarAvaliacaoImagem(Avaliacao_Imagem avaliacaoimagem)
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    conexao.Insert(avaliacaoimagem);
+
+                    return true;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return false;
+            }
+
+        }
+
+
         public List<Alvo> GetAlvos(int idTipoAvaliacao, int idEstudo, int idPlanejamento)
         {
             try
