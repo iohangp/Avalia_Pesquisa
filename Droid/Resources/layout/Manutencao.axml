@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:text="Produto: *"
                     android:textColor="@color/primary"
-                    android:id="@+id/tvManutencao"
+                    android:id="@+id/tvProduto"
                     android:layout_marginRight="0.0dp" />
                 <Spinner
                     android:layout_column="1"

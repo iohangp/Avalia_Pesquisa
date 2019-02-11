@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;  
+using System.Linq;
 using SQLite;
 using System;
 
@@ -29,7 +29,7 @@ namespace Avalia_Pesquisa
         }
 
 
-      
+
 
         public List<Produto> GetProduto()
         {
@@ -37,7 +37,7 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    var result = conexao.Query<Produto>("SELECT * from Produtos").ToList();
+                    var result = conexao.Query<Produto>("SELECT * from Produto").ToList();
 
                     return result;
                 }
