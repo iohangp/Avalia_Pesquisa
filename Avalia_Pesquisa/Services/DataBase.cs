@@ -28,7 +28,6 @@ namespace Avalia_Pesquisa
                     conexao.CreateTable<Avaliacao>(); 
                     conexao.CreateTable<Avaliacao_Imagem>();
                     conexao.CreateTable<Avaliacao_Tipo>();
-                    conexao.CreateTable<BBCH>();
                     conexao.CreateTable<Classe>();
                     conexao.CreateTable<Cliente>();
                     conexao.CreateTable<Cultura>();
@@ -46,15 +45,14 @@ namespace Avalia_Pesquisa
                     conexao.CreateTable<Plantio>();
                     conexao.CreateTable<Produto>();
                     conexao.CreateTable<Safra>();
-                    conexao.CreateTable<Sincronizacao>();
                     conexao.CreateTable<Solo>();
                     conexao.CreateTable<Status>();
-                    conexao.CreateTable<tabelas>();
                     conexao.CreateTable<Umidade_Solo>();
                     conexao.CreateTable<Estudo_Tipo_Alvo>();
                     conexao.CreateTable<Estudo_Planejamento>();
                     conexao.CreateTable<Cobertura_Solo>();
-
+                    conexao.CreateTable<Aplicacao_Planejamento>();
+                    conexao.CreateTable<Avaliacao_Planejamento>();
 
                     return true;
                 }

@@ -12,6 +12,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Command.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Mask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Avaliacao_Planejamento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Aplicacao_Planejamento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Estudo_Planejamento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Estudo_Tipo_Alvo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Config.cs" />

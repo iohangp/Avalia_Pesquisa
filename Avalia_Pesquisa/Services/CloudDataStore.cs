@@ -39,6 +39,8 @@ namespace Avalia_Pesquisa
         IEnumerable<Equipamento> equipamentoArray;
         IEnumerable<Manutencao_Tipo> manutencaoTipoArray;
         IEnumerable<Manutencao_Objetivo> manutencaoObjArray;
+        IEnumerable<Aplicacao_Planejamento> aplicPlanArray;
+        IEnumerable<Avaliacao_Planejamento> avalPlanArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -266,6 +268,102 @@ namespace Avalia_Pesquisa
             }
 
             return true;
+        }
+
+        public async Task<bool> BaixarAplicPlan(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/estudo/aplicacao?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                aplicPlanArray = JsonConvert.DeserializeObject<IEnumerable<Aplicacao_Planejamento>>(json);
+
+                int total = aplicPlanArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    conexao.Query<Aplicacao_Planejamento>("DELETE FROM Aplicacao_Planejamento");
+                    foreach (var planejamento in aplicPlanArray)
+                    {
+                        var aplicPlanjObj = new Aplicacao_Planejamento
+                        {
+                            idEstudo = planejamento.idEstudo,
+                            Dias_Aplicacao = planejamento.Dias_Aplicacao,
+                            Num_Aplicacao = planejamento.Num_Aplicacao
+                        };
+
+                        conexao.Insert(aplicPlanjObj);
+
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<bool> BaixarAvalPlan(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/estudo/avaliacao?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                avalPlanArray = JsonConvert.DeserializeObject<IEnumerable<Avaliacao_Planejamento>>(json);
+
+                int total = avalPlanArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    conexao.Query<Avaliacao_Planejamento>("DELETE FROM Avaliacao_Planejamento");
+                    foreach (var planejamento in avalPlanArray)
+                    {
+                        var avalPlanjObj = new Avaliacao_Planejamento
+                        {
+                            idEstudo = planejamento.idEstudo,
+                            Num_Avaliacao = planejamento.Num_Avaliacao,
+                            Dias = planejamento.Dias,
+                            Apos = planejamento.Apos,
+                            idAvaliacao_Tipo = planejamento.idAvaliacao_Tipo,
+                            idTipoPlanejamento = planejamento.idTipoPlanejamento,
+                            idAlvo = planejamento.idAlvo
+                        };
+
+                        conexao.Insert(avalPlanjObj);
+
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
         }
 
 
