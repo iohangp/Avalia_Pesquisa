@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         EditText textDose, textObservacoes, textVento, textNuvens, textUmidade, edNumEstudo, textTemperatura;
 
-        ArrayAdapter adapter;
+        ArrayAdapter adapterProduto, adapterTipoManutencao, adapterObjetivo, adapterUnidadeMedida;
         Spinner spinnerObjetivo, spinnerProduto, spinnerTipoManutencao, spinnerUnidadeMedida;
         ArrayList idObjetivo, Objetivo, idProduto, Produto, idTipoManutencao, TipoManutencao, idUnidadeMedida, UnidadeMedida;
         Button buttonSalvar, buttonScan, buttonValida;
@@ -43,7 +42,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             base.OnCreate(savedInstanceState);
 
             //Oculta Teclado
-   
+
 
             edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
             buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
@@ -75,14 +74,19 @@ namespace Avalia_Pesquisa.Droid.Activities
             GetUnidadeMedida();
             DadosMeterologicos();
 
-            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, Produto);
-            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, TipoManutencao);
-            adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, Objetivo);
 
-            spinnerProduto.Adapter = adapter;
-            spinnerObjetivo.Adapter = adapter;
-            spinnerTipoManutencao.Adapter = adapter;
-            spinnerUnidadeMedida.Adapter = adapter;
+
+            adapterTipoManutencao = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, TipoManutencao);
+            spinnerTipoManutencao.Adapter = adapterTipoManutencao;
+
+            adapterObjetivo = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, Objetivo);
+            spinnerObjetivo.Adapter = adapterObjetivo;
+
+            adapterProduto = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, Produto);
+            spinnerProduto.Adapter = adapterProduto;
+
+            adapterUnidadeMedida = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, UnidadeMedida);
+            spinnerUnidadeMedida.Adapter = adapterUnidadeMedida;
 
             spinnerProduto.ItemSelected += SpnProduto_ItemSelected;
             spinnerObjetivo.ItemSelected += SpnObjetivo_ItemSelected;
@@ -113,9 +117,6 @@ namespace Avalia_Pesquisa.Droid.Activities
             var intent = new Intent(this, typeof(QrCodeActivity));
             StartActivityForResult(intent, 1);
         }
-
-
-
 
 
         private void GetProduto()
@@ -172,8 +173,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 foreach (var res in result)
                 {
-                    Produto.Add(res.Descricao);
-                    idProduto.Add(res.idManutencao_Tipo);
+                    TipoManutencao.Add(res.Descricao);
+                    idTipoManutencao.Add(res.idManutencao_Tipo);
                 }
             }
         }
