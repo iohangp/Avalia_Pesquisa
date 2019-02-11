@@ -116,7 +116,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 if (await CloudData.BaixarSolo(null) &&
                     await CloudData.BaixarCobertura(null))
                     pbar.Progress += 5;
-                if (await CloudData.BaixarManutencaoTipo(null))
+                if (await CloudData.BaixarManutencaoTipo(null) &&
+                    await CloudData.BaixarManutencaoObj(null))
                     pbar.Progress += 5;
 
 

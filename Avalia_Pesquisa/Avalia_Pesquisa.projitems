@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Estudo_Tipo_Alvo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Config.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Cobertura_Solo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Manutencao_Objetivo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ViewEstudo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Usuario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Municipio.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\WeatherService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AplicacaoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ManutencaoService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Manutencao_Objetivo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Unidade_Medida.cs" />
   </ItemGroup>
 </Project>

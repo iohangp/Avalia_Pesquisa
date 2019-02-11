@@ -41,6 +41,7 @@ namespace Avalia_Pesquisa
                     conexao.CreateTable<Item>();
                     conexao.CreateTable<Manutencao>();
                     conexao.CreateTable<Manutencao_Tipo>();
+                    conexao.CreateTable<Manutencao_Objetivo>();
                     conexao.CreateTable<Objetivos>();
                     conexao.CreateTable<Plantio>();
                     conexao.CreateTable<Produto>();

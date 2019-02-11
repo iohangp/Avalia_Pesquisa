@@ -38,6 +38,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Avaliacao> avaliacaoArray;
         IEnumerable<Equipamento> equipamentoArray;
         IEnumerable<Manutencao_Tipo> manutencaoTipoArray;
+        IEnumerable<Manutencao_Objetivo> manutencaoObjArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -849,6 +850,56 @@ namespace Avalia_Pesquisa
                             conexao.Insert(manTipoObj);
                         else
                             conexao.Update(manTipoObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+
+        public async Task<bool> BaixarManutencaoObj(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/manutencao/objetivo/?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                manutencaoObjArray = JsonConvert.DeserializeObject<IEnumerable<Manutencao_Objetivo>>(json);
+
+                int total = manutencaoObjArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var manObjetivo in manutencaoObjArray)
+                    {
+                        var manutencaoObj = new Manutencao_Objetivo
+                        {
+                            idManutencao_Objetivo = manObjetivo.idManutencao_Objetivo,
+                            Descricao = manObjetivo.Descricao,
+                            Situacao = manObjetivo.Situacao
+                        };
+
+                        var dados = conexao.Query<Manutencao_Objetivo>("SELECT * FROM Manutencao_Objetivo Where idManutencao_Objetivo=?", manObjetivo.idManutencao_Objetivo);
+
+                        if (dados.Count == 0)
+                            conexao.Insert(manutencaoObj);
+                        else
+                            conexao.Update(manutencaoObj);
                     }
                 }
             }
