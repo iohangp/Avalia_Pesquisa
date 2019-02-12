@@ -76,4 +76,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\ManutencaoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Unidade_Medida.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Pendencias.xlsx" />
+  </ItemGroup>
 </Project>
