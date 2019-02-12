@@ -1,10 +1,13 @@
 ﻿using System;
+using SQLite;
 
 namespace Avalia_Pesquisa
 {
     public class Produto
     {
-        public int idProduto { get; set; }
+        [PrimaryKey]
+        public int idProdutos { get; set; }
         public string Descricao { get; set; }
+        public int situacao { get; set; }
     }
 }

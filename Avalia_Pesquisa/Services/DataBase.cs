@@ -50,9 +50,12 @@ namespace Avalia_Pesquisa
                     conexao.CreateTable<Umidade_Solo>();
                     conexao.CreateTable<Estudo_Tipo_Alvo>();
                     conexao.CreateTable<Estudo_Planejamento>();
+                    conexao.CreateTable<Estudo_Planejamento_Aplicacao>();
+                    conexao.CreateTable<Estudo_Planejamento_Avaliacao>();
                     conexao.CreateTable<Cobertura_Solo>();
                     conexao.CreateTable<Aplicacao_Planejamento>();
                     conexao.CreateTable<Avaliacao_Planejamento>();
+                    conexao.CreateTable<Unidade_Medida>();
 
                     return true;
                 }

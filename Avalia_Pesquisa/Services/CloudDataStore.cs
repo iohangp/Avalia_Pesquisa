@@ -41,6 +41,8 @@ namespace Avalia_Pesquisa
         IEnumerable<Manutencao_Objetivo> manutencaoObjArray;
         IEnumerable<Aplicacao_Planejamento> aplicPlanArray;
         IEnumerable<Avaliacao_Planejamento> avalPlanArray;
+        IEnumerable<Unidade_Medida> unidadeArray;
+        IEnumerable<Produto> produtoArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -231,10 +233,12 @@ namespace Avalia_Pesquisa
             if (response.IsSuccessStatusCode)
             {
 
-                var json = await response.Content.ReadAsStringAsync();
-                planejArray = JsonConvert.DeserializeObject<IEnumerable<Estudo_Planejamento>>(json);
+                var jsonPost = await response.Content.ReadAsStringAsync();
 
-                int total = planejArray.Count();
+                dynamic deserializado = JArray.Parse(jsonPost);
+
+
+                int total = deserializado.Count;
                 if (total == 0)
                     return false;
 
@@ -242,18 +246,33 @@ namespace Avalia_Pesquisa
                 {
                     using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                     {
-                        conexao.Query<Estudo_Tipo_Alvo>("DELETE FROM Estudo_Planejamento");
-                        foreach (var planejamento in planejArray)
-                        {
-                            var planejObj = new Estudo_Planejamento
-                            {
-                                idEstudo_planejamento = planejamento.idEstudo_planejamento,
-                                idEstudo = planejamento.idEstudo,
-                                data = planejamento.data,
-                                tipo = 1
-                            };
+                        conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Aplicacao");
+                        conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Avaliacao");
 
-                            conexao.Insert(planejObj);
+                        foreach (var planejamento in deserializado)
+                        {
+                            if (planejamento.tipo == "aplicacao")
+                            {
+                                var planejAplic = new Estudo_Planejamento_Aplicacao
+                                {
+                                    idEstudo_Planejamento_Aplicacao = planejamento.idPlanejamento,
+                                    idEstudo = planejamento.idEstudo,
+                                    data = planejamento.data
+                                };
+
+                                conexao.Insert(planejAplic);
+
+                            }else if (planejamento.tipo == "avaliacao")
+                            {
+                                var planejObj = new Estudo_Planejamento_Avaliacao
+                                {
+                                    idEstudo_Planejamento_Avaliacao = planejamento.idPlanejamento,
+                                    idEstudo = planejamento.idEstudo,
+                                    data = planejamento.data
+                                };
+
+                                conexao.Insert(planejObj);
+                            }
 
                         }
                     }
@@ -998,6 +1017,103 @@ namespace Avalia_Pesquisa
                             conexao.Insert(manutencaoObj);
                         else
                             conexao.Update(manutencaoObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<bool> BaixarUnidadeMedida(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/manutencao/unidademedida?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                unidadeArray = JsonConvert.DeserializeObject<IEnumerable<Unidade_Medida>>(json);
+
+                int total = unidadeArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var unidade in unidadeArray)
+                    {
+                        var unidadeObj = new Unidade_Medida
+                        {
+                            idUnidade_Medida = unidade.idUnidade_Medida,
+                            Descricao = unidade.Descricao
+                        };
+
+                        var dados = conexao.Query<Unidade_Medida>("SELECT * FROM Unidade_Medida Where idUnidade_Medida=?", unidade.idUnidade_Medida);
+
+                        if (dados.Count == 0)
+                            conexao.Insert(unidadeObj);
+                        else
+                            conexao.Update(unidadeObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<bool> BaixarProdutos(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/products?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                produtoArray = JsonConvert.DeserializeObject<IEnumerable<Produto>>(json);
+
+                int total = produtoArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var produto in produtoArray)
+                    {
+                        var produtoObj = new Produto
+                        {
+                            idProdutos = produto.idProdutos,
+                            Descricao = produto.Descricao,
+                            situacao = produto.situacao
+                        };
+
+                        var dados = conexao.Query<Unidade_Medida>("SELECT * FROM Produto Where idProdutos=?", produto.idProdutos);
+
+                        if (dados.Count == 0)
+                            conexao.Insert(produtoObj);
+                        else
+                            conexao.Update(produtoObj);
                     }
                 }
             }

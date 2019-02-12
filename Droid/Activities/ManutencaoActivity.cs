@@ -134,7 +134,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 foreach (var res in result)
                 {
                     Produto.Add(res.Descricao);
-                    idProduto.Add(res.idProduto);
+                    idProduto.Add(res.idProdutos);
                 }
             }
 
