@@ -13,6 +13,7 @@ namespace Avalia_Pesquisa
         public string Produto { get; set; }
         public string Classe { get; set; }
         public string Alvo { get; set; }
+        public string Codigo { get; set; }
         public int Repeticao { get; set; }
         public int Intervalo_Aplicacao { get; set; }
         public int Tratamento_Sementes { get; set; }

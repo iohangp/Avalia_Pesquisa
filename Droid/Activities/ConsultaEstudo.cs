@@ -63,9 +63,11 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     if (data.GetStringExtra("qrcode") != null)
                     {
-                        txtEstudo.Text = data.GetStringExtra("qrcode");
-                        ConsultarEstudo(txtEstudo.Text);
-                        
+                        //edNumEstudo.Text = data.GetStringExtra("qrcode");
+                        //ValidarEstudo(edNumEstudo.Text);
+                        string codigo = data.GetStringExtra("qrcode");
+                        ConsultarEstudo(codigo);
+
                     }
                 }
             }
@@ -117,6 +119,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 if (estudo.Count > 0 && !erroCod)
                 {
+                    txtEstudo.Text = estudo[0].Codigo;
                     txtProtocolo.Text = estudo[0].Protocolo;
                     txtPatrocinador.Text = estudo[0].Cliente;
                     txtProduto.Text = estudo[0].Produto;

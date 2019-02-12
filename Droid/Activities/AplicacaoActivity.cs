@@ -246,8 +246,10 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     if (data.GetStringExtra("qrcode") != null)
                     {
-                        edNumEstudo.Text = data.GetStringExtra("qrcode");
-                        ValidarEstudo(edNumEstudo.Text);
+                        //edNumEstudo.Text = data.GetStringExtra("qrcode");
+                        //ValidarEstudo(edNumEstudo.Text);
+                        string codigo = data.GetStringExtra("qrcode");
+                        ValidarEstudo(codigo);
                     }
                 }
             }
@@ -266,6 +268,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             if (estudo.Count > 0)
             {
                 idEstudo_ = estudo[0].IdEstudo;
+                edNumEstudo.Text = estudo[0].Codigo;
                 DadosMeterologicos();
                 Coordenadas();
             }
