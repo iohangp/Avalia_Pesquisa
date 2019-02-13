@@ -183,6 +183,7 @@
     <Reference Include="Plugin.Media">
       <HintPath>..\packages\Xam.Plugin.Media.4.0.1.5\lib\monoandroid71\Plugin.Media.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\LoginActivity.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Activities\WeatherActivity.cs" />
     <Compile Include="Activities\CameraActivity.cs" />
     <Compile Include="Activities\Camera3Activity.cs" />
+    <Compile Include="Activities\CameraActivity2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -267,6 +269,7 @@
     <AndroidResource Include="Resources\layout\QrCode.axml" />
     <AndroidResource Include="Resources\layout\Weather.axml" />
     <AndroidResource Include="Resources\layout\Camera.axml" />
+    <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Config_Aparelho.axml">
@@ -285,6 +288,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\xml\" />
   </ItemGroup>
   <Import Project="..\Avalia_Pesquisa\Avalia_Pesquisa.projitems" Label="Shared" Condition="Exists('..\Avalia_Pesquisa\Avalia_Pesquisa.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -49,6 +49,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             using (var stream = new MemoryStream())
             {
                 bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
+
                 bitmapData = stream.ToArray();
             }
             Salvar();
