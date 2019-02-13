@@ -180,6 +180,9 @@
     <Reference Include="Mono.Android">
       <HintPath>..\..\..\..\..\..\Library\Frameworks\Mono.framework\External\xbuild-frameworks\MonoAndroid\v8.1\Mono.Android.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Media">
+      <HintPath>..\packages\Xam.Plugin.Media.4.0.1.5\lib\monoandroid71\Plugin.Media.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\LoginActivity.cs" />
@@ -208,6 +211,7 @@
     <Compile Include="Activities\QrCodeActivity.cs" />
     <Compile Include="Activities\WeatherActivity.cs" />
     <Compile Include="Activities\CameraActivity.cs" />
+    <Compile Include="Activities\Camera3Activity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
