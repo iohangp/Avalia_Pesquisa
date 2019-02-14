@@ -175,54 +175,66 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             if (idEstudo_ > 0)
             {
-
-                var aval = new Instalacao
+                if ((etComprimento.Text != "") && (etComprimento.Text != "") && (idPlantioSelect!="0"))
                 {
-
-                    idEstudo = idEstudo_,
-                    idPlantio = int.Parse(idPlantioSelect),
-                    Tamanho_Parcela_Comprimento = decimal.Parse(etComprimento.Text.Replace(".", ",")),
-                    Tamanho_Parcela_Largura = decimal.Parse(etLargura.Text.Replace(".", ",")),
-                    Coordenadas1 = etCoordenadas1.Text,
-                    Coordenadas2 = etCoordenadas2.Text,
-                    Altitude = etAltitude.Text,
-                    Data_Instalacao = DateTime.Now,
-                    idUsuario = int.Parse(Settings.GeneralSettings),
-                    Observacoes = etObservacoes.Text
-
-                };
-
-
-
-                try
-                {
-                    avalService.SalvarInstalacao(aval);
-
-
-                    alerta.SetTitle("Sucesso!");
-                    alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
-                    alerta.SetMessage("Instalação Salva com Sucesso!");
-                    alerta.SetButton("OK", (s, ev) =>
+                    var aval = new Instalacao
                     {
-                        alerta.Dismiss();
-                    });
-                    alerta.Show();
+
+                        idEstudo = idEstudo_,
+                        idPlantio = int.Parse(idPlantioSelect),
+                        Tamanho_Parcela_Comprimento = decimal.Parse(etComprimento.Text.Replace(".", ",")),
+                        Tamanho_Parcela_Largura = decimal.Parse(etLargura.Text.Replace(".", ",")),
+                        Coordenadas1 = etCoordenadas1.Text,
+                        Coordenadas2 = etCoordenadas2.Text,
+                        Altitude = etAltitude.Text,
+                        Data_Instalacao = DateTime.Now,
+                        idUsuario = int.Parse(Settings.GeneralSettings),
+                        Observacoes = etObservacoes.Text
+
+                    };
+
+                    try
+                    {
+                        avalService.SalvarInstalacao(aval);
+
+
+                        alerta.SetTitle("Sucesso!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                        alerta.SetMessage("Instalação Salva com Sucesso!");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
+                    }
+
+                    catch
+
+                    {
+                        alerta.SetMessage("Erro ao salvar ");
+                        alerta.SetTitle("ERRO!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                        alerta.SetMessage("Erro ao salvar a Avaliação!");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
+                    }
                 }
-
-                catch
-
-                {
-                    alerta.SetMessage("Erro ao salvar ");
+                else {
+                    alerta.SetMessage("Favor preencher todos os campos obrigatórios");
                     alerta.SetTitle("ERRO!");
                     alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
-                    alerta.SetMessage("Erro ao salvar a Avaliação!");
+                    alerta.SetMessage("Favor preencher os campos obrigatórios!");
                     alerta.SetButton("OK", (s, ev) =>
                     {
                         alerta.Dismiss();
                     });
                     alerta.Show();
-                }
 
+
+                }
             }
 
             else {
@@ -271,7 +283,11 @@ namespace Avalia_Pesquisa.Droid.Activities
                 idEstudo_ = estudo[0].IdEstudo;
                 edNumEstudo.Text = estudo[0].Codigo;
             }
+            else
+            {
+                Toast.MakeText(this, "Nenhum estudo encontrado", ToastLength.Long).Show();
 
+            }
 
 
 
