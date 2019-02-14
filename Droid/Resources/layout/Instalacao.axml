@@ -68,7 +68,7 @@
 				<TextView
 					android:minWidth="30px"
 					android:minHeight="30px"
-					android:layout_width="140dp"
+					android:layout_width="90dp"
 					android:layout_height="wrap_content"
 					android:text="Localidade: *"
 					android:textColor="@color/primary"
@@ -91,7 +91,7 @@
 				<TextView
 					android:minWidth="30px"
 					android:minHeight="30px"
-					android:layout_width="140dp"
+					android:layout_width="110dp"
 					android:layout_height="wrap_content"
 					android:text="Gleba/Cultura: *"
 					android:textColor="@color/primary"

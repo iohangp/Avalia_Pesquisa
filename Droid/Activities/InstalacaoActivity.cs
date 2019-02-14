@@ -25,7 +25,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         Spinner spnLocalidade, spnGlebaCult;
         ArrayAdapter adapter;
         ArrayList Localidades, idLocalidades, GlebaCults, idGlebaCults;
-        EditText edNumEstudo, etComprimento, etLargura, etCoordenadas1, etCoordenadas2, etAltitude, etObservacoes, etData;
+        EditText edNumEstudo, etComprimento, etLargura, etCoordenadas1, etCoordenadas2, etAltitude, etObservacoes;
         // int totalRepeticoes = 1, idEstudo;
         string idPlantio, idCultura, idLocalidadeSelect, idPlantioSelect;
         // TableRow rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5;
@@ -177,6 +177,14 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 if ((etComprimento.Text != "") && (etComprimento.Text != "") && (idPlantioSelect!="0"))
                 {
+                    var date = "";
+                    if(textDate.Text =="")
+                        date = DateTime.Now.ToString();
+                    else {
+                        date = textDate.Text;
+                    }
+
+
                     var aval = new Instalacao
                     {
 
@@ -187,7 +195,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Coordenadas1 = etCoordenadas1.Text,
                         Coordenadas2 = etCoordenadas2.Text,
                         Altitude = etAltitude.Text,
-                        Data_Instalacao = DateTime.Now,
+                        Data_Instalacao = Convert.ToDateTime(date),
                         idUsuario = int.Parse(Settings.GeneralSettings),
                         Observacoes = etObservacoes.Text
 
@@ -206,8 +214,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                             alerta.Dismiss();
                         });
                         alerta.Show();
+                        LimpaCampos();
                     }
-
+                        
                     catch
 
                     {
@@ -232,8 +241,6 @@ namespace Avalia_Pesquisa.Droid.Activities
                         alerta.Dismiss();
                     });
                     alerta.Show();
-
-
                 }
             }
 
@@ -247,10 +254,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     alerta.Dismiss();
                 });
                 alerta.Show();
-
-
             }
-
 
         }
 
@@ -266,8 +270,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         private void LimpaCampos()
         {
-            etComprimento.Text = etData.Text = etLargura.Text = etAltitude.Text = etObservacoes.Text = etCoordenadas1.Text = etCoordenadas2.Text = "";
-
+            etComprimento.Text = textDate.Text = etLargura.Text = etAltitude.Text = etObservacoes.Text = etCoordenadas1.Text = etCoordenadas2.Text = "";
         }
 
         private void ValidarEstudo(string protocolo)
@@ -288,8 +291,6 @@ namespace Avalia_Pesquisa.Droid.Activities
                 Toast.MakeText(this, "Nenhum estudo encontrado", ToastLength.Long).Show();
 
             }
-
-
 
         }
 
