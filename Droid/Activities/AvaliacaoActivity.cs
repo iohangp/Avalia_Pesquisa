@@ -380,7 +380,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     totalRepeticoes = estudo[0].Repeticao;
                     idInstalacao = int.Parse(ids[1]);
                     Tratamento = int.Parse(ids[2]);
-                   // edNumEstudo.Text = estudo[0].Protocolo;
+                    edNumEstudo.Text = estudo[0].Codigo;
                     AvaliacaoService aval = new AvaliacaoService();
                     var plan = aval.GetDataAvaliacao(idEstudo);
 

@@ -8,6 +8,7 @@ namespace Avalia_Pesquisa
         [PrimaryKey]
         public int IdEstudo { get; set; }
         public string Protocolo { get; set; }
+        public string Codigo { get; set; }
         public int idCliente { get; set; }
         public string Cliente { get; set; }
         public int idEmpresa { get; set; }

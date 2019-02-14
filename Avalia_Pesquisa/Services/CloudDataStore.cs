@@ -140,6 +140,7 @@ namespace Avalia_Pesquisa
                             {
                                 IdEstudo = estudo.IdEstudo,
                                 Protocolo = estudo.Protocolo,
+                                Codigo = estudo.Codigo,
                                 idCliente = estudo.idCliente,
                                 Cliente = estudo.Cliente,
                                 idEmpresa = estudo.idEmpresa,
@@ -233,48 +234,70 @@ namespace Avalia_Pesquisa
             if (response.IsSuccessStatusCode)
             {
 
-                var jsonPost = await response.Content.ReadAsStringAsync();
+                var json = await response.Content.ReadAsStringAsync();
 
-                dynamic deserializado = JArray.Parse(jsonPost);
+                /* dynamic deserializado = JArray.Parse(jsonPost);
 
 
-                int total = deserializado.Count;
+                 int total = deserializado.Count;
+                 if (total == 0)
+                     return false; */
+
+                planejArray = JsonConvert.DeserializeObject<IEnumerable<Estudo_Planejamento>>(json);
+
+                int total = planejArray.Count();
                 if (total == 0)
                     return false;
+
 
                 try
                 {
                     using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                     {
-                        conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Aplicacao");
-                        conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Avaliacao");
+                       // conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Aplicacao");
+                        //conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Avaliacao");
+                        conexao.Query<Estudo_Planejamento>("DELETE FROM Estudo_Planejamento");
 
-                        foreach (var planejamento in deserializado)
+                        foreach (var planejamento in planejArray)
                         {
-                            if (planejamento.tipo == "aplicacao")
+                            var planejObj = new Estudo_Planejamento
                             {
-                                var planejAplic = new Estudo_Planejamento_Aplicacao
-                                {
-                                    idEstudo_Planejamento_Aplicacao = planejamento.idPlanejamento,
-                                    idEstudo = planejamento.idEstudo,
-                                    data = planejamento.data
-                                };
+                                idEstudo_planejamento = planejamento.idEstudo_planejamento,
+                                idEstudo = planejamento.idEstudo,
+                                data = planejamento.data,
+                                tipo = 1
+                            };
 
-                                conexao.Insert(planejAplic);
-
-                            }else if (planejamento.tipo == "avaliacao")
-                            {
-                                var planejObj = new Estudo_Planejamento_Avaliacao
-                                {
-                                    idEstudo_Planejamento_Avaliacao = planejamento.idPlanejamento,
-                                    idEstudo = planejamento.idEstudo,
-                                    data = planejamento.data
-                                };
-
-                                conexao.Insert(planejObj);
-                            }
+                            conexao.Insert(planejObj);
 
                         }
+
+                        /*  foreach (var planejamento in deserializado)
+                          {
+                              if (planejamento.tipo == "aplicacao")
+                              {
+                                  var planejAplic = new Estudo_Planejamento_Aplicacao
+                                  {
+                                      idEstudo_Planejamento_Aplicacao = planejamento.idPlanejamento,
+                                      idEstudo = planejamento.idEstudo,
+                                      data = planejamento.data
+                                  };
+
+                                  conexao.Insert(planejAplic);
+
+                              }else if (planejamento.tipo == "avaliacao")
+                              {
+                                  var planejObj = new Estudo_Planejamento_Avaliacao
+                                  {
+                                      idEstudo_Planejamento_Avaliacao = planejamento.idPlanejamento,
+                                      idEstudo = planejamento.idEstudo,
+                                      data = planejamento.data
+                                  };
+
+                                  conexao.Insert(planejObj);
+                              }
+
+                          }*/
                     }
                 }
                 catch (SQLiteException ex)
