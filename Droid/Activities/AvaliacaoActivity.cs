@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -12,6 +13,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Avalia_Pesquisa.Droid.Helpers;
+using Plugin.Media;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -28,6 +30,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                  rowAlvo,rowTipoAval,rowPlanejamento;
         Button buttonSalvar;
         TextView textData;
+        ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4;
+        byte[] byteArray;
 
         protected override int LayoutResource => Resource.Layout.Avaliacao;
 
@@ -59,6 +63,16 @@ namespace Avalia_Pesquisa.Droid.Activities
             etRepeticao3 = FindViewById<EditText>(Resource.Id.etRepeticao3);
             etRepeticao4 = FindViewById<EditText>(Resource.Id.etRepeticao4);
             etRepeticao5 = FindViewById<EditText>(Resource.Id.etRepeticao5);
+
+            buttonCamera1 = FindViewById<ImageButton>(Resource.Id.ibCamera1);
+            buttonCamera2 = FindViewById<ImageButton>(Resource.Id.ibCamera2);
+            buttonCamera3 = FindViewById<ImageButton>(Resource.Id.ibCamera3);
+            buttonCamera4 = FindViewById<ImageButton>(Resource.Id.ibCamera4);
+
+            buttonCamera1.Click += Camera1_OnClick;
+            buttonCamera2.Click += Camera2_OnClick;
+            buttonCamera3.Click += Camera3_OnClick;
+            buttonCamera4.Click += Camera4_OnClick;
 
             buttonScan.Click += BTScanner_Click;
             buttonSalvar.Click += BTSalvar_Click;
@@ -95,7 +109,128 @@ namespace Avalia_Pesquisa.Droid.Activities
             base.OnActivityResult(requestCode, resultCode, data);
         }
 
+        private async void Camera1_OnClick(object sender, EventArgs e)
+        {
 
+            if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
+            {
+                var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    photo.GetStream().CopyTo(memoryStream);
+                    photo.Dispose();
+                    byteArray = memoryStream.ToArray();
+                }
+            }
+            else
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog alerta = builder.Create();
+
+                alerta.SetTitle("ERRO!");
+                alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                alerta.SetMessage("Erro ao ativar a camera!");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
+
+            }
+        }
+
+        private async void Camera2_OnClick(object sender, EventArgs e)
+        {
+
+            if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
+            {
+                var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    photo.GetStream().CopyTo(memoryStream);
+                    photo.Dispose();
+                    byteArray = memoryStream.ToArray();
+                }
+            }
+            else
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog alerta = builder.Create();
+
+                alerta.SetTitle("ERRO!");
+                alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                alerta.SetMessage("Erro ao ativar a camera!");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
+
+            }
+        }
+
+        private async void Camera3_OnClick(object sender, EventArgs e)
+        {
+
+            if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
+            {
+                var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    photo.GetStream().CopyTo(memoryStream);
+                    photo.Dispose();
+                    byteArray = memoryStream.ToArray();
+                }
+            }
+            else
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog alerta = builder.Create();
+
+                alerta.SetTitle("ERRO!");
+                alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                alerta.SetMessage("Erro ao ativar a camera!");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
+
+            }
+        }
+
+        private async void Camera4_OnClick(object sender, EventArgs e)
+        {
+            if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
+            {
+                var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    photo.GetStream().CopyTo(memoryStream);
+                    photo.Dispose();
+                    byteArray = memoryStream.ToArray();
+                }
+            }
+            else
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog alerta = builder.Create();
+
+                alerta.SetTitle("ERRO!");
+                alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                alerta.SetMessage("Erro ao ativar a camera!");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
+
+            }
+        }
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
