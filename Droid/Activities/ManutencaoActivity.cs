@@ -104,7 +104,17 @@ namespace Avalia_Pesquisa.Droid.Activities
             imm.HideSoftInputFromWindow(edNumEstudo.WindowToken, 0);
             return base.OnTouchEvent(e);
         }
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    this.OnBackPressed();
+                    return true;
 
+            }
+            return base.OnOptionsItemSelected(item);
+        }
 
         //Botao Voltar do celular
         public override void OnBackPressed()

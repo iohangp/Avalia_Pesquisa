@@ -131,6 +131,17 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         }
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    this.OnBackPressed();
+                    return true;
+
+            }
+            return base.OnOptionsItemSelected(item);
+        }
 
         protected internal void BTSalvar_Click(object sender, EventArgs e)
         {

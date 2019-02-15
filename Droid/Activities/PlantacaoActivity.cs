@@ -219,29 +219,65 @@ namespace Avalia_Pesquisa.Droid.Activities
                 int.Parse(idSafraSelect) > 0 && int.Parse(idGlebaSelect) > 0 && int.Parse(idUmiSelect) > 0 &&
                 int.Parse(idCultAntSelect) > 0 && int.Parse(idSoloSelect) > 0 && int.Parse(idCobSelect) > 0)
             {
-
-                try
+                var date = "";
+                if (textDate.Text == "")
+                    date = DateTime.Now.ToString();
+                else
                 {
-                    var plan = new Plantio
+                    date = textDate.Text;
+                }
+
+                var dateG = "";
+                if (textDateGerm.Text == "")
+                    dateG = null;
+
+                decimal AduBase = 0;
+                if (textAdubaBase.Text == "")
+                    AduBase = 0;
+                else AduBase = decimal.Parse(textAdubaBase.Text);
+
+
+                decimal AdubaCob = 0;
+                if (textAdubaCob.Text == "")
+                    AdubaCob = 0;
+                else AdubaCob = decimal.Parse(textAdubaCob.Text);
+
+                decimal Metragem = 0;
+                if (textMetragem.Text == "")
+                    Metragem = 0;
+                else Metragem = decimal.Parse(textMetragem.Text);
+
+                int Populacao = 0;
+                if (textPopulacao.Text == "")
+                    Populacao = 0;
+                else Populacao = int.Parse(textPopulacao.Text);
+
+                int Espacamento = 0;
+                if (textEspacamento.Text == "")
+                    Espacamento = 0;
+                else Espacamento = int.Parse(textEspacamento.Text);
+                 try
+                 {
+               var plan = new Plantio
                     {
                         idCultura = int.Parse(idCulturaSelect),
                         idVariedade = int.Parse(idVarSelect),
-                        Data_Plantio = Convert.ToDateTime(textDate.Text),
+                        Data_Plantio = Convert.ToDateTime(date),
                         idLocalidade = int.Parse(idLocSelect),
                         idSafra = int.Parse(idSafraSelect),
-                        Data_Germinacao = Convert.ToDateTime(textDateGerm.Text),
+                        Data_Germinacao = Convert.ToDateTime(dateG),
                         idGleba = int.Parse(idGlebaSelect),
                         idUmidade_Solo = int.Parse(idUmiSelect),
-                        Adubacao_Base = decimal.Parse(textAdubaBase.Text),
-                        Adubacao_Cobertura = decimal.Parse(textAdubaCob.Text),
-                        Espacamento = int.Parse(textEspacamento.Text),
-                        Populacao = int.Parse(textPopulacao.Text),
+                        Adubacao_Base = AduBase,
+                        Adubacao_Cobertura = AdubaCob,
+                        Espacamento = Espacamento,
+                        Populacao = Populacao,
                         Observacoes = textObs.Text,
                         idCulturaAnterior = int.Parse(idCultAntSelect),
                         idSolo = int.Parse(idSoloSelect),
                         idUsuario = int.Parse(Settings.GeneralSettings),
                         idCultura_Cobertura_Solo = int.Parse(idCobSelect),
-                        Metragem = decimal.Parse(textMetragem.Text),
+                        Metragem = Metragem,
                         Status = int.Parse(idStatusSelect),
                         Integrado = 0
                     };
@@ -274,10 +310,16 @@ namespace Avalia_Pesquisa.Droid.Activities
                     }
                     
                 }
-                catch (Exception ex)
-                {
-                    // Unable to get location
-                    Console.WriteLine(ex.Message);
+               catch
+                 {
+                    alerta.SetTitle("ERRO!");
+                    alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                    alerta.SetMessage("Erro ao salvar o Plantio!");
+                    alerta.SetButton("OK", (s, ev) =>
+                    {
+                        alerta.Dismiss();
+                    });
+                    alerta.Show();
                 }
             }
             else

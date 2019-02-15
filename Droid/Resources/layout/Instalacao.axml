@@ -68,7 +68,7 @@
 				<TextView
 					android:minWidth="30px"
 					android:minHeight="30px"
-					android:layout_width="140dp"
+					android:layout_width="90dp"
 					android:layout_height="wrap_content"
 					android:text="Localidade: *"
 					android:textColor="@color/primary"
@@ -91,7 +91,7 @@
 				<TextView
 					android:minWidth="30px"
 					android:minHeight="30px"
-					android:layout_width="140dp"
+					android:layout_width="110dp"
 					android:layout_height="wrap_content"
 					android:text="Gleba/Cultura: *"
 					android:textColor="@color/primary"
@@ -115,7 +115,7 @@
 					android:minHeight="30px"
 					android:layout_width="210.0dp"
 					android:layout_height="wrap_content"
-					android:text="Tamanho Comprimento Parcela:"
+					android:text="Tamanho Comprimento Parcela:*"
 					android:textColor="@color/primary"
 					xmlns:p4="http://xamarin.com/mono/android/designer"
 					android:id="@+id/tvComprimento"
@@ -139,7 +139,7 @@
 					android:minHeight="30px"
 					android:layout_width="175.0dp"
 					android:layout_height="wrap_content"
-					android:text="Tamanho Largura Parcela:"
+					android:text="Tamanho Largura Parcela:*"
 					android:textColor="@color/primary"
 					xmlns:p4="http://xamarin.com/mono/android/designer"
 					android:id="@+id/tvLargura" />
