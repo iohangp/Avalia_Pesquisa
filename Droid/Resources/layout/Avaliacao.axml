@@ -137,7 +137,15 @@
                 android:inputType="number"
                 android:layout_column="1"
                 android:id="@+id/etRepeticao1" />
-
+            <ImageButton
+                android:src="@drawable/camera3"
+                android:background="@android:color/transparent"
+                android:layout_width="31.0dp"
+                android:layout_height="wrap_content"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:layout_marginTop="10dp"
+                android:id="@+id/ibCamera1"/>
         </TableRow>
         <TableRow
             android:id="@+id/trRepeticao2"
@@ -154,7 +162,15 @@
                 android:inputType="number"
                 android:layout_column="1"
                 android:id="@+id/etRepeticao2" />
-
+             <ImageButton
+                android:src="@drawable/camera3"
+                android:background="@android:color/transparent"
+                android:layout_width="31.0dp"
+                android:layout_height="wrap_content"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:layout_marginTop="10dp"
+                android:id="@+id/ibCamera2"/>
         </TableRow>
         <TableRow
             android:id="@+id/trRepeticao3"
@@ -171,7 +187,15 @@
                 android:inputType="number"
                 android:layout_column="1"
                 android:id="@+id/etRepeticao3" />
-
+            <ImageButton
+                android:src="@drawable/camera3"
+                android:background="@android:color/transparent"
+                android:layout_width="31.0dp"
+                android:layout_height="wrap_content"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:layout_marginTop="10dp"
+                android:id="@+id/ibCamera3"/>
         </TableRow>
         <TableRow
             android:id="@+id/trRepeticao4"
@@ -188,7 +212,15 @@
                 android:inputType="number"
                 android:layout_column="1"
                 android:id="@+id/etRepeticao4" />
-
+             <ImageButton
+                android:src="@drawable/camera3"
+                android:background="@android:color/transparent"
+                android:layout_width="31.0dp"
+                android:layout_height="wrap_content"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:layout_marginTop="10dp"
+                android:id="@+id/ibCamera4"/>
         </TableRow> 
 		<TableRow
             android:id="@+id/trRepeticao5"

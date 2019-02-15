@@ -270,6 +270,8 @@
     <AndroidResource Include="Resources\layout\Weather.axml" />
     <AndroidResource Include="Resources\layout\Camera.axml" />
     <AndroidResource Include="Resources\xml\file_paths.xml" />
+    <AndroidResource Include="Resources\drawable\camera.png" />
+    <AndroidResource Include="Resources\drawable\camera3.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Config_Aparelho.axml">
