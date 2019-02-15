@@ -114,14 +114,20 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
-                var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
-
-                using (var memoryStream = new MemoryStream())
+                try
                 {
-                    photo.GetStream().CopyTo(memoryStream);
-                    photo.Dispose();
-                    byteArray = memoryStream.ToArray();
+                    var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        photo.GetStream().CopyTo(memoryStream);
+                        photo.Dispose();
+                        byteArray = memoryStream.ToArray();
+                    }
+
                 }
+
+                catch { }
             }
             else
             {
@@ -145,14 +151,20 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
-                var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
-
-                using (var memoryStream = new MemoryStream())
+                try
                 {
-                    photo.GetStream().CopyTo(memoryStream);
-                    photo.Dispose();
-                    byteArray = memoryStream.ToArray();
+                    var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        photo.GetStream().CopyTo(memoryStream);
+                        photo.Dispose();
+                        byteArray = memoryStream.ToArray();
+                    }
+
                 }
+
+                catch { }
             }
             else
             {
@@ -176,14 +188,18 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
-                var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
-
-                using (var memoryStream = new MemoryStream())
+                try
                 {
-                    photo.GetStream().CopyTo(memoryStream);
-                    photo.Dispose();
-                    byteArray = memoryStream.ToArray();
+                    var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        photo.GetStream().CopyTo(memoryStream);
+                        photo.Dispose();
+                        byteArray = memoryStream.ToArray();
+                    }
                 }
+
+                catch { }
             }
             else
             {
@@ -198,7 +214,6 @@ namespace Avalia_Pesquisa.Droid.Activities
                     alerta.Dismiss();
                 });
                 alerta.Show();
-
             }
         }
 
@@ -206,14 +221,18 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
-                var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
-
-                using (var memoryStream = new MemoryStream())
+                try
                 {
-                    photo.GetStream().CopyTo(memoryStream);
-                    photo.Dispose();
-                    byteArray = memoryStream.ToArray();
+                    var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        photo.GetStream().CopyTo(memoryStream);
+                        photo.Dispose();
+                        byteArray = memoryStream.ToArray();
+                    }
                 }
+                catch { }
             }
             else
             {
