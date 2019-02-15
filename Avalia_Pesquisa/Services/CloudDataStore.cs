@@ -36,6 +36,9 @@ namespace Avalia_Pesquisa
         IEnumerable<Plantio> plantioArray;
         IEnumerable<Instalacao> instalacaoArray;
         IEnumerable<Avaliacao> avaliacaoArray;
+        IEnumerable<Avaliacao_Imagem> avaliacaoImagemArray;
+        IEnumerable<Manutencao> manutencaoArray;
+        IEnumerable<Aplicacao> aplicacaoArray;
         IEnumerable<Equipamento> equipamentoArray;
         IEnumerable<Manutencao_Tipo> manutencaoTipoArray;
         IEnumerable<Manutencao_Objetivo> manutencaoObjArray;
@@ -209,13 +212,13 @@ namespace Avalia_Pesquisa
                         foreach (var tipoAlvo in tipoAlvoArray)
                         {
                             var tipoAlvoObj = new Estudo_Tipo_Alvo
-                            {             
+                            {
                                 IdAlvo = tipoAlvo.IdAlvo,
                                 idAvaliacao_tipo = tipoAlvo.idAvaliacao_tipo,
                                 IdEstudo = tipoAlvo.IdEstudo
-                            };          
+                            };
 
-                            conexao.Insert(tipoAlvoObj);        
+                            conexao.Insert(tipoAlvoObj);
 
                         }
                     }
@@ -254,7 +257,7 @@ namespace Avalia_Pesquisa
                 {
                     using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                     {
-                       // conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Aplicacao");
+                        // conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Aplicacao");
                         //conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Avaliacao");
                         conexao.Query<Estudo_Planejamento>("DELETE FROM Estudo_Planejamento");
 
@@ -465,7 +468,7 @@ namespace Avalia_Pesquisa
 
         public async Task<bool> MunicipiosSync(string chave)
         {
-            
+
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
@@ -512,7 +515,7 @@ namespace Avalia_Pesquisa
 
 
             return true;
- 
+
         }
 
         public async Task<bool> BaixarTipoAvaliacao(string chave)
@@ -1228,7 +1231,7 @@ namespace Avalia_Pesquisa
                             idSafra = plant.idSafra,
                             Data_Germinacao = plant.Data_Germinacao,
                             idGleba = plant.idGleba,
-                            idUmidade_Solo =  plant.idUmidade_Solo,
+                            idUmidade_Solo = plant.idUmidade_Solo,
                             Adubacao_Base = plant.Adubacao_Base,
                             Adubacao_Cobertura = plant.Adubacao_Cobertura,
                             Espacamento = plant.Espacamento,
@@ -1274,7 +1277,7 @@ namespace Avalia_Pesquisa
                 Console.WriteLine(ex.Message);
                 return false;
             }
-           
+
         }
 
         public async Task<bool> BaixarPlantio(string chave)
@@ -1340,7 +1343,7 @@ namespace Avalia_Pesquisa
 
                     }
 
-                    
+
                     return true;
 
                 }
@@ -1392,11 +1395,11 @@ namespace Avalia_Pesquisa
                         var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
                         Console.WriteLine(response.IsSuccessStatusCode);
-                        
+
                         if (response.IsSuccessStatusCode)
                         {
                             var jsonPost = await response.Content.ReadAsStringAsync();
-                    
+
                             dynamic deserializado = JObject.Parse(jsonPost);
 
                             var instalacaoObj = new Instalacao();
@@ -1511,7 +1514,7 @@ namespace Avalia_Pesquisa
                         avaliacao.idEstudo_Planejamento = aval.idEstudo_Planejamento;
                         avaliacao.idAlvo = aval.idAlvo;
                         avaliacao.idInstalacaoWeb = resultInsta[0].idInstalacaoWeb;
-      
+
 
                         var serializedItem = JsonConvert.SerializeObject(avaliacao);
 
@@ -1527,7 +1530,7 @@ namespace Avalia_Pesquisa
                             var avalObject = new Avaliacao();
                             avalObject = aval;
                             avalObject.idAvaliacaoWeb = deserializado.idAvaliacaoWeb;
- 
+
                             conexao.Update(avalObject);
                         }
                         else
@@ -1580,7 +1583,7 @@ namespace Avalia_Pesquisa
                         avaliacaoObj = avaliacao;
                         avaliacaoObj.idAvaliacaoWeb = avaliacao.IdAvaliacao;
 
-                        var resultAval= conexao.Query<Avaliacao>("SELECT * FROM Avaliacao WHERE idAvaliacaoWeb = ?", avaliacao.IdAvaliacao).ToList();
+                        var resultAval = conexao.Query<Avaliacao>("SELECT * FROM Avaliacao WHERE idAvaliacaoWeb = ?", avaliacao.IdAvaliacao).ToList();
 
                         if (resultAval.Count() > 0)
                             conexao.Update(avaliacaoObj);
@@ -1603,6 +1606,331 @@ namespace Avalia_Pesquisa
             }
 
         }
+
+        public async Task<bool> AddAplicacao(string chave)
+        {
+            bool sucesso = true;
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    var result = conexao.Query<Aplicacao>("SELECT * FROM Aplicacao WHERE idAplicacaoWeb IS NULL").ToList();
+
+                    if (!CrossConnectivity.Current.IsConnected)
+                        return false;
+
+                    foreach (var aplic in result)
+                    {
+                        var resultInsta = conexao.Query<Instalacao>("SELECT * FROM Instalacao WHERE idInstalacao = ?", aplic.idInstalacao).ToList();
+
+                        dynamic aplicacao = new ExpandoObject(); ;
+
+                        aplicacao.idInstalacao = aplic.idInstalacao;
+                        aplicacao.Data_Aplicacao = aplic.Data_Aplicacao;
+                        aplicacao.Data_Realizada = aplic.Data_Realizada;
+                        aplicacao.Latitude = aplic.Latitude;
+                        aplicacao.Longitude = aplic.Longitude;
+                        aplicacao.Dosagem = aplic.Dosagem;
+                        aplicacao.Umidade_Relativa = aplic.Umidade_Relativa;
+                        aplicacao.Temperatura = aplic.Temperatura;
+                        aplicacao.Velocidade_Vento = aplic.Velocidade_Vento;
+                        aplicacao.Percentual_nuvens = aplic.Percentual_nuvens;
+                        aplicacao.Chuva_Data = aplic.Chuva_Data;
+                        aplicacao.IdEquipamento = aplic.IdEquipamento;
+                        aplicacao.BBCH = aplic.BBCH;
+                        aplicacao.Observacoes = aplic.Observacoes;
+                        aplicacao.idUsuario = aplic.idUsuario;
+                        aplicacao.idEstudo_Planejamento = aplic.idEstudo_Planejamento;
+                        aplicacao.idInstalacaoWeb = resultInsta[0].idInstalacaoWeb;
+
+
+                        var serializedItem = JsonConvert.SerializeObject(aplicacao);
+
+                        var uri = new Uri($"{App.BackendUrl}/aplicacao/add?api_key=1");
+                        var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var jsonPost = await response.Content.ReadAsStringAsync();
+                            //  dynamic deserializado = JsonConvert.DeserializeObject(jsonPost,typeof(object));
+                            dynamic deserializado = JObject.Parse(jsonPost);
+
+                            var avalObject = new Aplicacao();
+                            avalObject = aplic;
+                            avalObject.idAplicacaoWeb = deserializado.idAplicacaoWeb;
+
+                            conexao.Update(avalObject);
+                        }
+                        else
+                            sucesso = false;
+
+
+                    }
+
+                    if (sucesso)
+                        return true;
+                    else
+                        return false;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
+        public async Task<bool> BaixarAplicacao(string chave)
+        {
+
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/aplicacao?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                aplicacaoArray = JsonConvert.DeserializeObject<IEnumerable<Aplicacao>>(json);
+
+                int total = aplicacaoArray.Count();
+                if (total == 0)
+                    return true;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    foreach (var aplicacao in aplicacaoArray)
+                    {
+                        var aplicacaoObj = new Aplicacao();
+                        aplicacaoObj = aplicacao;
+                        aplicacaoObj.idAplicacaoWeb = aplicacao.IdAplicacao;
+
+                        var resultAplic = conexao.Query<Aplicacao>("SELECT * FROM Aplicacao WHERE idAplicacaoWeb = ?", aplicacao.IdAplicacao).ToList();
+
+                        if (resultAplic.Count() > 0)
+                            conexao.Update(aplicacaoObj);
+                        else
+                        {
+                            conexao.Insert(aplicacaoObj);
+                        }
+
+                    }
+
+
+                    return true;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
+        public async Task<bool> AddManutencao(string chave)
+        {
+            bool sucesso = true;
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    var result = conexao.Query<Manutencao>("SELECT * FROM Manutencao WHERE idManutencaoWeb IS NULL").ToList();
+
+                    if (!CrossConnectivity.Current.IsConnected)
+                        return false;
+
+                    foreach (var manu in result)
+                    {
+                        var resultInsta = conexao.Query<Instalacao>("SELECT * FROM Instalacao WHERE idInstalacao = ?", manu.idInstalacao).ToList();
+
+                        dynamic manutencao = new ExpandoObject(); ;
+
+                        manutencao.idInstalacao = manu.idInstalacao;
+                        manutencao.Data = manu.Data;
+                        manutencao.idProduto = manu.idProduto;
+                        manutencao.Latitude = manu.Latitude;
+                        manutencao.Longitude = manu.Longitude;
+                        manutencao.Dose = manu.Dose;
+                        manutencao.Umidade_Relativa = manu.Umidade_Relativa;
+                        manutencao.Temperatura = manu.Temperatura;
+                        manutencao.Velocidade_Vento = manu.Velocidade_Vento;
+                        manutencao.Percentual_Nuvens = manu.Percentual_Nuvens;
+                        manutencao.idUnidade_Medida = manu.idUnidade_Medida;
+                        manutencao.idManutencao_Tipo = manu.idManutencao_Tipo;
+                        manutencao.idManutencao_Objetivo = manu.idManutencao_Objetivo;
+                        manutencao.Hora_Inicio_Fim = manu.Hora_Inicio_Fim;
+                        manutencao.Observacoes = manu.Observacoes;
+                        manutencao.idUsuario = manu.idUsuario;
+                        manutencao.idInstalacaoWeb = resultInsta[0].idInstalacaoWeb;
+
+
+                        var serializedItem = JsonConvert.SerializeObject(manutencao);
+
+                        var uri = new Uri($"{App.BackendUrl}/manutencao/add?api_key=1");
+                        var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var jsonPost = await response.Content.ReadAsStringAsync();
+                            //  dynamic deserializado = JsonConvert.DeserializeObject(jsonPost,typeof(object));
+                            dynamic deserializado = JObject.Parse(jsonPost);
+
+                            var manuObject = new Manutencao();
+                            manuObject = manu;
+                            manuObject.idManutencaoWeb = deserializado.idManutencaoWeb;
+
+                            conexao.Update(manuObject);
+                        }
+                        else
+                            sucesso = false;
+
+
+                    }
+
+                    if (sucesso)
+                        return true;
+                    else
+                        return false;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
+        public async Task<bool> AddAvaliacaoImagem(string chave)
+        {
+            bool sucesso = true;
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    var result = conexao.Query<Avaliacao_Imagem>("SELECT * FROM Avaliacao_Imagem WHERE idAvaliacao_ImagemWeb IS NULL").ToList();
+
+                    if (!CrossConnectivity.Current.IsConnected)
+                        return false;
+
+                    foreach (var Aval_Img in result)
+                    {
+                        var resultInsta = conexao.Query<Avaliacao>("SELECT * FROM Avaliacao WHERE idAvaliacao = ?", Aval_Img.idAvaliacao).ToList();
+
+                        dynamic avaliacao_imagem = new ExpandoObject(); ;
+
+                        avaliacao_imagem.idAvaliacao = Aval_Img.idAvaliacao;
+                        avaliacao_imagem.Data = Aval_Img.Data;
+                        avaliacao_imagem.Imagem = Aval_Img.Imagem;
+                        avaliacao_imagem.tratamento = Aval_Img.tratamento;
+                        avaliacao_imagem.repeticao = Aval_Img.repeticao;
+                        avaliacao_imagem.idUsuario = Aval_Img.idUsuario;
+                        avaliacao_imagem.idInstalacaoWeb = resultInsta[0].idAvaliacaoWeb;
+
+
+                        var serializedItem = JsonConvert.SerializeObject(avaliacao_imagem);
+
+                        var uri = new Uri($"{App.BackendUrl}/avaliacao_imagem/add?api_key=1");
+                        var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var jsonPost = await response.Content.ReadAsStringAsync();
+                            //  dynamic deserializado = JsonConvert.DeserializeObject(jsonPost,typeof(object));
+                            dynamic deserializado = JObject.Parse(jsonPost);
+
+                            var avalimagemObject = new Avaliacao_Imagem();
+                            avalimagemObject = Aval_Img;
+                            avalimagemObject.idAvaliacao_ImagemWeb = deserializado.idAvaliacao_ImagemWeb;
+
+                            conexao.Update(avalimagemObject);
+                        }
+                        else
+                            sucesso = false;
+
+
+                    }
+
+                    if (sucesso)
+                        return true;
+                    else
+                        return false;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
+        public async Task<bool> BaixarManutencao(string chave)
+        {
+
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/manutencao?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                manutencaoArray = JsonConvert.DeserializeObject<IEnumerable<Manutencao>>(json);
+
+                int total = manutencaoArray.Count();
+                if (total == 0)
+                    return true;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    foreach (var manutencao in manutencaoArray)
+                    {
+                        var manutencaoObj = new Manutencao();
+                        manutencaoObj = manutencao;
+                        manutencaoObj.idManutencaoWeb = manutencao.idManutencao;
+
+                        var resultManu = conexao.Query<Manutencao>("SELECT * FROM Manutencao WHERE idManutencaoWeb = ?", manutencao.idManutencao).ToList();
+
+                        if (resultManu.Count() > 0)
+                            conexao.Update(manutencaoObj);
+                        else
+                        {
+                            conexao.Insert(manutencaoObj);
+                        }
+
+                    }
+
+
+                    return true;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
 
         public async Task<Item> GetItemAsync(string id)
         {
@@ -1652,3 +1980,4 @@ namespace Avalia_Pesquisa
         }
     }
 }
+

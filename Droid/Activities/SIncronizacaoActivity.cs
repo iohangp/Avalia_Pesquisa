@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +23,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-           
+
 
             Button btnSinc = FindViewById<Button>(Resource.Id.BTSincronizar);
             btnSinc.Click += SincronizarClick;
@@ -70,19 +69,47 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
 
                 // Envia do App para a Web;
-                if (await CloudData.AddPlantio(null)){
+                if (await CloudData.AddPlantio(null))
+                {
 
+                    //Plantio
                     if (await CloudData.BaixarPlantio(null))
                         pbar.Progress += 5;
 
-                    if(await CloudData.AddInstalacao(null))
+                    //Instalacao
+                    if (await CloudData.AddInstalacao(null))
                     {
-                        if(await CloudData.BaixarInstalacao(null))
-                           pbar.Progress += 5;
+                        if (await CloudData.BaixarInstalacao(null))
+                            pbar.Progress += 5;
                     }
-                        
+
                 }
-                if (await CloudData.AddAvaliacao(null)) {
+                ////Aplicacao
+                //if (await CloudData.AddAplicacao(null))
+                //{
+                //    pbar.Progress += 5;
+
+                //    if (await CloudData.BaixarAplicacao(null))
+                //        pbar.Progress += 5;
+                //}
+                ////Manutencao
+                //if (await CloudData.AddManutencao(null))
+                //{
+                //    pbar.Progress += 5;
+
+                //    if (await CloudData.BaixarManutencao(null))
+                //        pbar.Progress += 5;
+                //}
+
+                ////Avaliacao_Imagem
+                //if (await CloudData.AddAvaliacaoImagem(null))
+                //{
+                //    pbar.Progress += 5;
+                //}
+
+                //Avaliacao
+                if (await CloudData.AddAvaliacao(null))
+                {
                     pbar.Progress += 5;
 
                     if (await CloudData.BaixarAvaliacao(null))
@@ -147,11 +174,14 @@ namespace Avalia_Pesquisa.Droid.Activities
                     pbar.Dismiss();
 
                 }
-                
-                
+
+
                 RunOnUiThread(() => { pbar.SetMessage("Dados importados..."); });
-             
+
             })).Start();
         }
     }
 }
+
+
+

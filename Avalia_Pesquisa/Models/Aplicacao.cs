@@ -22,5 +22,6 @@ namespace Avalia_Pesquisa
         public string Observacoes { get; set; }
         public int idUsuario { get; set; }
         public int idEstudo_Planejamento { get; set; }
-}
+        public int idAplicacaoWeb { get; set; }
+    }
 }

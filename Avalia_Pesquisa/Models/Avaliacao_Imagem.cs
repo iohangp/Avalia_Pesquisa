@@ -11,5 +11,6 @@ namespace Avalia_Pesquisa
         public int repeticao { get; set; }
         public int idUsuario { get; set; }
         public DateTime Data { get; set; }
+        public int idAvaliacao_ImagemWeb { get; set; }
     }
 }
