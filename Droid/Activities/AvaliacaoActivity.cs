@@ -32,6 +32,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         TextView textData;
         ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4;
         byte[] byteArray;
+        List<String> list;
 
         protected override int LayoutResource => Resource.Layout.Avaliacao;
 
@@ -123,11 +124,13 @@ namespace Avalia_Pesquisa.Droid.Activities
                         photo.GetStream().CopyTo(memoryStream);
                         photo.Dispose();
                         byteArray = memoryStream.ToArray();
+                       // list.Add(byteArray.ToString());
+                       // list.Add("1");
                     }
 
                 }
 
-                catch { }
+                catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
             }
             else
             {
@@ -164,7 +167,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 }
 
-                catch { }
+                catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
             }
             else
             {
@@ -199,7 +202,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     }
                 }
 
-                catch { }
+                catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
             }
             else
             {
@@ -232,7 +235,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         byteArray = memoryStream.ToArray();
                     }
                 }
-                catch { }
+                catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
             }
             else
             {
