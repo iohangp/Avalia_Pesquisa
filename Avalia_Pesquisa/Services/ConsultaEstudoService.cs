@@ -10,7 +10,7 @@ namespace Avalia_Pesquisa
     {
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-        public List<ViewEstudo> GetEstudo(int idEstudo)
+        public List<ViewEstudo> GetEstudo(string codigo)
         {
             try
             {
@@ -18,7 +18,7 @@ namespace Avalia_Pesquisa
                 {
                     var result = conexao.Query<ViewEstudo>("SELECT e.*, c.Descricao as Cultura FROM Estudo e" +
                                                   " INNER JOIN Cultura c ON c.IdCultura = e.IdCultura " +
-                                                  " Where e.IdEstudo=?", idEstudo).ToList();
+                                                  " Where e.Codigo=?", codigo).ToList();
 
                     return result;
                 }

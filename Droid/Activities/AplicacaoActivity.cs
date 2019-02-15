@@ -259,10 +259,15 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         private void ValidarEstudo(string protocolo)
         {
-            string[] ids = protocolo.Split('-');
+            string[] ids = new string[2]; ;
+
+            if (protocolo.IndexOf('|') != -1)
+                ids = protocolo.Split('|');
+            else
+                ids[0] = protocolo;
 
             ConsultaEstudoService ces = new ConsultaEstudoService();
-            var estudo = ces.GetEstudo(int.Parse(ids[0]));
+            var estudo = ces.GetEstudo(ids[0]);
             buttonSalvar.Visibility = ViewStates.Visible;
 
             if (estudo.Count > 0)
@@ -271,6 +276,10 @@ namespace Avalia_Pesquisa.Droid.Activities
                 edNumEstudo.Text = estudo[0].Codigo;
                 DadosMeterologicos();
                 Coordenadas();
+            }
+            else
+            {
+                Toast.MakeText(this, "Nenhum estudo encontrado", ToastLength.Long).Show();
             }
 
 

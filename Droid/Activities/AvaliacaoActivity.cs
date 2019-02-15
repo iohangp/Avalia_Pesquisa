@@ -351,48 +351,40 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             int numRepeticao = 1;
 
-            string[] ids = new string[3];
-            bool erroCod = false;
+            string[] ids = new string[2];
+    
 
             if (!string.IsNullOrEmpty(protocolo)) {
 
-                if (protocolo.IndexOf('-') != -1)
-                    ids = protocolo.Split('-');
+                if (protocolo.IndexOf('|') != -1)
+                    ids = protocolo.Split('|');
+                else
+                    ids[0] = protocolo;
 
-                int cont = 0;
-                while (cont <= 2)
-                {
-                    if (ids[cont] == null)
-                    {
-                        ids[cont] = "0";
-                        erroCod = true;
-                    }
-                    cont++;
-                }
 
                 ConsultaEstudoService ces = new ConsultaEstudoService();
-                var estudo = ces.GetEstudo(int.Parse(ids[0]));
+                var estudo = ces.GetEstudo(ids[0]);
 
                 idInstalacao = default(int);
-                if (estudo.Count > 0 && !erroCod) {
+                if (estudo.Count > 0) {
 
                     idEstudo = estudo[0].IdEstudo;
                     totalRepeticoes = estudo[0].Repeticao;
-                    idInstalacao = int.Parse(ids[1]);
-                    Tratamento = int.Parse(ids[2]);
+                    idInstalacao = 1;//int.Parse(ids[1]);
+                    Tratamento = int.Parse(ids[1]);
                     edNumEstudo.Text = estudo[0].Codigo;
-                    AvaliacaoService aval = new AvaliacaoService();
-                    var plan = aval.GetDataAvaliacao(idEstudo);
+                 //   AvaliacaoService aval = new AvaliacaoService();
+               //     var plan = aval.GetDataAvaliacao(idEstudo);
 
-                    if (plan.Count > 0) {
+                //    if (plan.Count > 0) {
 
-                        idPlanejamento = plan[0].idEstudo_planejamento;
-                        textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
+                      //  idPlanejamento = plan[0].idEstudo_planejamento;
+                     //   textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
 
                         GetAvaliacaoTipo(idEstudo, idPlanejamento);
                         rowTipoAval.Visibility = ViewStates.Visible;
                         rowAlvo.Visibility = ViewStates.Visible;
-                        rowPlanejamento.Visibility = ViewStates.Visible;
+                     //   rowPlanejamento.Visibility = ViewStates.Visible;
 
                         while (estudo[0].Repeticao >= numRepeticao)
                         {
@@ -410,8 +402,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                             numRepeticao++;
                         }
                         buttonSalvar.Visibility = ViewStates.Visible;
-                    }
-                    else
+               //     }
+                 /*   else
                     {
 
                         EscondeCampos();
@@ -427,7 +419,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         });
                         alerta.Show();
 
-                    }
+                    } */
                 }
                 else
                 {

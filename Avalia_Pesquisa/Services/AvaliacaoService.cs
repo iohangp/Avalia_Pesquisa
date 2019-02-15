@@ -53,15 +53,21 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
+                    /* var result = conexao.Query<Alvo>("SELECT a.idAlvo, a.Nome_vulgar, a.Especie FROM Alvo a " +
+                                                        "JOIN Estudo_Tipo_Alvo e ON e.idAlvo = a.idAlvo " +
+                                                        "JOIN estudo_planejamento ep ON ep.idEstudo = e.idEstudo " +
+                                                       "WHERE e.idEstudo = ? AND e.idAvaliacao_tipo = ? AND ep.idEstudo_Planejamento = ?" +
+                                                         "AND not exists (SELECT 1 FROM avaliacao a2 "+
+                                                                           "WHERE a2.idEstudo_Planejamento = ep.idEstudo_Planejamento "+
+                                                                           "AND a2.idAvaliacao_Tipo = e.idAvaliacao_Tipo "+
+                                                                           "AND a2.idAlvo = e.idAlvo)" +
+                                                       "GROUP BY a.idAlvo;", idEstudo, idTipoAvaliacao, idPlanejamento).ToList(); */
+
                     var result = conexao.Query<Alvo>("SELECT a.idAlvo, a.Nome_vulgar, a.Especie FROM Alvo a " +
-                                                       "JOIN Estudo_Tipo_Alvo e ON e.idAlvo = a.idAlvo " +
-                                                       "JOIN estudo_planejamento ep ON ep.idEstudo = e.idEstudo " +
-                                                      "WHERE e.idEstudo = ? AND e.idAvaliacao_tipo = ? AND ep.idEstudo_Planejamento = ?" +
-                                                        "AND not exists (SELECT 1 FROM avaliacao a2 "+
-				                                                          "WHERE a2.idEstudo_Planejamento = ep.idEstudo_Planejamento "+
-				                                                          "AND a2.idAvaliacao_Tipo = e.idAvaliacao_Tipo "+
-                                                                          "AND a2.idAlvo = e.idAlvo)" +
-                                                      "GROUP BY a.idAlvo;", idEstudo, idTipoAvaliacao, idPlanejamento).ToList();
+                                                        "JOIN Estudo_Tipo_Alvo e ON e.idAlvo = a.idAlvo " +
+                                                        "LEFT JOIN estudo_planejamento ep ON ep.idEstudo = e.idEstudo " +
+                                                       "WHERE e.idEstudo = ? AND e.idAvaliacao_tipo = ? " +
+                                                       "GROUP BY a.idAlvo;", idEstudo, idTipoAvaliacao).ToList();
 
                     return result;
                 }

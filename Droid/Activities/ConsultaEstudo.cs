@@ -95,29 +95,20 @@ namespace Avalia_Pesquisa.Droid.Activities
             txtResponsavel = FindViewById<TextView>(Resource.Id.TVResponsavel);
 
             string[] ids = new string[3];
-            bool erroCod = false;
 
             if (!string.IsNullOrEmpty(protocolo))
             {
 
-                if (protocolo.IndexOf('-') != -1)
-                    ids = protocolo.Split('-');
+                if (protocolo.IndexOf('|') != -1)
+                    ids = protocolo.Split('|');
+                else
+                    ids[0] = protocolo;
 
-                int cont = 0;
-                while (cont <= 2)
-                {
-                    if (ids[cont] == null)
-                    {
-                        ids[cont] = "0";
-                        erroCod = true;
-                    }
-                    cont++;
-                }
+
 
                 ConsultaEstudoService ces = new ConsultaEstudoService();
-                var estudo = ces.GetEstudo(int.Parse(ids[0]));
-
-                if (estudo.Count > 0 && !erroCod)
+                var estudo = ces.GetEstudo(ids[0]);
+                if (estudo.Count > 0)
                 {
                     txtEstudo.Text = estudo[0].Codigo;
                     txtProtocolo.Text = estudo[0].Protocolo;
