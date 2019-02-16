@@ -81,17 +81,26 @@ namespace Avalia_Pesquisa.Droid.Activities
                     {
                         if (await CloudData.BaixarInstalacao(null))
                             pbar.Progress += 5;
+
+
+                        if (await CloudData.AddManutencao(null))
+                        {
+
+                            if (await CloudData.BaixarManutencao(null))
+                                pbar.Progress += 5;
+                        }
+
+                        if (await CloudData.AddAplicacao(null))
+                        {
+
+                            if (await CloudData.BaixarAplicacao(null))
+                                pbar.Progress += 5;
+                        }
                     }
 
                 }
                 ////Aplicacao
-                //if (await CloudData.AddAplicacao(null))
-                //{
-                //    pbar.Progress += 5;
-
-                //    if (await CloudData.BaixarAplicacao(null))
-                //        pbar.Progress += 5;
-                //}
+               
                 ////Manutencao
                 //if (await CloudData.AddManutencao(null))
                 //{
@@ -120,10 +129,10 @@ namespace Avalia_Pesquisa.Droid.Activities
                 if (await CloudData.MunicipiosSync(null) &&
                     await CloudData.LocalidadeSync(null))
                 {
-                    pbar.Progress += 10;
+                    pbar.Progress += 5;
                     if (await CloudData.UsuarioSync(null))
                     {
-                        pbar.Progress += 10;
+                        pbar.Progress += 5;
                     }
                 }
                 if (await CloudData.BaixarCultura(null) &&

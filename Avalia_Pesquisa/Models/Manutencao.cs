@@ -1,9 +1,11 @@
 ﻿using System;
+using SQLite;
 
 namespace Avalia_Pesquisa
 {
     public class Manutencao
     {
+        [PrimaryKey]
         public int idManutencao { get; set; }
         public int idInstalacao { get; set; }
         public int idManutencao_Tipo { get; set; }
@@ -21,6 +23,6 @@ namespace Avalia_Pesquisa
         public string Observacoes { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
-        public int idManutencaoWeb { get; set; }
+        public int? idManutencaoWeb { get; set; }
     }
 }

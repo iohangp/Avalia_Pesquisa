@@ -1635,9 +1635,10 @@ namespace Avalia_Pesquisa
                         aplicacao.Umidade_Relativa = aplic.Umidade_Relativa;
                         aplicacao.Temperatura = aplic.Temperatura;
                         aplicacao.Velocidade_Vento = aplic.Velocidade_Vento;
-                        aplicacao.Percentual_nuvens = aplic.Percentual_nuvens;
+                        aplicacao.Percentual_Nuvens = aplic.Percentual_Nuvens;
                         aplicacao.Chuva_Data = aplic.Chuva_Data;
-                        aplicacao.IdEquipamento = aplic.IdEquipamento;
+                        aplicacao.Chuva_Volume = aplic.Chuva_Volume;
+                        aplicacao.idEquipamento = aplic.idEquipamento;
                         aplicacao.BBCH = aplic.BBCH;
                         aplicacao.Observacoes = aplic.Observacoes;
                         aplicacao.idUsuario = aplic.idUsuario;
