@@ -7,6 +7,7 @@ namespace Avalia_Pesquisa
     {
         public int IdEstudo { get; set; }
         public string Protocolo { get; set; }
+        public int idInstalacao { get; set; }
         public string Cliente { get; set; }
         public string Empresa { get; set; }
         public string Cultura { get; set; }

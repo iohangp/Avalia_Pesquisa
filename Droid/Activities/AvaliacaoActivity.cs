@@ -294,29 +294,29 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             AlertDialog.Builder alerta = new AlertDialog.Builder(this);
 
-            if (ValidarData(idEstudo))
-            {
-                alerta.SetTitle("Atenção!");
-                alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
-                //define a mensagem
-                alerta.SetMessage("Você está avaliando fora da data planejada. Deseja prosseguir?");
-                //define o botão positivo
-                alerta.SetPositiveButton("Sim", (senderAlert, args) =>
-                {
-                    SalvarAvaliacao();
-                });
-                alerta.SetNegativeButton("Não", (senderAlert, args) =>
-                {
-                    
-                });
-                //cria o alerta e exibe
-                Dialog dialog = alerta.Create();
-                dialog.Show();
-            }
-            else
-            {
-                SalvarAvaliacao();
-            }
+            /* if (ValidarData(idEstudo))
+             { 
+                 alerta.SetTitle("Atenção!");
+                 alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                 //define a mensagem
+                 alerta.SetMessage("Você está avaliando fora da data planejada. Deseja prosseguir?");
+                 //define o botão positivo
+                 alerta.SetPositiveButton("Sim", (senderAlert, args) =>
+                 {
+                     SalvarAvaliacao();
+                 });
+                 alerta.SetNegativeButton("Não", (senderAlert, args) =>
+                 {
+
+                 });
+                 //cria o alerta e exibe
+                 Dialog dialog = alerta.Create();
+                 dialog.Show();
+           /*  }
+             else
+             {*/
+                 SalvarAvaliacao();
+           // } */
         }
 
         private void SalvarAvaliacao()
@@ -453,7 +453,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     alerta.SetMessage("Avaliação Salva com Sucesso!");
                     alerta.SetButton("OK", (s, ev) =>
                     {
-                        AvaliacaoService aval = new AvaliacaoService();
+                       /* AvaliacaoService aval = new AvaliacaoService();
                         var plan = aval.GetDataAvaliacao(idEstudo);
 
                         if (plan.Count > 0)
@@ -472,7 +472,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         {
                             EscondeCampos();
                             Toast.MakeText(this, "Todas as avaliações para este estudo foram concluídas!", ToastLength.Long).Show();
-                        }
+                        } */
                         
                         alerta.Dismiss();
                     });
@@ -525,11 +525,13 @@ namespace Avalia_Pesquisa.Droid.Activities
                 idInstalacao = default(int);
                 if (estudo.Count > 0) {
 
-                    idEstudo = estudo[0].IdEstudo;
-                    totalRepeticoes = estudo[0].Repeticao;
-                    idInstalacao = 1;//int.Parse(ids[1]);
-                    Tratamento = int.Parse(ids[1]);
-                    edNumEstudo.Text = estudo[0].Codigo;
+                    if(estudo[0].idInstalacao != 0) {
+
+                        idEstudo = estudo[0].IdEstudo;
+                        totalRepeticoes = estudo[0].Repeticao;
+                        idInstalacao = estudo[0].idInstalacao;
+                        Tratamento = int.Parse(ids[1]);
+                        edNumEstudo.Text = estudo[0].Codigo;
                  //   AvaliacaoService aval = new AvaliacaoService();
                //     var plan = aval.GetDataAvaliacao(idEstudo);
 
@@ -559,24 +561,30 @@ namespace Avalia_Pesquisa.Droid.Activities
                             numRepeticao++;
                         }
                         buttonSalvar.Visibility = ViewStates.Visible;
-               //     }
-                 /*   else
+                        //     }
+                        /*   else
+                           {
+
+                               EscondeCampos();
+                               AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                               AlertDialog alerta = builder.Create();
+
+                               alerta.SetTitle("Atenção!");
+                               alerta.SetIcon(Android.Resource.Drawable.IcDelete);
+                               alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
+                               alerta.SetButton("OK", (s, ev) =>
+                               {
+                                   alerta.Dismiss();
+                               });
+                               alerta.Show();
+
+                           } */
+                    }
+                    else
                     {
-
                         EscondeCampos();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        AlertDialog alerta = builder.Create();
-
-                        alerta.SetTitle("Atenção!");
-                        alerta.SetIcon(Android.Resource.Drawable.IcDelete);
-                        alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
-                        alerta.SetButton("OK", (s, ev) =>
-                        {
-                            alerta.Dismiss();
-                        });
-                        alerta.Show();
-
-                    } */
+                        Toast.MakeText(this, "O estudo não contem uma intalação relacionada", ToastLength.Long).Show();
+                    }
                 }
                 else
                 {

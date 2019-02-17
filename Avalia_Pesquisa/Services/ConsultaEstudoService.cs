@@ -16,9 +16,10 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    var result = conexao.Query<ViewEstudo>("SELECT e.*, c.Descricao as Cultura FROM Estudo e" +
+                    var result = conexao.Query<ViewEstudo>("SELECT e.*, i.idInstalacao, c.Descricao as Cultura FROM Estudo e" +
                                                   " INNER JOIN Cultura c ON c.IdCultura = e.IdCultura " +
-                                                  " Where e.Codigo=?", codigo).ToList();
+                                                  " LEFT JOIN Instalacao i ON e.idEstudo = i.idEstudo " +
+                                                  " Where e.Codigo=? GROUP BY e.idEstudo", codigo).ToList();
 
                     return result;
                 }

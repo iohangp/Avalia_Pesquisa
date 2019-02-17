@@ -155,7 +155,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 var aplicacao = new Aplicacao
                 {
 
-                    idInstalacao = 1,
+                    idInstalacao = idInstalacao,
                     Data_Aplicacao = DateTime.Parse(textDate.Text),
                     Umidade_Relativa = decimal.Parse(textUmidade.Text.Replace("%", "")),
                     Temperatura = textTemperatura.Text,
@@ -203,7 +203,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 }
             }
 
-                         else {
+            else {
                 alerta.SetMessage("Favor informar um estudo válido ");
                 alerta.SetTitle("ERRO!");
                 alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
@@ -283,10 +283,19 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             if (estudo.Count > 0)
             {
-                idEstudo_ = estudo[0].IdEstudo;
-                edNumEstudo.Text = estudo[0].Codigo;
-                DadosMeterologicos();
-                Coordenadas();
+                if (estudo[0].idInstalacao != 0)
+                {
+                    idEstudo_ = estudo[0].IdEstudo;
+                    idInstalacao = estudo[0].idInstalacao;
+                    edNumEstudo.Text = estudo[0].Codigo;
+                    DadosMeterologicos();
+                    Coordenadas();
+                }
+                else
+                {
+                    LimparCampos();
+                    Toast.MakeText(this, "O estudo não contem uma intalação relacionada", ToastLength.Long).Show();
+                }
             }
             else
             {

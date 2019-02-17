@@ -18,6 +18,6 @@ namespace Avalia_Pesquisa
         public int idEstudo_Planejamento { get; set; }
         public int idAlvo { get; set; }
         public int Integrado { get; set; }
-        public int idAvaliacaoWeb { get; set; }
+        public int? idAvaliacaoWeb { get; set; }
     }
 }
