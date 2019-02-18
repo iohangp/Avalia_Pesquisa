@@ -123,8 +123,8 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
-             //   try
-            //    {
+                try
+                {
                     var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
 
                     using (var memoryStream = new MemoryStream())
@@ -142,9 +142,9 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                     }
 
-            //    }
+                }
 
-            //   catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
+               catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
             }
             else
             {
