@@ -2,9 +2,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 
 using Android.App;
 using Android.Content;
@@ -14,6 +16,7 @@ using Android.Views;
 using Android.Widget;
 using Avalia_Pesquisa.Droid.Helpers;
 using Plugin.Media;
+
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -26,13 +29,14 @@ namespace Avalia_Pesquisa.Droid.Activities
         EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
         int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento;
         string idTipoAvaliacao, idAlvoSelect;
-        TableRow rowRepeticao1,rowRepeticao2,rowRepeticao3,rowRepeticao4,rowRepeticao5,
-                 rowAlvo,rowTipoAval,rowPlanejamento, rowTratamento;
+        TableRow rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5,
+                 rowAlvo, rowTipoAval, rowPlanejamento, rowTratamento;
         Button buttonSalvar;
         TextView textData, textTratamento;
         ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4;
         byte[] byteArray;
-        List<String> list;
+        ArrayList myAL;
+        // DataTable dt;
 
         protected override int LayoutResource => Resource.Layout.Avaliacao;
 
@@ -81,8 +85,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             buttonSalvar.Click += BTSalvar_Click;
 
             buttonValida.Click += (sender, e) =>
-            {          
-                   ValidarEstudo(edNumEstudo.Text);
+            {
+                ValidarEstudo(edNumEstudo.Text);
             };
 
             spnTipo.ItemSelected += SpnTipo_ItemSelected;
@@ -126,8 +130,16 @@ namespace Avalia_Pesquisa.Droid.Activities
                         photo.GetStream().CopyTo(memoryStream);
                         photo.Dispose();
                         byteArray = memoryStream.ToArray();
-                       // list.Add(byteArray.ToString());
-                       // list.Add("1");
+                        myAL.Add(byteArray.ToString());
+                        myAL.Add("1");
+                        myAL.Add(textTratamento.Text);
+
+                        //dt.Columns.Add("imagem", typeof(string));
+                        //dt.Columns.Add("repeticao", typeof(int));
+                        //dt.Columns.Add("tratamento", typeof(int));
+
+                        //dt.Rows.Add(new object[] { byteArray.ToString(), 1, textTratamento.Text });
+
                     }
 
                 }
@@ -165,6 +177,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         photo.GetStream().CopyTo(memoryStream);
                         photo.Dispose();
                         byteArray = memoryStream.ToArray();
+                        myAL.Add(byteArray.ToString());
+                        myAL.Add("2");
+                        myAL.Add(textTratamento.Text);
                     }
 
                 }
@@ -201,6 +216,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         photo.GetStream().CopyTo(memoryStream);
                         photo.Dispose();
                         byteArray = memoryStream.ToArray();
+                        myAL.Add(byteArray.ToString());
+                        myAL.Add("3");
+                        myAL.Add(textTratamento.Text);
                     }
                 }
 
@@ -235,6 +253,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         photo.GetStream().CopyTo(memoryStream);
                         photo.Dispose();
                         byteArray = memoryStream.ToArray();
+                        myAL.Add(byteArray.ToString());
+                        myAL.Add("4");
+                        myAL.Add(textTratamento.Text);
                     }
                 }
                 catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
@@ -277,7 +298,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             idTipoAvaliacao = idTipos[e.Position].ToString();
 
-            if(int.Parse(idTipoAvaliacao) > 0)
+            if (int.Parse(idTipoAvaliacao) > 0)
                 GetAlvos(int.Parse(idTipoAvaliacao), idEstudo, idPlanejamento);
         }
 
@@ -309,7 +330,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 });
                 alerta.SetNegativeButton("Não", (senderAlert, args) =>
                 {
-                    
+
                 });
                 //cria o alerta e exibe
                 Dialog dialog = alerta.Create();
@@ -369,8 +390,11 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Integrado = 0
                     };
                     if (!avalService.SalvarAvaliacao(aval))
+                    {
                         sucesso = false;
 
+                    }
+                    else SalvarImagem();
                 }
                 if (etRepeticao2.Text != "")
                 {
@@ -388,7 +412,11 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Integrado = 0
                     };
                     if (!avalService.SalvarAvaliacao(aval))
+                    {
                         sucesso = false;
+
+                    }
+                    else SalvarImagem();
                 }
                 if (etRepeticao3.Text != "")
                 {
@@ -406,7 +434,11 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Integrado = 0
                     };
                     if (!avalService.SalvarAvaliacao(aval))
+                    {
                         sucesso = false;
+
+                    }
+                    else SalvarImagem();
                 }
                 if (etRepeticao4.Text != "")
                 {
@@ -425,6 +457,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
+                    SalvarImagem();
                 }
                 if (etRepeticao5.Text != "")
                 {
@@ -442,12 +475,16 @@ namespace Avalia_Pesquisa.Droid.Activities
                         Integrado = 0
                     };
                     if (!avalService.SalvarAvaliacao(aval))
+                    {
                         sucesso = false;
+
+                    }
+                    else SalvarImagem();
                 }
 
                 if (sucesso)
                 {
-                   
+
                     etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = "";
 
                     alerta.SetTitle("Sucesso!");
@@ -475,7 +512,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                             EscondeCampos();
                             Toast.MakeText(this, "Todas as avaliações para este estudo foram concluídas!", ToastLength.Long).Show();
                         }
-                        
+
                         alerta.Dismiss();
                     });
                     alerta.Show();
@@ -511,9 +548,10 @@ namespace Avalia_Pesquisa.Droid.Activities
             int numRepeticao = 1;
 
             string[] ids = new string[2];
-    
 
-            if (!string.IsNullOrEmpty(protocolo)) {
+
+            if (!string.IsNullOrEmpty(protocolo))
+            {
 
                 if (protocolo.IndexOf('|') != -1)
                     ids = protocolo.Split('|');
@@ -525,7 +563,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 var estudo = ces.GetEstudo(ids[0]);
 
                 idInstalacao = default(int);
-                if (estudo.Count > 0) {
+                if (estudo.Count > 0)
+                {
 
                     idEstudo = estudo[0].IdEstudo;
                     totalRepeticoes = estudo[0].Repeticao;
@@ -533,54 +572,54 @@ namespace Avalia_Pesquisa.Droid.Activities
                     Tratamento = int.Parse(ids[1]);
                     textTratamento.Text = Tratamento.ToString();
                     edNumEstudo.Text = estudo[0].Codigo;
-                 //   AvaliacaoService aval = new AvaliacaoService();
-               //     var plan = aval.GetDataAvaliacao(idEstudo);
+                    //   AvaliacaoService aval = new AvaliacaoService();
+                    //     var plan = aval.GetDataAvaliacao(idEstudo);
 
-                //    if (plan.Count > 0) {
+                    //    if (plan.Count > 0) {
 
-                      //  idPlanejamento = plan[0].idEstudo_planejamento;
-                     //   textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
+                    //  idPlanejamento = plan[0].idEstudo_planejamento;
+                    //   textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
 
-                        GetAvaliacaoTipo(idEstudo, idPlanejamento);
-                        rowTipoAval.Visibility = ViewStates.Visible;
-                        rowAlvo.Visibility = ViewStates.Visible;
+                    GetAvaliacaoTipo(idEstudo, idPlanejamento);
+                    rowTipoAval.Visibility = ViewStates.Visible;
+                    rowAlvo.Visibility = ViewStates.Visible;
                     rowTratamento.Visibility = ViewStates.Visible;
-                     //   rowPlanejamento.Visibility = ViewStates.Visible;
+                    //   rowPlanejamento.Visibility = ViewStates.Visible;
 
-                        while (estudo[0].Repeticao >= numRepeticao)
-                        {
-                            if (numRepeticao == 1)
-                                rowRepeticao1.Visibility = ViewStates.Visible;
-                            else if (numRepeticao == 2)
-                                rowRepeticao2.Visibility = ViewStates.Visible;
-                            else if (numRepeticao == 3)
-                                rowRepeticao3.Visibility = ViewStates.Visible;
-                            else if (numRepeticao == 4)
-                                rowRepeticao4.Visibility = ViewStates.Visible;
-                            else if (numRepeticao == 5)
-                                rowRepeticao5.Visibility = ViewStates.Visible;
-
-                            numRepeticao++;
-                        }
-                        buttonSalvar.Visibility = ViewStates.Visible;
-               //     }
-                 /*   else
+                    while (estudo[0].Repeticao >= numRepeticao)
                     {
+                        if (numRepeticao == 1)
+                            rowRepeticao1.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 2)
+                            rowRepeticao2.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 3)
+                            rowRepeticao3.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 4)
+                            rowRepeticao4.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 5)
+                            rowRepeticao5.Visibility = ViewStates.Visible;
 
-                        EscondeCampos();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        AlertDialog alerta = builder.Create();
+                        numRepeticao++;
+                    }
+                    buttonSalvar.Visibility = ViewStates.Visible;
+                    //     }
+                    /*   else
+                       {
 
-                        alerta.SetTitle("Atenção!");
-                        alerta.SetIcon(Android.Resource.Drawable.IcDelete);
-                        alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
-                        alerta.SetButton("OK", (s, ev) =>
-                        {
-                            alerta.Dismiss();
-                        });
-                        alerta.Show();
+                           EscondeCampos();
+                           AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                           AlertDialog alerta = builder.Create();
 
-                    } */
+                           alerta.SetTitle("Atenção!");
+                           alerta.SetIcon(Android.Resource.Drawable.IcDelete);
+                           alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
+                           alerta.SetButton("OK", (s, ev) =>
+                           {
+                               alerta.Dismiss();
+                           });
+                           alerta.Show();
+
+                       } */
                 }
                 else
                 {
@@ -623,7 +662,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 return true;
             else
                 return false;
-            
+
         }
 
         private void GetAvaliacaoTipo(int idEstudo, int idPlanejamento)
@@ -655,6 +694,57 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         }
 
+        public void SalvarImagem()
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog alerta = builder.Create();
+            AvaliacaoService avaliacaoService = new AvaliacaoService();
+
+
+            var avaliacaoImagem = new Avaliacao_Imagem
+            {
+
+                //  Imagem = myAL[0].ToString(),     // byteArray.ToString(),
+                idAvaliacao = 1,
+                tratamento = 1,
+                repeticao = 1,
+                Data = DateTime.Now,
+                idUsuario = 1
+
+            };
+
+            try
+            {
+                avaliacaoService.SalvarAvaliacaoImagem(avaliacaoImagem); ;
+
+
+                alerta.SetTitle("Sucesso!");
+                alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                alerta.SetMessage("Imagem Salva com Sucesso!");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
+
+            }
+
+            catch
+
+            {
+                alerta.SetMessage("Erro ao salvar ");
+                alerta.SetTitle("ERRO!");
+                alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                alerta.SetMessage("Erro ao salvar a Imagem!");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
+            }
+        }
+
+
         private void GetAlvos(int idTipoAvaliacao, int idEstudo, int idPlanejamento)
         {
             alvos = new ArrayList();
@@ -664,18 +754,18 @@ namespace Avalia_Pesquisa.Droid.Activities
             alvos.Add("Selecione");
             idAlvos.Add(0);
 
-            var result = aval.GetAlvos(idTipoAvaliacao,idEstudo,idPlanejamento);
+            var result = aval.GetAlvos(idTipoAvaliacao, idEstudo, idPlanejamento);
 
             foreach (var res in result)
             {
                 string nome;
                 if (res.Nome_vulgar.IndexOf(',') != -1)
                 {
-                  nome = res.Nome_vulgar.Substring(0, res.Nome_vulgar.IndexOf(','));
+                    nome = res.Nome_vulgar.Substring(0, res.Nome_vulgar.IndexOf(','));
                 }
                 else
                 {
-                  nome = res.Nome_vulgar;
+                    nome = res.Nome_vulgar;
                 }
                 alvos.Add(nome);
                 idAlvos.Add(res.IdAlvo);
@@ -688,4 +778,5 @@ namespace Avalia_Pesquisa.Droid.Activities
 
     }
 }
- 
+
+
