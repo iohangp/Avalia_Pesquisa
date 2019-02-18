@@ -394,6 +394,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         sucesso = false;
 
                     }
+                    else SalvarImagem(1);
 
                 }
                 if (etRepeticao2.Text != "")
@@ -416,6 +417,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         sucesso = false;
 
                     }
+                    else SalvarImagem(2);
 
                 }
                 if (etRepeticao3.Text != "")
@@ -438,7 +440,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                         sucesso = false;
 
                     }
-                   
+                    else SalvarImagem(3);
+
                 }
                 if (etRepeticao4.Text != "")
                 {
@@ -457,6 +460,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
+                    else SalvarImagem(4);
 
                 }
                 if (etRepeticao5.Text != "")
@@ -479,14 +483,14 @@ namespace Avalia_Pesquisa.Droid.Activities
                         sucesso = false;
 
                     }
-
+                    else SalvarImagem(5);
                 }
 
                 if (sucesso)
                 {
-                    SalvarImagem();
-                    etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = "";
 
+                    //etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = edNumEstudo.Text = "";
+                    EscondeCampos();
                     alerta.SetTitle("Sucesso!");
                     alerta.SetIcon(Android.Resource.Drawable.IcDialogInfo);
                     alerta.SetMessage("Avaliação Salva com Sucesso!");
@@ -638,7 +642,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         private void EscondeCampos()
         {
-            etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = "";
+            etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = edNumEstudo.Text = "";
             rowRepeticao1.Visibility = ViewStates.Invisible;
             rowRepeticao2.Visibility = ViewStates.Invisible;
             rowRepeticao3.Visibility = ViewStates.Invisible;
@@ -694,19 +698,27 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         }
 
-        public void SalvarImagem()
+        public void SalvarImagem(int repeticao)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             AlertDialog alerta = builder.Create();
             AvaliacaoService avaliacaoService = new AvaliacaoService();
 
-            foreach (DataRow row in dt.Rows)
+
+            int IdAvaliacao = avaliacaoService.GetUltimaAvaliacao()[0].IdAvaliacao;
+            //idAvaliacao = int.Parse(avaliacaoService.GetUltimaAvaliacao().ToString());
+
+            DataView dv = new DataView(dt);
+            dv.RowFilter = "repeticao = "+repeticao;
+
+            foreach (DataRowView row in dv)
             {
+
                 var avaliacaoImagem = new Avaliacao_Imagem
                 {
 
                     Imagem = row["imagem"].ToString(),     // byteArray.ToString(),
-                    idAvaliacao = 1,
+                    idAvaliacao = IdAvaliacao,
                     tratamento = int.Parse(row["tratamento"].ToString()),
                     repeticao = int.Parse(row["repeticao"].ToString()),
                     Data = DateTime.Now,

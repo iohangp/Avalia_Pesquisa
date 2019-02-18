@@ -46,6 +46,26 @@ namespace Avalia_Pesquisa
 
         }
 
+        public List<Avaliacao> GetUltimaAvaliacao()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+
+                    var result = conexao.Query<Avaliacao>("SELECT idAvaliacao from avaliacao ORDER BY idAvaliacao DESC LIMIT 1");
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
 
         public List<Alvo> GetAlvos(int idTipoAvaliacao, int idEstudo, int idPlanejamento)
         {
