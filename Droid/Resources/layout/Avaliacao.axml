@@ -14,51 +14,51 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-	<LinearLayout
+    <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-	android:layout_centerInParent="true"
-	android:layout_margin="10dp">
-	<TextView
-	android:text="Informe o código da etiqueta ou utilize o Scanner"
-	android:textAppearance="?android:attr/textAppearanceSmall"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:id="@+id/textView1" />
-	<LinearLayout
+    android:layout_centerInParent="true"
+    android:layout_margin="10dp">
+    <TextView
+    android:text="Informe o código da etiqueta ou utilize o Scanner"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/textView1" />
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-		android:layout_marginTop="10dp"
-        android:layout_height="wrap_content">		
-		<EditText
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_width="145.0dp"
-			android:layout_height="wrap_content"
-			android:minWidth="15px"
-			android:minHeight="15px"
-			android:id="@+id/EDNumEstudo"
-			android:hint="Código"
-			android:textColor="@color/primary"
-			android:textStyle="italic"
-			android:textSize="14dp"
-			android:layout_marginRight="0.0dp"  />
-		<Button
-			android:layout_width="111.0dp"
-			android:layout_height="wrap_content"
-			android:id="@+id/BTValidar"
-			android:text="Validar"
-			android:textColor="@android:color/white"
-			android:background="#307FC1"/>
-		<Button
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/BTScannerAvalia"
-			android:text="Scanner"
-			android:textColor="@android:color/white"
-			android:background="#307FC1"
-			android:layout_marginLeft="5dp" />
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">        
+        <EditText
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="145.0dp"
+            android:layout_height="wrap_content"
+            android:minWidth="15px"
+            android:minHeight="15px"
+            android:id="@+id/EDNumEstudo"
+            android:hint="Código"
+            android:textColor="@color/primary"
+            android:textStyle="italic"
+            android:textSize="14dp"
+            android:layout_marginRight="0.0dp"  />
+        <Button
+            android:layout_width="111.0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/BTValidar"
+            android:text="Validar"
+            android:textColor="@android:color/white"
+            android:background="#307FC1"/>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/BTScannerAvalia"
+            android:text="Scanner"
+            android:textColor="@android:color/white"
+            android:background="#307FC1"
+            android:layout_marginLeft="5dp" />
     </LinearLayout>
 
   
@@ -68,11 +68,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tableLayout1"
-		android:layout_marginTop="20dp"
+        android:layout_marginTop="20dp"
         android:stretchColumns="1">
-		<TableRow
+                        <TableRow
+            android:id="@+id/trTratamento"
+            android:visibility="invisible">
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text="Tratamento:"
+                android:textColor="@color/primary"
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/tvTratamento2" />
+            
+            <TextView
+                p4:placeholder="true"
+                android:minWidth="30px"
+                android:minHeight="30px"
+                android:text=""
+                xmlns:p4="http://xamarin.com/mono/android/designer"
+                android:id="@+id/tvTratamento" />
+        </TableRow>
+        <TableRow
             android:id="@+id/trDataPlanejada"
-			android:visibility="invisible">
+            android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -82,7 +102,7 @@
                 xmlns:p4="http://xamarin.com/mono/android/designer"
                 android:id="@+id/tvAvaliacao2" />
             
-			<TextView
+            <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
                 android:minHeight="30px"
@@ -92,8 +112,8 @@
         </TableRow>
         <TableRow
             android:id="@+id/trTipoAvaliacao"
-			android:layout_marginTop="5dp"
-			android:visibility="invisible">
+            android:layout_marginTop="5dp"
+            android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -106,10 +126,10 @@
                 android:layout_column="1"
                 android:id="@+id/spnTipoAvaliacao" />
         </TableRow>
-		<TableRow
+        <TableRow
             android:id="@+id/trAlvo"
             android:layout_marginTop="5dp"
-			android:visibility="invisible">
+            android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -124,7 +144,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/trRepeticao1"
-			android:visibility="invisible">
+            android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -149,7 +169,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/trRepeticao2"
-			android:visibility="invisible">
+            android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -174,7 +194,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/trRepeticao3"
-			android:visibility="invisible">
+            android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -199,7 +219,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/trRepeticao4"
-			android:visibility="invisible">
+            android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -222,9 +242,9 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/ibCamera4"/>
         </TableRow> 
-		<TableRow
+        <TableRow
             android:id="@+id/trRepeticao5"
-			android:visibility="invisible">
+            android:visibility="invisible">
             <TextView
                 p4:placeholder="true"
                 android:minWidth="30px"
@@ -244,8 +264,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/BTSalvarAvaliacao"
-		android:visibility="invisible"
+        android:visibility="invisible"
         android:text="Salvar" />
-	</LinearLayout>
+    </LinearLayout>
 </LinearLayout>
 </ScrollView>

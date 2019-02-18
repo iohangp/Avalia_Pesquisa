@@ -27,9 +27,9 @@ namespace Avalia_Pesquisa.Droid.Activities
         int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento;
         string idTipoAvaliacao, idAlvoSelect;
         TableRow rowRepeticao1,rowRepeticao2,rowRepeticao3,rowRepeticao4,rowRepeticao5,
-                 rowAlvo,rowTipoAval,rowPlanejamento;
+                 rowAlvo,rowTipoAval,rowPlanejamento, rowTratamento;
         Button buttonSalvar;
-        TextView textData;
+        TextView textData, textTratamento;
         ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4;
         byte[] byteArray;
         List<String> list;
@@ -46,6 +46,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
             buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAvaliacao);
             textData = FindViewById<TextView>(Resource.Id.tvDataPlan);
+            textTratamento = FindViewById<TextView>(Resource.Id.tvTratamento);
             Button buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
             Button buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
 
@@ -58,6 +59,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             rowAlvo = FindViewById<TableRow>(Resource.Id.trAlvo);
             rowTipoAval = FindViewById<TableRow>(Resource.Id.trTipoAvaliacao);
             rowPlanejamento = FindViewById<TableRow>(Resource.Id.trDataPlanejada);
+            rowTratamento = FindViewById<TableRow>(Resource.Id.trTratamento);
 
             etRepeticao1 = FindViewById<EditText>(Resource.Id.etRepeticao1);
             etRepeticao2 = FindViewById<EditText>(Resource.Id.etRepeticao2);
@@ -294,29 +296,29 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             AlertDialog.Builder alerta = new AlertDialog.Builder(this);
 
-            /* if (ValidarData(idEstudo))
-             { 
-                 alerta.SetTitle("Atenção!");
-                 alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
-                 //define a mensagem
-                 alerta.SetMessage("Você está avaliando fora da data planejada. Deseja prosseguir?");
-                 //define o botão positivo
-                 alerta.SetPositiveButton("Sim", (senderAlert, args) =>
-                 {
-                     SalvarAvaliacao();
-                 });
-                 alerta.SetNegativeButton("Não", (senderAlert, args) =>
-                 {
-
-                 });
-                 //cria o alerta e exibe
-                 Dialog dialog = alerta.Create();
-                 dialog.Show();
-           /*  }
-             else
-             {*/
-                 SalvarAvaliacao();
-           // } */
+            if (ValidarData(idEstudo))
+            {
+                alerta.SetTitle("Atenção!");
+                alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                //define a mensagem
+                alerta.SetMessage("Você está avaliando fora da data planejada. Deseja prosseguir?");
+                //define o botão positivo
+                alerta.SetPositiveButton("Sim", (senderAlert, args) =>
+                {
+                    SalvarAvaliacao();
+                });
+                alerta.SetNegativeButton("Não", (senderAlert, args) =>
+                {
+                    
+                });
+                //cria o alerta e exibe
+                Dialog dialog = alerta.Create();
+                dialog.Show();
+            }
+            else
+            {
+                SalvarAvaliacao();
+            }
         }
 
         private void SalvarAvaliacao()
@@ -453,7 +455,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     alerta.SetMessage("Avaliação Salva com Sucesso!");
                     alerta.SetButton("OK", (s, ev) =>
                     {
-                       /* AvaliacaoService aval = new AvaliacaoService();
+                        AvaliacaoService aval = new AvaliacaoService();
                         var plan = aval.GetDataAvaliacao(idEstudo);
 
                         if (plan.Count > 0)
@@ -472,7 +474,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         {
                             EscondeCampos();
                             Toast.MakeText(this, "Todas as avaliações para este estudo foram concluídas!", ToastLength.Long).Show();
-                        } */
+                        }
                         
                         alerta.Dismiss();
                     });
@@ -525,13 +527,12 @@ namespace Avalia_Pesquisa.Droid.Activities
                 idInstalacao = default(int);
                 if (estudo.Count > 0) {
 
-                    if(estudo[0].idInstalacao != 0) {
-
-                        idEstudo = estudo[0].IdEstudo;
-                        totalRepeticoes = estudo[0].Repeticao;
-                        idInstalacao = estudo[0].idInstalacao;
-                        Tratamento = int.Parse(ids[1]);
-                        edNumEstudo.Text = estudo[0].Codigo;
+                    idEstudo = estudo[0].IdEstudo;
+                    totalRepeticoes = estudo[0].Repeticao;
+                    idInstalacao = 1;//int.Parse(ids[1]);
+                    Tratamento = int.Parse(ids[1]);
+                    textTratamento.Text = Tratamento.ToString();
+                    edNumEstudo.Text = estudo[0].Codigo;
                  //   AvaliacaoService aval = new AvaliacaoService();
                //     var plan = aval.GetDataAvaliacao(idEstudo);
 
@@ -543,6 +544,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         GetAvaliacaoTipo(idEstudo, idPlanejamento);
                         rowTipoAval.Visibility = ViewStates.Visible;
                         rowAlvo.Visibility = ViewStates.Visible;
+                    rowTratamento.Visibility = ViewStates.Visible;
                      //   rowPlanejamento.Visibility = ViewStates.Visible;
 
                         while (estudo[0].Repeticao >= numRepeticao)
@@ -561,30 +563,24 @@ namespace Avalia_Pesquisa.Droid.Activities
                             numRepeticao++;
                         }
                         buttonSalvar.Visibility = ViewStates.Visible;
-                        //     }
-                        /*   else
-                           {
-
-                               EscondeCampos();
-                               AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                               AlertDialog alerta = builder.Create();
-
-                               alerta.SetTitle("Atenção!");
-                               alerta.SetIcon(Android.Resource.Drawable.IcDelete);
-                               alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
-                               alerta.SetButton("OK", (s, ev) =>
-                               {
-                                   alerta.Dismiss();
-                               });
-                               alerta.Show();
-
-                           } */
-                    }
-                    else
+               //     }
+                 /*   else
                     {
+
                         EscondeCampos();
-                        Toast.MakeText(this, "O estudo não contem uma intalação relacionada", ToastLength.Long).Show();
-                    }
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        AlertDialog alerta = builder.Create();
+
+                        alerta.SetTitle("Atenção!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcDelete);
+                        alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
+
+                    } */
                 }
                 else
                 {
@@ -613,6 +609,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             rowTipoAval.Visibility = ViewStates.Invisible;
             rowAlvo.Visibility = ViewStates.Invisible;
             rowPlanejamento.Visibility = ViewStates.Invisible;
+            rowTratamento.Visibility = ViewStates.Invisible;
 
             buttonSalvar.Visibility = ViewStates.Invisible;
         }
@@ -691,3 +688,4 @@ namespace Avalia_Pesquisa.Droid.Activities
 
     }
 }
+ 
