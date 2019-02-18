@@ -16,7 +16,7 @@ using Android.Views;
 using Android.Widget;
 using Avalia_Pesquisa.Droid.Helpers;
 using Plugin.Media;
-
+using System.Data;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -35,8 +35,8 @@ namespace Avalia_Pesquisa.Droid.Activities
         TextView textData, textTratamento;
         ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4;
         byte[] byteArray;
-        ArrayList myAL;
-        // DataTable dt;
+       
+        DataTable dt = new DataTable();
 
         protected override int LayoutResource => Resource.Layout.Avaliacao;
 
@@ -92,7 +92,9 @@ namespace Avalia_Pesquisa.Droid.Activities
             spnTipo.ItemSelected += SpnTipo_ItemSelected;
             spnAlvo.ItemSelected += SpnAlvo_ItemSelected;
 
-
+            dt.Columns.Add("imagem", typeof(string));
+            dt.Columns.Add("repeticao", typeof(int));
+            dt.Columns.Add("tratamento", typeof(int));
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -121,8 +123,8 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
-                try
-                {
+             //   try
+            //    {
                     var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
 
                     using (var memoryStream = new MemoryStream())
@@ -130,21 +132,19 @@ namespace Avalia_Pesquisa.Droid.Activities
                         photo.GetStream().CopyTo(memoryStream);
                         photo.Dispose();
                         byteArray = memoryStream.ToArray();
-                        myAL.Add(byteArray.ToString());
-                        myAL.Add("1");
-                        myAL.Add(textTratamento.Text);
+                        //myAL.Add(byteArray.ToString());
+                        //myAL.Add("1");
+                        //myAL.Add(textTratamento.Text);
 
-                        //dt.Columns.Add("imagem", typeof(string));
-                        //dt.Columns.Add("repeticao", typeof(int));
-                        //dt.Columns.Add("tratamento", typeof(int));
 
-                        //dt.Rows.Add(new object[] { byteArray.ToString(), 1, textTratamento.Text });
+
+                        dt.Rows.Add(new object[] { byteArray.ToString(), 1, textTratamento.Text });
 
                     }
 
-                }
+            //    }
 
-                catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
+            //   catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
             }
             else
             {
@@ -177,9 +177,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         photo.GetStream().CopyTo(memoryStream);
                         photo.Dispose();
                         byteArray = memoryStream.ToArray();
-                        myAL.Add(byteArray.ToString());
-                        myAL.Add("2");
-                        myAL.Add(textTratamento.Text);
+
+
+                        dt.Rows.Add(new object[] { byteArray, 2, textTratamento.Text });
                     }
 
                 }
@@ -216,9 +216,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         photo.GetStream().CopyTo(memoryStream);
                         photo.Dispose();
                         byteArray = memoryStream.ToArray();
-                        myAL.Add(byteArray.ToString());
-                        myAL.Add("3");
-                        myAL.Add(textTratamento.Text);
+
+
+                        dt.Rows.Add(new object[] { byteArray, 3, textTratamento.Text });
                     }
                 }
 
@@ -253,9 +253,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         photo.GetStream().CopyTo(memoryStream);
                         photo.Dispose();
                         byteArray = memoryStream.ToArray();
-                        myAL.Add(byteArray.ToString());
-                        myAL.Add("4");
-                        myAL.Add(textTratamento.Text);
+
+
+                        dt.Rows.Add(new object[] { byteArray, 4, textTratamento.Text });
                     }
                 }
                 catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
@@ -394,7 +394,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         sucesso = false;
 
                     }
-                    else SalvarImagem();
+
                 }
                 if (etRepeticao2.Text != "")
                 {
@@ -416,7 +416,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         sucesso = false;
 
                     }
-                    else SalvarImagem();
+
                 }
                 if (etRepeticao3.Text != "")
                 {
@@ -438,7 +438,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         sucesso = false;
 
                     }
-                    else SalvarImagem();
+                   
                 }
                 if (etRepeticao4.Text != "")
                 {
@@ -457,7 +457,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     };
                     if (!avalService.SalvarAvaliacao(aval))
                         sucesso = false;
-                    SalvarImagem();
+
                 }
                 if (etRepeticao5.Text != "")
                 {
@@ -479,12 +479,12 @@ namespace Avalia_Pesquisa.Droid.Activities
                         sucesso = false;
 
                     }
-                    else SalvarImagem();
+
                 }
 
                 if (sucesso)
                 {
-
+                    SalvarImagem();
                     etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = "";
 
                     alerta.SetTitle("Sucesso!");
@@ -700,47 +700,49 @@ namespace Avalia_Pesquisa.Droid.Activities
             AlertDialog alerta = builder.Create();
             AvaliacaoService avaliacaoService = new AvaliacaoService();
 
-
-            var avaliacaoImagem = new Avaliacao_Imagem
+            foreach (DataRow row in dt.Rows)
             {
-
-                //  Imagem = myAL[0].ToString(),     // byteArray.ToString(),
-                idAvaliacao = 1,
-                tratamento = 1,
-                repeticao = 1,
-                Data = DateTime.Now,
-                idUsuario = 1
-
-            };
-
-            try
-            {
-                avaliacaoService.SalvarAvaliacaoImagem(avaliacaoImagem); ;
-
-
-                alerta.SetTitle("Sucesso!");
-                alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
-                alerta.SetMessage("Imagem Salva com Sucesso!");
-                alerta.SetButton("OK", (s, ev) =>
+                var avaliacaoImagem = new Avaliacao_Imagem
                 {
-                    alerta.Dismiss();
-                });
-                alerta.Show();
 
-            }
+                    Imagem = row["imagem"].ToString(),     // byteArray.ToString(),
+                    idAvaliacao = 1,
+                    tratamento = int.Parse(row["tratamento"].ToString()),
+                    repeticao = int.Parse(row["repeticao"].ToString()),
+                    Data = DateTime.Now,
+                    idUsuario = int.Parse(Settings.GeneralSettings)
 
-            catch
+                };
 
-            {
-                alerta.SetMessage("Erro ao salvar ");
-                alerta.SetTitle("ERRO!");
-                alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
-                alerta.SetMessage("Erro ao salvar a Imagem!");
-                alerta.SetButton("OK", (s, ev) =>
+                try
                 {
-                    alerta.Dismiss();
-                });
-                alerta.Show();
+                    avaliacaoService.SalvarAvaliacaoImagem(avaliacaoImagem); ;
+
+
+                    //alerta.SetTitle("Sucesso!");
+                    //alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                    //alerta.SetMessage("Imagem Salva com Sucesso!");
+                    //alerta.SetButton("OK", (s, ev) =>
+                    //{
+                      //  alerta.Dismiss();
+                    //});
+                    //alerta.Show();
+
+                }
+
+                catch
+
+                {
+                    alerta.SetMessage("Erro ao salvar ");
+                    alerta.SetTitle("ERRO!");
+                    alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                    alerta.SetMessage("Erro ao salvar a Imagem!");
+                    alerta.SetButton("OK", (s, ev) =>
+                    {
+                        alerta.Dismiss();
+                    });
+                    alerta.Show();
+                }
             }
         }
 
