@@ -20,6 +20,7 @@ using System.ComponentModel;
 using static Android.Provider.MediaStore;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using System.Collections;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -45,17 +46,20 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         private async void BtnCamera_Click(object sender, EventArgs e)
         {
-            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+            //var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
 
-            using (var memoryStream = new MemoryStream())
-            {
-                photo.GetStream().CopyTo(memoryStream);
-                photo.Dispose();
-                byteArray = memoryStream.ToArray();
-            }
+            //using (var memoryStream = new MemoryStream())
+            //{
+            //    photo.GetStream().CopyTo(memoryStream);
+            //    photo.Dispose();
+            //    byteArray = memoryStream.ToArray();
+            //}
 
-            Salvar();
-
+            //Salvar();
+            AvaliacaoService avaliacaoService = new AvaliacaoService();
+            string s = avaliacaoService.GetImagem()[0].Imagem;
+            byte[] byteArray = System.Text.Encoding.ASCII.GetBytes(s);
+           //imageView.
         }
 
 
