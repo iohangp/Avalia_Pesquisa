@@ -96,10 +96,18 @@ namespace Avalia_Pesquisa.Droid.Activities
                             if (await CloudData.BaixarAplicacao(null))
                                 pbar.Progress += 5;
                         }
+
+                        //Avaliacao
+                        if (await CloudData.AddAvaliacao(null))
+                        {
+                            pbar.Progress += 5;
+
+                            if (await CloudData.BaixarAvaliacao(null))
+                                pbar.Progress += 5;
+                        }
                     }
 
                 }
-                ////Aplicacao
                
                 ////Manutencao
                 //if (await CloudData.AddManutencao(null))
@@ -115,15 +123,6 @@ namespace Avalia_Pesquisa.Droid.Activities
                 //{
                 //    pbar.Progress += 5;
                 //}
-
-                //Avaliacao
-                if (await CloudData.AddAvaliacao(null))
-                {
-                    pbar.Progress += 5;
-
-                    if (await CloudData.BaixarAvaliacao(null))
-                        pbar.Progress += 5;
-                }
 
                 // Baixa o conteúdo da Web pro App;
                 if (await CloudData.MunicipiosSync(null) &&
