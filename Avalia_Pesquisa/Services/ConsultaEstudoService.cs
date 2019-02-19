@@ -19,7 +19,7 @@ namespace Avalia_Pesquisa
                     var result = conexao.Query<ViewEstudo>("SELECT e.*, i.idInstalacao, c.Descricao as Cultura FROM Estudo e" +
                                                   " INNER JOIN Cultura c ON c.IdCultura = e.IdCultura " +
                                                   " LEFT JOIN Instalacao i ON e.idEstudo = i.idEstudo " +
-                                                  " Where e.Codigo=? GROUP BY e.idEstudo", codigo).ToList();
+                                                  " Where e.codigo=? GROUP BY e.idEstudo", codigo).ToList();
 
                     return result;
                 }

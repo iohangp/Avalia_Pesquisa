@@ -23,6 +23,7 @@ namespace Avalia_Pesquisa
             }
             catch (SQLiteException ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
 

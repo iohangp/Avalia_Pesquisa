@@ -289,7 +289,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             if (estudo.Count > 0)
             {
                 idEstudo_ = estudo[0].IdEstudo;
-                edNumEstudo.Text = estudo[0].Codigo;
+                edNumEstudo.Text = estudo[0].Protocolo;
+                
             }
             else
             {

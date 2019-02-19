@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,13 +37,13 @@ namespace Avalia_Pesquisa.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-           // SetContentView(Resource.Layout.ConsultaEstudo);
+            // SetContentView(Resource.Layout.ConsultaEstudo);
             txtEstudo = FindViewById<TextView>(Resource.Id.TVNumeroEstudo);
             Button buttonConsultar2 = FindViewById<Button>(Resource.Id.BTConsultar2);
             Button buttonScanner = FindViewById<Button>(Resource.Id.BTScanner);
-          
+
             // Create your application here
-            
+
             buttonConsultar2.Click += (sender, e) =>
             {
                 ConsultarEstudo(txtEstudo.Text);
@@ -56,7 +55,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             txtEstudo = FindViewById<TextView>(Resource.Id.TVNumeroEstudo);
-            
+
             if (requestCode == 1)
             {
                 if (resultCode == Result.Ok)
@@ -82,7 +81,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             txtProduto = FindViewById<TextView>(Resource.Id.TVProduto);
             txtCultura = FindViewById<TextView>(Resource.Id.TVCultura);
             txtClasse = FindViewById<TextView>(Resource.Id.TVClasse);
-       //     txtAlvo = FindViewById<TextView>(Resource.Id.TVAlvo);
+            //     txtAlvo = FindViewById<TextView>(Resource.Id.TVAlvo);
             txtRepeticao = FindViewById<TextView>(Resource.Id.TVRepeticao);
             txtIntervAplicacao = FindViewById<TextView>(Resource.Id.TVIntervAplicacao);
             txtTratSementes = FindViewById<TextView>(Resource.Id.TVTratSementes);
@@ -110,8 +109,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 var estudo = ces.GetEstudo(ids[0]);
                 if (estudo.Count > 0)
                 {
-                    txtEstudo.Text = estudo[0].Codigo;
-                    txtProtocolo.Text = estudo[0].Protocolo;
+                    txtEstudo.Text = estudo[0].Protocolo;
+                    txtProtocolo.Text = estudo[0].Codigo;
                     txtPatrocinador.Text = estudo[0].Cliente;
                     txtProduto.Text = estudo[0].Produto;
                     txtCultura.Text = estudo[0].Cultura;
@@ -170,8 +169,9 @@ namespace Avalia_Pesquisa.Droid.Activities
         protected internal void BTScanner_Click(object sender, EventArgs e)
         {
             var intent = new Intent(this, typeof(QrCodeActivity));
-            StartActivityForResult(intent,1);
+            StartActivityForResult(intent, 1);
         }
 
     }
 }
+
