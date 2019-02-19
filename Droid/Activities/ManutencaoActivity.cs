@@ -238,21 +238,38 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
 
                     idInstalacao = idInstalacao,
-
-                    Umidade_Relativa = Umidade_Relativa,
+                    idManutencao_Tipo = Convert.ToInt32(idTIpoManutencaoSelect),
+                    Data = DateTime.Now,
+                    idProduto = Convert.ToInt32(idProdutoSelect),
+                    idUsuario = Convert.ToInt32(Settings.GeneralSettings),
+                    Dose = decimal.Parse(textDose.Text.Replace(".", ",")),
+                    idUnidade_Medida = Convert.ToInt32(idUnidadeMedidaSelect),
+                    idManutencao_Objetivo = Convert.ToInt32(idObjetivoSelect),
+                    Hora_Inicio_Fim = DateTime.Now,
                     Temperatura = textTemperatura.Text,
+                    Umidade_Relativa = Umidade_Relativa,
                     Velocidade_Vento = Convert.ToDecimal(Velocidade_Vento.Replace(".", ",")),
                     Percentual_Nuvens = Percentual_Nuvens,
-                    Dose = decimal.Parse(textDose.Text.Replace(".", ",")),
-                    idProduto = int.Parse(idProdutoSelect),
-                    idManutencao_Objetivo = int.Parse(idObjetivoSelect),
-                    idManutencao_Tipo = int.Parse(idTIpoManutencaoSelect),
-                    idUnidade_Medida = int.Parse(idUnidadeMedidaSelect),
                     Observacoes = textObservacoes.Text,
                     Longitude = longitude.ToString(),
-                    Latitude = latitude.ToString(),
-                    Data = DateTime.Now,
-                    idUsuario = int.Parse(Settings.GeneralSettings)
+                    Latitude = latitude.ToString()
+
+                    //idInstalacao = 1,
+                    //idManutencao_Tipo = 1,
+                    //Data = DateTime.Now,
+                    //idProduto = 1,
+                    //idUsuario = 3,
+                    //Dose = 1,
+                    //idUnidade_Medida = 4,
+                    //idManutencao_Objetivo = 1,
+                    //Hora_Inicio_Fim = DateTime.Now,
+                    //Temperatura = "10",
+                    //Umidade_Relativa = 1,
+                    //Velocidade_Vento = 10,
+                    //Percentual_Nuvens = 1,
+                    //Observacoes = "texto",
+                    //Longitude = "3232323",
+                    //Latitude = "3232323"
 
                 };
 

@@ -5,7 +5,7 @@ namespace Avalia_Pesquisa
 {
     public class Manutencao
     {
-        [PrimaryKey]
+        [PrimaryKey][AutoIncrement]
         public int idManutencao { get; set; }
         public int idInstalacao { get; set; }
         public int idManutencao_Tipo { get; set; }
