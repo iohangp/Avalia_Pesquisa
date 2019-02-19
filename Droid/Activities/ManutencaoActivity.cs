@@ -215,21 +215,37 @@ namespace Avalia_Pesquisa.Droid.Activities
             AlertDialog alerta = builder.Create();
             ManutencaoService manuService = new ManutencaoService();
 
-
-            if (idEstudo_ > 0)
+            if (int.Parse(idObjetivoSelect) > 0 && int.Parse(idTIpoManutencaoSelect) > 0 && int.Parse(idUnidadeMedidaSelect) > 0 &&
+                idEstudo_ > 0 && textDose.Text != "")
             {
+                string Velocidade_Vento = "0";
+                if (textVento.Text == "")
+                    Velocidade_Vento = "0";
+                else Velocidade_Vento = textVento.Text.Replace("km/h", "");
+
+                decimal Umidade_Relativa = 0;
+                if (textUmidade.Text == "")
+                    Umidade_Relativa = 0;
+                else Umidade_Relativa = decimal.Parse(textUmidade.Text.Replace("%", ""));
+
+                decimal Percentual_Nuvens = 0;
+                if (textNuvens.Text == "")
+                    Percentual_Nuvens = 0;
+                else Percentual_Nuvens = decimal.Parse(textNuvens.Text.Replace("%", ""));
+
+
                 var manutencao = new Manutencao
                 {
 
                     idInstalacao = idInstalacao,
 
-                    Umidade_Relativa = decimal.Parse(textUmidade.Text.Replace("%", "")),
+                    Umidade_Relativa = Umidade_Relativa,
                     Temperatura = textTemperatura.Text,
-                    Velocidade_Vento = decimal.Parse(textVento.Text.Replace("km/h", "")),
-                    Percentual_Nuvens = decimal.Parse(textNuvens.Text.Replace("%", "")),
-                    Dose = decimal.Parse(textDose.Text),
+                    Velocidade_Vento = Convert.ToDecimal(Velocidade_Vento.Replace(".", ",")),
+                    Percentual_Nuvens = Percentual_Nuvens,
+                    Dose = decimal.Parse(textDose.Text.Replace(".", ",")),
                     idProduto = int.Parse(idProdutoSelect),
-                    idManutencao_Objetivo = int.Parse(idProdutoSelect),
+                    idManutencao_Objetivo = int.Parse(idObjetivoSelect),
                     idManutencao_Tipo = int.Parse(idTIpoManutencaoSelect),
                     idUnidade_Medida = int.Parse(idUnidadeMedidaSelect),
                     Observacoes = textObservacoes.Text,
@@ -273,10 +289,9 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             else
             {
-                alerta.SetMessage("Favor informar um estudo válido ");
                 alerta.SetTitle("ERRO!");
                 alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
-                alerta.SetMessage("Favor informar um estudo válido!");
+                alerta.SetMessage("Favor preencher todos os campos obrigatorios!");
                 alerta.SetButton("OK", (s, ev) =>
                 {
                     alerta.Dismiss();
