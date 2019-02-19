@@ -192,7 +192,6 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 var aplicacao = new Aplicacao
                 {
-
                     idInstalacao = idInstalacao,
                     Data_Aplicacao = DateTime.Parse(date),
                     Umidade_Relativa = Umidade_Relativa,
@@ -212,18 +211,32 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 try
                 {
-                    apliService.SalvarAplicacao(aplicacao); ;
-
-
-                    alerta.SetTitle("Sucesso!");
-                    alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
-                    alerta.SetMessage("Instalação Salva com Sucesso!");
-                    alerta.SetButton("OK", (s, ev) =>
+                    if (apliService.SalvarAplicacao(aplicacao) == true)
                     {
-                        alerta.Dismiss();
-                    });
-                    alerta.Show();
-                    LimparCampos();
+
+                        alerta.SetTitle("Sucesso!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                        alerta.SetMessage("Aplicação Salva com Sucesso!");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
+                        LimparCampos();
+                    }
+
+                    else
+                    {
+                        alerta.SetTitle("ERRO!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                        alerta.SetMessage("Erro ao salvar a Aplicação!");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
+
+                    }
                 }
 
                 catch
@@ -232,7 +245,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                     alerta.SetTitle("ERRO!");
                     alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
-                    alerta.SetMessage("Erro ao salvar a Avaliação!");
+                    alerta.SetMessage("Erro ao salvar a Aplicação!");
                     alerta.SetButton("OK", (s, ev) =>
                     {
                         alerta.Dismiss();

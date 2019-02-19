@@ -258,18 +258,32 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 try
                 {
-                    manuService.SalvarManutencao(manutencao); ;
-
-
-                    alerta.SetTitle("Sucesso!");
-                    alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
-                    alerta.SetMessage("Manutenção Salva com Sucesso!");
-                    alerta.SetButton("OK", (s, ev) =>
+                    if (manuService.SalvarManutencao(manutencao) == true)
                     {
-                        alerta.Dismiss();
-                    });
-                    alerta.Show();
-                    LimparCampos();
+                        alerta.SetTitle("Sucesso!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                        alerta.SetMessage("Manutenção Salva com Sucesso!");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
+                        LimparCampos();
+                    }
+
+                    else
+
+                    {
+                        alerta.SetMessage("Erro ao salvar ");
+                        alerta.SetTitle("ERRO!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                        alerta.SetMessage("Erro ao salvar a Manutenção!");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
+                    }
                 }
 
                 catch
