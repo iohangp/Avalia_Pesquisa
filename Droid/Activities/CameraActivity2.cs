@@ -21,6 +21,8 @@ using static Android.Provider.MediaStore;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System.Collections;
+using static Android.Provider.DocumentsContract;
+using Newtonsoft.Json.Linq;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -59,7 +61,17 @@ namespace Avalia_Pesquisa.Droid.Activities
             AvaliacaoService avaliacaoService = new AvaliacaoService();
             string s = avaliacaoService.GetImagem()[0].Imagem;
             byte[] byteArray = System.Text.Encoding.ASCII.GetBytes(s);
-           //imageView.
+
+            MemoryStream mStream = new MemoryStream();
+            mStream.Write(byteArray, 0, byteArray.Length);
+
+
+
+            //nao retirar
+            //byte[] byteArray = System.Text.Encoding.ASCII.GetBytes(s);
+            //Bitmap bmp = BitmapFactory.DecodeByteArray(byteArray, 0, byteArray.Length);
+            // imageView.SetImageBitmap(bmp);
+
         }
 
 

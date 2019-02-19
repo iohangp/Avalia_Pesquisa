@@ -150,21 +150,59 @@ namespace Avalia_Pesquisa.Droid.Activities
             AplicacaoService apliService = new AplicacaoService();
 
 
-            if (idEstudo_ > 0)
+            if (idEstudo_ > 0 && int.Parse(idEquipamentoSelect) > 0)
             {
+                var date = "";
+                if (textDate.Text == "")
+                    date = DateTime.Now.ToString();
+                else
+                {
+                    date = textDate.Text;
+                }
+
+                var datechuva = "";
+                if (textChuva.Text == "")
+                    datechuva = null;
+                else datechuva = textChuva.Text;
+
+                string Velocidade_Vento = "0";
+                if (textVento.Text == "")
+                    Velocidade_Vento = "0";
+                else Velocidade_Vento = textVento.Text.Replace("km/h", "");
+
+                decimal Umidade_Relativa = 0;
+                if (textUmidade.Text == "")
+                    Umidade_Relativa = 0;
+                else Umidade_Relativa = decimal.Parse(textUmidade.Text.Replace("%", ""));
+
+                decimal Percentual_Nuvens = 0;
+                if (textNuvens.Text == "")
+                    Percentual_Nuvens = 0;
+                else Percentual_Nuvens = decimal.Parse(textNuvens.Text.Replace("%", ""));
+
+                decimal Chuva_Volume = 0;
+                if (textVolumeChuva.Text == "")
+                    Chuva_Volume = 0;
+                else Chuva_Volume = decimal.Parse(textVolumeChuva.Text);
+
+                decimal BBCH = 0;
+                if (textBBCH.Text == "")
+                    BBCH = 0;
+                else BBCH = decimal.Parse(textBBCH.Text);
+
                 var aplicacao = new Aplicacao
                 {
 
                     idInstalacao = idInstalacao,
-                    Data_Aplicacao = DateTime.Parse(textDate.Text),
-                    Umidade_Relativa = decimal.Parse(textUmidade.Text.Replace("%", "")),
+                    Data_Aplicacao = DateTime.Parse(date),
+                    Umidade_Relativa = Umidade_Relativa,
                     Temperatura = textTemperatura.Text,
-                    Velocidade_Vento = decimal.Parse(textVento.Text.Replace("km/h", "")),
-                    Percentual_Nuvens = decimal.Parse(textNuvens.Text.Replace("%", "")),
-                    Chuva_Data = DateTime.Parse(textChuva.Text),
-                    Chuva_Volume = decimal.Parse(textVolumeChuva.Text),
+                    Velocidade_Vento = Convert.ToDecimal(Velocidade_Vento.Replace(".",",")),
+                    Percentual_Nuvens = Percentual_Nuvens,
+                    Chuva_Data = Convert.ToDateTime(datechuva),
+                    Chuva_Volume = Chuva_Volume,
                     idEquipamento = int.Parse(idEquipamentoSelect),
-                    BBCH = decimal.Parse(textBBCH.Text),
+                    BBCH = BBCH,
                     Observacoes = textObservacoes.Text,
                     Longitude = longitude.ToString(),
                     Latitude = latitude.ToString(),
@@ -191,7 +229,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 catch
 
                 {
-                    alerta.SetMessage("Erro ao salvar ");
+
                     alerta.SetTitle("ERRO!");
                     alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
                     alerta.SetMessage("Erro ao salvar a Avaliação!");
@@ -204,10 +242,10 @@ namespace Avalia_Pesquisa.Droid.Activities
             }
 
             else {
-                alerta.SetMessage("Favor informar um estudo válido ");
+
                 alerta.SetTitle("ERRO!");
                 alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
-                alerta.SetMessage("Favor informar um estudo válido!");
+                alerta.SetMessage("Favor preencher todos os campos obrigatorios!");
                 alerta.SetButton("OK", (s, ev) =>
                 {
                     alerta.Dismiss();
