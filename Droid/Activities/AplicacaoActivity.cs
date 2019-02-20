@@ -338,7 +338,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     idEstudo_ = estudo[0].IdEstudo;
                     idInstalacao = estudo[0].idInstalacao;
-                    edNumEstudo.Text = estudo[0].Codigo;
+                    edNumEstudo.Text = estudo[0].Protocolo;
                     DadosMeterologicos();
                     Coordenadas();
                 }

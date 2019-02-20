@@ -203,24 +203,38 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                     try
                     {
-                        avalService.SalvarInstalacao(aval);
-
-
-                        alerta.SetTitle("Sucesso!");
-                        alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
-                        alerta.SetMessage("Instalação Salva com Sucesso!");
-                        alerta.SetButton("OK", (s, ev) =>
+                        if (avalService.SalvarInstalacao(aval) == true)
                         {
-                            alerta.Dismiss();
-                        });
-                        alerta.Show();
-                        LimpaCampos();
+
+                            alerta.SetTitle("Sucesso!");
+                            alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
+                            alerta.SetMessage("Instalação Salva com Sucesso!");
+                            alerta.SetButton("OK", (s, ev) =>
+                            {
+                                alerta.Dismiss();
+                            });
+                            alerta.Show();
+                            LimpaCampos();
+                        }
+                        else
+                        {
+                            alerta.SetTitle("ERRO!");
+                            alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                            alerta.SetMessage("Erro ao salvar a Avaliação!");
+                            alerta.SetButton("OK", (s, ev) =>
+                            {
+                                alerta.Dismiss();
+                            });
+                            alerta.Show();
+
+                        }
+
                     }
                         
                     catch
 
                     {
-                        alerta.SetMessage("Erro ao salvar ");
+
                         alerta.SetTitle("ERRO!");
                         alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
                         alerta.SetMessage("Erro ao salvar a Avaliação!");
