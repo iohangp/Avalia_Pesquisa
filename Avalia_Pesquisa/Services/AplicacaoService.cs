@@ -76,6 +76,47 @@ namespace Avalia_Pesquisa
 
         }
 
-    }
+        public bool GerarPlanejamento(int idEstudo)
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Aplicacao_Planejamento>("SELECT * from Aplicacao_Planejamento WHERE idEstudo = ?", idEstudo).ToList();
 
+                    foreach (var res in result)
+                    {
+
+                        var resPlan = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * from Estudo_Planejamento_Aplicacao " +
+                                                                                    "WHERE idEstudo = ? AND Num_Aplicacao = ?", idEstudo, res.Num_Aplicacao).ToList();
+
+                        if(resPlan.Count == 0) { 
+
+                            DateTime dataAplic = DateTime.Now; 
+
+                            if (res.Dias_Aplicacao != 0)
+                                dataAplic = DateTime.Now.AddDays(res.Dias_Aplicacao);
+
+                            var estPlan = new Estudo_Planejamento_Aplicacao
+                            {
+                                idEstudo = idEstudo,
+                                Num_Aplicacao = res.Num_Aplicacao,
+                                data = dataAplic
+                            };
+                            conexao.Insert(estPlan);
+                        }
+
+                    }
+                    return true;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+       
+        }
+
+    }
 }

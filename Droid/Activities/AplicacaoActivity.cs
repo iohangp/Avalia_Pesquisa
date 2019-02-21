@@ -213,6 +213,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     if (apliService.SalvarAplicacao(aplicacao) == true)
                     {
+                        apliService.GerarPlanejamento(idEstudo_);
 
                         alerta.SetTitle("Sucesso!");
                         alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
