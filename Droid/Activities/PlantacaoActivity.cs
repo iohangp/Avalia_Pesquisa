@@ -16,7 +16,7 @@ using Avalia_Pesquisa.Droid.Helpers;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
-    [Activity(Label = "Plantação")]
+    [Activity(Label = "Semeadura")]
     public class PlantacaoActivity : BaseActivity
     {
         ArrayList culturas, idCulturas, variedade, idVariedade, glebas, idGleba, safras, idSafras,
