@@ -46,6 +46,7 @@ namespace Avalia_Pesquisa
         IEnumerable<Avaliacao_Planejamento> avalPlanArray;
         IEnumerable<Unidade_Medida> unidadeArray;
         IEnumerable<Produto> produtoArray;
+        IEnumerable<Estudo_Planejamento_Aplicacao> planAplicArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -1714,6 +1715,118 @@ namespace Avalia_Pesquisa
                         aplicacaoObj.idAplicacaoWeb = aplicacao.IdAplicacao;
 
                         var resultAplic = conexao.Query<Aplicacao>("SELECT * FROM Aplicacao WHERE idAplicacaoWeb = ?", aplicacao.IdAplicacao).ToList();
+
+                        if (resultAplic.Count() > 0)
+                            conexao.Update(aplicacaoObj);
+                        else
+                        {
+                            conexao.Insert(aplicacaoObj);
+                        }
+
+                    }
+
+
+                    return true;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
+        public async Task<bool> AddPlanejamentoAplic(string chave)
+        {
+            bool sucesso = true;
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    var result = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao_Web IS NULL").ToList();
+
+                    if (!CrossConnectivity.Current.IsConnected)
+                        return false;
+
+                    foreach (var aplic in result)
+                    {
+
+                        dynamic planejamento = new ExpandoObject(); ;
+
+                        planejamento.idEstudo = aplic.idEstudo;
+                        planejamento.Data = aplic.data;
+                        planejamento.Num_Aplicacao = aplic.Num_Aplicacao;
+
+                        var serializedItem = JsonConvert.SerializeObject(planejamento);
+
+                        var uri = new Uri($"{App.BackendUrl}/aplicacao/addPlan?api_key=1");
+                        var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var jsonPost = await response.Content.ReadAsStringAsync();
+                            //  dynamic deserializado = JsonConvert.DeserializeObject(jsonPost,typeof(object));
+                            dynamic deserializado = JObject.Parse(jsonPost);
+
+                            var avalObject = new Estudo_Planejamento_Aplicacao();
+                            avalObject = aplic;
+                            avalObject.idEstudo_Planejamento_Aplicacao_Web = deserializado.idPlanejamentoWeb;
+
+                            conexao.Update(avalObject);
+                        }
+                        else
+                            sucesso = false;
+
+                    }
+
+                    if (sucesso)
+                        return true;
+                    else
+                        return false;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
+        public async Task<bool> BaixarPlanejamentoAplic(string chave)
+        {
+
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/aplicacao/planejamento?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                planAplicArray = JsonConvert.DeserializeObject<IEnumerable<Estudo_Planejamento_Aplicacao>>(json);
+
+                int total = planAplicArray.Count();
+                if (total == 0)
+                    return true;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    foreach (var aplicacao in planAplicArray)
+                    {
+                        var aplicacaoObj = new Estudo_Planejamento_Aplicacao();
+                        aplicacaoObj = aplicacao;
+                        aplicacaoObj.idEstudo_Planejamento_Aplicacao_Web = aplicacao.idEstudo_Planejamento_Aplicacao;
+
+                        var resultAplic = conexao.Query<Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao_Web = ?", aplicacao.idEstudo_Planejamento_Aplicacao).ToList();
 
                         if (resultAplic.Count() > 0)
                             conexao.Update(aplicacaoObj);

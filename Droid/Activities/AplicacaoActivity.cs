@@ -148,6 +148,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             AlertDialog alerta = builder.Create();
             AplicacaoService apliService = new AplicacaoService();
+            AvaliacaoService avalService = new AvaliacaoService();
 
 
             if (idEstudo_ > 0 && int.Parse(idEquipamentoSelect) > 0)
@@ -213,7 +214,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     if (apliService.SalvarAplicacao(aplicacao) == true)
                     {
-                        apliService.GerarPlanejamento(idEstudo_);
+                        if (apliService.GerarPlanejamentoAplicacao(idEstudo_))
+                            avalService.GerarPlanejamentoAvaliacao(idEstudo_);
 
                         alerta.SetTitle("Sucesso!");
                         alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);

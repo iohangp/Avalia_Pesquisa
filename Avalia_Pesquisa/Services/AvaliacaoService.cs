@@ -150,6 +150,83 @@ namespace Avalia_Pesquisa
 
         }
 
+        public bool GerarPlanejamentoAvaliacao(int idEstudo)
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Avaliacao_Planejamento>("SELECT * from Avaliacao_Planejamento WHERE idEstudo = ?", idEstudo).ToList();
+
+                    foreach (var res in result)
+                    {
+
+                        var resPlan = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT * from Estudo_Planejamento_Avaliacao " +
+                                                                                    "WHERE idEstudo = ? AND Num_Avaliacao = ? " +
+                                                                                    "AND idAvaliacao_Tipo = ? AND idAlvo = ?", 
+                                                                                    idEstudo, res.Num_Avaliacao, res.idAvaliacao_Tipo, res.idAlvo).ToList();
+
+                        if (resPlan.Count == 0)
+                        {
+
+                            DateTime dataAplic = DateTime.Now;
+                            
+                            if (res.idTipoPlanejamento == 1)
+                            {
+
+                                var resAplic = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * from Estudo_Planejamento_Aplicacao " +
+                                                                                   "WHERE idEstudo = ? AND Num_Aplicacao = ? ",
+                                                                                   idEstudo, res.Apos).ToList();
+                                if (resAplic.Count > 0)
+                                {
+                                    dataAplic = resAplic[0].data.AddDays(res.Dias);
+                                }
+                                else
+                                    dataAplic = DateTime.Now;
+
+                            }
+                            else if (res.idTipoPlanejamento == 2)
+                            {
+                                var resAval = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT * from Estudo_Planejamento_Avaliacao " +
+                                                                                    "WHERE idEstudo = ? AND Num_Avaliacao = ? " +
+                                                                                    "AND idAvaliacao_Tipo = ? AND idAlvo = ?",
+                                                                                    idEstudo, res.Apos, res.idAvaliacao_Tipo, res.idAlvo).ToList();
+                                if (resAval.Count > 0)
+                                {
+                                    dataAplic = resAval[0].data.AddDays(res.Dias);
+                                }
+                                else
+                                    dataAplic = DateTime.Now;
+                            }
+                            else
+                            {
+                                dataAplic = DateTime.Now;
+                            }
+
+
+                            var estPlan = new Estudo_Planejamento_Avaliacao
+                            {
+                                idEstudo = idEstudo,
+                                Num_Avaliacao = res.Num_Avaliacao,
+                                data = dataAplic,
+                                idAvaliacao_Tipo = res.idAvaliacao_Tipo,
+                                idAlvo = res.idAlvo
+                            };
+                            conexao.Insert(estPlan);
+                        }
+
+                    }
+                    return true;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
 
     }
 }

@@ -10,5 +10,6 @@ namespace Avalia_Pesquisa
         public int idEstudo { get; set; }
         public int Num_Aplicacao { get; set; }
         public DateTime data { get; set; }
+        public int? idEstudo_Planejamento_Aplicacao_Web { get; set; }
     }
 }

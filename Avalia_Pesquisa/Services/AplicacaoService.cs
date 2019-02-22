@@ -76,7 +76,7 @@ namespace Avalia_Pesquisa
 
         }
 
-        public bool GerarPlanejamento(int idEstudo)
+        public bool GerarPlanejamentoAplicacao(int idEstudo)
         {
             try
             {
