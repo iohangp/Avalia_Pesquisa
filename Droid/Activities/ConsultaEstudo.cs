@@ -109,8 +109,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 var estudo = ces.GetEstudo(ids[0]);
                 if (estudo.Count > 0)
                 {
-                    txtEstudo.Text = estudo[0].Protocolo;
-                    txtProtocolo.Text = estudo[0].Codigo;
+                    txtEstudo.Text = estudo[0].Codigo;
+                    txtProtocolo.Text = estudo[0].Protocolo;
                     txtPatrocinador.Text = estudo[0].Cliente;
                     txtProduto.Text = estudo[0].Produto;
                     txtCultura.Text = estudo[0].Cultura;
