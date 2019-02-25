@@ -29,12 +29,12 @@ namespace Avalia_Pesquisa
                                                                  "GROUP BY ata.idAvaliacao_tipo; ", idEstudo, Tratamento).ToList();
 
                     //  AND strftime('%Y-%m-%d',ep.data) = '"+ dataPlan + "'
-                       var result2 = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT DATE('now') as data " +
+                   /*    var result2 = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT DATE('now') as data " +
                                                                 " FROM Avaliacao_Tipo a " +
                                                                  " JOIN Estudo_Tipo_Alvo ata ON ata.idAvaliacao_tipo = a.idAvaliacao_tipo " +
                                                                  " JOIN Estudo_Planejamento_Avaliacao ep ON ep.idEstudo = ata.idEstudo " +
                                                                  "WHERE ata.idEstudo = ? ", idEstudo).ToList();
-                      
+                     */ 
                     return result;
                 }
             }
