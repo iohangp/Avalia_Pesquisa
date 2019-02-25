@@ -90,31 +90,39 @@ namespace Avalia_Pesquisa.Droid.Activities
                                 pbar.Progress += 5;
                         }
 
+                        if (await CloudData.AddPlanejamentoAplic(null))
+                        {
+
+                            if (await CloudData.BaixarPlanejamentoAplic(null))
+                                pbar.Progress += 5;
+                        }
+
+                        if (await CloudData.AddPlanejamentoAval(null))
+                        {
+                            if (await CloudData.BaixarPlanejamentoAval(null)){
+
+                                if (await CloudData.AddAvaliacao(null))
+                                {
+                                    pbar.Progress += 5;
+
+                                    if (await CloudData.BaixarPlanejamentoAval(null) &&
+                                        await CloudData.BaixarAvaliacao(null))
+                                        pbar.Progress += 5;
+
+                                }
+                            }
+                            
+                        }
+
                         if (await CloudData.AddAplicacao(null))
                         {
 
                             if (await CloudData.BaixarAplicacao(null))
                                 pbar.Progress += 5;
                         }
-
-                        //Avaliacao
-                        if (await CloudData.AddAvaliacao(null))
-                        {
-
-                            if (await CloudData.BaixarAvaliacao(null))
-                                pbar.Progress += 5;
-                        }
                     }
 
                 }
-
-                if (await CloudData.AddPlanejamentoAplic(null))
-                {
-
-                    if (await CloudData.BaixarPlanejamentoAplic(null))
-                        pbar.Progress += 5;
-                }
-
 
                 ////Avaliacao_Imagem
                 //if (await CloudData.AddAvaliacaoImagem(null))
@@ -144,7 +152,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     pbar.Progress += 10;
                 if (await CloudData.BaixarSafra(null) &&
                     await CloudData.BaixarAlvo(null))
-                    pbar.Progress += 10;
+                    pbar.Progress += 5;
                 if (await CloudData.BaixarUmidade(null) &&
                     await CloudData.BaixarGleba(null))
                     pbar.Progress += 5;

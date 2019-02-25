@@ -10,29 +10,31 @@ namespace Avalia_Pesquisa
     {
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-        public List<Avaliacao_Tipo> GetAvaliacaoTipo(int idEstudo, int idPlanejamento)
+        public List<Avaliacao_Tipo> GetAvaliacaoTipo(int idEstudo, string dataPlan, int Tratamento)
         {
             try
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    /* var result = conexao.Query<Avaliacao_Tipo>("SELECT a.idAvaliacao_Tipo, Descricao from Avaliacao_Tipo a "+
+                     var result = conexao.Query<Avaliacao_Tipo>("SELECT a.idAvaliacao_Tipo, Descricao, strftime('%Y-%m-%d',ep.data) as datewhere" +
+                                                                " FROM Avaliacao_Tipo a "+
                                                                  "JOIN Estudo_Tipo_Alvo ata ON ata.idAvaliacao_tipo = a.idAvaliacao_tipo " +
-                                                                 "LEFT JOIN estudo_planejamento ep ON ep.idEstudo = ata.idEstudo " +
-                                                                 "WHERE ata.idEstudo = ? AND ep.idEstudo_Planejamento = ? " +
+                                                                 "JOIN Estudo_Planejamento_Avaliacao ep ON ep.idEstudo = ata.idEstudo " +
+                                                                 "WHERE ata.idEstudo = ? " +
                                                                  "AND not exists (SELECT 1 FROM avaliacao a2 "+
-                                                                                  "WHERE a2.idEstudo_Planejamento = ep.idEstudo_Planejamento "+
+                                                                                  "WHERE a2.idEstudo_Planejamento = ep.idEstudo_Planejamento_Avaliacao " +
                                                                                   "AND a2.idAvaliacao_Tipo = ata.idAvaliacao_Tipo "+
-                                                                                  "AND a2.idAlvo = ata.idAlvo) "+
-                                                                 "GROUP BY ata.idAvaliacao_tipo; ", idEstudo, idPlanejamento).ToList();
-                     */
+                                                                                  "AND a2.idAlvo = ata.idAlvo " +
+                                                                                  "AND a2.Tratamento = ?) " +
+                                                                 "GROUP BY ata.idAvaliacao_tipo; ", idEstudo, Tratamento).ToList();
 
-                    var result = conexao.Query<Avaliacao_Tipo>(" SELECT a.idAvaliacao_Tipo, Descricao from Avaliacao_Tipo a "+
-                                                                " JOIN Estudo_Tipo_Alvo ata ON ata.idAvaliacao_tipo = a.idAvaliacao_tipo " +
-                                                                " LEFT JOIN Estudo_Planejamento ep ON ep.idEstudo = ata.idEstudo " +
-                                                                " WHERE ata.idEstudo = ? "+
-                                                                " GROUP BY ata.idAvaliacao_tipo; ", idEstudo).ToList();
-                   
+                    //  AND strftime('%Y-%m-%d',ep.data) = '"+ dataPlan + "'
+                       var result2 = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT DATE('now') as data " +
+                                                                " FROM Avaliacao_Tipo a " +
+                                                                 " JOIN Estudo_Tipo_Alvo ata ON ata.idAvaliacao_tipo = a.idAvaliacao_tipo " +
+                                                                 " JOIN Estudo_Planejamento_Avaliacao ep ON ep.idEstudo = ata.idEstudo " +
+                                                                 "WHERE ata.idEstudo = ? ", idEstudo).ToList();
+                      
                     return result;
                 }
             }

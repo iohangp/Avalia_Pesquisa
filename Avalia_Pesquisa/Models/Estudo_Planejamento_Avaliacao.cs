@@ -12,5 +12,7 @@ namespace Avalia_Pesquisa
         public DateTime data { get; set; }
         public int idAvaliacao_Tipo { get; set; }
         public int idAlvo { get; set; }
+        public int? idEstudo_Planejamento_Avaliacao_Web { get; set; }
+        public int Integrado { get; set; }
     }
 }

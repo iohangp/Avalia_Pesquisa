@@ -299,12 +299,20 @@ namespace Avalia_Pesquisa.Droid.Activities
             idTipoAvaliacao = idTipos[e.Position].ToString();
 
             if (int.Parse(idTipoAvaliacao) > 0)
-                GetAlvos(int.Parse(idTipoAvaliacao), idEstudo, idPlanejamento);
+                GetAlvos(int.Parse(idTipoAvaliacao), idEstudo);
         }
 
         private void SpnAlvo_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             idAlvoSelect = idAlvos[e.Position].ToString();
+
+            if (int.Parse(idAlvoSelect) > 0)
+            {
+                AvaliacaoService ava = new AvaliacaoService();
+                var result = ava.GetPlanejamentoAlvo(idEstudo, Tratamento, int.Parse(idTipoAvaliacao), int.Parse(idAlvoSelect));
+
+                idPlanejamento = result[0].idEstudo_Planejamento_Avaliacao;
+            }
         }
 
         protected internal void BTScanner_Click(object sender, EventArgs e)
@@ -317,7 +325,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             AlertDialog.Builder alerta = new AlertDialog.Builder(this);
 
-            if (ValidarData(idEstudo))
+            if (ValidarData(idEstudo, Tratamento))
             {
                 alerta.SetTitle("Atenção!");
                 alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
@@ -339,7 +347,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             else
             {
                 SalvarAvaliacao();
-            }
+            } 
         }
 
         private void SalvarAvaliacao()
@@ -497,14 +505,14 @@ namespace Avalia_Pesquisa.Droid.Activities
                     alerta.SetButton("OK", (s, ev) =>
                     {
                         AvaliacaoService aval = new AvaliacaoService();
-                        var plan = aval.GetDataAvaliacao(idEstudo);
+                        var plan = aval.GetDataAvaliacao(idEstudo, Tratamento);
 
                         if (plan.Count > 0)
                         {
-                            idPlanejamento = plan[0].idEstudo_planejamento;
+                            idPlanejamento = plan[0].idEstudo_Planejamento_Avaliacao;
                             textData.Text = plan[0].data.ToString("dd/MM/yyyy");
 
-                            GetAvaliacaoTipo(idEstudo, idPlanejamento);
+                            GetAvaliacaoTipo(idEstudo, plan[0].data.ToString("yyyy-MM-dd"), Tratamento);
 
                             alvos = new ArrayList();
                             idAlvos = new ArrayList();
@@ -572,58 +580,59 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                     idEstudo = estudo[0].IdEstudo;
                     totalRepeticoes = estudo[0].Repeticao;
-                    idInstalacao = 1;//int.Parse(ids[1]);
+                    idInstalacao = estudo[0].idInstalacao;
                     Tratamento = int.Parse(ids[1]);
                     textTratamento.Text = Tratamento.ToString();
                     edNumEstudo.Text = estudo[0].Protocolo;
-                    //   AvaliacaoService aval = new AvaliacaoService();
-                    //     var plan = aval.GetDataAvaliacao(idEstudo);
 
-                    //    if (plan.Count > 0) {
+                    AvaliacaoService aval = new AvaliacaoService();
+                    var plan = aval.GetDataAvaliacao(idEstudo,Tratamento);
+              
+                    if (plan.Count > 0) {
 
-                    //  idPlanejamento = plan[0].idEstudo_planejamento;
-                    //   textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
+                    //  idPlanejamento = plan[0].idEstudo_Planejamento_Avaliacao;
+                      textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
 
-                    GetAvaliacaoTipo(idEstudo, idPlanejamento);
-                    rowTipoAval.Visibility = ViewStates.Visible;
-                    rowAlvo.Visibility = ViewStates.Visible;
-                    rowTratamento.Visibility = ViewStates.Visible;
-                    //   rowPlanejamento.Visibility = ViewStates.Visible;
+                        GetAvaliacaoTipo(idEstudo, plan[0].data.ToString("yyyy-MM-dd"), Tratamento);
+                        rowTipoAval.Visibility = ViewStates.Visible;
+                        rowAlvo.Visibility = ViewStates.Visible;
+                        rowTratamento.Visibility = ViewStates.Visible;
+                        rowPlanejamento.Visibility = ViewStates.Visible;
 
-                    while (estudo[0].Repeticao >= numRepeticao)
-                    {
-                        if (numRepeticao == 1)
-                            rowRepeticao1.Visibility = ViewStates.Visible;
-                        else if (numRepeticao == 2)
-                            rowRepeticao2.Visibility = ViewStates.Visible;
-                        else if (numRepeticao == 3)
-                            rowRepeticao3.Visibility = ViewStates.Visible;
-                        else if (numRepeticao == 4)
-                            rowRepeticao4.Visibility = ViewStates.Visible;
-                        else if (numRepeticao == 5)
-                            rowRepeticao5.Visibility = ViewStates.Visible;
+                        while (estudo[0].Repeticao >= numRepeticao)
+                        {
+                            if (numRepeticao == 1)
+                                rowRepeticao1.Visibility = ViewStates.Visible;
+                            else if (numRepeticao == 2)
+                                rowRepeticao2.Visibility = ViewStates.Visible;
+                            else if (numRepeticao == 3)
+                                rowRepeticao3.Visibility = ViewStates.Visible;
+                            else if (numRepeticao == 4)
+                                rowRepeticao4.Visibility = ViewStates.Visible;
+                            else if (numRepeticao == 5)
+                                rowRepeticao5.Visibility = ViewStates.Visible;
 
-                        numRepeticao++;
+                            numRepeticao++;
+                        }
+                        buttonSalvar.Visibility = ViewStates.Visible;
                     }
-                    buttonSalvar.Visibility = ViewStates.Visible;
-                    //     }
-                    /*   else
-                       {
+                    else
+                    {
 
-                           EscondeCampos();
-                           AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                           AlertDialog alerta = builder.Create();
+                        EscondeCampos();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        AlertDialog alerta = builder.Create();
 
-                           alerta.SetTitle("Atenção!");
-                           alerta.SetIcon(Android.Resource.Drawable.IcDelete);
-                           alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
-                           alerta.SetButton("OK", (s, ev) =>
-                           {
-                               alerta.Dismiss();
-                           });
-                           alerta.Show();
+                        alerta.SetTitle("Atenção!");
+                        alerta.SetIcon(Android.Resource.Drawable.IcDelete);
+                        alerta.SetMessage("Todas as avaliações para este estudo já foram realizadas");
+                        alerta.SetButton("OK", (s, ev) =>
+                        {
+                            alerta.Dismiss();
+                        });
+                        alerta.Show();
 
-                       } */
+                    } 
                 }
                 else
                 {
@@ -657,19 +666,19 @@ namespace Avalia_Pesquisa.Droid.Activities
             buttonSalvar.Visibility = ViewStates.Invisible;
         }
 
-        private bool ValidarData(int idEstudo)
+        private bool ValidarData(int idEstudo, int Tratamento)
         {
             AvaliacaoService aval = new AvaliacaoService();
-            var plan = aval.GetDataAvaliacao(idEstudo);
+            var plan = aval.GetDataAvaliacao(idEstudo, Tratamento);
 
-            if (plan[0].data > DateTime.Now.AddDays(5))
+            if (plan[0].data > DateTime.Now)
                 return true;
             else
                 return false;
 
         }
 
-        private void GetAvaliacaoTipo(int idEstudo, int idPlanejamento)
+        private void GetAvaliacaoTipo(int idEstudo, string dataPlan, int Tratamento)
         {
             tipos = new ArrayList();
             idTipos = new ArrayList();
@@ -678,7 +687,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             tipos.Add("Selecione");
             idTipos.Add(0);
 
-            var result = tas.GetAvaliacaoTipo(idEstudo, idPlanejamento);
+            var result = tas.GetAvaliacaoTipo(idEstudo, dataPlan, Tratamento);
 
             foreach (var res in result)
             {
@@ -705,7 +714,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             AvaliacaoService avaliacaoService = new AvaliacaoService();
 
 
-            int IdAvaliacao = avaliacaoService.GetUltimaAvaliacao()[0].IdAvaliacao;
+            int IdAvaliacao = avaliacaoService.GetUltimaAvaliacao()[0].idAvaliacao;
             //idAvaliacao = int.Parse(avaliacaoService.GetUltimaAvaliacao().ToString());
 
             DataView dv = new DataView(dt);
@@ -759,7 +768,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         }
 
 
-        private void GetAlvos(int idTipoAvaliacao, int idEstudo, int idPlanejamento)
+        private void GetAlvos(int idTipoAvaliacao, int idEstudo)
         {
             alvos = new ArrayList();
             idAlvos = new ArrayList();
@@ -768,7 +777,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             alvos.Add("Selecione");
             idAlvos.Add(0);
 
-            var result = aval.GetAlvos(idTipoAvaliacao, idEstudo, idPlanejamento);
+            var result = aval.GetAlvos(idTipoAvaliacao, idEstudo);
 
             foreach (var res in result)
             {

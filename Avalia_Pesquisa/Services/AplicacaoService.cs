@@ -83,26 +83,28 @@ namespace Avalia_Pesquisa
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
                     var result = conexao.Query<Aplicacao_Planejamento>("SELECT * from Aplicacao_Planejamento WHERE idEstudo = ?", idEstudo).ToList();
+                  
+                    DateTime dataAplic = DateTime.Now;
 
                     foreach (var res in result)
-                    {
-
+                    {                    
                         var resPlan = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * from Estudo_Planejamento_Aplicacao " +
                                                                                     "WHERE idEstudo = ? AND Num_Aplicacao = ?", idEstudo, res.Num_Aplicacao).ToList();
-
-                        if(resPlan.Count == 0) { 
-
-                            DateTime dataAplic = DateTime.Now; 
-
+                        if(resPlan.Count == 0) {
+                            
                             if (res.Dias_Aplicacao != 0)
-                                dataAplic = DateTime.Now.AddDays(res.Dias_Aplicacao);
+                                dataAplic = dataAplic.AddDays(res.Dias_Aplicacao);
+                            else
+                                dataAplic = DateTime.Now;
 
+                            
                             var estPlan = new Estudo_Planejamento_Aplicacao
                             {
                                 idEstudo = idEstudo,
                                 Num_Aplicacao = res.Num_Aplicacao,
                                 data = dataAplic
                             };
+
                             conexao.Insert(estPlan);
                         }
 

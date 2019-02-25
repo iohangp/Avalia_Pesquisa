@@ -6,7 +6,7 @@ namespace Avalia_Pesquisa
     public class Avaliacao
     {
         [PrimaryKey][AutoIncrement]
-        public int IdAvaliacao { get; set; }
+        public int idAvaliacao { get; set; }
         public int idInstalacao { get; set; }
         public int Tratamento { get; set; }
         public DateTime Data { get; set; }

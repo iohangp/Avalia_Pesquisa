@@ -230,6 +230,10 @@ namespace Avalia_Pesquisa.Droid.Activities
                 var dateG = "";
                 if (textDateGerm.Text == "")
                     dateG = null;
+                else
+                {
+                    dateG = textDateGerm.Text;
+                }
 
                 decimal AduBase = 0;
                 if (textAdubaBase.Text == "")
@@ -310,8 +314,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                     }
                     
                 }
-               catch
+               catch(Exception ex)
                  {
+                    Console.WriteLine(ex.Message);
                     alerta.SetTitle("ERRO!");
                     alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
                     alerta.SetMessage("Erro ao salvar o Plantio!");
