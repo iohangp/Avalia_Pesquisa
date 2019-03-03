@@ -27,12 +27,12 @@ namespace Avalia_Pesquisa.Droid.Activities
         ArrayAdapter adapter;
         ArrayList tipos, idTipos, alvos, idAlvos;
         EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
-        int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento;
+        int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento, Num_Avaliacao;
         string idTipoAvaliacao, idAlvoSelect;
         TableRow rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5,
                  rowAlvo, rowTipoAval, rowPlanejamento, rowTratamento;
         Button buttonSalvar;
-        TextView textData, textTratamento;
+        TextView textData, textTratamento, textNumAval;
         ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4;
         byte[] byteArray;
        
@@ -51,6 +51,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             buttonSalvar = FindViewById<Button>(Resource.Id.BTSalvarAvaliacao);
             textData = FindViewById<TextView>(Resource.Id.tvDataPlan);
             textTratamento = FindViewById<TextView>(Resource.Id.tvTratamento);
+            textNumAval = FindViewById<TextView>(Resource.Id.tvNumAval);
             Button buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
             Button buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
 
@@ -62,8 +63,8 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             rowAlvo = FindViewById<TableRow>(Resource.Id.trAlvo);
             rowTipoAval = FindViewById<TableRow>(Resource.Id.trTipoAvaliacao);
-            rowPlanejamento = FindViewById<TableRow>(Resource.Id.trDataPlanejada);
-            rowTratamento = FindViewById<TableRow>(Resource.Id.trTratamento);
+          //  rowPlanejamento = FindViewById<TableRow>(Resource.Id.trDataPlanejada);
+         //   rowTratamento = FindViewById<TableRow>(Resource.Id.trTratamento);
 
             etRepeticao1 = FindViewById<EditText>(Resource.Id.etRepeticao1);
             etRepeticao2 = FindViewById<EditText>(Resource.Id.etRepeticao2);
@@ -312,6 +313,12 @@ namespace Avalia_Pesquisa.Droid.Activities
                 var result = ava.GetPlanejamentoAlvo(idEstudo, Tratamento, int.Parse(idTipoAvaliacao), int.Parse(idAlvoSelect));
 
                 idPlanejamento = result[0].idEstudo_Planejamento_Avaliacao;
+                
+                dynamic planEstudo = ava.GetPlanejamentoEstudo(idEstudo, int.Parse(idAlvoSelect), int.Parse(idTipoAvaliacao), result[0].Num_Avaliacao);
+
+                textNumAval.Text = planEstudo.numAval;
+                textData.Text = planEstudo.dataAval;
+
             }
         }
 
@@ -509,10 +516,12 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                         if (plan.Count > 0)
                         {
-                            idPlanejamento = plan[0].idEstudo_Planejamento_Avaliacao;
-                            textData.Text = plan[0].data.ToString("dd/MM/yyyy");
+                          //  idPlanejamento = plan[0].idEstudo_Planejamento_Avaliacao;
+                            textData.Text = "";
+                            textNumAval.Text = "";
+ 
 
-                            GetAvaliacaoTipo(idEstudo, plan[0].data.ToString("yyyy-MM-dd"), Tratamento);
+                            GetAvaliacaoTipo(idEstudo, Tratamento);
 
                             alvos = new ArrayList();
                             idAlvos = new ArrayList();
@@ -591,14 +600,16 @@ namespace Avalia_Pesquisa.Droid.Activities
               
                     if (plan.Count > 0) {
 
-                    //  idPlanejamento = plan[0].idEstudo_Planejamento_Avaliacao;
-                      textData.Text = plan[0].data.ToString("dd/MM/yyyy"); 
+                        //  idPlanejamento = plan[0].idEstudo_Planejamento_Avaliacao;
+                        textData.Text = "";
+                        textNumAval.Text = "";
+                      //  Num_Avaliacao = plan[0].Num_Avaliacao;
 
-                        GetAvaliacaoTipo(idEstudo, plan[0].data.ToString("yyyy-MM-dd"), Tratamento);
+                        GetAvaliacaoTipo(idEstudo, Tratamento);
                         rowTipoAval.Visibility = ViewStates.Visible;
                         rowAlvo.Visibility = ViewStates.Visible;
-                        rowTratamento.Visibility = ViewStates.Visible;
-                        rowPlanejamento.Visibility = ViewStates.Visible;
+                      //  rowTratamento.Visibility = ViewStates.Visible;
+                     //   rowPlanejamento.Visibility = ViewStates.Visible;
 
                         while (estudo[0].Repeticao >= numRepeticao)
                         {
@@ -661,8 +672,8 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             rowTipoAval.Visibility = ViewStates.Invisible;
             rowAlvo.Visibility = ViewStates.Invisible;
-            rowPlanejamento.Visibility = ViewStates.Invisible;
-            rowTratamento.Visibility = ViewStates.Invisible;
+       //     rowPlanejamento.Visibility = ViewStates.Invisible;
+       //     rowTratamento.Visibility = ViewStates.Invisible;
 
             buttonSalvar.Visibility = ViewStates.Invisible;
         }
@@ -679,7 +690,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         }
 
-        private void GetAvaliacaoTipo(int idEstudo, string dataPlan, int Tratamento)
+        private void GetAvaliacaoTipo(int idEstudo, int Tratamento)
         {
             tipos = new ArrayList();
             idTipos = new ArrayList();
@@ -688,7 +699,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             tipos.Add("Selecione");
             idTipos.Add(0);
 
-            var result = tas.GetAvaliacaoTipo(idEstudo, dataPlan, Tratamento);
+            var result = tas.GetAvaliacaoTipo(idEstudo, Tratamento);
 
             foreach (var res in result)
             {

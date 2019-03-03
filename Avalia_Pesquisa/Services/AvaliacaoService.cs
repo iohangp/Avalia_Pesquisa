@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Linq;  
 using SQLite;
 using System;
+using System.Dynamic;
 
 namespace Avalia_Pesquisa
 {
@@ -127,7 +128,7 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    var result = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT ep.idEstudo_Planejamento_Avaliacao, ep.idEstudo, ep.data " +
+                    var result = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT ep.idEstudo_Planejamento_Avaliacao, ep.idEstudo, ep.data, ep.Num_Avaliacao " +
                                                                       "FROM Estudo_Planejamento_Avaliacao ep " +
                                                                       "WHERE ep.idEstudo = ? AND ep.idAvaliacao_Tipo = ? AND ep.idAlvo = ? " +
                                                                       "and not exists(SELECT 1 FROM Avaliacao a " +
@@ -156,7 +157,7 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                   var result = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT ep.idEstudo_Planejamento_Avaliacao, ep.idEstudo, ep.data " +
+                   var result = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT ep.idEstudo_Planejamento_Avaliacao, ep.idEstudo, ep.data, ep.Num_Avaliacao " +
                                                                      "FROM Estudo_Planejamento_Avaliacao ep " +
                                                                      "JOIN Estudo_Tipo_Alvo eta ON ep.idEstudo = eta.idEstudo " +
                                                                      "AND ep.idAvaliacao_Tipo = eta.idAvaliacao_Tipo AND eta.idAlvo = ep.idAlvo " +
@@ -167,10 +168,53 @@ namespace Avalia_Pesquisa
                                                                                     "AND a.idAlvo = eta.idAlvo " +
                                                                                     "AND a.Tratamento = ?) " +
                                                                      "GROUP by ep.idEstudo_Planejamento_Avaliacao " +
-                                                                     "ORDER BY ep.data asc LIMIT 1;", idEstudo, Tratamento).ToList();
-                   
+                                                                     "ORDER BY ep.data asc, ep.Num_Avaliacao LIMIT 1;", idEstudo, Tratamento).ToList();
 
+                  
                     return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
+        public dynamic GetPlanejamentoEstudo(int idEstudo, int idAlvo, int idAvaliacao_Tipo, int Num_Avaliacao)
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<ViewDataAvaliacao>("SELECT epa.data, ap.Num_Avaliacao, ap.Dias, ap.Apos, " +
+                                                                        " CASE ap.idTipoPlanejamento "+
+                                                                                 " WHEN 1 THEN 'A' "+
+                                                                                 " WHEN 2 THEN 'AV' "+
+                                                                                 " END as Sigla, ap.idTipoPlanejamento " +
+                                                                    "FROM Avaliacao_Planejamento ap "+
+                                                                   " JOIN Estudo_Planejamento_Avaliacao epa ON epa.idEstudo = ap.idEstudo "+
+                                                                     "AND epa.idAlvo = ap.idAlvo AND epa.idAvaliacao_Tipo = ap.idAvaliacao_Tipo "+
+                                                                     "AND epa.Num_Avaliacao = ap.Num_Avaliacao "+
+                                                                  " WHERE ap.idEstudo = ? AND ap.idAlvo = ? AND ap.idAvaliacao_Tipo = ? "+
+                                                                   "  AND ap.Num_Avaliacao = ? "+
+                                                                  " GROUP BY idEstudo_Planejamento_Avaliacao LIMIT 1; ", idEstudo, idAlvo, idAvaliacao_Tipo, Num_Avaliacao).ToList();
+
+                    dynamic planEstudo = new ExpandoObject();
+
+                    string numAval = "";
+                    if (result[0].idTipoPlanejamento == 3)
+                        numAval = "Prévia";
+                    else if (result[0].idTipoPlanejamento == 4)
+                        numAval = "Colheita";
+                    else
+                        numAval = result[0].Dias.ToString() + "DA" + result[0].Apos.ToString() + result[0].Sigla.ToString();
+
+                    planEstudo.numAval = numAval;
+                    planEstudo.dataAval = result[0].data.ToString("dd/MM/yyyy");
+
+                    return planEstudo;
                 }
             }
             catch (SQLiteException ex)
