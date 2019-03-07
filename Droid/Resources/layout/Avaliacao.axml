@@ -142,6 +142,62 @@
 
     </LinearLayout>
 
+	<LinearLayout
+		android:id="@+id/trTipoAvaliacao"
+		android:visibility="invisible"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content">
+				<TextView
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="120dp"
+					android:layout_height="wrap_content"
+					android:text="Tipo de Avaliação:"
+					android:textColor="@color/primary"
+					android:id="@+id/tvAvaliacao3"
+					android:layout_marginRight="0.0dp" />
+              
+			<Spinner
+				android:minWidth="100px"
+                android:minHeight="30px"
+				android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:id="@+id/spnTipoAvaliacao"
+				android:layout_marginLeft="2dp"/>
+
+    </LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/trAlvo"
+		android:visibility="invisible"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
+        android:layout_height="wrap_content">
+				<TextView
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="70dp"
+					android:layout_height="wrap_content"
+					android:text="Alvo:"
+					android:textColor="@color/primary"
+					android:id="@+id/tvAlvo"
+					android:layout_marginRight="0.0dp" />
+              
+			<Spinner
+				android:minWidth="100px"
+                android:minHeight="30px"
+				android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:id="@+id/spnAlvo"
+				android:layout_marginLeft="2dp"/>
+
+    </LinearLayout>
+
   
     <TableLayout
         android:minWidth="25px"
@@ -149,41 +205,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tableLayout1"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:stretchColumns="1">
 
-        <TableRow
-            android:id="@+id/trTipoAvaliacao"
-            android:layout_marginTop="5dp"
-            android:visibility="invisible">
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Tipo de Avaliação:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvAvaliacao2" />
-            <Spinner
-                android:layout_column="1"
-                android:id="@+id/spnTipoAvaliacao" />
-        </TableRow>
-        <TableRow
-            android:id="@+id/trAlvo"
-            android:layout_marginTop="5dp"
-            android:visibility="invisible">
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Alvo:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvAlvo" />
-            <Spinner
-                android:layout_column="1"
-                android:id="@+id/spnAlvo" />
-        </TableRow>
+
         <TableRow
             android:id="@+id/trRepeticao1"
             android:visibility="invisible">

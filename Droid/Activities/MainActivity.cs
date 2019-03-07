@@ -138,7 +138,7 @@ namespace Avalia_Pesquisa.Droid
             Button buttonCamera = FindViewById<Button>(Resource.Id.BTCamera);
             buttonCamera.Click += (sender, e) =>
             {
-                var intent = new Intent(this, typeof(CameraActivity2)); ;
+                var intent = new Intent(this, typeof(CameraActivity)); ;
                 StartActivity(intent);
 
             };

@@ -18,6 +18,7 @@ using Android.Media;
 using Android.Util;
 using System.ComponentModel;
 using static Android.Provider.MediaStore;
+using Plugin.Media;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -37,29 +38,42 @@ namespace Avalia_Pesquisa.Droid.Activities
             imageView = FindViewById<ImageView>(Resource.Id.imageView);
             btnCamera.Click += BtnCamera_Click;
         }
-        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+       
+        private async void BtnCamera_Click(object sender, System.EventArgs e)
         {
 
-            base.OnActivityResult(requestCode, resultCode, data);
-
-            Bitmap bitmap = (Bitmap)data.Extras.Get("data");
-
-            imageView.SetImageBitmap(bitmap);
-
-            using (var stream = new MemoryStream())
+            if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
-                bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
+                try
+                {
+                    var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                    {
+                        Directory = "Sample",
+                        Name = "test.jpg",
+                        CompressionQuality = 80
+                    });
 
-                bitmapData = stream.ToArray();
+                    if (file == null)
+                        return;
+
+                    Toast.MakeText(this, "File Location: "+file.Path, ToastLength.Long).Show();
+
+                    string imgBase64String = GetBase64StringForImage(file.Path);
+
+
+
+                }
+
+                catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
             }
-            Salvar();
 
         }
-        private void BtnCamera_Click(object sender, System.EventArgs e)
-        {
-            Intent intent = new Intent(MediaStore.ActionImageCapture);
-            StartActivityForResult(intent, 0);
 
+        protected static string GetBase64StringForImage(string imgPath)
+        {
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
         }
 
 

@@ -3375,8 +3375,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0c0008
 			public const int split_action_bar = 2131492872;
 			
-			// aapt resource value: 0x7f0c00bc
-			public const int spnAlvo = 2131493052;
+			// aapt resource value: 0x7f0c00bb
+			public const int spnAlvo = 2131493051;
 			
 			// aapt resource value: 0x7f0c00ff
 			public const int spnGlebaCult = 2131493119;
@@ -3390,8 +3390,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0c0119
 			public const int spnProduto = 2131493145;
 			
-			// aapt resource value: 0x7f0c00b9
-			public const int spnTipoAvaliacao = 2131493049;
+			// aapt resource value: 0x7f0c00b8
+			public const int spnTipoAvaliacao = 2131493048;
 			
 			// aapt resource value: 0x7f0c0115
 			public const int spnTipoManutencao = 2131493141;
@@ -3438,8 +3438,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0c0028
 			public const int tabMode = 2131492904;
 			
-			// aapt resource value: 0x7f0c00b7
-			public const int tableLayout1 = 2131493047;
+			// aapt resource value: 0x7f0c00bc
+			public const int tableLayout1 = 2131493052;
 			
 			// aapt resource value: 0x7f0c00d8
 			public const int tableRow1 = 2131493080;
@@ -3519,8 +3519,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0c00f1
 			public const int touch_outside = 2131493105;
 			
-			// aapt resource value: 0x7f0c00ba
-			public const int trAlvo = 2131493050;
+			// aapt resource value: 0x7f0c00b9
+			public const int trAlvo = 2131493049;
 			
 			// aapt resource value: 0x7f0c00bd
 			public const int trRepeticao1 = 2131493053;
@@ -3537,8 +3537,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0c00cd
 			public const int trRepeticao5 = 2131493069;
 			
-			// aapt resource value: 0x7f0c00b8
-			public const int trTipoAvaliacao = 2131493048;
+			// aapt resource value: 0x7f0c00b7
+			public const int trTipoAvaliacao = 2131493047;
 			
 			// aapt resource value: 0x7f0c000f
 			public const int transition_current_scene = 2131492879;
@@ -3558,8 +3558,8 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0c0108
 			public const int tvAltitude = 2131493128;
 			
-			// aapt resource value: 0x7f0c00bb
-			public const int tvAlvo = 2131493051;
+			// aapt resource value: 0x7f0c00ba
+			public const int tvAlvo = 2131493050;
 			
 			// aapt resource value: 0x7f0c00b3
 			public const int tvAvaliacao2 = 2131493043;

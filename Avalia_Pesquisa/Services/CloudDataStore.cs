@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
+using Android.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Plugin.Connectivity;
@@ -2097,7 +2097,7 @@ namespace Avalia_Pesquisa
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
 
-                    var result = conexao.Query<Avaliacao_Imagem>("SELECT * FROM Avaliacao_Imagem WHERE idAvaliacao_ImagemWeb IS NULL").ToList();
+                    var result = conexao.Query<Avaliacao_Imagem>("SELECT * FROM Avaliacao_Imagem WHERE (idAvaliacao_ImagemWeb IS NULL OR idAvaliacao_ImagemWeb = 0)").ToList();
 
                     if (!CrossConnectivity.Current.IsConnected)
                         return false;
@@ -2106,20 +2106,20 @@ namespace Avalia_Pesquisa
                     {
                         var resultInsta = conexao.Query<Avaliacao>("SELECT * FROM Avaliacao WHERE idAvaliacao = ?", Aval_Img.idAvaliacao).ToList();
 
-                        dynamic avaliacao_imagem = new ExpandoObject(); ;
+                        dynamic avaliacao_imagem = new ExpandoObject();
 
                         avaliacao_imagem.idAvaliacao = Aval_Img.idAvaliacao;
                         avaliacao_imagem.Data = Aval_Img.Data;
                         avaliacao_imagem.Imagem = Aval_Img.Imagem;
-                        avaliacao_imagem.tratamento = Aval_Img.tratamento;
-                        avaliacao_imagem.repeticao = Aval_Img.repeticao;
+                        avaliacao_imagem.Tratamento = Aval_Img.Tratamento;
+                        avaliacao_imagem.Repeticao = Aval_Img.Repeticao;
                         avaliacao_imagem.idUsuario = Aval_Img.idUsuario;
-                        avaliacao_imagem.idInstalacaoWeb = resultInsta[0].idAvaliacaoWeb;
+                        avaliacao_imagem.idAvaliacaoWeb = resultInsta[0].idAvaliacaoWeb;
 
 
                         var serializedItem = JsonConvert.SerializeObject(avaliacao_imagem);
 
-                        var uri = new Uri($"{App.BackendUrl}/avaliacao_imagem/add?api_key=1");
+                        var uri = new Uri($"{App.BackendUrl}/avaliacao/addFoto?api_key=1");
                         var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
                         if (response.IsSuccessStatusCode)
@@ -2130,7 +2130,7 @@ namespace Avalia_Pesquisa
 
                             var avalimagemObject = new Avaliacao_Imagem();
                             avalimagemObject = Aval_Img;
-                            avalimagemObject.idAvaliacao_ImagemWeb = deserializado.idAvaliacao_ImagemWeb;
+                            avalimagemObject.idAvaliacao_ImagemWeb = deserializado.idAvaliacaoImagemWeb;
 
                             conexao.Update(avalimagemObject);
                         }

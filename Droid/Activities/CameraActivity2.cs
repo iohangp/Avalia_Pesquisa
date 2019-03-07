@@ -87,8 +87,8 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 Imagem = byteArray.ToString(),
                 idAvaliacao = 1,
-                tratamento = 1,
-                repeticao = 1,
+                Tratamento = 1,
+                Repeticao = 1,
                 Data = DateTime.Now,
                 idUsuario = 1
 

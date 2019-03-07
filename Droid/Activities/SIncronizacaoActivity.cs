@@ -109,6 +109,10 @@ namespace Avalia_Pesquisa.Droid.Activities
                                         await CloudData.BaixarAvaliacao(null))
                                         pbar.Progress += 5;
 
+                                    if (await CloudData.AddAvaliacaoImagem(null))
+                                        pbar.Progress += 5;
+                
+
                                 }
                             }
                             
@@ -146,7 +150,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                 if (await CloudData.BaixarEstudos(null) &&
                     await CloudData.BaixarAplicPlan(null) &&
                     await CloudData.BaixarAvalPlan(null))
-                    pbar.Progress += 10;
+                    pbar.Progress += 5;
                 if (await CloudData.BaixarVariedade(null) &&
                     await CloudData.BaixarTipoAvaliacao(null))
                     pbar.Progress += 10;

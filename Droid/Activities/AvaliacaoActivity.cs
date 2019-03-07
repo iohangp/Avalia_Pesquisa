@@ -17,6 +17,9 @@ using Android.Widget;
 using Avalia_Pesquisa.Droid.Helpers;
 using Plugin.Media;
 using System.Data;
+using Java.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using Plugin.Media.Abstractions;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -30,7 +33,8 @@ namespace Avalia_Pesquisa.Droid.Activities
         int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento, Num_Avaliacao;
         string idTipoAvaliacao, idAlvoSelect;
         TableRow rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5,
-                 rowAlvo, rowTipoAval, rowPlanejamento, rowTratamento;
+                 rowPlanejamento, rowTratamento;
+        LinearLayout rowTipoAval, rowAlvo;
         Button buttonSalvar;
         TextView textData, textTratamento, textNumAval;
         ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4;
@@ -61,8 +65,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             rowRepeticao4 = FindViewById<TableRow>(Resource.Id.trRepeticao4);
             rowRepeticao5 = FindViewById<TableRow>(Resource.Id.trRepeticao5);
 
-            rowAlvo = FindViewById<TableRow>(Resource.Id.trAlvo);
-            rowTipoAval = FindViewById<TableRow>(Resource.Id.trTipoAvaliacao);
+            rowAlvo = FindViewById<LinearLayout>(Resource.Id.trAlvo);
+            rowTipoAval = FindViewById<LinearLayout>(Resource.Id.trTipoAvaliacao);
           //  rowPlanejamento = FindViewById<TableRow>(Resource.Id.trDataPlanejada);
          //   rowTratamento = FindViewById<TableRow>(Resource.Id.trTratamento);
 
@@ -119,6 +123,13 @@ namespace Avalia_Pesquisa.Droid.Activities
             base.OnActivityResult(requestCode, resultCode, data);
         }
 
+        protected static string GetBase64StringForImage(string imgPath)
+        {
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
+        }
+
         private async void Camera1_OnClick(object sender, EventArgs e)
         {
 
@@ -126,22 +137,19 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 try
                 {
-                    var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
 
-                    using (var memoryStream = new MemoryStream())
+                    var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                     {
-                        photo.GetStream().CopyTo(memoryStream);
-                        photo.Dispose();
-                        byteArray = memoryStream.ToArray();
-                        //myAL.Add(byteArray.ToString());
-                        //myAL.Add("1");
-                        //myAL.Add(textTratamento.Text);
+                        Directory = "Avaliacao",
+                        Name = DateTime.Now.ToString()+".jpg",
+                        CompressionQuality = 60,
+                        PhotoSize = PhotoSize.Custom,
+                        CustomPhotoSize = 97 //Resize to 90% of original
+                    });
 
+                    string imgBase64String = GetBase64StringForImage(file.Path);     
 
-
-                        dt.Rows.Add(new object[] { byteArray.ToString(), 1, textTratamento.Text });
-
-                    }
+                    dt.Rows.Add(new object[] { imgBase64String, 1, textTratamento.Text });
 
                 }
 
@@ -171,17 +179,19 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 try
                 {
-                    var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
 
-                    using (var memoryStream = new MemoryStream())
+                    var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                     {
-                        photo.GetStream().CopyTo(memoryStream);
-                        photo.Dispose();
-                        byteArray = memoryStream.ToArray();
+                        Directory = "Avaliacao",
+                        Name = DateTime.Now.ToString() + ".jpg",
+                        CompressionQuality = 60,
+                        PhotoSize = PhotoSize.Custom,
+                        CustomPhotoSize = 97 //Resize to 90% of original
+                    });
 
+                    string imgBase64String = GetBase64StringForImage(file.Path);
 
-                        dt.Rows.Add(new object[] { byteArray, 2, textTratamento.Text });
-                    }
+                    dt.Rows.Add(new object[] { imgBase64String, 2, textTratamento.Text });
 
                 }
 
@@ -211,16 +221,20 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 try
                 {
-                    var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
-                    using (var memoryStream = new MemoryStream())
+
+                    var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                     {
-                        photo.GetStream().CopyTo(memoryStream);
-                        photo.Dispose();
-                        byteArray = memoryStream.ToArray();
+                        Directory = "Avaliacao",
+                        Name = DateTime.Now.ToString() + ".jpg",
+                        CompressionQuality = 60,
+                        PhotoSize = PhotoSize.Custom,
+                        CustomPhotoSize = 97 //Resize to 90% of original
+                    });
 
+                    string imgBase64String = GetBase64StringForImage(file.Path);
 
-                        dt.Rows.Add(new object[] { byteArray, 3, textTratamento.Text });
-                    }
+                    dt.Rows.Add(new object[] { imgBase64String, 3, textTratamento.Text });
+
                 }
 
                 catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
@@ -247,18 +261,22 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 try
                 {
-                    var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
 
-                    using (var memoryStream = new MemoryStream())
+                    var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                     {
-                        photo.GetStream().CopyTo(memoryStream);
-                        photo.Dispose();
-                        byteArray = memoryStream.ToArray();
+                        Directory = "Avaliacao",
+                        Name = DateTime.Now.ToString() + ".jpg",
+                        CompressionQuality = 60,
+                        PhotoSize = PhotoSize.Custom,
+                        CustomPhotoSize = 97 //Resize to 90% of original
+                    });
 
+                    string imgBase64String = GetBase64StringForImage(file.Path);
 
-                        dt.Rows.Add(new object[] { byteArray, 4, textTratamento.Text });
-                    }
+                    dt.Rows.Add(new object[] { imgBase64String, 4, textTratamento.Text });
+
                 }
+
                 catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
             }
             else
@@ -734,14 +752,20 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             foreach (DataRowView row in dv)
             {
+                BinaryFormatter bf = new BinaryFormatter();
+                MemoryStream ms = new MemoryStream();
+                bf.Serialize(ms, row["imagem"]);
+
+                ms.ToArray();
 
                 var avaliacaoImagem = new Avaliacao_Imagem
                 {
 
+                    
                     Imagem = row["imagem"].ToString(),     // byteArray.ToString(),
                     idAvaliacao = IdAvaliacao,
-                    tratamento = int.Parse(row["tratamento"].ToString()),
-                    repeticao = int.Parse(row["repeticao"].ToString()),
+                    Tratamento = int.Parse(row["tratamento"].ToString()),
+                    Repeticao = int.Parse(row["repeticao"].ToString()),
                     Data = DateTime.Now,
                     idUsuario = int.Parse(Settings.GeneralSettings)
 
