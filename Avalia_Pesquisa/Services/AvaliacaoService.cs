@@ -225,7 +225,7 @@ namespace Avalia_Pesquisa
 
         }
 
-        public bool GerarPlanejamentoAvaliacao(int idEstudo)
+        public bool GerarPlanejamentoAvaliacao(int idEstudo, DateTime data)
         {
             try
             {
@@ -244,8 +244,8 @@ namespace Avalia_Pesquisa
                         if (resPlan.Count == 0)
                         {
 
-                            DateTime dataAplic = DateTime.Now;
-                            
+                            DateTime dataAplic = data;
+
                             if (res.idTipoPlanejamento == 1)
                             {
 
@@ -257,7 +257,7 @@ namespace Avalia_Pesquisa
                                     dataAplic = resAplic[0].data.AddDays(res.Dias);
                                 }
                                 else
-                                    dataAplic = DateTime.Now;
+                                    dataAplic = data;
 
                             }
                             else if (res.idTipoPlanejamento == 2)
@@ -271,11 +271,11 @@ namespace Avalia_Pesquisa
                                     dataAplic = resAval[0].data.AddDays(res.Dias);
                                 }
                                 else
-                                    dataAplic = DateTime.Now;
+                                    dataAplic = data;
                             }
                             else
                             {
-                                dataAplic = DateTime.Now;
+                                dataAplic = data;
                             }
 
 

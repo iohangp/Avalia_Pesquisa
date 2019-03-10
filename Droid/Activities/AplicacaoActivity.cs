@@ -214,8 +214,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 {
                     if (apliService.SalvarAplicacao(aplicacao) == true)
                     {
-                        if (apliService.GerarPlanejamentoAplicacao(idEstudo_))
-                            avalService.GerarPlanejamentoAvaliacao(idEstudo_);
+                        if (apliService.GerarPlanejamentoAplicacao(idEstudo_, aplicacao.Data_Aplicacao))
+                            avalService.GerarPlanejamentoAvaliacao(idEstudo_, aplicacao.Data_Aplicacao);
 
                         alerta.SetTitle("Sucesso!");
                         alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);

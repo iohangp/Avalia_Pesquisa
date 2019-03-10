@@ -76,7 +76,7 @@ namespace Avalia_Pesquisa
 
         }
 
-        public bool GerarPlanejamentoAplicacao(int idEstudo)
+        public bool GerarPlanejamentoAplicacao(int idEstudo, DateTime data)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace Avalia_Pesquisa
                 {
                     var result = conexao.Query<Aplicacao_Planejamento>("SELECT * from Aplicacao_Planejamento WHERE idEstudo = ?", idEstudo).ToList();
                   
-                    DateTime dataAplic = DateTime.Now;
+                    DateTime dataAplic = data;
 
                     foreach (var res in result)
                     {                    
@@ -95,7 +95,7 @@ namespace Avalia_Pesquisa
                             if (res.Dias_Aplicacao != 0)
                                 dataAplic = dataAplic.AddDays(res.Dias_Aplicacao);
                             else
-                                dataAplic = DateTime.Now;
+                                dataAplic = data;
 
                             
                             var estPlan = new Estudo_Planejamento_Aplicacao

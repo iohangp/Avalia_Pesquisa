@@ -135,13 +135,13 @@ namespace Avalia_Pesquisa.Droid
             };
 
             //chama os dados meterologicos
-            Button buttonCamera = FindViewById<Button>(Resource.Id.BTCamera);
+           /* Button buttonCamera = FindViewById<Button>(Resource.Id.BTCamera);
             buttonCamera.Click += (sender, e) =>
             {
                 var intent = new Intent(this, typeof(CameraActivity)); ;
                 StartActivity(intent);
 
-            };
+            };*/
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

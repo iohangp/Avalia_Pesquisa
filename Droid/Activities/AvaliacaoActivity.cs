@@ -32,9 +32,8 @@ namespace Avalia_Pesquisa.Droid.Activities
         EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
         int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento, Num_Avaliacao;
         string idTipoAvaliacao, idAlvoSelect;
-        TableRow rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5,
-                 rowPlanejamento, rowTratamento;
-        LinearLayout rowTipoAval, rowAlvo;
+        TableRow rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5 ;
+        LinearLayout rowTipoAval, rowAlvo, rowTratamento, rowDataPlan, rowAvaliacao;
         Button buttonSalvar;
         TextView textData, textTratamento, textNumAval;
         ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4;
@@ -67,8 +66,9 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             rowAlvo = FindViewById<LinearLayout>(Resource.Id.trAlvo);
             rowTipoAval = FindViewById<LinearLayout>(Resource.Id.trTipoAvaliacao);
-          //  rowPlanejamento = FindViewById<TableRow>(Resource.Id.trDataPlanejada);
-         //   rowTratamento = FindViewById<TableRow>(Resource.Id.trTratamento);
+            rowDataPlan = FindViewById<LinearLayout>(Resource.Id.trDataPlan);
+            rowTratamento = FindViewById<LinearLayout>(Resource.Id.trTratamento);
+            rowAvaliacao = FindViewById<LinearLayout>(Resource.Id.trAvaliacao);
 
             etRepeticao1 = FindViewById<EditText>(Resource.Id.etRepeticao1);
             etRepeticao2 = FindViewById<EditText>(Resource.Id.etRepeticao2);
@@ -626,8 +626,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                         GetAvaliacaoTipo(idEstudo, Tratamento);
                         rowTipoAval.Visibility = ViewStates.Visible;
                         rowAlvo.Visibility = ViewStates.Visible;
-                      //  rowTratamento.Visibility = ViewStates.Visible;
-                     //   rowPlanejamento.Visibility = ViewStates.Visible;
+                        rowTratamento.Visibility = ViewStates.Visible;
+                        rowDataPlan.Visibility = ViewStates.Visible;
+                        rowAvaliacao.Visibility = ViewStates.Visible;
 
                         while (estudo[0].Repeticao >= numRepeticao)
                         {
@@ -690,8 +691,9 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             rowTipoAval.Visibility = ViewStates.Invisible;
             rowAlvo.Visibility = ViewStates.Invisible;
-       //     rowPlanejamento.Visibility = ViewStates.Invisible;
-       //     rowTratamento.Visibility = ViewStates.Invisible;
+            rowTratamento.Visibility = ViewStates.Invisible;
+            rowDataPlan.Visibility = ViewStates.Invisible;
+            rowAvaliacao.Visibility = ViewStates.Invisible;
 
             buttonSalvar.Visibility = ViewStates.Invisible;
         }
