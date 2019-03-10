@@ -142,9 +142,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                     {
                         Directory = "Avaliacao",
                         Name = DateTime.Now.ToString()+".jpg",
-                        CompressionQuality = 60,
+                        CompressionQuality = 40,
                         PhotoSize = PhotoSize.Custom,
-                        CustomPhotoSize = 97 //Resize to 90% of original
+                        CustomPhotoSize = 99 //Resize to 90% of original
                     });
 
                     string imgBase64String = GetBase64StringForImage(file.Path);     
@@ -184,9 +184,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                     {
                         Directory = "Avaliacao",
                         Name = DateTime.Now.ToString() + ".jpg",
-                        CompressionQuality = 60,
+                        CompressionQuality = 40,
                         PhotoSize = PhotoSize.Custom,
-                        CustomPhotoSize = 97 //Resize to 90% of original
+                        CustomPhotoSize = 99 //Resize to 90% of original
                     });
 
                     string imgBase64String = GetBase64StringForImage(file.Path);
@@ -226,9 +226,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                     {
                         Directory = "Avaliacao",
                         Name = DateTime.Now.ToString() + ".jpg",
-                        CompressionQuality = 60,
+                        CompressionQuality = 40,
                         PhotoSize = PhotoSize.Custom,
-                        CustomPhotoSize = 97 //Resize to 90% of original
+                        CustomPhotoSize = 99 //Resize to 90% of original
                     });
 
                     string imgBase64String = GetBase64StringForImage(file.Path);
@@ -266,9 +266,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                     {
                         Directory = "Avaliacao",
                         Name = DateTime.Now.ToString() + ".jpg",
-                        CompressionQuality = 60,
+                        CompressionQuality = 40,
                         PhotoSize = PhotoSize.Custom,
-                        CustomPhotoSize = 97 //Resize to 90% of original
+                        CustomPhotoSize = 99 //Resize to 90% of original
                     });
 
                     string imgBase64String = GetBase64StringForImage(file.Path);
