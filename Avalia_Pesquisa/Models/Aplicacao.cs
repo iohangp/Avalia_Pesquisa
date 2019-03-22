@@ -17,7 +17,7 @@ namespace Avalia_Pesquisa
         public string Temperatura { get; set; }
         public decimal Velocidade_Vento { get; set; }
         public decimal Percentual_Nuvens { get; set; }
-        public DateTime Chuva_Data { get; set; }
+        public DateTime? Chuva_Data { get; set; }
         public decimal Chuva_Volume { get; set; }
         public int idEquipamento { get; set; }
         public decimal BBCH { get; set; }

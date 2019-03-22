@@ -93,8 +93,18 @@ namespace Avalia_Pesquisa.Droid.Activities
                         if (await CloudData.AddPlanejamentoAplic(null))
                         {
 
-                            if (await CloudData.BaixarPlanejamentoAplic(null))
+                            if (await CloudData.AddAplicacao(null))
+                            {
                                 pbar.Progress += 5;
+
+                                if (await CloudData.BaixarPlanejamentoAplic(null) &&
+                                    await CloudData.BaixarAplicacao(null))
+                                    pbar.Progress += 5;
+
+                                
+                            }
+
+                           
                         }
 
                         if (await CloudData.AddPlanejamentoAval(null))
@@ -117,13 +127,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                             }
                             
                         }
-
-                        if (await CloudData.AddAplicacao(null))
-                        {
-
-                            if (await CloudData.BaixarAplicacao(null))
-                                pbar.Progress += 5;
-                        }
+          
                     }
 
                 }

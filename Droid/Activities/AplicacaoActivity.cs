@@ -207,7 +207,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                     Longitude = longitude.ToString(),
                     Latitude = latitude.ToString(),
                     Data_Realizada = DateTime.Now,
-                    idUsuario = int.Parse(Settings.GeneralSettings)
+                    idUsuario = int.Parse(Settings.GeneralSettings),
+                    idEstudo_Planejamento = idPlanejamento
                 };
 
                 try
@@ -216,6 +217,22 @@ namespace Avalia_Pesquisa.Droid.Activities
                     {
                         if (apliService.GerarPlanejamentoAplicacao(idEstudo_, aplicacao.Data_Aplicacao))
                             avalService.GerarPlanejamentoAvaliacao(idEstudo_, aplicacao.Data_Aplicacao);
+
+                        AplicacaoService aps = new AplicacaoService();
+                        var validaPlan = aps.GetPlanejamentoAplic(idEstudo_);
+
+                        if (validaPlan.Count > 0)
+                        {
+                            if (validaPlan[0].Num_Aplicacao == 1)
+                            {
+                                aplicacao.idEstudo_Planejamento = validaPlan[0].idEstudo_Planejamento_Aplicacao;
+                                var last = apliService.LastID();
+
+                                aplicacao.IdAplicacao = last.IdAplicacao;
+                                apliService.UpdateAplicacao(aplicacao);
+                            }
+                            
+                        }
 
                         alerta.SetTitle("Sucesso!");
                         alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
@@ -337,8 +354,17 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             if (estudo.Count > 0)
             {
+                AplicacaoService aps = new AplicacaoService();
+                var validaPlan = aps.GetPlanejamentoAplic(estudo[0].IdEstudo);
+                
+
                 if (estudo[0].idInstalacao != 0)
                 {
+                    if (validaPlan.Count > 0)
+                        idPlanejamento = validaPlan[0].idEstudo_Planejamento_Aplicacao;
+                    else
+                        idPlanejamento = 0;
+
                     idEstudo_ = estudo[0].IdEstudo;
                     idInstalacao = estudo[0].idInstalacao;
                     edNumEstudo.Text = estudo[0].Codigo;
@@ -350,6 +376,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     LimparCampos();
                     Toast.MakeText(this, "O estudo não contem uma intalação relacionada", ToastLength.Long).Show();
                 }
+
             }
             else
             {

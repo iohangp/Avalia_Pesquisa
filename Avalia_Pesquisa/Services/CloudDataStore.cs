@@ -1644,6 +1644,7 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
+                    //conexao.Query<Aplicacao>("UPDATE Aplicacao SET idAplicacaoWeb = null WHERE idAplicacao = 10");
 
                     var result = conexao.Query<Aplicacao>("SELECT * FROM Aplicacao WHERE idAplicacaoWeb IS NULL").ToList();
 
@@ -1653,6 +1654,8 @@ namespace Avalia_Pesquisa
                     foreach (var aplic in result)
                     {
                         var resultInsta = conexao.Query<Instalacao>("SELECT * FROM Instalacao WHERE idInstalacao = ?", aplic.idInstalacao).ToList();
+
+                        var resultPlan = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao = ?", aplic.idEstudo_Planejamento).ToList();
 
                         dynamic aplicacao = new ExpandoObject(); ;
 
@@ -1672,7 +1675,7 @@ namespace Avalia_Pesquisa
                         aplicacao.BBCH = aplic.BBCH;
                         aplicacao.Observacoes = aplic.Observacoes;
                         aplicacao.idUsuario = aplic.idUsuario;
-                        aplicacao.idEstudo_Planejamento = aplic.idEstudo_Planejamento;
+                        aplicacao.idEstudo_Planejamento = resultPlan[0].idEstudo_Planejamento_Aplicacao_Web;
                         aplicacao.idInstalacaoWeb = resultInsta[0].idInstalacaoWeb;
 
 
@@ -1737,20 +1740,42 @@ namespace Avalia_Pesquisa
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
 
+                    conexao.Query<Aplicacao>("DELETE FROM Aplicacao");
+
                     foreach (var aplicacao in aplicacaoArray)
                     {
-                        var aplicacaoObj = new Aplicacao();
-                        aplicacaoObj = aplicacao;
-                        aplicacaoObj.idAplicacaoWeb = aplicacao.IdAplicacao;
+                        var resultPlan = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao_Web = ?", aplicacao.idEstudo_Planejamento).ToList();
 
-                        var resultAplic = conexao.Query<Aplicacao>("SELECT * FROM Aplicacao WHERE idAplicacaoWeb = ?", aplicacao.IdAplicacao).ToList();
+                        var aplicacaoObj = new Aplicacao();
+                        // {
+                            aplicacaoObj.idInstalacao = aplicacao.idInstalacao;
+                            aplicacaoObj.Data_Aplicacao = aplicacao.Data_Aplicacao;
+                            aplicacaoObj.Data_Realizada = aplicacao.Data_Realizada;
+                            aplicacaoObj.Latitude = aplicacao.Latitude;
+                            aplicacaoObj.Longitude = aplicacao.Longitude;
+                            aplicacaoObj.Dosagem = aplicacao.Dosagem;
+                            aplicacaoObj.Umidade_Relativa = aplicacao.Umidade_Relativa;
+                            aplicacaoObj.Temperatura = aplicacao.Temperatura;
+                            aplicacaoObj.Velocidade_Vento = aplicacao.Velocidade_Vento;
+                            aplicacaoObj.Percentual_Nuvens = aplicacao.Percentual_Nuvens;
+                            aplicacaoObj.Chuva_Data = aplicacao.Chuva_Data;
+                            aplicacaoObj.Chuva_Volume = aplicacao.Chuva_Volume;
+                            aplicacaoObj.idEquipamento = aplicacao.idEquipamento;
+                            aplicacaoObj.BBCH = aplicacao.BBCH;
+                            aplicacaoObj.Observacoes = aplicacao.Observacoes;
+                            aplicacaoObj.idUsuario = aplicacao.idUsuario;
+                            aplicacaoObj.idEstudo_Planejamento = (resultPlan.Count > 0 ? resultPlan[0].idEstudo_Planejamento_Aplicacao : 0);
+                            aplicacaoObj.idAplicacaoWeb = aplicacao.IdAplicacao;
+                  //  };
+
+                     /*   var resultAplic = conexao.Query<Aplicacao>("SELECT * FROM Aplicacao WHERE idAplicacaoWeb = ?", aplicacao.IdAplicacao).ToList();
 
                         if (resultAplic.Count() > 0)
                             conexao.Update(aplicacaoObj);
                         else
-                        {
+                        { */
                             conexao.Insert(aplicacaoObj);
-                        }
+                     //   }
 
                     }
 
@@ -1847,139 +1872,157 @@ namespace Avalia_Pesquisa
             try
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
-                {
+                {              
+
+                    conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Aplicacao");
 
                     foreach (var aplicacao in planAplicArray)
                     {
-                        var aplicacaoObj = new Estudo_Planejamento_Aplicacao();
-                        aplicacaoObj = aplicacao;
-                        aplicacaoObj.idEstudo_Planejamento_Aplicacao_Web = aplicacao.idEstudo_Planejamento_Aplicacao;
-
-                        var resultAplic = conexao.Query<Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao_Web = ?", aplicacao.idEstudo_Planejamento_Aplicacao).ToList();
-
-                        if (resultAplic.Count() > 0)
-                            conexao.Update(aplicacaoObj);
-                        else
+                        var aplicacaoObj = new Estudo_Planejamento_Aplicacao
                         {
+                            idEstudo = aplicacao.idEstudo,
+                            Num_Aplicacao = aplicacao.Num_Aplicacao,
+                            data = aplicacao.data,
+                            idEstudo_Planejamento_Aplicacao_Web = aplicacao.idEstudo_Planejamento_Aplicacao
+                        };
+                   //     aplicacaoObj = aplicacao;
+                    //    aplicacaoObj.idEstudo_Planejamento_Aplicacao_Web = aplicacao.idEstudo_Planejamento_Aplicacao;
+
+                    //       var resultAplic = conexao.Query<Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao_Web = ?", aplicacao.idEstudo_Planejamento_Aplicacao).ToList();
+
+      
                             conexao.Insert(aplicacaoObj);
-                        }
-
-                    }
 
 
-                    return true;
+                        /*  conexao.Query<Estudo_Planejamento_Aplicacao>("INSERT INTO Estudo_Planejamento_Aplicacao (" +
+                                                                       "idEstudo_Planejamento_Aplicacao," +
+                                                                       "idEstudo, " +
+                                                                       "Num_Aplicacao, " +
+                                                                       "data," +
+                                                                       "idEstudo_Planejamento_Aplicacao_Web) " +
+                                                                       "VALUES (?,?,?,?,?)",
+                                                                       aplicacao.idEstudo_Planejamento_Aplicacao,
+                                                                       aplicacao.idEstudo,
+                                                                       aplicacao.Num_Aplicacao,
+                                                                       aplicacao.data,
+                                                                       aplicacao.idEstudo_Planejamento_Aplicacao);
+                        */
+                  }
 
-                }
-            }
-            catch (SQLiteException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
 
-        }
+                  return true;
 
-        public async Task<bool> AddPlanejamentoAval(string chave)
-        {
-            bool sucesso = true;
-            try
-            {
-                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
-                {
+              }
+          }
+          catch (SQLiteException ex)
+          {
+              Console.WriteLine(ex.Message);
+              return false;
+          }
 
-                    var result = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT * FROM Estudo_Planejamento_Avaliacao WHERE Integrado = 0").ToList();
+      }
 
-                    if (!CrossConnectivity.Current.IsConnected)
-                        return false;
+      public async Task<bool> AddPlanejamentoAval(string chave)
+      {
+          bool sucesso = true;
+          try
+          {
+              using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+              {
 
-                    foreach (var aval in result)
-                    {
+                  var result = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT * FROM Estudo_Planejamento_Avaliacao WHERE Integrado = 0").ToList();
 
-                        dynamic planejamento = new ExpandoObject(); ;
+                  if (!CrossConnectivity.Current.IsConnected)
+                      return false;
 
-                        planejamento.idEstudo_Planejamento_Avaliacao = aval.idEstudo_Planejamento_Avaliacao;
-                        planejamento.idEstudo = aval.idEstudo;
-                        planejamento.Data = aval.data;
-                        planejamento.Num_Avaliacao = aval.Num_Avaliacao;
-                        planejamento.idAvaliacao_Tipo = aval.idAvaliacao_Tipo;
-                        planejamento.idAlvo = aval.idAlvo;
+                  foreach (var aval in result)
+                  {
 
-                        var serializedItem = JsonConvert.SerializeObject(planejamento);
+                      dynamic planejamento = new ExpandoObject(); ;
 
-                        var uri = new Uri($"{App.BackendUrl}/avaliacao/addPlan?api_key=1");
-                        var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                      planejamento.idEstudo_Planejamento_Avaliacao = aval.idEstudo_Planejamento_Avaliacao;
+                      planejamento.idEstudo = aval.idEstudo;
+                      planejamento.Data = aval.data;
+                      planejamento.Num_Avaliacao = aval.Num_Avaliacao;
+                      planejamento.idAvaliacao_Tipo = aval.idAvaliacao_Tipo;
+                      planejamento.idAlvo = aval.idAlvo;
 
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var jsonPost = await response.Content.ReadAsStringAsync();
-                            //  dynamic deserializado = JsonConvert.DeserializeObject(jsonPost,typeof(object));
-                          //  dynamic deserializado = JObject.Parse(jsonPost);
+                      var serializedItem = JsonConvert.SerializeObject(planejamento);
 
-                            var avalObject = new Estudo_Planejamento_Avaliacao();
-                            avalObject = aval;
-                            avalObject.Integrado = 1;
+                      var uri = new Uri($"{App.BackendUrl}/avaliacao/addPlan?api_key=1");
+                      var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
-                            conexao.Update(avalObject);
-                        }
-                        else
-                            sucesso = false;
+                      if (response.IsSuccessStatusCode)
+                      {
+                          var jsonPost = await response.Content.ReadAsStringAsync();
+                          //  dynamic deserializado = JsonConvert.DeserializeObject(jsonPost,typeof(object));
+                        //  dynamic deserializado = JObject.Parse(jsonPost);
 
-                    }
+                          var avalObject = new Estudo_Planejamento_Avaliacao();
+                          avalObject = aval;
+                          avalObject.Integrado = 1;
 
-                    if (sucesso)
-                        return true;
-                    else
-                        return false;
+                          conexao.Update(avalObject);
+                      }
+                      else
+                          sucesso = false;
 
-                }
-            }
-            catch (SQLiteException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
+                  }
 
-        }
+                  if (sucesso)
+                      return true;
+                  else
+                      return false;
 
-        public async Task<bool> BaixarPlanejamentoAval(string chave)
-        {
+              }
+          }
+          catch (SQLiteException ex)
+          {
+              Console.WriteLine(ex.Message);
+              return false;
+          }
 
-            if (!CrossConnectivity.Current.IsConnected)
-                return false;
+      }
 
-            var uri = new Uri($"{App.BackendUrl}/avaliacao/planejamento?api_key=1");
-            var response = await client.GetAsync(uri);
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                planAvalArray = JsonConvert.DeserializeObject<IEnumerable<Estudo_Planejamento_Avaliacao>>(json);
+      public async Task<bool> BaixarPlanejamentoAval(string chave)
+      {
 
-                int total = planAvalArray.Count();
-                if (total == 0)
-                    return true;
-            }
+          if (!CrossConnectivity.Current.IsConnected)
+              return false;
 
-            try
-            {
-                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
-                {
+          var uri = new Uri($"{App.BackendUrl}/avaliacao/planejamento?api_key=1");
+          var response = await client.GetAsync(uri);
+          if (response.IsSuccessStatusCode)
+          {
+              var json = await response.Content.ReadAsStringAsync();
+              planAvalArray = JsonConvert.DeserializeObject<IEnumerable<Estudo_Planejamento_Avaliacao>>(json);
 
-                    conexao.Query<Estudo_Planejamento_Avaliacao>("DELETE FROM Estudo_Planejamento_Avaliacao");
+              int total = planAvalArray.Count();
+              if (total == 0)
+                  return true;
+          }
 
-                    foreach (var avaliacao in planAvalArray)
-                    {
-                        var avaliacaoObj = new Estudo_Planejamento_Avaliacao();
-                        avaliacaoObj = avaliacao;
-                        avaliacaoObj.idEstudo_Planejamento_Avaliacao_Web = avaliacao.idEstudo_Planejamento_Avaliacao;
+          try
+          {
+              using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+              {
 
-                        // var resultAplic = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT * FROM Estudo_Planejamento_Avaliacao WHERE idEstudo_Planejamento_Avaliacao_Web = ?", avaliacao.idEstudo_Planejamento_Avaliacao).ToList();
+                  conexao.Query<Estudo_Planejamento_Avaliacao>("DELETE FROM Estudo_Planejamento_Avaliacao");
 
-                        /* if (resultAplic.Count() > 0)
-                             conexao.Update(avaliacaoObj);
-                         else
-                         {
-                             conexao.Insert(avaliacaoObj);
-                         }*/
+                  foreach (var avaliacao in planAvalArray)
+                  {
+                      var avaliacaoObj = new Estudo_Planejamento_Avaliacao();
+                      avaliacaoObj = avaliacao;
+                      avaliacaoObj.idEstudo_Planejamento_Avaliacao_Web = avaliacao.idEstudo_Planejamento_Avaliacao;
+
+                      // var resultAplic = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT * FROM Estudo_Planejamento_Avaliacao WHERE idEstudo_Planejamento_Avaliacao_Web = ?", avaliacao.idEstudo_Planejamento_Avaliacao).ToList();
+
+                      /* if (resultAplic.Count() > 0)
+                           conexao.Update(avaliacaoObj);
+                       else
+                       {
+                           conexao.Insert(avaliacaoObj);
+                       }*/
 
                         conexao.Query<Estudo_Planejamento_Avaliacao>("INSERT INTO Estudo_Planejamento_Avaliacao (" +
                                                                         "idEstudo_Planejamento_Avaliacao," +

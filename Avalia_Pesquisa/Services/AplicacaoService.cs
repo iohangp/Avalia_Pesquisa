@@ -28,6 +28,43 @@ namespace Avalia_Pesquisa
 
         }
 
+        public bool UpdateAplicacao(Aplicacao aplicacao)
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    conexao.Update(aplicacao);
+
+                    return true;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return false;
+            }
+
+        }
+
+
+        public Aplicacao LastID()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Aplicacao>("SELECT MAX(IdAplicacao) AS IdAplicacao FROM Aplicacao").ToList();
+
+                    return result[0];
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
 
         public List<Estudo_Planejamento> GetDataAplicacao(int idEstudo)
         {
@@ -57,6 +94,30 @@ namespace Avalia_Pesquisa
             }
 
         }
+
+        public List<Estudo_Planejamento_Aplicacao> GetPlanejamentoAplic(int idEstudo)
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var result = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * FROM estudo_planejamento_aplicacao epa "+
+                                                                               " WHERE idEstudo = ? " +
+                                                                               "   AND NOT EXISTS(SELECT 1 FROM aplicacao a "+
+                                                                                      " WHERE epa.idEstudo_Planejamento_Aplicacao = a.idEstudo_Planejamento) " +
+                                                                               "ORDER BY Num_Aplicacao LIMIT 1;", idEstudo).ToList();
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
         public List<Equipamento> GetEquipamento()
         {
             try
