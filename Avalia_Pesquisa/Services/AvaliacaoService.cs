@@ -192,6 +192,8 @@ namespace Avalia_Pesquisa
                                                                         " CASE ap.idTipoPlanejamento "+
                                                                                  " WHEN 1 THEN 'A' "+
                                                                                  " WHEN 2 THEN 'AV' "+
+                                                                                 " WHEN 5 THEN 'G' "+
+                                                                                 " ELSE '' "+
                                                                                  " END as Sigla, ap.idTipoPlanejamento " +
                                                                     "FROM Avaliacao_Planejamento ap "+
                                                                    " JOIN Estudo_Planejamento_Avaliacao epa ON epa.idEstudo = ap.idEstudo "+
