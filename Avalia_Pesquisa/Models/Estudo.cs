@@ -14,8 +14,8 @@ namespace Avalia_Pesquisa
         public int idEmpresa { get; set; }
         public string Empresa { get; set; }
         public int IdCultura { get; set; }
-        public int idProduto { get; set; }
-        public string Produto { get; set; }
+      //  public int idProduto { get; set; }
+     //   public string Produto { get; set; }
         public int idClasse { get; set; }
         public string Classe { get; set; }
         public int idAlvo { get; set; }
