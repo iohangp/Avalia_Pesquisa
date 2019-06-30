@@ -89,6 +89,48 @@ namespace Avalia_Pesquisa
 
         }
 
+        public List<BBCH> GetBBCH()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+
+                    var result = conexao.Query<BBCH>("SELECT idBBCH, b.codigo, c.descricao as cultura, c.idCultura, idBbch_estagio, b.descricao FROM bbch b join cultura c on c.idCultura = b.idCultura ");
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
+        public List<BBCH_Estagio> GetBBCH_estagio()
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+
+                    var result = conexao.Query<BBCH_Estagio>("select idBbch_estagio, codigo, be.descricao, c.idCultura, c.descricao as cultura from bbch_estagio be join cultura c on c.idCultura = be.idCultura ");
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
         public List<Alvo> GetAlvos(int idTipoAvaliacao, int idEstudo)
         {
             try
