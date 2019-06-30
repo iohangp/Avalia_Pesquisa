@@ -48,6 +48,8 @@ namespace Avalia_Pesquisa
         IEnumerable<Produto> produtoArray;
         IEnumerable<Estudo_Planejamento_Aplicacao> planAplicArray;
         IEnumerable<Estudo_Planejamento_Avaliacao> planAvalArray;
+        IEnumerable<BBCH_Estagio> bbchEstagioArray;
+        IEnumerable<BBCH> bbchArray;
 
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
@@ -1142,6 +1144,107 @@ namespace Avalia_Pesquisa
                             conexao.Insert(produtoObj);
                         else
                             conexao.Update(produtoObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<bool> BaixarBBCHEstagio(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/bbch/estagio?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                bbchEstagioArray = JsonConvert.DeserializeObject<IEnumerable<BBCH_Estagio>>(json);
+
+                int total = bbchEstagioArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var bbchest in bbchEstagioArray)
+                    {
+                        var bbchestObj = new BBCH_Estagio
+                        {
+                            IdBBCH_Estagio = bbchest.IdBBCH_Estagio,
+                            idCultura = bbchest.idCultura,
+                            Codigo = bbchest.Codigo,
+                            Descricao = bbchest.Descricao
+                        };
+
+                        var dados = conexao.Query<Unidade_Medida>("SELECT * FROM BBCH_Estagio Where IdBBCH_Estagio=?", bbchest.IdBBCH_Estagio);
+
+                        if (dados.Count == 0)
+                            conexao.Insert(bbchestObj);
+                        else
+                            conexao.Update(bbchestObj);
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<bool> BaixarBBCH(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var uri = new Uri($"{App.BackendUrl}/bbch?api_key=1");
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                bbchArray = JsonConvert.DeserializeObject<IEnumerable<BBCH>>(json);
+
+                int total = bbchArray.Count();
+                if (total == 0)
+                    return false;
+            }
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    foreach (var bbch in bbchArray)
+                    {
+                        var bbchObj = new BBCH
+                        {
+                            IdBBCH = bbch.IdBBCH,
+                            IdBBCH_Estagio = bbch.IdBBCH_Estagio,
+                            idCultura = bbch.idCultura,
+                            Codigo = bbch.Codigo,
+                            Descricao = bbch.Descricao
+                        };
+
+                        var dados = conexao.Query<Unidade_Medida>("SELECT * FROM BBCH Where IdBBCH=?", bbch.IdBBCH);
+
+                        if (dados.Count == 0)
+                            conexao.Insert(bbchObj);
+                        else
+                            conexao.Update(bbchObj);
                     }
                 }
             }

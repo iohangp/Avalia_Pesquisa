@@ -56,6 +56,8 @@ namespace Avalia_Pesquisa
                     conexao.CreateTable<Aplicacao_Planejamento>();
                     conexao.CreateTable<Avaliacao_Planejamento>();
                     conexao.CreateTable<Unidade_Medida>();
+                    conexao.CreateTable<BBCH_Estagio>();
+                    conexao.CreateTable<BBCH>();
 
                     return true;
                 }
