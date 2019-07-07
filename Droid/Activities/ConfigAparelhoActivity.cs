@@ -49,22 +49,22 @@ namespace Avalia_Pesquisa.Droid
 
             ProgressDialog pbar = new ProgressDialog(this);
             pbar.SetCancelable(false);
-            pbar.SetMessage("Sincronizando dados do sistema...");
+            pbar.SetMessage("Validando chave...");
             pbar.SetProgressStyle(ProgressDialogStyle.Horizontal);
             pbar.Progress = 0;
             pbar.Max = 100;
             pbar.Show();
 
+            bool sucesso = false;
             new Thread(new ThreadStart(async delegate
             {
-                var conf = new Config
+                if (await CloudData.ValidarChave(licenca.Text))
+                    sucesso = true;
+
+                if (sucesso)
                 {
-                    Descricao = "chave_aparelho",
-                    Valor = licenca.Text
-                };
-                    
-                if (db.InserirConfig(conf))
-                {
+                    RunOnUiThread(() => { Toast.MakeText(this, "Chave validada com sucesso.", ToastLength.Long).Show(); });
+                    RunOnUiThread(() => { pbar.SetMessage("Sincronizando dados básicos..."); });
                     pbar.Progress += 25;
                     if (await CloudData.MunicipiosSync(licenca.Text) &&
                         await CloudData.LocalidadeSync(licenca.Text))
@@ -82,28 +82,36 @@ namespace Avalia_Pesquisa.Droid
                             if (db.InserirConfig(conf2))
                                 pbar.Progress += 25;
 
-
-
                         }
                     }
 
+                    Thread.Sleep(400);
+
+                    if (pbar.Progress >= 100)
+                    {
+                        var intent = new Intent(this, typeof(LoginActivity)); ;
+                        StartActivity(intent);
+                        Finish();
+                        pbar.Dismiss();
+                    }
+
+                    RunOnUiThread(() => { pbar.SetMessage("Dados importados..."); });
+                    RunOnUiThread(() => { Toast.MakeText(this, "Dados importados com sucesso.", ToastLength.Long).Show(); });
+                    // SyncInstall();
                 }
-
-                Thread.Sleep(400);
-
-                if(pbar.Progress >= 100)
+                else
                 {
-                    var intent = new Intent(this, typeof(LoginActivity)); ;
-                    StartActivity(intent);
-                    Finish();
                     pbar.Dismiss();
+                    RunOnUiThread(() => { Toast.MakeText(this, "Chave não encontrada.", ToastLength.Long).Show(); });
                 }
-
-                RunOnUiThread(() => { pbar.SetMessage("Dados importados..."); });
-                RunOnUiThread(() => { Toast.MakeText(this, "Dados importados com sucesso.", ToastLength.Long).Show(); });
+              
             })).Start();
+
+          
 
           //  Finish();
         }
+
+        
     }
 }

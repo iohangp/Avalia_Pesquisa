@@ -58,7 +58,7 @@ namespace Avalia_Pesquisa
             client = new HttpClient();
             using (var client = new HttpClient())
             {
-                client.Timeout = TimeSpan.FromSeconds(30);
+                client.Timeout = TimeSpan.FromSeconds(700);
             }
             client.BaseAddress = new Uri($"{App.BackendUrl}/");
 
@@ -70,7 +70,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/cultura?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://"+urlDir[0].Valor}/cultura?api_key=1");
             var response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
@@ -125,7 +127,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/estudo?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/estudo?api_key=1");
             var response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
@@ -195,7 +199,7 @@ namespace Avalia_Pesquisa
             else
                 return false;
 
-            uri = new Uri($"{App.BackendUrl}/estudo/estudotipoalvo?api_key=1");
+            uri = new Uri($"{"http://" + urlDir[0].Valor}/estudo/estudotipoalvo?api_key=1");
             response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
@@ -235,7 +239,7 @@ namespace Avalia_Pesquisa
 
             }
 
-            uri = new Uri($"{App.BackendUrl}/estudo/planejamento?api_key=1");
+            uri = new Uri($"{"http://" + urlDir[0].Valor}/estudo/planejamento?api_key=1");
             response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
@@ -324,7 +328,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/estudo/aplicacao?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/estudo/aplicacao?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -370,7 +376,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/estudo/avaliacao?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/estudo/avaliacao?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -421,7 +429,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/localidade/localidade?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/localidade/localidade?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -476,7 +486,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/localidade/municipio?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/localidade/municipio?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -527,7 +539,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/tipoavaliacao?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/tipoavaliacao?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -574,7 +588,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/solo/cobertura?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/solo/cobertura?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -622,7 +638,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/variedade?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/variedade?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -670,7 +688,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/safra?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/safra?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -718,7 +738,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/equipamento?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/equipamento?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -770,7 +792,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/umidadesolo?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/umidadesolo?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -819,7 +843,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/gleba?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/gleba?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -869,7 +895,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/solo?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/solo?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -917,7 +945,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/alvo?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/alvo?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -966,7 +996,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/manutencao/tipo/?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/manutencao/tipo/?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1016,7 +1048,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/manutencao/objetivo/?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/manutencao/objetivo/?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1065,7 +1099,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/manutencao/unidademedida?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/manutencao/unidademedida?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1113,7 +1149,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/products?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/products?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1162,7 +1200,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/bbch/estagio?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/bbch/estagio?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1212,7 +1252,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/bbch?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/bbch?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1264,7 +1306,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/users?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/users?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1352,7 +1396,9 @@ namespace Avalia_Pesquisa
 
                         var serializedItem = JsonConvert.SerializeObject(plantio);
 
-                        var uri = new Uri($"{App.BackendUrl}/plantio/add?api_key=1");
+                        var urlDir = getConfig();
+
+                        var uri = new Uri($"{"http://" + urlDir[0].Valor}/plantio/add?api_key=1");
                         var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
                         if (response.IsSuccessStatusCode)
@@ -1393,7 +1439,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/plantio?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/plantio?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1496,7 +1544,9 @@ namespace Avalia_Pesquisa
 
                         var serializedItem = JsonConvert.SerializeObject(instalacao);
 
-                        var uri = new Uri($"{App.BackendUrl}/instalacao/add?api_key=1");
+                        var urlDir = getConfig();
+
+                        var uri = new Uri($"{"http://" + urlDir[0].Valor}/instalacao/add?api_key=1");
                         var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
                         Console.WriteLine(response.IsSuccessStatusCode);
@@ -1534,6 +1584,65 @@ namespace Avalia_Pesquisa
 
         }
 
+        public async Task<bool> ValidarChave(string chave)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                return false;
+
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{App.BackendUrl}/configuracao/validaChave?api_key=1&chave="+ chave);
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+
+                dynamic deserializado = JObject.Parse(json);
+
+                if (deserializado.host == null)
+                    return false;
+
+                try
+                {
+                    using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                    {
+
+                        var confObj = new Config();
+
+                        confObj.Descricao = "chave_aparelho";
+                        confObj.Valor = chave;
+                        
+
+                        var dadoTipo = conexao.Query<Config>("SELECT * FROM Config Where Descricao=?", "chave_aparelho");
+
+                        if (dadoTipo.Count == 0)
+                            conexao.Insert(confObj);
+                        else
+                            conexao.Update(confObj);
+
+                        confObj = new Config();
+                        confObj.Descricao = "host_conexao";
+                        confObj.Valor = deserializado.host;
+                        
+
+                        dadoTipo = conexao.Query<Config>("SELECT * FROM Config Where Descricao=?", "host_conexao");
+
+                        if (dadoTipo.Count == 0)
+                            conexao.Insert(confObj);
+                        else
+                            conexao.Update(confObj);
+                    }
+                }
+                catch (SQLiteException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public async Task<bool> BaixarInstalacao(string chave)
         {
 
@@ -1542,7 +1651,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/instalacao?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/instalacao?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1625,7 +1736,9 @@ namespace Avalia_Pesquisa
 
                         var serializedItem = JsonConvert.SerializeObject(avaliacao);
 
-                        var uri = new Uri($"{App.BackendUrl}/avaliacao/add?api_key=1");
+                        var urlDir = getConfig();
+
+                        var uri = new Uri($"{"http://" + urlDir[0].Valor}/avaliacao/add?api_key=1");
                         var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
                         if (response.IsSuccessStatusCode)
@@ -1667,7 +1780,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/avaliacao?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/avaliacao?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1784,7 +1899,10 @@ namespace Avalia_Pesquisa
 
                         var serializedItem = JsonConvert.SerializeObject(aplicacao);
 
-                        var uri = new Uri($"{App.BackendUrl}/aplicacao/add?api_key=1");
+                        var urlDir = getConfig();
+
+                        var uri = new Uri($"{"http://" + urlDir[0].Valor}/aplicacao/add?api_key=1");
+
                         var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
                         if (response.IsSuccessStatusCode)
@@ -1826,7 +1944,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/aplicacao?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/aplicacao?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -1919,7 +2039,9 @@ namespace Avalia_Pesquisa
 
                         var serializedItem = JsonConvert.SerializeObject(planejamento);
 
-                        var uri = new Uri($"{App.BackendUrl}/aplicacao/addPlan?api_key=1");
+                        var urlDir = getConfig();
+
+                        var uri = new Uri($"{"http://" + urlDir[0].Valor}/aplicacao/addPlan?api_key=1");
                         var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
                         if (response.IsSuccessStatusCode)
@@ -1960,7 +2082,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/aplicacao/planejamento?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/aplicacao/planejamento?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -2052,7 +2176,9 @@ namespace Avalia_Pesquisa
 
                       var serializedItem = JsonConvert.SerializeObject(planejamento);
 
-                      var uri = new Uri($"{App.BackendUrl}/avaliacao/addPlan?api_key=1");
+                      var urlDir = getConfig();
+
+                      var uri = new Uri($"{"http://" + urlDir[0].Valor}/avaliacao/addPlan?api_key=1");
                       var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
                       if (response.IsSuccessStatusCode)
@@ -2090,10 +2216,12 @@ namespace Avalia_Pesquisa
       public async Task<bool> BaixarPlanejamentoAval(string chave)
       {
 
-          if (!CrossConnectivity.Current.IsConnected)
+        if (!CrossConnectivity.Current.IsConnected)
               return false;
 
-          var uri = new Uri($"{App.BackendUrl}/avaliacao/planejamento?api_key=1");
+          var urlDir = getConfig();
+
+          var uri = new Uri($"{"http://" + urlDir[0].Valor}/avaliacao/planejamento?api_key=1");
           var response = await client.GetAsync(uri);
           if (response.IsSuccessStatusCode)
           {
@@ -2199,7 +2327,9 @@ namespace Avalia_Pesquisa
 
                         var serializedItem = JsonConvert.SerializeObject(manutencao);
 
-                        var uri = new Uri($"{App.BackendUrl}/manutencao/add?api_key=1");
+                        var urlDir = getConfig();
+
+                        var uri = new Uri($"{"http://" + urlDir[0].Valor}/manutencao/add?api_key=1");
                         var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
                         if (response.IsSuccessStatusCode)
@@ -2265,7 +2395,9 @@ namespace Avalia_Pesquisa
 
                         var serializedItem = JsonConvert.SerializeObject(avaliacao_imagem);
 
-                        var uri = new Uri($"{App.BackendUrl}/avaliacao/addFoto?api_key=1");
+                        var urlDir = getConfig();
+
+                        var uri = new Uri($"{"http://" + urlDir[0].Valor}/avaliacao/addFoto?api_key=1");
                         var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
                         if (response.IsSuccessStatusCode)
@@ -2307,7 +2439,9 @@ namespace Avalia_Pesquisa
             if (!CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var uri = new Uri($"{App.BackendUrl}/manutencao?api_key=1");
+            var urlDir = getConfig();
+
+            var uri = new Uri($"{"http://" + urlDir[0].Valor}/manutencao?api_key=1");
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -2354,6 +2488,25 @@ namespace Avalia_Pesquisa
 
         }
 
+        public List<Config> getConfig()
+        {
+
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+                    var dadosConf = conexao.Query<Config>("SELECT * FROM Config Where Descricao=?", "host_conexao");
+
+                    return dadosConf;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+           
+        }
 
         public async Task<Item> GetItemAsync(string id)
         {

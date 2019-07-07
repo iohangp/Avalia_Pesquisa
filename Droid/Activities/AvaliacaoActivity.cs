@@ -135,8 +135,11 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
+                
                 try
                 {
+                    buttonSalvar.Enabled = false;
+                    buttonSalvar.Text = "Aguarde...";
 
                     var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                     {
@@ -151,9 +154,15 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                     dt.Rows.Add(new object[] { imgBase64String, 1, textTratamento.Text });
 
+                    buttonSalvar.Enabled = true;
+                    buttonSalvar.Text = "Salvar";
                 }
 
-               catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
+                catch {
+                    Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show();
+                    buttonSalvar.Enabled = true;
+                    buttonSalvar.Text = "Salvar";
+                }
             }
             else
             {
@@ -179,6 +188,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 try
                 {
+                    buttonSalvar.Enabled = false;
+                    buttonSalvar.Text = "Aguarde...";
 
                     var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                     {
@@ -192,10 +203,15 @@ namespace Avalia_Pesquisa.Droid.Activities
                     string imgBase64String = GetBase64StringForImage(file.Path);
 
                     dt.Rows.Add(new object[] { imgBase64String, 2, textTratamento.Text });
-
+                    buttonSalvar.Enabled = true;
+                    buttonSalvar.Text = "Salvar";
                 }
 
-                catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
+                catch {
+                    Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show();
+                    buttonSalvar.Enabled = true;
+                    buttonSalvar.Text = "Salvar";
+                }
             }
             else
             {
@@ -221,6 +237,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 try
                 {
+                    buttonSalvar.Enabled = false;
+                    buttonSalvar.Text = "Aguarde...";
 
                     var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                     {
@@ -234,10 +252,15 @@ namespace Avalia_Pesquisa.Droid.Activities
                     string imgBase64String = GetBase64StringForImage(file.Path);
 
                     dt.Rows.Add(new object[] { imgBase64String, 3, textTratamento.Text });
-
+                    buttonSalvar.Enabled = true;
+                    buttonSalvar.Text = "Salvar";
                 }
 
-                catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
+                catch {
+                    Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show();
+                    buttonSalvar.Enabled = true;
+                    buttonSalvar.Text = "Salvar";
+                }
             }
             else
             {
@@ -261,6 +284,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 try
                 {
+                    buttonSalvar.Enabled = false;
+                    buttonSalvar.Text = "Aguarde...";
 
                     var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                     {
@@ -274,10 +299,15 @@ namespace Avalia_Pesquisa.Droid.Activities
                     string imgBase64String = GetBase64StringForImage(file.Path);
 
                     dt.Rows.Add(new object[] { imgBase64String, 4, textTratamento.Text });
-
+                    buttonSalvar.Enabled = true;
+                    buttonSalvar.Text = "Salvar";
                 }
 
-                catch { Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show(); }
+                catch {
+                    Toast.MakeText(this, "Imagem não capturada", ToastLength.Long).Show();
+                    buttonSalvar.Enabled = true;
+                    buttonSalvar.Text = "Salvar";
+                }
             }
             else
             {
@@ -403,6 +433,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                     sucesso = false;
                 cont++;
             }
+
+            if (int.Parse(idAlvoSelect) == 0 && int.Parse(idTipoAvaliacao) == 0)
+                sucesso = false;
 
             if (sucesso)
             {
@@ -572,7 +605,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 alerta.SetTitle("ERRO!");
                 alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
-                alerta.SetMessage("Informe um valor para todas as repetições");
+                alerta.SetMessage("Informe um valor para todas os campos");
                 alerta.SetButton("OK", (s, ev) =>
                 {
                     alerta.Dismiss();
