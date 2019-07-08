@@ -153,7 +153,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                     string imgBase64String = GetBase64StringForImage(file.Path);     
 
                     dt.Rows.Add(new object[] { imgBase64String, 1, textTratamento.Text });
-
+                    
                     buttonSalvar.Enabled = true;
                     buttonSalvar.Text = "Salvar";
                 }
@@ -557,6 +557,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                     //etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = edNumEstudo.Text = "";
                     EscondeCampos();
+                    dt.Rows.Clear();
                     alerta.SetTitle("Sucesso!");
                     alerta.SetIcon(Android.Resource.Drawable.IcDialogInfo);
                     alerta.SetMessage("Avaliação Salva com Sucesso!");
