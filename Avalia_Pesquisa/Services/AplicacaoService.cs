@@ -151,7 +151,7 @@ namespace Avalia_Pesquisa
                     {                    
                         var resPlan = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * from Estudo_Planejamento_Aplicacao " +
                                                                                     "WHERE idEstudo = ? AND Num_Aplicacao = ?", idEstudo, res.Num_Aplicacao).ToList();
-                        if(resPlan.Count == 0) {
+                        if(resPlan.Count > 0 && resPlan[0].data == null) {
                             
                             if (res.Dias_Aplicacao != 0)
                                 dataAplic = dataAplic.AddDays(res.Dias_Aplicacao);
@@ -161,12 +161,13 @@ namespace Avalia_Pesquisa
                             
                             var estPlan = new Estudo_Planejamento_Aplicacao
                             {
+                                idEstudo_Planejamento_Aplicacao = resPlan[0].idEstudo_Planejamento_Aplicacao,
                                 idEstudo = idEstudo,
                                 Num_Aplicacao = res.Num_Aplicacao,
                                 data = dataAplic
                             };
 
-                            conexao.Insert(estPlan);
+                            conexao.Update(estPlan);
                         }
 
                     }

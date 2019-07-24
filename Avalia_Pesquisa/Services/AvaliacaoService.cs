@@ -285,7 +285,7 @@ namespace Avalia_Pesquisa
                                                                                     "AND idAvaliacao_Tipo = ? AND idAlvo = ?", 
                                                                                     idEstudo, res.Num_Avaliacao, res.idAvaliacao_Tipo, res.idAlvo).ToList();
 
-                        if (resPlan.Count == 0)
+                        if (resPlan.Count > 0 && resPlan[0].data == null)
                         {
 
                             DateTime dataAplic = data;
@@ -296,9 +296,11 @@ namespace Avalia_Pesquisa
                                 var resAplic = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * from Estudo_Planejamento_Aplicacao " +
                                                                                    "WHERE idEstudo = ? AND Num_Aplicacao = ? ",
                                                                                    idEstudo, res.Apos).ToList();
+
                                 if (resAplic.Count > 0)
                                 {
-                                    dataAplic = resAplic[0].data.AddDays(res.Dias);
+                                    dataAplic = (resAplic[0].data ?? DateTime.Now).AddDays(res.Dias);
+
                                 }
                                 else
                                     dataAplic = data;
@@ -312,7 +314,7 @@ namespace Avalia_Pesquisa
                                                                                     idEstudo, res.Apos, res.idAvaliacao_Tipo, res.idAlvo).ToList();
                                 if (resAval.Count > 0)
                                 {
-                                    dataAplic = resAval[0].data.AddDays(res.Dias);
+                                    dataAplic = (resAval[0].data ?? DateTime.Now).AddDays(res.Dias);
                                 }
                                 else
                                     dataAplic = data;
@@ -325,13 +327,14 @@ namespace Avalia_Pesquisa
 
                             var estPlan = new Estudo_Planejamento_Avaliacao
                             {
+                                idEstudo_Planejamento_Avaliacao = resPlan[0].idEstudo_Planejamento_Avaliacao,
                                 idEstudo = idEstudo,
                                 Num_Avaliacao = res.Num_Avaliacao,
                                 data = dataAplic,
                                 idAvaliacao_Tipo = res.idAvaliacao_Tipo,
                                 idAlvo = res.idAlvo
                             };
-                            conexao.Insert(estPlan);
+                            conexao.Update(estPlan);
                         }
 
                     }

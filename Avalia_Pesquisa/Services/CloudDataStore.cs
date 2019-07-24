@@ -1669,20 +1669,33 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-
+                   // conexao.Query<Instalacao>("DELETE FROM Instalacao");
                     foreach (var instalacao in instalacaoArray)
                     {
                         var instalacaoObj = new Instalacao();
-                        instalacaoObj = instalacao;
+                        instalacaoObj.idEstudo = instalacao.idEstudo;
+                        instalacaoObj.idPlantio = instalacao.idPlantio;
+                        instalacaoObj.Tamanho_Parcela_Comprimento = instalacao.Tamanho_Parcela_Comprimento;
+                        instalacaoObj.Tamanho_Parcela_Largura = instalacao.Tamanho_Parcela_Largura;
+                        instalacaoObj.Coordenadas1 = instalacao.Coordenadas1;
+                        instalacaoObj.Coordenadas2 = instalacao.Coordenadas2;
+                        instalacaoObj.Altitude = instalacao.Altitude;
+                        instalacaoObj.Data_Instalacao = instalacao.Data_Instalacao;
+                        instalacaoObj.idUsuario = instalacao.idUsuario;
+                        instalacaoObj.Observacoes = instalacao.Observacoes;
+                        instalacaoObj.idStatus = instalacao.idStatus;
                         instalacaoObj.idInstalacaoWeb = instalacao.idInstalacao;
 
-                        var resultPlant = conexao.Query<Plantio>("SELECT * FROM Instalacao WHERE idInstalacaoWeb = ?", instalacao.idInstalacao).ToList();
+                        var resultPlant = conexao.Query<Instalacao>("SELECT * FROM Instalacao WHERE idInstalacaoWeb = ?", instalacao.idInstalacao).ToList();
 
                         if (resultPlant.Count() > 0)
+                        {
+                            instalacaoObj.idInstalacao = resultPlant[0].idInstalacao;
                             conexao.Update(instalacaoObj);
+                        }
                         else
                         {
-                            conexao.Insert(instalacaoObj);
+                            conexao.Insert(instalacaoObj);                     
                         }
 
                     }
@@ -1893,7 +1906,7 @@ namespace Avalia_Pesquisa
                         aplicacao.BBCH = aplic.BBCH;
                         aplicacao.Observacoes = aplic.Observacoes;
                         aplicacao.idUsuario = aplic.idUsuario;
-                        aplicacao.idEstudo_Planejamento = resultPlan[0].idEstudo_Planejamento_Aplicacao_Web;
+                        aplicacao.idEstudo_Planejamento = resultPlan[0].idEstudo_Planejamento_Aplicacao;
                         aplicacao.idInstalacaoWeb = resultInsta[0].idInstalacaoWeb;
 
 
@@ -1967,7 +1980,7 @@ namespace Avalia_Pesquisa
 
                     foreach (var aplicacao in aplicacaoArray)
                     {
-                        var resultPlan = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao_Web = ?", aplicacao.idEstudo_Planejamento).ToList();
+                        var resultPlan = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao = ?", aplicacao.idEstudo_Planejamento).ToList();
 
                         var aplicacaoObj = new Aplicacao();
                         // {
@@ -2023,7 +2036,7 @@ namespace Avalia_Pesquisa
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
 
-                    var result = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao_Web IS NULL").ToList();
+                    var result = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE Integrado = 0").ToList();
 
                     if (!CrossConnectivity.Current.IsConnected)
                         return false;
@@ -2033,6 +2046,7 @@ namespace Avalia_Pesquisa
 
                         dynamic planejamento = new ExpandoObject(); ;
 
+                        planejamento.idEstudo_Planejamento_Aplicacao = aplic.idEstudo_Planejamento_Aplicacao;
                         planejamento.idEstudo = aplic.idEstudo;
                         planejamento.Data = aplic.data;
                         planejamento.Num_Aplicacao = aplic.Num_Aplicacao;
@@ -2052,7 +2066,7 @@ namespace Avalia_Pesquisa
 
                             var avalObject = new Estudo_Planejamento_Aplicacao();
                             avalObject = aplic;
-                            avalObject.idEstudo_Planejamento_Aplicacao_Web = deserializado.idPlanejamentoWeb;
+                            avalObject.Integrado = 1;
 
                             conexao.Update(avalObject);
                         }
@@ -2101,40 +2115,30 @@ namespace Avalia_Pesquisa
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {              
 
-                    conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Aplicacao");
+                  //  conexao.Query<Estudo_Planejamento_Aplicacao>("DELETE FROM Estudo_Planejamento_Aplicacao");
 
                     foreach (var aplicacao in planAplicArray)
                     {
                         var aplicacaoObj = new Estudo_Planejamento_Aplicacao
                         {
+                            idEstudo_Planejamento_Aplicacao = aplicacao.idEstudo_Planejamento_Aplicacao,
                             idEstudo = aplicacao.idEstudo,
                             Num_Aplicacao = aplicacao.Num_Aplicacao,
-                            data = aplicacao.data,
-                            idEstudo_Planejamento_Aplicacao_Web = aplicacao.idEstudo_Planejamento_Aplicacao
+                            data = aplicacao.data
                         };
-                   //     aplicacaoObj = aplicacao;
-                    //    aplicacaoObj.idEstudo_Planejamento_Aplicacao_Web = aplicacao.idEstudo_Planejamento_Aplicacao;
+                
 
-                    //       var resultAplic = conexao.Query<Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao_Web = ?", aplicacao.idEstudo_Planejamento_Aplicacao).ToList();
+                        var resultAplic = conexao.Query<Estudo_Planejamento_Aplicacao>("SELECT * FROM Estudo_Planejamento_Aplicacao WHERE idEstudo_Planejamento_Aplicacao = ?", aplicacao.idEstudo_Planejamento_Aplicacao).ToList();
 
-      
+
+                        if (resultAplic.Count() > 0)
+                            conexao.Update(aplicacaoObj);
+                        else
+                        {
                             conexao.Insert(aplicacaoObj);
+                        }
 
-
-                        /*  conexao.Query<Estudo_Planejamento_Aplicacao>("INSERT INTO Estudo_Planejamento_Aplicacao (" +
-                                                                       "idEstudo_Planejamento_Aplicacao," +
-                                                                       "idEstudo, " +
-                                                                       "Num_Aplicacao, " +
-                                                                       "data," +
-                                                                       "idEstudo_Planejamento_Aplicacao_Web) " +
-                                                                       "VALUES (?,?,?,?,?)",
-                                                                       aplicacao.idEstudo_Planejamento_Aplicacao,
-                                                                       aplicacao.idEstudo,
-                                                                       aplicacao.Num_Aplicacao,
-                                                                       aplicacao.data,
-                                                                       aplicacao.idEstudo_Planejamento_Aplicacao);
-                        */
-                  }
+                    }
 
 
                   return true;
@@ -2170,9 +2174,6 @@ namespace Avalia_Pesquisa
                       planejamento.idEstudo_Planejamento_Avaliacao = aval.idEstudo_Planejamento_Avaliacao;
                       planejamento.idEstudo = aval.idEstudo;
                       planejamento.Data = aval.data;
-                      planejamento.Num_Avaliacao = aval.Num_Avaliacao;
-                      planejamento.idAvaliacao_Tipo = aval.idAvaliacao_Tipo;
-                      planejamento.idAlvo = aval.idAlvo;
 
                       var serializedItem = JsonConvert.SerializeObject(planejamento);
 
@@ -2238,24 +2239,30 @@ namespace Avalia_Pesquisa
               using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
               {
 
-                  conexao.Query<Estudo_Planejamento_Avaliacao>("DELETE FROM Estudo_Planejamento_Avaliacao");
+               //   conexao.Query<Estudo_Planejamento_Avaliacao>("DELETE FROM Estudo_Planejamento_Avaliacao");
 
                   foreach (var avaliacao in planAvalArray)
                   {
-                      var avaliacaoObj = new Estudo_Planejamento_Avaliacao();
-                      avaliacaoObj = avaliacao;
-                      avaliacaoObj.idEstudo_Planejamento_Avaliacao_Web = avaliacao.idEstudo_Planejamento_Avaliacao;
+                      var avaliacaoObj = new Estudo_Planejamento_Avaliacao
+                      {
+                          idEstudo_Planejamento_Avaliacao = avaliacao.idEstudo_Planejamento_Avaliacao,
+                          idEstudo = avaliacao.idEstudo,
+                          Num_Avaliacao = avaliacao.Num_Avaliacao,
+                          data = avaliacao.data,
+                          idAvaliacao_Tipo = avaliacao.idAvaliacao_Tipo,
+                          idAlvo = avaliacao.idAlvo
+                      };
 
-                      // var resultAplic = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT * FROM Estudo_Planejamento_Avaliacao WHERE idEstudo_Planejamento_Avaliacao_Web = ?", avaliacao.idEstudo_Planejamento_Avaliacao).ToList();
+                       var resultAval = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT * FROM Estudo_Planejamento_Avaliacao WHERE idEstudo_Planejamento_Avaliacao = ?", avaliacao.idEstudo_Planejamento_Avaliacao).ToList();
 
-                      /* if (resultAplic.Count() > 0)
+                       if (resultAval.Count() > 0)
                            conexao.Update(avaliacaoObj);
                        else
                        {
                            conexao.Insert(avaliacaoObj);
-                       }*/
+                       }
 
-                        conexao.Query<Estudo_Planejamento_Avaliacao>("INSERT INTO Estudo_Planejamento_Avaliacao (" +
+                      /*  conexao.Query<Estudo_Planejamento_Avaliacao>("INSERT INTO Estudo_Planejamento_Avaliacao (" +
                                                                         "idEstudo_Planejamento_Avaliacao," +
                                                                         "idEstudo, " +
                                                                         "Num_Avaliacao, " +
@@ -2270,7 +2277,7 @@ namespace Avalia_Pesquisa
                                                                         avaliacao.data,
                                                                         avaliacao.idAvaliacao_Tipo,
                                                                         avaliacao.idAlvo,
-                                                                        1);
+                                                                        1);*/
 
                     }
 
