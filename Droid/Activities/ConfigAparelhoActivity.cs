@@ -10,7 +10,7 @@ using Android.Content;
 
 namespace Avalia_Pesquisa.Droid
 {
-    [Activity(Label = "ConfigAparelhoActivity")]
+    [Activity(Label = "Configuração do Aparelho")]
     public class ConfigAparelhoActivity : Activity
     {
         Button saveButton;

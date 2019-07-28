@@ -3198,6 +3198,9 @@ namespace Avalia_Pesquisa.Droid
 			// aapt resource value: 0x7f0c013d
 			public const int media_actions = 2131493181;
 			
+			// aapt resource value: 0x7f0c0180
+			public const int menu_chave = 2131493248;
+			
 			// aapt resource value: 0x7f0c017f
 			public const int menu_logoff = 2131493247;
 			

@@ -160,6 +160,11 @@ namespace Avalia_Pesquisa.Droid
                     StartActivity(intent);
                     Finish();
                     return true;
+                case Resource.Id.menu_chave:
+                    var intent2 = new Intent(this, typeof(ConfigAparelhoActivity)); ;
+                    StartActivity(intent2);
+                    Finish();
+                    return true;
 
             }
             return base.OnOptionsItemSelected(item);

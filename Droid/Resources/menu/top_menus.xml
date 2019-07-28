@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_logoff" android:showAsAction="ifRoom" android:title="Logoff" />
+    <item android:id="@+id/menu_chave" android:showAsAction="ifRoom" android:title="Alterar Chave" />
 </menu>
