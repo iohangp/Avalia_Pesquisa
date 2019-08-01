@@ -106,7 +106,7 @@ namespace Avalia_Pesquisa
                     // conexao.Query<Config>("DELETE FROM Config Where Descricao=? and Valor=?", config.Descricao, config.Valor);
                     var dados = conexao.Query<Config>("SELECT * FROM Config Where Descricao=? and Valor=?", "carga_inicial", "1").ToList();
 
-                    if (dados.Count > 0)
+                    if (dados.Count == 0)
                         conexao.Insert(config);
                   //  conexao.Query<Config>("INSERT INTO Config (Descricao,Valor) Values(?,?)", config.Descricao, config.Valor);
                     return true;
