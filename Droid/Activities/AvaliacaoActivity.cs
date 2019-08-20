@@ -36,10 +36,15 @@ namespace Avalia_Pesquisa.Droid.Activities
         LinearLayout rowTipoAval, rowAlvo, rowTratamento, rowDataPlan, rowAvaliacao;
         Button buttonSalvar;
         TextView textData, textTratamento, textNumAval;
-        ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4;
+        ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4, buttonMicrofone1, buttonMicrofone2, buttonMicrofone3, buttonMicrofone4;
         byte[] byteArray;
        
         DataTable dt = new DataTable();
+
+        private bool isRecording;
+        private readonly int VOICE = 10;
+        private TextView textBox;
+        private Button recButton;
 
         protected override int LayoutResource => Resource.Layout.Avaliacao;
 
@@ -48,6 +53,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             base.OnCreate(savedInstanceState);
             //  SetContentView(Resource.Layout.Avaliacao);
             // Create your application here
+            isRecording = false;
             spnTipo = FindViewById<Spinner>(Resource.Id.spnTipoAvaliacao);
             spnAlvo = FindViewById<Spinner>(Resource.Id.spnAlvo);
             edNumEstudo = FindViewById<EditText>(Resource.Id.EDNumEstudo);
@@ -81,10 +87,20 @@ namespace Avalia_Pesquisa.Droid.Activities
             buttonCamera3 = FindViewById<ImageButton>(Resource.Id.ibCamera3);
             buttonCamera4 = FindViewById<ImageButton>(Resource.Id.ibCamera4);
 
+            buttonMicrofone1 = FindViewById<ImageButton>(Resource.Id.ibMicrofone1);
+            buttonMicrofone1 = FindViewById<ImageButton>(Resource.Id.ibMicrofone2);
+            buttonMicrofone1 = FindViewById<ImageButton>(Resource.Id.ibMicrofone3);
+            buttonMicrofone1 = FindViewById<ImageButton>(Resource.Id.ibMicrofone4);
+
             buttonCamera1.Click += Camera1_OnClick;
             buttonCamera2.Click += Camera2_OnClick;
             buttonCamera3.Click += Camera3_OnClick;
             buttonCamera4.Click += Camera4_OnClick;
+
+            buttonMicrofone1.Click += Microfone1_OnClick;
+            buttonMicrofone2.Click += Microfone2_OnClick;
+            buttonMicrofone3.Click += Microfone3_OnClick;
+            buttonMicrofone4.Click += Microfone4_OnClick;
 
             buttonScan.Click += BTScanner_Click;
             buttonSalvar.Click += BTSalvar_Click;
@@ -128,6 +144,26 @@ namespace Avalia_Pesquisa.Droid.Activities
             byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
             string base64String = Convert.ToBase64String(imageBytes);
             return base64String;
+        }
+
+        private async void Microfone1_OnClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void Microfone2_OnClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void Microfone3_OnClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void Microfone4_OnClick(object sender, EventArgs e)
+        {
+
         }
 
         private async void Camera1_OnClick(object sender, EventArgs e)

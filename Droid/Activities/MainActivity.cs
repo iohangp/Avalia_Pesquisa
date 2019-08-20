@@ -130,7 +130,7 @@ namespace Avalia_Pesquisa.Droid
             buttonMeterologicos.Click += (sender, e) =>
             {
                 //var intent = new Intent(this, typeof(WeatherActivity)); ;
-                var intent = new Intent(this, typeof(SpeechActivity)); ;
+                var intent = new Intent(this, typeof(WeatherActivity)); ;
                 StartActivity(intent);
 
             };

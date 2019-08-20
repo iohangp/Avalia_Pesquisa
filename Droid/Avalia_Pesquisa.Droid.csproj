@@ -281,6 +281,8 @@
     <AndroidResource Include="Resources\drawable\camera.png" />
     <AndroidResource Include="Resources\drawable\camera3.png" />
     <AndroidResource Include="Resources\layout\Speech.axml" />
+    <AndroidResource Include="Resources\drawable\mic_icon.png" />
+    <AndroidResource Include="Resources\drawable\microphone.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Config_Aparelho.axml">
