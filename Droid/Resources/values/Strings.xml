@@ -19,4 +19,5 @@
     <string name="hint_description">Description</string>
     <string name="app_description">This app is written in C# and native APIs using the Xamarin Platform. It shares code with its iOS, Android, &amp; Windows versions.</string>
     <string name="sign_in_text">Sign in with your account to save and sync items</string>
+    <string name="messageSpeakNow">Speak now!</string>
 </resources>

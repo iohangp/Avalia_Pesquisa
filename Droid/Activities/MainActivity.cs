@@ -129,7 +129,8 @@ namespace Avalia_Pesquisa.Droid
             Button buttonMeterologicos = FindViewById<Button>(Resource.Id.BTMeterologicos);
             buttonMeterologicos.Click += (sender, e) =>
             {
-                var intent = new Intent(this, typeof(WeatherActivity)); ;
+                //var intent = new Intent(this, typeof(WeatherActivity)); ;
+                var intent = new Intent(this, typeof(SpeechActivity)); ;
                 StartActivity(intent);
 
             };
