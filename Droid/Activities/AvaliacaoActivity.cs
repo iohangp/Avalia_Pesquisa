@@ -20,6 +20,8 @@ using System.Data;
 using Java.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Plugin.Media.Abstractions;
+using Android.Speech;
+using System.Text.RegularExpressions;
 
 namespace Avalia_Pesquisa.Droid.Activities
 {
@@ -32,7 +34,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
         int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento, Num_Avaliacao;
         string idTipoAvaliacao, idAlvoSelect;
-        TableRow rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5 ;
+        LinearLayout rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5 ;
         LinearLayout rowTipoAval, rowAlvo, rowTratamento, rowDataPlan, rowAvaliacao;
         Button buttonSalvar;
         TextView textData, textTratamento, textNumAval;
@@ -41,6 +43,7 @@ namespace Avalia_Pesquisa.Droid.Activities
        
         DataTable dt = new DataTable();
 
+        private int microfone;
         private bool isRecording;
         private readonly int VOICE = 10;
         private TextView textBox;
@@ -64,11 +67,11 @@ namespace Avalia_Pesquisa.Droid.Activities
             Button buttonValida = FindViewById<Button>(Resource.Id.BTValidar);
             Button buttonScan = FindViewById<Button>(Resource.Id.BTScannerAvalia);
 
-            rowRepeticao1 = FindViewById<TableRow>(Resource.Id.trRepeticao1);
-            rowRepeticao2 = FindViewById<TableRow>(Resource.Id.trRepeticao2);
-            rowRepeticao3 = FindViewById<TableRow>(Resource.Id.trRepeticao3);
-            rowRepeticao4 = FindViewById<TableRow>(Resource.Id.trRepeticao4);
-            rowRepeticao5 = FindViewById<TableRow>(Resource.Id.trRepeticao5);
+            rowRepeticao1 = FindViewById<LinearLayout>(Resource.Id.trRepeticao1);
+            rowRepeticao2 = FindViewById<LinearLayout>(Resource.Id.trRepeticao2);
+            rowRepeticao3 = FindViewById<LinearLayout>(Resource.Id.trRepeticao3);
+            rowRepeticao4 = FindViewById<LinearLayout>(Resource.Id.trRepeticao4);
+            rowRepeticao5 = FindViewById<LinearLayout>(Resource.Id.trRepeticao5);
 
             rowAlvo = FindViewById<LinearLayout>(Resource.Id.trAlvo);
             rowTipoAval = FindViewById<LinearLayout>(Resource.Id.trTipoAvaliacao);
@@ -88,9 +91,9 @@ namespace Avalia_Pesquisa.Droid.Activities
             buttonCamera4 = FindViewById<ImageButton>(Resource.Id.ibCamera4);
 
             buttonMicrofone1 = FindViewById<ImageButton>(Resource.Id.ibMicrofone1);
-            buttonMicrofone1 = FindViewById<ImageButton>(Resource.Id.ibMicrofone2);
-            buttonMicrofone1 = FindViewById<ImageButton>(Resource.Id.ibMicrofone3);
-            buttonMicrofone1 = FindViewById<ImageButton>(Resource.Id.ibMicrofone4);
+            buttonMicrofone2 = FindViewById<ImageButton>(Resource.Id.ibMicrofone2);
+            buttonMicrofone3 = FindViewById<ImageButton>(Resource.Id.ibMicrofone3);
+            buttonMicrofone4 = FindViewById<ImageButton>(Resource.Id.ibMicrofone4);
 
             buttonCamera1.Click += Camera1_OnClick;
             buttonCamera2.Click += Camera2_OnClick;
@@ -135,6 +138,53 @@ namespace Avalia_Pesquisa.Droid.Activities
                     }
                 }
             }
+            if (requestCode == VOICE)
+            {
+                if (resultCode == Result.Ok)
+                {
+                   
+                    var matches = data.GetStringArrayListExtra(RecognizerIntent.ExtraResults);
+                    if (matches.Count != 0)
+                    {
+                        string textInput = matches[0];
+                        bool ehValido = Regex.IsMatch(textInput, "^\\d{1,4}([.,]\\d{1,2})?$");
+
+                        if (ehValido)
+                        {
+                            // limit the output to 500 characters
+                            if (textInput.Length > 500)
+                                textInput = textInput.Substring(0, 500);
+                            if (microfone == 1)
+                                etRepeticao1.Text = textInput;
+                            if (microfone == 2)
+                                etRepeticao2.Text = textInput;
+                            if (microfone == 3)
+                                etRepeticao3.Text = textInput;
+                            if (microfone == 4)
+                                etRepeticao4.Text = textInput;
+                        }
+                        else
+                        {
+                            etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = "";
+                        }
+                    }
+                    else
+                    {
+                        if (microfone == 1)
+                            etRepeticao1.Text = "Erro ao interpretar";
+                        if (microfone == 2)
+                            etRepeticao2.Text = "Erro ao interpretar";
+                        if (microfone == 3)
+                            etRepeticao3.Text = "Erro ao interpretar";
+                        if (microfone == 4)
+                            etRepeticao4.Text = "Erro ao interpretar";
+                    }
+
+                    // change the text back on the button
+                    //recButton.Text = "Start Recording"; 
+
+                }
+            }
 
             base.OnActivityResult(requestCode, resultCode, data);
         }
@@ -146,25 +196,78 @@ namespace Avalia_Pesquisa.Droid.Activities
             return base64String;
         }
 
-        private async void Microfone1_OnClick(object sender, EventArgs e)
+        private void Microfone1_OnClick(object sender, EventArgs e)
         {
-
+            ativarMicrofone(1);
         }
 
-        private async void Microfone2_OnClick(object sender, EventArgs e)
+        private void Microfone2_OnClick(object sender, EventArgs e)
         {
-
+            ativarMicrofone(2);
         }
 
-        private async void Microfone3_OnClick(object sender, EventArgs e)
+        private void Microfone3_OnClick(object sender, EventArgs e)
         {
-
+            ativarMicrofone(3);
         }
 
-        private async void Microfone4_OnClick(object sender, EventArgs e)
+        private void Microfone4_OnClick(object sender, EventArgs e)
         {
-
+            ativarMicrofone(4);
         }
+
+        private void ativarMicrofone(int repeticao)
+        {
+            string rec = Android.Content.PM.PackageManager.FeatureMicrophone;
+            if (rec != "android.hardware.microphone")
+            {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog alerta = builder.Create();
+
+                alerta.SetTitle("ERRO!");
+                alerta.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                alerta.SetMessage("Erro ao ativar no microfone!");
+                alerta.SetButton("OK", (s, ev) =>
+                {
+                    alerta.Dismiss();
+                });
+                alerta.Show();
+
+            }
+
+            else
+            {
+                isRecording = !isRecording;
+                if (isRecording)
+                {
+                    // create the intent and start the activity
+                    var voiceIntent = new Intent(RecognizerIntent.ActionRecognizeSpeech);
+                    voiceIntent.PutExtra(RecognizerIntent.ExtraLanguageModel, RecognizerIntent.LanguageModelFreeForm);
+
+                    // put a message on the modal dialog
+                    voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, "Fale agora ...");
+
+                    // if there is more then 1.5s of silence, consider the speech over
+                    voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputCompleteSilenceLengthMillis, 1500);
+                    voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputPossiblyCompleteSilenceLengthMillis, 1500);
+                    voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputMinimumLengthMillis, 15000);
+                    voiceIntent.PutExtra(RecognizerIntent.ExtraMaxResults, 1);
+
+                    // you can specify other languages recognised here, for example
+                    // voiceIntent.PutExtra(RecognizerIntent.ExtraLanguage, Java.Util.Locale.German);
+                    // if you wish it to recognise the default Locale language and German
+                    // if you do use another locale, regional dialects may not be recognised very well
+
+                    voiceIntent.PutExtra(RecognizerIntent.ExtraLanguage, Java.Util.Locale.Default);
+                    microfone = repeticao;
+
+                    StartActivityForResult(voiceIntent, VOICE);
+
+                }
+            }
+        }
+
 
         private async void Camera1_OnClick(object sender, EventArgs e)
         {

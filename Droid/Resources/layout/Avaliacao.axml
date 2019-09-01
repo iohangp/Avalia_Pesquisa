@@ -260,171 +260,247 @@
                 android:layout_marginLeft="2dp"/> 
 
     </LinearLayout>   -->
-    <TableLayout
-        android:minWidth="25px"
-        android:minHeight="25px"
+	<LinearLayout
+		android:id="@+id/trRepeticao1"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tableLayout1"
-        android:layout_marginTop="5dp"
-        android:stretchColumns="1">
+		android:visibility="invisible"
+        android:layout_height="wrap_content">
+			<TextView
+				p4:placeholder="true"
+				android:minWidth="30px"
+				android:minHeight="30px"
+				android:layout_width="85.5dp"
+				android:layout_height="wrap_content"
+				android:text="Repetição 1:"
+				android:textColor="@color/primary"
+				xmlns:p4="http://xamarin.com/mono/android/designer"
+				android:id="@+id/tvRepetição1" />
 
+			<EditText
+					android:inputType="number"
+					android:layout_column="1"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="130dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/etRepeticao1"
+					android:layout_marginLeft="1dp" />
 
-        <TableRow
-            android:id="@+id/trRepeticao1"
-            android:visibility="invisible">
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Repetição 1:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvRepetição1" />
-            <EditText
-                android:inputType="number"
-                android:layout_column="1"
-                android:id="@+id/etRepeticao1" />
-            <ImageButton
+			<ImageButton
                 android:src="@drawable/camera3"
                 android:background="@android:color/transparent"
-                android:layout_width="31.0dp"
+                android:layout_width="33.0dp"
                 android:layout_height="wrap_content"
                 android:minWidth="30px"
                 android:minHeight="30px"
-                android:layout_marginTop="10dp"
+				android:layout_margin="10dp"
                 android:id="@+id/ibCamera1"/>
             <ImageButton
                 android:src="@drawable/microphone"
                 android:background="@android:color/transparent"
-                android:layout_width="31.0dp"
+                android:layout_width="33.0dp"
                 android:layout_height="wrap_content"
-                android:minWidth="30px"
-                android:minHeight="30px"
+                android:minWidth="35px"
+                android:minHeight="35px"
                 android:layout_marginTop="10dp"
                 android:id="@+id/ibMicrofone1"/>
-        </TableRow>
-        <TableRow
-            android:id="@+id/trRepeticao2"
-            android:visibility="invisible">
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Repetição 2:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvRepetição2" />
-            <EditText
-                android:inputType="number"
-                android:layout_column="1"
-                android:id="@+id/etRepeticao2" />
-             <ImageButton
+
+	</LinearLayout> 
+
+	<LinearLayout
+		android:id="@+id/trRepeticao2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+		android:visibility="invisible"
+        android:layout_height="wrap_content">
+			<TextView
+				p4:placeholder="true"
+				android:minWidth="30px"
+				android:minHeight="30px"
+				android:layout_width="85.5dp"
+				android:layout_height="wrap_content"
+				android:text="Repetição 2:"
+				android:textColor="@color/primary"
+				xmlns:p4="http://xamarin.com/mono/android/designer"
+				android:id="@+id/tvRepetição2" />
+
+			<EditText
+					android:inputType="number"
+					android:layout_column="1"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="130dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/etRepeticao2"
+					android:layout_marginLeft="1dp" />
+
+			<ImageButton
                 android:src="@drawable/camera3"
                 android:background="@android:color/transparent"
-                android:layout_width="31.0dp"
+                android:layout_width="33.0dp"
                 android:layout_height="wrap_content"
                 android:minWidth="30px"
                 android:minHeight="30px"
-                android:layout_marginTop="10dp"
+				android:layout_margin="10dp"
                 android:id="@+id/ibCamera2"/>
-                                <ImageButton
+            <ImageButton
                 android:src="@drawable/microphone"
                 android:background="@android:color/transparent"
-                android:layout_width="31.0dp"
+                android:layout_width="33.0dp"
                 android:layout_height="wrap_content"
-                android:minWidth="30px"
-                android:minHeight="30px"
+                android:minWidth="35px"
+                android:minHeight="35px"
                 android:layout_marginTop="10dp"
                 android:id="@+id/ibMicrofone2"/>
-        </TableRow>
-        <TableRow
-            android:id="@+id/trRepeticao3"
-            android:visibility="invisible">
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Repetição 3:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvRepetição3" />
-            <EditText
-                android:inputType="number"
-                android:layout_column="1"
-                android:id="@+id/etRepeticao3" />
-            <ImageButton
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/trRepeticao3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+		android:visibility="invisible"
+        android:layout_height="wrap_content">
+			<TextView
+				p4:placeholder="true"
+				android:minWidth="30px"
+				android:minHeight="30px"
+				android:layout_width="85.5dp"
+				android:layout_height="wrap_content"
+				android:text="Repetição 3:"
+				android:textColor="@color/primary"
+				xmlns:p4="http://xamarin.com/mono/android/designer"
+				android:id="@+id/tvRepetição3" />
+
+			<EditText
+					android:inputType="number"
+					android:layout_column="1"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="130dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/etRepeticao3"
+					android:layout_marginLeft="1dp" />
+
+			<ImageButton
                 android:src="@drawable/camera3"
                 android:background="@android:color/transparent"
-                android:layout_width="31.0dp"
+                android:layout_width="33.0dp"
                 android:layout_height="wrap_content"
                 android:minWidth="30px"
                 android:minHeight="30px"
-                android:layout_marginTop="10dp"
+				android:layout_margin="10dp"
                 android:id="@+id/ibCamera3"/>
-                                <ImageButton
+            <ImageButton
                 android:src="@drawable/microphone"
                 android:background="@android:color/transparent"
-                android:layout_width="31.0dp"
+                android:layout_width="33.0dp"
                 android:layout_height="wrap_content"
-                android:minWidth="30px"
-                android:minHeight="30px"
+                android:minWidth="35px"
+                android:minHeight="35px"
                 android:layout_marginTop="10dp"
                 android:id="@+id/ibMicrofone3"/>
-        </TableRow>
-        <TableRow
-            android:id="@+id/trRepeticao4"
-            android:visibility="invisible">
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Repetição 4:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvRepeticao4" />
-            <EditText
-                android:inputType="number"
-                android:layout_column="1"
-                android:id="@+id/etRepeticao4" />
-             <ImageButton
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/trRepeticao4"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+		android:visibility="invisible"
+        android:layout_height="wrap_content">
+			<TextView
+				p4:placeholder="true"
+				android:minWidth="30px"
+				android:minHeight="30px"
+				android:layout_width="85.5dp"
+				android:layout_height="wrap_content"
+				android:text="Repetição 4:"
+				android:textColor="@color/primary"
+				xmlns:p4="http://xamarin.com/mono/android/designer"
+				android:id="@+id/tvRepetição4" />
+
+			<EditText
+					android:inputType="number"
+					android:layout_column="1"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="130dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/etRepeticao4"
+					android:layout_marginLeft="1dp" />
+
+			<ImageButton
                 android:src="@drawable/camera3"
                 android:background="@android:color/transparent"
-                android:layout_width="31.0dp"
+                android:layout_width="33.0dp"
                 android:layout_height="wrap_content"
                 android:minWidth="30px"
                 android:minHeight="30px"
-                android:layout_marginTop="10dp"
+				android:layout_margin="10dp"
                 android:id="@+id/ibCamera4"/>
-                                <ImageButton
+            <ImageButton
                 android:src="@drawable/microphone"
                 android:background="@android:color/transparent"
-                android:layout_width="31.0dp"
+                android:layout_width="33.0dp"
+                android:layout_height="wrap_content"
+                android:minWidth="35px"
+                android:minHeight="35px"
+                android:layout_marginTop="10dp"
+                android:id="@+id/ibMicrofone4"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/trRepeticao5"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+		android:visibility="invisible"
+        android:layout_height="wrap_content">
+			<TextView
+				p4:placeholder="true"
+				android:minWidth="30px"
+				android:minHeight="30px"
+				android:layout_width="85.5dp"
+				android:layout_height="wrap_content"
+				android:text="Repetição 5:"
+				android:textColor="@color/primary"
+				xmlns:p4="http://xamarin.com/mono/android/designer"
+				android:id="@+id/tvRepetição5" />
+
+			<EditText
+					android:inputType="number"
+					android:layout_column="1"
+					android:minWidth="30px"
+					android:minHeight="30px"
+					android:layout_width="130dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/etRepeticao5"
+					android:layout_marginLeft="1dp" />
+
+			<ImageButton
+                android:src="@drawable/camera3"
+                android:background="@android:color/transparent"
+                android:layout_width="33.0dp"
                 android:layout_height="wrap_content"
                 android:minWidth="30px"
                 android:minHeight="30px"
+				android:layout_margin="10dp"
+                android:id="@+id/ibCamera5"/>
+            <ImageButton
+                android:src="@drawable/microphone"
+                android:background="@android:color/transparent"
+                android:layout_width="33.0dp"
+                android:layout_height="wrap_content"
+                android:minWidth="35px"
+                android:minHeight="35px"
                 android:layout_marginTop="10dp"
-                android:id="@+id/ibMicrofone4"/>
-        </TableRow> 
-        <TableRow
-            android:id="@+id/trRepeticao5"
-            android:visibility="invisible">
-            <TextView
-                p4:placeholder="true"
-                android:minWidth="30px"
-                android:minHeight="30px"
-                android:text="Repetição 2:"
-                android:textColor="@color/primary"
-                xmlns:p4="http://xamarin.com/mono/android/designer"
-                android:id="@+id/tvRepetição5" />
-            <EditText
-                android:inputType="number"
-                android:layout_column="1"
-                android:id="@+id/etRepeticao5" />
+                android:id="@+id/ibMicrofone5"/>
 
-        </TableRow>
-    </TableLayout>
-            <LinearLayout
+	</LinearLayout>
+    
+   <LinearLayout
         android:id="@+id/trObservacao"
         android:visibility="invisible"
         android:orientation="horizontal"
