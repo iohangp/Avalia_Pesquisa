@@ -165,19 +165,19 @@ namespace Avalia_Pesquisa.Droid.Activities
                         }
                         else
                         {
-                            etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = "";
+                            if (microfone == 1)
+                                etRepeticao1.Text = "";
+                            if (microfone == 2)
+                                etRepeticao2.Text = "";
+                            if (microfone == 3)
+                                etRepeticao3.Text = "";
+                            if (microfone == 4)
+                                etRepeticao4.Text = "";
                         }
                     }
                     else
                     {
-                        if (microfone == 1)
-                            etRepeticao1.Text = "Erro ao interpretar";
-                        if (microfone == 2)
-                            etRepeticao2.Text = "Erro ao interpretar";
-                        if (microfone == 3)
-                            etRepeticao3.Text = "Erro ao interpretar";
-                        if (microfone == 4)
-                            etRepeticao4.Text = "Erro ao interpretar";
+                        Toast.MakeText(this, "Erro ao transcrever o texto", ToastLength.Long).Show();
                     }
 
                     // change the text back on the button
