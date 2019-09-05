@@ -32,7 +32,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         ArrayAdapter adapter;
         ArrayList tipos, idTipos, alvos, idAlvos;
         EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
-        int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento, Num_Avaliacao;
+        int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento, Num_Avaliacao, Dias, Apos, idTipoPlanejamento;
         string idTipoAvaliacao, idAlvoSelect;
         LinearLayout rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5 ;
         LinearLayout rowTipoAval, rowAlvo, rowTratamento, rowDataPlan, rowAvaliacao;
@@ -505,6 +505,9 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 textNumAval.Text = planEstudo.numAval;
                 textData.Text = planEstudo.dataAval;
+                Dias = planEstudo.Dias;
+                Apos = planEstudo.Apos;
+                idTipoPlanejamento = planEstudo.idTipoPlanejamento;
 
             }
         }
@@ -694,8 +697,8 @@ namespace Avalia_Pesquisa.Droid.Activities
                 if (sucesso)
                 {
 
-                    //etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = edNumEstudo.Text = "";
-                    EscondeCampos();
+                    etRepeticao1.Text = etRepeticao2.Text = etRepeticao3.Text = etRepeticao4.Text = etRepeticao5.Text = "";
+                    
                     dt.Rows.Clear();
                     alerta.SetTitle("Sucesso!");
                     alerta.SetIcon(Android.Resource.Drawable.IcDialogInfo);
@@ -703,14 +706,15 @@ namespace Avalia_Pesquisa.Droid.Activities
                     alerta.SetButton("OK", (s, ev) =>
                     {
                         AvaliacaoService aval = new AvaliacaoService();
-                        var plan = aval.GetDataAvaliacao(idEstudo, Tratamento);
+                        var plan = aval.SelectPlanMesmaData(idEstudo, Tratamento, Dias, Apos, idTipoPlanejamento);
 
                         if (plan.Count > 0)
                         {
                           //  idPlanejamento = plan[0].idEstudo_Planejamento_Avaliacao;
                             textData.Text = "";
                             textNumAval.Text = "";
- 
+                           
+
 
                             GetAvaliacaoTipo(idEstudo, Tratamento);
 
@@ -722,7 +726,10 @@ namespace Avalia_Pesquisa.Droid.Activities
                         else
                         {
                             EscondeCampos();
-                            Toast.MakeText(this, "Todas as avaliações para este estudo foram concluídas!", ToastLength.Long).Show();
+                            Dias = 0;
+                            Apos = 0;
+                            idTipoPlanejamento = 0;
+                            Toast.MakeText(this, "Todas as avaliações desta data foram concluídas para este tratamento!", ToastLength.Long).Show();
                         }
 
                         alerta.Dismiss();
@@ -892,7 +899,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             tipos.Add("Selecione");
             idTipos.Add(0);
 
-            var result = tas.GetAvaliacaoTipo(idEstudo, Tratamento);
+            var result = tas.GetAvaliacaoTipo(idEstudo, Tratamento, Dias, Apos, idTipoPlanejamento);
 
             foreach (var res in result)
             {

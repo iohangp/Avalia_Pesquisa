@@ -224,6 +224,49 @@ namespace Avalia_Pesquisa
 
         }
 
+        public List<Avaliacao_Planejamento> SelectPlanMesmaData(int idEstudo, int Tratamento, int? Dias, int? Apos, int? idTipoPlan)
+        {
+            try
+            {
+                using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
+                {
+
+                    string _where;
+                    if (Apos > 0 && idTipoPlan > 0)
+                    {
+                        _where = " AND ap.Dias = " + Dias + " AND ap.Apos = " + Apos + " AND ap.idTipoPlanejamento = " + idTipoPlan;
+                    }
+                    else
+                        _where = "";
+
+                    var result = conexao.Query<Avaliacao_Planejamento>("SELECT ep.idEstudo_Planejamento_Avaliacao, ep.idEstudo, ep.data, ep.Num_Avaliacao " +
+                                                                      "FROM Estudo_Planejamento_Avaliacao ep " +
+                                                                      "JOIN Estudo_Tipo_Alvo eta ON ep.idEstudo = eta.idEstudo " +
+                                                                      "AND ep.idAvaliacao_Tipo = eta.idAvaliacao_Tipo AND eta.idAlvo = ep.idAlvo " +
+                                                                      "JOIN Avaliacao_Planejamento ap ON ap.idEstudo = ep.idEstudo " +
+                                                                      "AND ap.idAvaliacao_Tipo = ep.idAvaliacao_Tipo AND ap.idAlvo = ep.idAlvo " +
+                                                                      "AND ap.Num_Avaliacao = ep.Num_Avaliacao " +
+                                                                      "WHERE ep.idEstudo = ? " + _where +
+                                                                      " and not exists(SELECT 1 FROM Avaliacao a " +
+                                                                                     "WHERE a.idEstudo_Planejamento = ep.idEstudo_Planejamento_Avaliacao " +
+                                                                                     "AND a.idAvaliacao_Tipo = eta.idAvaliacao_Tipo " +
+                                                                                     "AND a.idAlvo = eta.idAlvo " +
+                                                                                     "AND a.Tratamento = ?) " +
+                                                                      "GROUP by ep.idEstudo_Planejamento_Avaliacao " +
+                                                                      "ORDER BY ep.data asc, ep.Num_Avaliacao LIMIT 1;", idEstudo, Tratamento).ToList();
+
+
+                    return result;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
         public dynamic GetPlanejamentoEstudo(int idEstudo, int idAlvo, int idAvaliacao_Tipo, int Num_Avaliacao)
         {
             try
@@ -257,6 +300,9 @@ namespace Avalia_Pesquisa
 
                     planEstudo.numAval = numAval;
                     planEstudo.dataAval = result[0].data.ToString("dd/MM/yyyy");
+                    planEstudo.Dias = result[0].Dias;
+                    planEstudo.Apos = result[0].Apos;
+                    planEstudo.idTipoPlanejamento = result[0].idTipoPlanejamento;
 
                     return planEstudo;
                 }

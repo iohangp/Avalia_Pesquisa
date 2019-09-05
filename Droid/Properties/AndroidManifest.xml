@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.1.4" package="com.avaliasistemas.Avalia_Pesquisa" android:installLocation="preferExternal" android:versionCode="7">
-	<uses-sdk android:minSdkVersion="10" android:targetSdkVersion="28" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.1.4" package="com.companyname.Avalia_Pesquisa" android:installLocation="preferExternal" android:versionCode="7">
+	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<application android:theme="@style/MasterDetailTheme" android:allowBackup="true" android:label="Avalia Pesquisa" android:icon="@drawable/calendar">
+	<application android:theme="@style/MasterDetailTheme" android:allowBackup="true" android:label="Avalia Pesquisa" android:icon="@drawable/icon">
 		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.companyname.Avalia_Pesquisa.fileprovider" android:exported="false" android:grantUriPermissions="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
 		</provider>
