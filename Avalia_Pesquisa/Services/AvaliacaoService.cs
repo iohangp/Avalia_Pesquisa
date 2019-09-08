@@ -224,7 +224,7 @@ namespace Avalia_Pesquisa
 
         }
 
-        public List<Avaliacao_Planejamento> SelectPlanMesmaData(int idEstudo, int Tratamento, int? Dias, int? Apos, int? idTipoPlan)
+        public List<Avaliacao_Planejamento> SelectPlanMesmaData(int idEstudo, int Tratamento, DateTime dataPlanejada)
         {
             try
             {
@@ -232,9 +232,10 @@ namespace Avalia_Pesquisa
                 {
 
                     string _where;
-                    if (Apos > 0 && idTipoPlan > 0)
+                    if (dataPlanejada.Year != 1)
                     {
-                        _where = " AND ap.Dias = " + Dias + " AND ap.Apos = " + Apos + " AND ap.idTipoPlanejamento = " + idTipoPlan;
+                        // _where = " AND Dias = " + Dias + " AND Apos = " + Apos + " AND idTipoPlanejamento = " + idTipoPlan;
+                        _where = " AND ep.data <= " + dataPlanejada.Ticks;
                     }
                     else
                         _where = "";
@@ -300,9 +301,7 @@ namespace Avalia_Pesquisa
 
                     planEstudo.numAval = numAval;
                     planEstudo.dataAval = result[0].data.ToString("dd/MM/yyyy");
-                    planEstudo.Dias = result[0].Dias;
-                    planEstudo.Apos = result[0].Apos;
-                    planEstudo.idTipoPlanejamento = result[0].idTipoPlanejamento;
+                    planEstudo.dataPlan = result[0].data;
 
                     return planEstudo;
                 }

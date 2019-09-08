@@ -40,6 +40,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         TextView textData, textTratamento, textNumAval;
         ImageButton buttonCamera1, buttonCamera2, buttonCamera3, buttonCamera4, buttonMicrofone1, buttonMicrofone2, buttonMicrofone3, buttonMicrofone4;
         byte[] byteArray;
+        DateTime dataPlanejada;
        
         DataTable dt = new DataTable();
 
@@ -505,9 +506,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 textNumAval.Text = planEstudo.numAval;
                 textData.Text = planEstudo.dataAval;
-                Dias = planEstudo.Dias;
-                Apos = planEstudo.Apos;
-                idTipoPlanejamento = planEstudo.idTipoPlanejamento;
+                dataPlanejada = planEstudo.dataPlan;
 
             }
         }
@@ -522,7 +521,7 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             AlertDialog.Builder alerta = new AlertDialog.Builder(this);
 
-            if (ValidarData(idEstudo, Tratamento))
+            if (dataPlanejada > DateTime.Now)
             {
                 alerta.SetTitle("Atenção!");
                 alerta.SetIcon(Android.Resource.Drawable.IcInputAdd);
@@ -706,15 +705,14 @@ namespace Avalia_Pesquisa.Droid.Activities
                     alerta.SetButton("OK", (s, ev) =>
                     {
                         AvaliacaoService aval = new AvaliacaoService();
-                        var plan = aval.SelectPlanMesmaData(idEstudo, Tratamento, Dias, Apos, idTipoPlanejamento);
+                        var plan = aval.SelectPlanMesmaData(idEstudo, Tratamento, dataPlanejada);
 
                         if (plan.Count > 0)
                         {
                           //  idPlanejamento = plan[0].idEstudo_Planejamento_Avaliacao;
                             textData.Text = "";
                             textNumAval.Text = "";
-                           
-
+    
 
                             GetAvaliacaoTipo(idEstudo, Tratamento);
 
@@ -726,9 +724,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         else
                         {
                             EscondeCampos();
-                            Dias = 0;
-                            Apos = 0;
-                            idTipoPlanejamento = 0;
+                            dataPlanejada = new DateTime(01,01,01);
                             Toast.MakeText(this, "Todas as avaliações desta data foram concluídas para este tratamento!", ToastLength.Long).Show();
                         }
 
@@ -899,7 +895,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             tipos.Add("Selecione");
             idTipos.Add(0);
 
-            var result = tas.GetAvaliacaoTipo(idEstudo, Tratamento, Dias, Apos, idTipoPlanejamento);
+            var result = tas.GetAvaliacaoTipo(idEstudo, Tratamento, dataPlanejada);
 
             foreach (var res in result)
             {

@@ -16,7 +16,7 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    var result = conexao.Query<Cultura>("SELECT * FROM Cultura").ToList();
+                    var result = conexao.Query<Cultura>("SELECT * FROM Cultura Order by Descricao").ToList();
 
                     return result;
                 }
@@ -34,7 +34,7 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    var result = conexao.Query<Cultura_Variedade>("SELECT * FROM Cultura_Variedade WHERE idCultura = ?", idcultura).ToList();
+                    var result = conexao.Query<Cultura_Variedade>("SELECT * FROM Cultura_Variedade WHERE idCultura = ? Order by Descricao", idcultura).ToList();
 
                     return result;
                 }
@@ -125,7 +125,7 @@ namespace Avalia_Pesquisa
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
-                    var result = conexao.Query<Cobertura_Solo>("SELECT * FROM Cobertura_Solo").ToList();
+                    var result = conexao.Query<Cobertura_Solo>("SELECT * FROM Cobertura_Solo Order by Descricao").ToList();
 
                     return result;
                 }
@@ -200,7 +200,7 @@ namespace Avalia_Pesquisa
 
                     var result = conexao.Query<Municipio_Localidade>("SELECT l.idLocalidade, m.Descricao || ' - ' || l.Descricao as descricao "+
                                                                     "FROM Municipio m "+
-                                                                    "JOIN Municipio_Localidade l on l.idMunicipio = m.idMunicipio").ToList();
+                                                                    "JOIN Municipio_Localidade l on l.idMunicipio = m.idMunicipio Order by m.Descricao").ToList();
 
                     return result;
                 }

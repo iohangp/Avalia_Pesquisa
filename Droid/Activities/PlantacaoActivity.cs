@@ -256,10 +256,10 @@ namespace Avalia_Pesquisa.Droid.Activities
                     Populacao = 0;
                 else Populacao = int.Parse(textPopulacao.Text);
 
-                int Espacamento = 0;
+                decimal Espacamento = 0;
                 if (textEspacamento.Text == "")
                     Espacamento = 0;
-                else Espacamento = int.Parse(textEspacamento.Text);
+                else Espacamento = decimal.Parse(textEspacamento.Text);
                  try
                  {
                var plan = new Plantio

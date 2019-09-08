@@ -1976,7 +1976,7 @@ namespace Avalia_Pesquisa
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
 
-                    conexao.Query<Aplicacao>("DELETE FROM Aplicacao");
+                //    conexao.Query<Aplicacao>("DELETE FROM Aplicacao");
 
                     foreach (var aplicacao in aplicacaoArray)
                     {
@@ -2004,14 +2004,14 @@ namespace Avalia_Pesquisa
                             aplicacaoObj.idAplicacaoWeb = aplicacao.IdAplicacao;
                   //  };
 
-                     /*   var resultAplic = conexao.Query<Aplicacao>("SELECT * FROM Aplicacao WHERE idAplicacaoWeb = ?", aplicacao.IdAplicacao).ToList();
+                        var resultAplic = conexao.Query<Aplicacao>("SELECT * FROM Aplicacao WHERE idAplicacaoWeb = ?", aplicacao.IdAplicacao).ToList();
 
                         if (resultAplic.Count() > 0)
                             conexao.Update(aplicacaoObj);
                         else
-                        { */
+                        { 
                             conexao.Insert(aplicacaoObj);
-                     //   }
+                        }
 
                     }
 

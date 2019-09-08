@@ -10,21 +10,24 @@ namespace Avalia_Pesquisa
     {
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-        public List<Avaliacao_Tipo> GetAvaliacaoTipo(int idEstudo, int Tratamento, int? Dias, int? Apos, int? idTipoPlan)
+        public List<Avaliacao_Tipo> GetAvaliacaoTipo(int idEstudo, int Tratamento, DateTime dataPlanejada)
         {
             try
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
                     string _where;
-                    if (Apos > 0 && idTipoPlan > 0)
+                    if (dataPlanejada.Year != 1)
                     {
-                        _where = " AND Dias = " + Dias + " AND Apos = " + Apos + " AND idTipoPlanejamento = " + idTipoPlan;
+                        // _where = " AND Dias = " + Dias + " AND Apos = " + Apos + " AND idTipoPlanejamento = " + idTipoPlan;
+                        _where = " AND ep.data <= " + dataPlanejada.Ticks;
                     }
                     else
                         _where = "";
 
-                     var result = conexao.Query<Avaliacao_Tipo>("SELECT a.idAvaliacao_Tipo, Descricao" +
+
+                
+                    var result = conexao.Query<Avaliacao_Tipo>("SELECT a.idAvaliacao_Tipo, Descricao" +
                                                                 " FROM Avaliacao_Tipo a "+
                                                                  "JOIN Estudo_Tipo_Alvo ata ON ata.idAvaliacao_tipo = a.idAvaliacao_tipo " +
                                                                  "JOIN Estudo_Planejamento_Avaliacao ep ON ep.idEstudo = ata.idEstudo " +
