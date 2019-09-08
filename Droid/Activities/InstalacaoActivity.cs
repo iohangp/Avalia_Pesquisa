@@ -401,7 +401,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             public override Dialog OnCreateDialog(Bundle savedInstanceState)
             {
                 DateTime currently = DateTime.Now;
-                DatePickerDialog dialog = new DatePickerDialog(Activity, this, currently.Year, currently.Month, currently.Day);
+                DatePickerDialog dialog = new DatePickerDialog(Activity, this, currently.Year, currently.Month - 1, currently.Day);
                 return dialog;
             }
             public void OnDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
