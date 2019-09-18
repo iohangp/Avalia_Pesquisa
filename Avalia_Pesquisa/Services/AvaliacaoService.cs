@@ -164,12 +164,18 @@ namespace Avalia_Pesquisa
 
         }
 
-        public List<Estudo_Planejamento_Avaliacao> GetPlanejamentoAlvo(int idEstudo, int Tratamento, int idAvaliacao_Tipo, int idAlvo)
+        public List<Estudo_Planejamento_Avaliacao> GetPlanejamentoAlvo(int idEstudo, int Tratamento, int idAvaliacao_Tipo, int idAlvo, int Repeticao)
         {
             try
             {
                 using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
                 {
+                    string where = "";
+                    if(Repeticao != 0)
+                    {
+                        where = " AND Repeticao = "+ Repeticao;
+                    }
+
                     var result = conexao.Query<Estudo_Planejamento_Avaliacao>("SELECT ep.idEstudo_Planejamento_Avaliacao, ep.idEstudo, ep.data, ep.Num_Avaliacao " +
                                                                       "FROM Estudo_Planejamento_Avaliacao ep " +
                                                                       "WHERE ep.idEstudo = ? AND ep.idAvaliacao_Tipo = ? AND ep.idAlvo = ? " +
@@ -177,7 +183,7 @@ namespace Avalia_Pesquisa
                                                                                      "WHERE a.idEstudo_Planejamento = ep.idEstudo_Planejamento_Avaliacao " +
                                                                                      "AND a.idAvaliacao_Tipo = ep.idAvaliacao_Tipo " +
                                                                                      "AND a.idAlvo = ep.idAlvo " +
-                                                                                     "AND a.Tratamento = ?) " +
+                                                                                     "AND a.Tratamento = ? "+ where + " ) " +
                                                                       "GROUP by ep.idEstudo_Planejamento_Avaliacao " +
                                                                       "ORDER BY ep.data asc LIMIT 1;",idEstudo, idAvaliacao_Tipo, idAlvo, Tratamento).ToList();
 

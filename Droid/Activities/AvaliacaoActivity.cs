@@ -30,10 +30,10 @@ namespace Avalia_Pesquisa.Droid.Activities
     {
         Spinner spnTipo, spnAlvo;
         ArrayAdapter adapter;
-        ArrayList tipos, idTipos, alvos, idAlvos;
+        ArrayList tipos, idTipos, configAval, alvos, idAlvos;
         EditText edNumEstudo, etRepeticao1, etRepeticao2, etRepeticao3, etRepeticao4, etRepeticao5;
-        int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento, Num_Avaliacao, Dias, Apos, idTipoPlanejamento;
-        string idTipoAvaliacao, idAlvoSelect;
+        int totalRepeticoes = 1, idEstudo, idPlanejamento, idInstalacao, Tratamento, Repeticao;
+        string idTipoAvaliacao, idAlvoSelect, idConfigAval;
         LinearLayout rowRepeticao1, rowRepeticao2, rowRepeticao3, rowRepeticao4, rowRepeticao5 ;
         LinearLayout rowTipoAval, rowAlvo, rowTratamento, rowDataPlan, rowAvaliacao;
         Button buttonSalvar;
@@ -73,6 +73,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             rowRepeticao3 = FindViewById<LinearLayout>(Resource.Id.trRepeticao3);
             rowRepeticao4 = FindViewById<LinearLayout>(Resource.Id.trRepeticao4);
             rowRepeticao5 = FindViewById<LinearLayout>(Resource.Id.trRepeticao5);
+
+            
 
             rowAlvo = FindViewById<LinearLayout>(Resource.Id.trAlvo);
             rowTipoAval = FindViewById<LinearLayout>(Resource.Id.trTipoAvaliacao);
@@ -120,6 +122,8 @@ namespace Avalia_Pesquisa.Droid.Activities
             dt.Columns.Add("imagem", typeof(string));
             dt.Columns.Add("repeticao", typeof(int));
             dt.Columns.Add("tratamento", typeof(int));
+
+            
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -486,19 +490,95 @@ namespace Avalia_Pesquisa.Droid.Activities
         private void SpnTipo_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             idTipoAvaliacao = idTipos[e.Position].ToString();
+            idConfigAval = configAval[e.Position].ToString();
+            int numRepeticao = 1;
+
+            var altura = rowAvaliacao.GetY()+float.Parse("50");
+
+            EscondeRepeticoes();
 
             if (int.Parse(idTipoAvaliacao) > 0)
+            {
                 GetAlvos(int.Parse(idTipoAvaliacao), idEstudo);
+
+                if (int.Parse(idConfigAval) == 1)
+                {
+
+                    if (Repeticao == 1)
+                    {
+                        rowRepeticao1.Visibility = ViewStates.Visible;     
+                        rowRepeticao1.SetY(altura);
+                    }  
+                    else if (Repeticao == 2)
+                    {
+                        rowRepeticao2.Visibility = ViewStates.Visible;
+                        rowRepeticao2.SetY(altura);
+                    }                    
+                    else if (Repeticao == 3)
+                    {
+                        rowRepeticao3.Visibility = ViewStates.Visible;
+                        rowRepeticao3.SetY(altura);
+                    }             
+                    else if (Repeticao == 4)
+                    {
+                        rowRepeticao4.Visibility = ViewStates.Visible;
+                        rowRepeticao4.SetY(altura);
+                    }   
+                    else if (Repeticao == 5)
+                    {
+                        rowRepeticao5.Visibility = ViewStates.Visible;
+                        rowRepeticao5.SetY(altura);
+                    }
+
+                    buttonSalvar.SetY(altura + float.Parse("200"));
+
+                }
+                else
+                {
+                    
+                    rowRepeticao1.SetY(rowAvaliacao.GetY() + float.Parse("100")); 
+                    rowRepeticao2.SetY(rowAvaliacao.GetY() + float.Parse("250"));
+                    rowRepeticao3.SetY(rowAvaliacao.GetY() + float.Parse("400"));
+                    rowRepeticao4.SetY(rowAvaliacao.GetY() + float.Parse("550"));
+                    rowRepeticao5.SetY(rowAvaliacao.GetY() + float.Parse("700"));
+
+
+                    while (totalRepeticoes >= numRepeticao)
+                    {
+                        if (numRepeticao == 1)
+                            rowRepeticao1.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 2)
+                            rowRepeticao2.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 3)
+                            rowRepeticao3.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 4)
+                            rowRepeticao4.Visibility = ViewStates.Visible;
+                        else if (numRepeticao == 5)
+                            rowRepeticao5.Visibility = ViewStates.Visible;
+
+                        numRepeticao++;
+                    }
+
+                    buttonSalvar.SetY(rowAvaliacao.GetY() + float.Parse("850"));
+                }
+                buttonSalvar.Visibility = ViewStates.Visible;
+            }
+                
         }
 
         private void SpnAlvo_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             idAlvoSelect = idAlvos[e.Position].ToString();
+            int numRepeticao = 0;
 
             if (int.Parse(idAlvoSelect) > 0)
             {
+                if (int.Parse(idConfigAval) == 1)
+                    numRepeticao = Repeticao;
+
+
                 AvaliacaoService ava = new AvaliacaoService();
-                var result = ava.GetPlanejamentoAlvo(idEstudo, Tratamento, int.Parse(idTipoAvaliacao), int.Parse(idAlvoSelect));
+                var result = ava.GetPlanejamentoAlvo(idEstudo, Tratamento, int.Parse(idTipoAvaliacao), int.Parse(idAlvoSelect), numRepeticao);
 
                 idPlanejamento = result[0].idEstudo_Planejamento_Avaliacao;
                 
@@ -506,7 +586,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 textNumAval.Text = planEstudo.numAval;
                 textData.Text = planEstudo.dataAval;
-                dataPlanejada = planEstudo.dataPlan;
+                dataPlanejada = planEstudo.dataPlan;  
 
             }
         }
@@ -560,20 +640,38 @@ namespace Avalia_Pesquisa.Droid.Activities
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             AlertDialog alerta = builder.Create();
 
-            while (totalRepeticoes >= cont)
+            if (int.Parse(idConfigAval) == 1)
             {
-                if (cont == 1 && etRepeticao1.Text == "")
+                if (Repeticao == 1 && etRepeticao1.Text == "")
                     sucesso = false;
-                if (cont == 2 && etRepeticao2.Text == "")
+                else if (Repeticao == 2 && etRepeticao2.Text == "")
                     sucesso = false;
-                if (cont == 3 && etRepeticao3.Text == "")
+                else if (Repeticao == 3 && etRepeticao3.Text == "")
                     sucesso = false;
-                if (cont == 4 && etRepeticao4.Text == "")
+                else if (Repeticao == 4 && etRepeticao4.Text == "")
                     sucesso = false;
-                if (cont == 5 && etRepeticao5.Text == "")
+                else if (Repeticao == 5 && etRepeticao5.Text == "")
                     sucesso = false;
-                cont++;
             }
+            else
+            {
+                while (totalRepeticoes >= cont)
+                {
+                    if (cont == 1 && etRepeticao1.Text == "")
+                        sucesso = false;
+                    if (cont == 2 && etRepeticao2.Text == "")
+                        sucesso = false;
+                    if (cont == 3 && etRepeticao3.Text == "")
+                        sucesso = false;
+                    if (cont == 4 && etRepeticao4.Text == "")
+                        sucesso = false;
+                    if (cont == 5 && etRepeticao5.Text == "")
+                        sucesso = false;
+                    cont++;
+                }
+            }
+
+            
 
             if (int.Parse(idAlvoSelect) == 0 && int.Parse(idTipoAvaliacao) == 0)
                 sucesso = false;
@@ -760,7 +858,6 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         private void ValidarEstudo(string protocolo)
         {
-            int numRepeticao = 1;
 
             string[] ids = new string[2];
 
@@ -787,6 +884,9 @@ namespace Avalia_Pesquisa.Droid.Activities
                     Tratamento = int.Parse(ids[1]);
                     textTratamento.Text = Tratamento.ToString();
 
+                    if(ids.Count() > 2)
+                        Repeticao = int.Parse(ids[2]);
+
                     edNumEstudo.Text = estudo[0].Codigo;
 
                     AvaliacaoService aval = new AvaliacaoService();
@@ -806,22 +906,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         rowDataPlan.Visibility = ViewStates.Visible;
                         rowAvaliacao.Visibility = ViewStates.Visible;
 
-                        while (estudo[0].Repeticao >= numRepeticao)
-                        {
-                            if (numRepeticao == 1)
-                                rowRepeticao1.Visibility = ViewStates.Visible;
-                            else if (numRepeticao == 2)
-                                rowRepeticao2.Visibility = ViewStates.Visible;
-                            else if (numRepeticao == 3)
-                                rowRepeticao3.Visibility = ViewStates.Visible;
-                            else if (numRepeticao == 4)
-                                rowRepeticao4.Visibility = ViewStates.Visible;
-                            else if (numRepeticao == 5)
-                                rowRepeticao5.Visibility = ViewStates.Visible;
-
-                            numRepeticao++;
-                        }
-                        buttonSalvar.Visibility = ViewStates.Visible;
+                       
                     }
                     else
                     {
@@ -874,6 +959,15 @@ namespace Avalia_Pesquisa.Droid.Activities
             buttonSalvar.Visibility = ViewStates.Invisible;
         }
 
+        private void EscondeRepeticoes()
+        {
+            rowRepeticao1.Visibility = ViewStates.Invisible;
+            rowRepeticao2.Visibility = ViewStates.Invisible;
+            rowRepeticao3.Visibility = ViewStates.Invisible;
+            rowRepeticao4.Visibility = ViewStates.Invisible;
+            rowRepeticao5.Visibility = ViewStates.Invisible;
+        }
+
         private bool ValidarData(int idEstudo, int Tratamento)
         {
             AvaliacaoService aval = new AvaliacaoService();
@@ -890,10 +984,12 @@ namespace Avalia_Pesquisa.Droid.Activities
         {
             tipos = new ArrayList();
             idTipos = new ArrayList();
+            configAval = new ArrayList();
             TipoAvaliacaoService tas = new TipoAvaliacaoService();
 
             tipos.Add("Selecione");
             idTipos.Add(0);
+            configAval.Add(0);
 
             var result = tas.GetAvaliacaoTipo(idEstudo, Tratamento, dataPlanejada);
 
@@ -901,6 +997,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             {
                 tipos.Add(res.Descricao);
                 idTipos.Add(res.IdAvaliacao_Tipo);
+                configAval.Add(res.idAvaliacao_Tipo_Config);
             }
 
             adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, tipos);

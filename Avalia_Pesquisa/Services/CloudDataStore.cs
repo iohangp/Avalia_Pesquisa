@@ -561,7 +561,8 @@ namespace Avalia_Pesquisa
                             var avaltipo = new Avaliacao_Tipo
                             {
                                 IdAvaliacao_Tipo = tipo.IdAvaliacao_Tipo,
-                                Descricao = tipo.Descricao
+                                Descricao = tipo.Descricao,
+                                idAvaliacao_Tipo_Config = tipo.idAvaliacao_Tipo_Config
                             };
 
                             var dadoTipo = conexao.Query<Cultura>("SELECT * FROM Avaliacao_Tipo Where IdAvaliacao_Tipo=?", tipo.IdAvaliacao_Tipo);
@@ -1618,7 +1619,11 @@ namespace Avalia_Pesquisa
                         if (dadoTipo.Count == 0)
                             conexao.Insert(confObj);
                         else
+                        {
+                            confObj.IdConfig = dadoTipo[0].IdConfig;
                             conexao.Update(confObj);
+                        }
+                            
 
                         confObj = new Config();
                         confObj.Descricao = "host_conexao";
@@ -1630,7 +1635,11 @@ namespace Avalia_Pesquisa
                         if (dadoTipo.Count == 0)
                             conexao.Insert(confObj);
                         else
+                        {
+                            confObj.IdConfig = dadoTipo[0].IdConfig;
                             conexao.Update(confObj);
+                        }
+                            
                     }
                 }
                 catch (SQLiteException ex)

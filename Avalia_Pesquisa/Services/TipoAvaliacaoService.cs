@@ -27,11 +27,12 @@ namespace Avalia_Pesquisa
 
 
                 
-                    var result = conexao.Query<Avaliacao_Tipo>("SELECT a.idAvaliacao_Tipo, Descricao" +
+                    var result = conexao.Query<Avaliacao_Tipo>("SELECT a.idAvaliacao_Tipo, Descricao, a.idAvaliacao_Tipo_Config" +
                                                                 " FROM Avaliacao_Tipo a "+
                                                                  "JOIN Estudo_Tipo_Alvo ata ON ata.idAvaliacao_tipo = a.idAvaliacao_tipo " +
                                                                  "JOIN Estudo_Planejamento_Avaliacao ep ON ep.idEstudo = ata.idEstudo " +
                                                                  "AND ep.idAlvo = ata.idAlvo AND ep.idAvaliacao_Tipo = ata.idAvaliacao_Tipo " +
+                                                                 "JOIN estudo e ON e.idEstudo = ata.idEstudo " +
                                                                  "JOIN Avaliacao_Planejamento ap ON ap.idEstudo = ep.idEstudo "+
                                                                  "AND ap.idAvaliacao_Tipo = ep.idAvaliacao_Tipo AND ap.idAlvo = ep.idAlvo "+
                                                                  "AND ap.Num_Avaliacao = ep.Num_Avaliacao " +
@@ -40,7 +41,8 @@ namespace Avalia_Pesquisa
                                                                                   "WHERE a2.idEstudo_Planejamento = ep.idEstudo_Planejamento_Avaliacao " +
                                                                                   "AND a2.idAvaliacao_Tipo = ata.idAvaliacao_Tipo "+
                                                                                   "AND a2.idAlvo = ata.idAlvo " +
-                                                                                  "AND a2.Tratamento = ?) " +
+                                                                                  "AND a2.Tratamento = ? " +
+                                                                                  "GROUP BY Tratamento HAVING count(Repeticao) = e.Repeticao) " +
                                                                  "GROUP BY ata.idAvaliacao_tipo; ", idEstudo, Tratamento).ToList();
 
                       
