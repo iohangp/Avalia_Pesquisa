@@ -4,6 +4,7 @@
     android:minHeight="25px"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+	android:background="#FFF"
     android:id="@+id/scrollView1">
 	<LinearLayout
 		android:orientation="vertical"
@@ -51,15 +52,15 @@
 			android:layout_height="wrap_content"
 			android:id="@+id/BTAvaliacao"
 			android:text="Avaliação" />
-		<Button
+		<!--<Button
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/BTMeterologicos"
-			android:text="Informacoes Meterologicas" />
+			android:text="Informacoes Meterologicas" /> -->
 		<Button
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:id="@+id/BTsincronizacao"
+			android:id="@+id/BTsincronizacao"		
 			android:text="Sincronização" />
 	</LinearLayout>
 	</ScrollView>

@@ -126,14 +126,14 @@ namespace Avalia_Pesquisa.Droid
             };
 
             //chama os dados meterologicos
-            Button buttonMeterologicos = FindViewById<Button>(Resource.Id.BTMeterologicos);
+           /* Button buttonMeterologicos = FindViewById<Button>(Resource.Id.BTMeterologicos);
             buttonMeterologicos.Click += (sender, e) =>
             {
                 //var intent = new Intent(this, typeof(WeatherActivity)); ;
                 var intent = new Intent(this, typeof(WeatherActivity)); ;
                 StartActivity(intent);
 
-            };
+            }; */
 
             //chama os dados meterologicos
            /* Button buttonCamera = FindViewById<Button>(Resource.Id.BTCamera);

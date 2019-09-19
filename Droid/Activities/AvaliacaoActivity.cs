@@ -812,7 +812,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                             textNumAval.Text = "";
     
 
-                            GetAvaliacaoTipo(idEstudo, Tratamento);
+                            GetAvaliacaoTipo(idEstudo, Tratamento, Repeticao);
 
                             alvos = new ArrayList();
                             idAlvos = new ArrayList();
@@ -861,6 +861,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             string[] ids = new string[2];
 
+            dataPlanejada = new DateTime(01, 01, 01);
 
             if (!string.IsNullOrEmpty(protocolo))
             {
@@ -899,7 +900,7 @@ namespace Avalia_Pesquisa.Droid.Activities
                         textNumAval.Text = "";
                       //  Num_Avaliacao = plan[0].Num_Avaliacao;
 
-                        GetAvaliacaoTipo(idEstudo, Tratamento);
+                        GetAvaliacaoTipo(idEstudo, Tratamento, Repeticao);
                         rowTipoAval.Visibility = ViewStates.Visible;
                         rowAlvo.Visibility = ViewStates.Visible;
                         rowTratamento.Visibility = ViewStates.Visible;
@@ -966,6 +967,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             rowRepeticao3.Visibility = ViewStates.Invisible;
             rowRepeticao4.Visibility = ViewStates.Invisible;
             rowRepeticao5.Visibility = ViewStates.Invisible;
+            buttonSalvar.Visibility = ViewStates.Invisible;
         }
 
         private bool ValidarData(int idEstudo, int Tratamento)
@@ -980,7 +982,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
         }
 
-        private void GetAvaliacaoTipo(int idEstudo, int Tratamento)
+        private void GetAvaliacaoTipo(int idEstudo, int Tratamento, int Repeticao)
         {
             tipos = new ArrayList();
             idTipos = new ArrayList();
@@ -991,7 +993,7 @@ namespace Avalia_Pesquisa.Droid.Activities
             idTipos.Add(0);
             configAval.Add(0);
 
-            var result = tas.GetAvaliacaoTipo(idEstudo, Tratamento, dataPlanejada);
+            var result = tas.GetAvaliacaoTipo(idEstudo, Tratamento, dataPlanejada, Repeticao);
 
             foreach (var res in result)
             {

@@ -10,7 +10,7 @@ namespace Avalia_Pesquisa
     {
         string pasta = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-        public List<Avaliacao_Tipo> GetAvaliacaoTipo(int idEstudo, int Tratamento, DateTime dataPlanejada)
+        public List<Avaliacao_Tipo> GetAvaliacaoTipo(int idEstudo, int Tratamento, DateTime dataPlanejada, int Repeticao)
         {
             try
             {
@@ -41,9 +41,8 @@ namespace Avalia_Pesquisa
                                                                                   "WHERE a2.idEstudo_Planejamento = ep.idEstudo_Planejamento_Avaliacao " +
                                                                                   "AND a2.idAvaliacao_Tipo = ata.idAvaliacao_Tipo "+
                                                                                   "AND a2.idAlvo = ata.idAlvo " +
-                                                                                  "AND a2.Tratamento = ? " +
-                                                                                  "GROUP BY Tratamento HAVING count(Repeticao) = e.Repeticao) " +
-                                                                 "GROUP BY ata.idAvaliacao_tipo; ", idEstudo, Tratamento).ToList();
+                                                                                  "AND a2.Tratamento = ? AND a2.Repeticao = ? )" +                                                                
+                                                                 "GROUP BY ata.idAvaliacao_tipo; ", idEstudo, Tratamento, Repeticao).ToList();
 
                       
                     return result;

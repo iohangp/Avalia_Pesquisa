@@ -5,3 +5,13 @@
     <color name="accent">#96d1ff</color>
     <color name="window_background">#F5F5F5</color>
 </resources>
+
+<!--
+<resources>
+  <color name="primary">#5B5B5F</color>
+
+  <color name="primaryDark">#5B5B5F</color>
+  <color name="accent">#96d1ff</color>
+  <color name="window_background">#F5F5F5</color>
+</resources> -->
+
