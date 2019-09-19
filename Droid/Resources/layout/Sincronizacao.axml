@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/EDSenha"
             android:layout_marginTop="50dp"
-            android:background="#307FC1"
+            android:background="#92AB37"
             android:text="Baixar Informações"
             android:textColor="@android:color/white" />
 
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/EDSenha"
             android:layout_marginTop="15dp"
-            android:background="#307FC1"
+            android:background="#92AB37"
             android:text="Transmitir Informações"
             android:textColor="@android:color/white" />
 		

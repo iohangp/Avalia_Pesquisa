@@ -48,14 +48,14 @@
                     android:id="@+id/BTValidar"
                     android:text="Validar"
                     android:textColor="@android:color/white"
-                    android:background="#307FC1"/>
+                    android:background="#92AB37"/>
                 <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/BTScannerAvalia"
                     android:text="Scanner"
                     android:textColor="@android:color/white"
-                    android:background="#307FC1"
+                    android:background="#92AB37"
                     android:layout_marginLeft="5dp" />
             </LinearLayout> 
             <LinearLayout
@@ -263,7 +263,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/BTSalvarManutencao"
                 android:textColor="@android:color/white"
-                android:background="#307FC1"
+                android:background="#92AB37"
                 android:text="Salvar" />
         </LinearLayout>
 </LinearLayout>

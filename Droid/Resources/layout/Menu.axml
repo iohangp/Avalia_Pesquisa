@@ -26,31 +26,49 @@
 			android:layout_width="match_parent"
 			android:layout_height="48.0dp"
 			android:id="@+id/BTConsultar"
+			android:background="#92AB37"
+			android:layout_margin="3dp"
+			android:textColor="@android:color/white"
 			android:text="Consultar Estudo" />
 		<Button
 			android:text="Semeadura"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:background="#92AB37"
+			android:layout_margin="3dp"
+			android:textColor="@android:color/white"
 			android:id="@+id/BTplantacao" />
 		<Button
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/BTInstalacao"
+			android:background="#92AB37"
+			android:layout_margin="3dp"
+			android:textColor="@android:color/white"
 			android:text="Instalação"/>
 		<Button
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/BTAplicacao"
+			android:background="#92AB37"
+			android:layout_margin="3dp"
+			android:textColor="@android:color/white"
 			android:text="Aplicação"/>
 		<Button
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/BTManutencao"
+			android:background="#92AB37"
+			android:layout_margin="3dp"
+			android:textColor="@android:color/white"
 			android:text="Manutenção" />
 		<Button
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/BTAvaliacao"
+			android:background="#92AB37"
+			android:layout_margin="3dp"
+			android:textColor="@android:color/white"
 			android:text="Avaliação" />
 		<!--<Button
 			android:layout_width="match_parent"
@@ -60,7 +78,10 @@
 		<Button
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:id="@+id/BTsincronizacao"		
+			android:id="@+id/BTsincronizacao"	
+			android:background="#92AB37"
+			android:layout_margin="3dp"
+			android:textColor="@android:color/white"
 			android:text="Sincronização" />
 	</LinearLayout>
 	</ScrollView>

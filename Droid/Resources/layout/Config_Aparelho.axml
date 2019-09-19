@@ -30,7 +30,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="#307FC1"
+            android:background="#92AB37"
             android:text="Avançar"
 			android:layout_margin="10dp"
             android:textColor="@android:color/white" />

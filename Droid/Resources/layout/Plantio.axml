@@ -456,7 +456,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/BTSalvarPlant"
 		android:textColor="@android:color/white"
-		android:background="#307FC1"
+		android:background="#92AB37"
         android:text="Salvar" />
 </LinearLayout>
 </LinearLayout>

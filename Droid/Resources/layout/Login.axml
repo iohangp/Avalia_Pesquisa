@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/EDSenha"
             android:layout_marginTop="10dp"
-            android:background="#307FC1"
+            android:background="#92AB37"
             android:text="Login"
             android:textColor="@android:color/white" />
 </LinearLayout>
