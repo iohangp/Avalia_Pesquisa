@@ -84,6 +84,8 @@ namespace Avalia_Pesquisa
                 if (total == 0)
                     return false;
 
+                //EscreverArquivo("Teste de mensagem---->");
+
                 try
                 {
                     using (var conexao = new SQLiteConnection(System.IO.Path.Combine(pasta, "AvaliaPesquisa.db")))
@@ -2522,6 +2524,26 @@ namespace Avalia_Pesquisa
                 return null;
             }
            
+        }
+
+        private void EscreverArquivo(string texto)
+        {
+            var sdCardPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var arquivoPath = System.IO.Path.Combine(sdCardPath, "LogIntegracao2.txt");
+
+
+          /*  if (!System.IO.File.Exists(arquivoPath))
+            { */
+                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(arquivoPath, true))
+                {
+                    writer.Write(texto);                 
+                }
+        /*  }
+            else
+            {
+                Console.WriteLine("Erro");
+            } */
+
         }
 
         public async Task<Item> GetItemAsync(string id)

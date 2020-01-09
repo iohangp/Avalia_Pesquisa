@@ -580,13 +580,22 @@ namespace Avalia_Pesquisa.Droid.Activities
                 AvaliacaoService ava = new AvaliacaoService();
                 var result = ava.GetPlanejamentoAlvo(idEstudo, Tratamento, int.Parse(idTipoAvaliacao), int.Parse(idAlvoSelect), numRepeticao);
 
-                idPlanejamento = result[0].idEstudo_Planejamento_Avaliacao;
-                
-                dynamic planEstudo = ava.GetPlanejamentoEstudo(idEstudo, int.Parse(idAlvoSelect), int.Parse(idTipoAvaliacao), result[0].Num_Avaliacao);
+                if (result.Count() > 0)
+                {
+                    idPlanejamento = result[0].idEstudo_Planejamento_Avaliacao;
 
-                textNumAval.Text = planEstudo.numAval;
-                textData.Text = planEstudo.dataAval;
-                dataPlanejada = planEstudo.dataPlan;  
+                    dynamic planEstudo = ava.GetPlanejamentoEstudo(idEstudo, int.Parse(idAlvoSelect), int.Parse(idTipoAvaliacao), result[0].Num_Avaliacao);
+
+                    textNumAval.Text = planEstudo.numAval;
+                    textData.Text = planEstudo.dataAval;
+                    dataPlanejada = planEstudo.dataPlan;
+                }
+                else
+                {
+                    EscondeCampos();
+                    dataPlanejada = new DateTime(01, 01, 01);
+                    Toast.MakeText(this, "Avaliação já realizada!", ToastLength.Long).Show();
+                }
 
             }
         }
@@ -673,7 +682,7 @@ namespace Avalia_Pesquisa.Droid.Activities
 
             
 
-            if (int.Parse(idAlvoSelect) == 0 && int.Parse(idTipoAvaliacao) == 0)
+            if (int.Parse(idAlvoSelect) == 0 || int.Parse(idTipoAvaliacao) == 0)
                 sucesso = false;
 
             if (sucesso)
@@ -868,9 +877,10 @@ namespace Avalia_Pesquisa.Droid.Activities
 
                 if (protocolo.IndexOf('|') != -1)
                     ids = protocolo.Split('|');
-                else
-                    ids[0] = protocolo;
-
+                else 
+                    ids[0] = null;
+                
+                    
 
                 ConsultaEstudoService ces = new ConsultaEstudoService();
                 var estudo = ces.GetEstudo(ids[0]);
